@@ -1,0 +1,45 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://b4eq1ur4r1nxo"]
+
+[ext_resource type="Texture2D" uid="uid://bk28oebi10ftv" path="res://assets/sprites/world_sprites.png" id="1_1bnhi"]
+[ext_resource type="Texture2D" uid="uid://b2dpaj1d535ls" path="res://assets/sprites/light_test.png" id="2_gyq2d"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkkbv"]
+resource_name = "world_sprites"
+texture = ExtResource("1_1bnhi")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:2/0 = 0
+4:2/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gac5s"]
+texture = ExtResource("2_gyq2d")
+texture_region_size = Vector2i(32, 32)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_lkkbv")
+sources/4 = SubResource("TileSetAtlasSource_gac5s")

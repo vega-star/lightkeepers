@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://brbqmcfgkka7f"]
+
+[ext_resource type="Script" path="res://scripts/main/ui.gd" id="1_782uw"]
+
+[node name="UIComponent" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_782uw")
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Screen"]
+layout_mode = 1
+offset_right = 275.0
+offset_bottom = 276.0
