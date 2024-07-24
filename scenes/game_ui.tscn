@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://brbqmcfgkka7f"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
+[ext_resource type="Texture2D" uid="uid://c8co11qr3x5dg" path="res://assets/prototypes/icon.svg" id="2_m5h5b"]
+[ext_resource type="Script" path="res://scripts/ui/draggable_button.gd" id="3_h835t"]
+
+[node name="GameUI" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_7no1j")
+
+[node name="UIAnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Screen"]
+layout_mode = 1
+offset_right = 275.0
+offset_bottom = 276.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -278.0
+offset_top = -148.0
+offset_right = 246.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="FireContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/FireContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_m5h5b")
+script = ExtResource("3_h835t")
+
+[node name="WaterContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/WaterContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_m5h5b")
+script = ExtResource("3_h835t")
+
+[node name="EarthContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/EarthContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_m5h5b")
+script = ExtResource("3_h835t")
+
+[node name="AirContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/AirContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_m5h5b")
+script = ExtResource("3_h835t")

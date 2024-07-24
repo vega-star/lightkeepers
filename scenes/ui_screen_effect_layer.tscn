@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://4u0tjvtopukg"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_screen_effect_layer.gd" id="1_y3dkw"]
+[ext_resource type="Shader" path="res://assets/shaders/ohdude_palette.gdshader" id="2_qig4c"]
+[ext_resource type="Texture2D" uid="uid://0fj5aihiauo7" path="res://assets/shaders/palette/technogarten-1x.png" id="3_aqvku"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_78tvl"]
+shader = ExtResource("2_qig4c")
+shader_parameter/palette = ExtResource("3_aqvku")
+
+[node name="ScreenEffectLayer" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_y3dkw")
+
+[node name="EffectRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_78tvl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.501961)
