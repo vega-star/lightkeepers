@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://4cpjktoig8qa"]
+
+[ext_resource type="Script" path="res://scripts/main/light_area_component.gd" id="1_isolh"]
+
+[node name="LightAreaContainer" type="Area2D" groups=["light_area"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_isolh")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

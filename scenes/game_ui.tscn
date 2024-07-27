@@ -19,10 +19,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Screen"]
-layout_mode = 1
-offset_right = 275.0
-offset_bottom = 276.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Screen"]
+layout_mode = 0
+offset_right = 277.0
+offset_bottom = 302.0
+
+[node name="DebugLabel" type="Label" parent="Screen/VBoxContainer"]
+layout_mode = 2
+
+[node name="TileDescriptionLabel" type="Label" parent="Screen/VBoxContainer"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Screen"]
 layout_mode = 1

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2dpaj1d535ls"
-path="res://.godot/imported/light_test.png-1a1eaff14f75df1aa3f45d3c1ce69602.ctex"
+uid="uid://cyd33p5ip3ayv"
+path="res://.godot/imported/main_atlas_normal.png-a876935a79098f788cc787b1000d057a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/light_test.png"
-dest_files=["res://.godot/imported/light_test.png-1a1eaff14f75df1aa3f45d3c1ce69602.ctex"]
+source_file="res://assets/tilesets/main_atlas_normal.png"
+dest_files=["res://.godot/imported/main_atlas_normal.png-a876935a79098f788cc787b1000d057a.ctex"]
 
 [params]
 

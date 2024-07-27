@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://o5mky6r70x32"]
+
+[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_kxej8"]
+[ext_resource type="Texture2D" uid="uid://dibbrd1kbippn" path="res://assets/prototypes/bug.png" id="1_o5a3q"]
+[ext_resource type="PackedScene" uid="uid://btexoyve5l7pp" path="res://components/health_component.tscn" id="2_ivbjf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_av3hw"]
+radius = 5.0
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_sprite")]
+collision_layer = 4
+collision_mask = 55
+script = ExtResource("1_kxej8")
+debug_path = true
+enemy_sprite = NodePath("EnemySprite")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_ivbjf")]
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_o5a3q")
+
+[node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_av3hw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)

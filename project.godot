@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Lightkeepers"
-config/version="0.1.0"
+config/version="0.1.1"
 config/tags=PackedStringArray("jam")
 run/main_scene="res://scenes/stages/stagezero.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
@@ -68,7 +68,13 @@ click={
 2d_render/layer_2="Objects"
 2d_render/layer_3="Entities"
 2d_render/layer_4="UI"
+2d_physics/layer_1="General"
 2d_navigation/layer_1="Nominal"
+2d_physics/layer_2="Light"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Enemy Projectiles"
+2d_physics/layer_5="Ally"
+2d_physics/layer_6="Ally Projectiles"
 
 [rendering]
 

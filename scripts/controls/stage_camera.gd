@@ -33,7 +33,6 @@ var reset_offset_tween : Tween
 @onready var center_marker = $CenterMarker
 
 func _process(delta):
-	center_marker.position = Vector2(get_viewport().get_visible_rect().size.x / 2, get_viewport().get_visible_rect().size.y / 2)
 	current_pos = get_viewport().get_mouse_position()
 	
 	if clicked:
@@ -42,15 +41,11 @@ func _process(delta):
 		stored_pos = current_pos
 		stored_offset += diff
 		set_offset(stored_offset)
-		
-		$CenterMarker/OffsetSquare.position += diff
 	elif !clicked and click_lock:
 		global_position = to_global(offset)
 		set_offset(Vector2.ZERO)
 		stored_offset = Vector2.ZERO
 		click_lock = false
-		
-		$CenterMarker/OffsetSquare.position = Vector2.ZERO
 	
 	if camera_debug: UI.debug_label.set_text('MOUSE_POS: {4}\nG_POSITION: {0}\nOFFSET: {1}\nSTORED_OFFSET: {2}\nSTORED_POSITION: {3}\nGLOBAL_OFFSET_POSITION: {5}'.format({0: global_position, 1: offset, 2: stored_offset, 3: stored_pos, 4:current_pos, 5: to_global(offset)}))
 
