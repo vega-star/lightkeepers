@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=5 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="Texture2D" uid="uid://c8co11qr3x5dg" path="res://assets/prototypes/icon.svg" id="2_m5h5b"]
 [ext_resource type="Script" path="res://scripts/ui/draggable_button.gd" id="3_h835t"]
+[ext_resource type="PackedScene" uid="uid://b8e2jpe7y87cm" path="res://components/interface/tower_button.tscn" id="4_jbcwa"]
 
 [node name="GameUI" type="CanvasLayer"]
 layer = 50
@@ -19,59 +20,87 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Screen"]
+[node name="InfoBox" type="VBoxContainer" parent="Screen"]
 layout_mode = 0
 offset_right = 277.0
 offset_bottom = 302.0
 
-[node name="DebugLabel" type="Label" parent="Screen/VBoxContainer"]
+[node name="DebugLabel" type="Label" parent="Screen/InfoBox"]
 layout_mode = 2
 
-[node name="TileDescriptionLabel" type="Label" parent="Screen/VBoxContainer"]
+[node name="TileDescriptionLabel" type="Label" parent="Screen/InfoBox"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen"]
+[node name="Runes" type="HBoxContainer" parent="Screen"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -278.0
+offset_left = -262.0
 offset_top = -148.0
-offset_right = 246.0
+offset_right = 262.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="FireContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+[node name="FireContainer" type="CenterContainer" parent="Screen/Runes"]
 layout_mode = 2
 
-[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/FireContainer"]
+[node name="RuneButton" type="TextureButton" parent="Screen/Runes/FireContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_m5h5b")
 script = ExtResource("3_h835t")
 
-[node name="WaterContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+[node name="WaterContainer" type="CenterContainer" parent="Screen/Runes"]
 layout_mode = 2
 
-[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/WaterContainer"]
+[node name="RuneButton" type="TextureButton" parent="Screen/Runes/WaterContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_m5h5b")
 script = ExtResource("3_h835t")
 
-[node name="EarthContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+[node name="EarthContainer" type="CenterContainer" parent="Screen/Runes"]
 layout_mode = 2
 
-[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/EarthContainer"]
+[node name="RuneButton" type="TextureButton" parent="Screen/Runes/EarthContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_m5h5b")
 script = ExtResource("3_h835t")
 
-[node name="AirContainer" type="CenterContainer" parent="Screen/HBoxContainer"]
+[node name="AirContainer" type="CenterContainer" parent="Screen/Runes"]
 layout_mode = 2
 
-[node name="RuneButton" type="TextureButton" parent="Screen/HBoxContainer/AirContainer"]
+[node name="RuneButton" type="TextureButton" parent="Screen/Runes/AirContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_m5h5b")
 script = ExtResource("3_h835t")
+
+[node name="Panel" type="Panel" parent="Screen"]
+self_modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -144.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FlowContainer" type="FlowContainer" parent="Screen/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 27.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TowerButton" parent="Screen/Panel/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+mouse_filter = 1

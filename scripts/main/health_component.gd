@@ -12,8 +12,8 @@ signal health_locked(lock : bool)
 signal life_consumed
 
 @export_category("Health Properties")
-@export_range(0, 100) var lives : int
-@export var max_health : int
+@export_range(0, 100) var lives : int = 1
+@export var max_health : int = 5
 # @export_enum('normal', 'shield') var health_type = 'normal'
 # @export_enum('entity', 'tower') var entity_type = 'entity'
 

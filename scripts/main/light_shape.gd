@@ -1,9 +1,8 @@
 class_name LightShape extends CollisionShape2D
 
-@onready var shape_light = $ShapePointLight
-
 @export var test_oscillation : bool = true
 
+const BASE_RADIUS : float = 128
 const MIN_SIZE : float = 0.9
 const MAX_SIZE : float = 1.5
 
@@ -14,13 +13,13 @@ var amplitude = 1
 var size : float = 1.0 : set = _size_change
 
 func _ready():
-	pass
+	shape = CircleShape2D.new()
+	shape.radius = BASE_RADIUS * size
 
 func _size_change(new_size):
-	# size = clampf(new_size, MIN_SIZE, MAX_SIZE)
 	size = new_size
-	shape.radius = 1 * size
-	shape_light.texture_scale = 1 * size
+	shape.radius = BASE_RADIUS * size
+	$ShapePointLight.texture_scale = 1 * size
 
 func _physics_process(delta):
 	time += delta

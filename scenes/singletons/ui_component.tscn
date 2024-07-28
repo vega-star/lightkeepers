@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8ywb7b35x7rr"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_component.gd" id="1_8w4ip"]
+[ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/game_ui.tscn" id="2_h3l7f"]
+[ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui_screen_effect_layer.tscn" id="2_w4dgt"]
+[ext_resource type="Script" path="res://scripts/ui/ui_pause_layer.gd" id="4_flffo"]
+
+[sub_resource type="Environment" id="Environment_y81ly"]
+background_mode = 3
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_hfs7k"]
+
+[node name="UIComponent" type="Node"]
+process_mode = 3
+script = ExtResource("1_8w4ip")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y81ly")
+camera_attributes = SubResource("CameraAttributesPhysical_hfs7k")
+
+[node name="ScreenEffectLayer" parent="." instance=ExtResource("2_w4dgt")]
+
+[node name="GameUI" parent="." instance=ExtResource("2_h3l7f")]
+layer = 25
+
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 100
+visible = false
+script = ExtResource("4_flffo")
+
+[node name="Label" type="Label" parent="PauseLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 50
+text = "- PAUSED -"
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PauseLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0117647, 0.0117647, 0.0117647, 0.486275)

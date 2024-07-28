@@ -1,0 +1,46 @@
+name: 'Deploy to web only'
+
+on: 
+    workflow_dispatch:
+        inputs:
+            version:
+                type: string
+                description: Version override
+                required: true
+
+jobs:
+    upload:
+        name: 'Butler validation'
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps: 
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+            
+            # Butler fresh install
+            - name: Butler fresh install
+              run:
+                curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+                unzip butler.zip
+                chmod +x butler
+            
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
+            
+            # Upload to web
+            - name: Upload
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run:
+                ./butler push exports/web nyeptun/${{ env.GAME_ID }}:web --userversion ${{ github.event.inputs.version }}

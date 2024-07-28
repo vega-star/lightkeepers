@@ -12,6 +12,7 @@ extends Camera2D
 @export var zoom_duration := 0.1
 
 @export_category('Camera Behavior')
+@export var deadzone : float = 0.25 # Useful for controller compatibility
 @export var zoom_enabled : bool = true
 @export var dynamic_zoom : bool = false
 @export var camera_debug : bool = false
@@ -30,10 +31,10 @@ var zoom_tween : Tween
 var offset_tween : Tween
 var reset_offset_tween : Tween
 
-@onready var center_marker = $CenterMarker
-
 func _process(delta):
 	current_pos = get_viewport().get_mouse_position()
+	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
+	position += direction * (drag_multiplier * 5) * zoom
 	
 	if clicked:
 		click_lock = true

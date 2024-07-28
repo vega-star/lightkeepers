@@ -1,0 +1,124 @@
+name: 'Deploy all'
+
+on:
+    push:
+        branches: 
+        - main
+
+jobs:
+    upload_web:
+        name: 'Upload to web'
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+            
+            # Butler install
+            - name: Download butler
+              run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+            
+            - name: Install butler
+              run: unzip butler.zip && chmod +x butler
+
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
+            
+            # Patch index.html requirement
+            - id: 'patch_html'
+              name: 'Rename project.html to index.html'
+              run: |
+                echo "::warning file=app.py,line=10,col=5::Index file was not renamed after export, which is fine! Patched during upload."
+                mv exports/web/*.html exports/web/index.html
+              
+            # Update build number
+            - id: 'update_build'
+              name: 'Update buildnumber.txt file with a direct reading of project.godot file'
+              run: cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])' > buildnumber.txt
+
+            # Upload with parameters
+            - name: Upload
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler push exports/web nyeptun/${{ env.GAME_ID }}:web --userversion-file build_number.txt
+    
+    upload_linux:
+        name: 'Upload linux executable'
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+
+            # Butler install
+            - name: Download butler
+              run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+            
+            - name: Install butler
+              run: unzip butler.zip && chmod +x butler
+            
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
+
+            # Upload with parameters
+            - name: Upload
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler push exports/linux nyeptun/${{ env.GAME_ID }}:linux --userversion-file build_number.txt
+    
+    upload_windows:
+        name: 'Upload windows executable'
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            # Checkout repo to Github Actions runner
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+            
+            # Butler install
+            - name: Download butler
+              run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+            
+            - name: Install butler
+              run: unzip butler.zip && chmod +x butler
+            
+            # Butler check
+            - name: Butler check
+              run: ./butler -V
+
+            # Authenticate in butler with secret
+            - id: 'auth'
+              name: 'Itch.io login with Butler'
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler login
+            
+            # Upload with parameters
+            - name: Upload
+              env:
+                BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+              run: ./butler push exports/windows nyeptun/${{ env.GAME_ID }}:win64 --userversion-file build_number.txt

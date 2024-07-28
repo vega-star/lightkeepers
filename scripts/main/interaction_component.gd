@@ -1,3 +1,5 @@
+## InteractionComponent
+# Works as an interface to control, add, modify and query the tilemap of a stage
 extends Node2D
 
 @export_group('Interaction/Debug Tools')
@@ -23,8 +25,7 @@ func _process(delta):
 		UI.hud.debug_label.set_text(str(tile_position))
 
 func _input(event):
-	if Input.is_action_just_pressed('click'):
-		select_tile(position_to_tile(get_global_mouse_position()))
+	if Input.is_action_just_pressed('interact'): select_tile(position_to_tile(get_global_mouse_position()))
 
 func position_to_tile(position_vector : Vector2) -> Vector2i: ## Converts a Vector2 coordinate into an accurate tile position
 	return tilemap.local_to_map(position_vector)
@@ -35,7 +36,14 @@ func select_tile(tile_position):
 	
 	var data
 	var tile_data = tilemap.get_cell_tile_data(Layer.GROUND_LAYER, tile_position)
+	var object_data = tilemap.get_cell_tile_data(Layer.OBJECT_LAYER, tile_position)
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)
 	UI.hud.tile_description_label.set_text(str(data))
 	
 	previous_selected_cell = tile_position
+
+func insert_tile_object(tile_object : Object, mouse_position : Vector2):
+	var tile_position = position_to_tile(mouse_position)
+	var coordinates : Vector2 = tilemap.map_to_local(tile_position)
+	tilemap.set_cell(Layer.OBJECT_LAYER, tile_position, 0, SELECTION_TILE)
+	tile_object.position = coordinates

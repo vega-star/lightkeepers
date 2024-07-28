@@ -1,7 +1,6 @@
 class_name LightArea
 extends Area2D
 
-@export_enum('light') var light_area_type : String = 'light'
 @export var verbose_detection : bool = false
 
 var light_shapes : Array[CollisionShape2D]
@@ -20,9 +19,6 @@ func toggle_enemy_visibility(enemy, toggle : bool):
 	pass
 
 func _on_area_entered(area):
-	#if area is Enemy:
-	#	pass
-	
 	if verbose_detection: print('%s is an area and entered light area' % area.name)
 
 func _on_area_exited(area):

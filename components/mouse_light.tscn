@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://5si7n88ll4im"]
+
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="1_qopuk"]
+[ext_resource type="Script" path="res://scripts/controls/debug_mouse_light.gd" id="2_obf7e"]
+
+[node name="MouseLight" type="PointLight2D"]
+position = Vector2(393, 286)
+color = Color(0.880596, 0.69876, 0.692039, 1)
+shadow_enabled = true
+shadow_item_cull_mask = 7
+texture = ExtResource("1_qopuk")
+height = 50.0
+script = ExtResource("2_obf7e")

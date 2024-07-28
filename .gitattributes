@@ -1,3 +1,6 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
 * !text !filter !merge !diff
+/export/linux/Lightkeepers.x86_64 filter=lfs diff=lfs merge=lfs -text
+/export/web/lightkeepers.side.wasm filter=lfs diff=lfs merge=lfs -text
+/export/windows/Lightkeepers.exe filter=lfs diff=lfs merge=lfs -text
