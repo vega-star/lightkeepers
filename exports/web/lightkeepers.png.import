@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://w8mqdy4h548b"
-path="res://.godot/imported/lightkeepers.png-8aef26c6f3c476ed1892d954f5508324.ctex"
+path="res://.godot/imported/lightkeepers.png-369352f9d6a43bb551f52f831ed15918.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://export/web/lightkeepers.png"
-dest_files=["res://.godot/imported/lightkeepers.png-8aef26c6f3c476ed1892d954f5508324.ctex"]
+source_file="res://exports/web/lightkeepers.png"
+dest_files=["res://.godot/imported/lightkeepers.png-369352f9d6a43bb551f52f831ed15918.ctex"]
 
 [params]
 

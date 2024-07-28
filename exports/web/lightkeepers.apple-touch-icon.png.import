@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cafi6giqobhdm"
-path="res://.godot/imported/lightkeepers.icon.png-6599484ee0616f41145ba1b76a0475b4.ctex"
+uid="uid://d7y2dmnjdr7y"
+path="res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://export/web/lightkeepers.icon.png"
-dest_files=["res://.godot/imported/lightkeepers.icon.png-6599484ee0616f41145ba1b76a0475b4.ctex"]
+source_file="res://exports/web/lightkeepers.apple-touch-icon.png"
+dest_files=["res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"]
 
 [params]
 

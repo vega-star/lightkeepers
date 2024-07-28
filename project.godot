@@ -34,7 +34,7 @@ folder_colors={
 "res://assets/": "blue",
 "res://components/": "purple",
 "res://data/": "orange",
-"res://export/": "pink",
+"res://exports/": "pink",
 "res://scenes/": "yellow",
 "res://scripts/": "green"
 }
