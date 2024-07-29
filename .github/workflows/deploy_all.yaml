@@ -5,6 +5,9 @@ on:
         branches: 
         - main
 
+env:
+  GAME_ID: lightkeepers
+
 jobs:
     upload_web:
         name: 'Upload to web'

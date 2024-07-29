@@ -1,2 +1,1 @@
-class_name DraggableButton
-extends TextureButton
+class_name RuneButton extends TextureButton

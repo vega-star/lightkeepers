@@ -1,9 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=12 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
-[ext_resource type="Texture2D" uid="uid://c8co11qr3x5dg" path="res://assets/prototypes/icon.svg" id="2_m5h5b"]
+[ext_resource type="Texture2D" uid="uid://0qlvxgjeqy68" path="res://assets/prototypes/slot.png" id="2_7mfrr"]
+[ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/prototypes/stylebox_base.png" id="2_pu1ft"]
 [ext_resource type="Script" path="res://scripts/ui/draggable_button.gd" id="3_h835t"]
 [ext_resource type="PackedScene" uid="uid://b8e2jpe7y87cm" path="res://components/interface/tower_button.tscn" id="4_jbcwa"]
+[ext_resource type="Texture2D" uid="uid://ckw1wrf68j8i" path="res://assets/prototypes/frame_test.png" id="4_m44u3"]
+[ext_resource type="Texture2D" uid="uid://b3l70bfuy0vfv" path="res://assets/prototypes/slot_fire.png" id="5_m8ogq"]
+[ext_resource type="Texture2D" uid="uid://co20l02tloiky" path="res://assets/prototypes/play_button.png" id="6_wia60"]
+[ext_resource type="Texture2D" uid="uid://b1r4lyi8da86u" path="res://assets/prototypes/slot_water.png" id="7_k6cer"]
+[ext_resource type="Texture2D" uid="uid://d0eqnpl07jtyl" path="res://assets/prototypes/slot_water_empty.png" id="7_t0j7a"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ooj6b"]
+texture = ExtResource("2_pu1ft")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 
 [node name="GameUI" type="CanvasLayer"]
 layer = 50
@@ -31,76 +44,164 @@ layout_mode = 2
 [node name="TileDescriptionLabel" type="Label" parent="Screen/InfoBox"]
 layout_mode = 2
 
-[node name="Runes" type="HBoxContainer" parent="Screen"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -262.0
-offset_top = -148.0
-offset_right = 262.0
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
-
-[node name="FireContainer" type="CenterContainer" parent="Screen/Runes"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/Runes/FireContainer"]
-layout_mode = 2
-texture_normal = ExtResource("2_m5h5b")
-script = ExtResource("3_h835t")
-
-[node name="WaterContainer" type="CenterContainer" parent="Screen/Runes"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/Runes/WaterContainer"]
-layout_mode = 2
-texture_normal = ExtResource("2_m5h5b")
-script = ExtResource("3_h835t")
-
-[node name="EarthContainer" type="CenterContainer" parent="Screen/Runes"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/Runes/EarthContainer"]
-layout_mode = 2
-texture_normal = ExtResource("2_m5h5b")
-script = ExtResource("3_h835t")
-
-[node name="AirContainer" type="CenterContainer" parent="Screen/Runes"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/Runes/AirContainer"]
-layout_mode = 2
-texture_normal = ExtResource("2_m5h5b")
-script = ExtResource("3_h835t")
-
 [node name="Panel" type="Panel" parent="Screen"]
-self_modulate = Color(1, 1, 1, 0.498039)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -144.0
+offset_left = -176.0
+offset_bottom = -192.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ooj6b")
 
-[node name="FlowContainer" type="FlowContainer" parent="Screen/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Screen/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 27.0
-offset_bottom = -32.0
+offset_top = 16.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="FlowContainer" type="GridContainer" parent="Screen/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
 mouse_filter = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 32
+columns = 2
+
+[node name="TowerButton" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton2" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton3" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton4" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton5" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton6" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton7" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton8" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton9" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton10" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton11" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton12" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton13" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="TowerButton14" parent="Screen/Panel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+
+[node name="HUD" type="Control" parent="Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -752.0
+offset_top = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Screen/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_m44u3")
+region_rect = Rect2(0, 0, 160, 120)
+patch_margin_left = 22
+patch_margin_right = 37
+
+[node name="Runes" type="HBoxContainer" parent="Screen/HUD"]
+layout_mode = 2
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -688.0
+offset_top = -144.0
+offset_right = -224.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
 alignment = 1
 
-[node name="TowerButton" parent="Screen/Panel/FlowContainer" instance=ExtResource("4_jbcwa")]
+[node name="FireContainer" type="CenterContainer" parent="Screen/HUD/Runes"]
 layout_mode = 2
-mouse_filter = 1
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HUD/Runes/FireContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_m8ogq")
+script = ExtResource("3_h835t")
+
+[node name="WaterContainer" type="CenterContainer" parent="Screen/HUD/Runes"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HUD/Runes/WaterContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_t0j7a")
+texture_pressed = ExtResource("7_k6cer")
+script = ExtResource("3_h835t")
+
+[node name="EarthContainer" type="CenterContainer" parent="Screen/HUD/Runes"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HUD/Runes/EarthContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_7mfrr")
+script = ExtResource("3_h835t")
+
+[node name="AirContainer" type="CenterContainer" parent="Screen/HUD/Runes"]
+layout_mode = 2
+
+[node name="RuneButton" type="TextureButton" parent="Screen/HUD/Runes/AirContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_7mfrr")
+script = ExtResource("3_h835t")
+
+[node name="PlayButton" type="TextureButton" parent="Screen/HUD"]
+layout_mode = 2
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -176.0
+offset_top = -176.0
+offset_right = -16.0
+offset_bottom = -16.0
+texture_normal = ExtResource("6_wia60")
+stretch_mode = 0
+script = ExtResource("3_h835t")
+
+[connection signal="pressed" from="Screen/HUD/PlayButton" to="." method="_on_play_button_pressed"]

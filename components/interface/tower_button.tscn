@@ -1,27 +1,68 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8e2jpe7y87cm"]
+[gd_scene load_steps=8 format=3 uid="uid://b8e2jpe7y87cm"]
 
+[ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/prototypes/stylebox_base_1.png" id="1_2r0v5"]
 [ext_resource type="Script" path="res://scripts/ui/tower_button.gd" id="1_txhdy"]
 [ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turret_guns/ballista.png" id="2_jvijs"]
 [ext_resource type="PackedScene" uid="uid://cdqtftfr80iq" path="res://components/entities/buildings/ballista.tscn" id="2_or3kv"]
+[ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/prototypes/stylebox_base.png" id="5_nbhmf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1m1yf"]
+texture = ExtResource("1_2r0v5")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ws7aq"]
+texture = ExtResource("5_nbhmf")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 
 [node name="TowerButton" type="Panel"]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(64, 64)
 anchors_preset = -1
-anchor_right = 0.1
-anchor_bottom = 0.178
-offset_bottom = -0.160004
+anchor_right = 0.05
+anchor_bottom = 0.089
+offset_bottom = -0.0800018
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_1m1yf")
 script = ExtResource("1_txhdy")
 target_tower_scene = ExtResource("2_or3kv")
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
-position = Vector2(64, 64)
-scale = Vector2(3, 3)
+position = Vector2(32, 32)
 texture = ExtResource("2_jvijs")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
+
+[node name="CostPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_ws7aq")
+
+[node name="CostLabel" type="Label" parent="CostPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+horizontal_alignment = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

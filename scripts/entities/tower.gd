@@ -8,6 +8,7 @@ const base_projectile = preload("res://components/projectiles/projectile.tscn")
 const light_shape_scene = preload("res://components/light_shape.tscn")
 
 @export_group('Tower Properties')
+@export var tower_cost : int = 50
 @export_enum('nearest', 'closest', 'farthest', 'strongest') var seeking_type = 'nearest'
 @export_range(0, 50) var base_light_range : float = 1
 @export_range(0, 50) var base_tower_range : float = 1
