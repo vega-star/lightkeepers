@@ -47,8 +47,8 @@ jobs:
               
             # Update build number
             - id: 'update_build'
-              name: 'Update buildnumber.txt file with a direct reading of project.godot file'
-              run: cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])' > buildnumber.txt
+              name: 'Update build_number.txt file with a direct reading of project.godot file'
+              run: cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])' > build_number.txt
 
             # Upload with parameters
             - name: Upload
