@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://clmhdu52mt0lt"]
+
+[ext_resource type="Texture2D" uid="uid://tdykvrbkn0uc" path="res://assets/sprites/turrets/lamp.png" id="1_pq7s3"]
+
+[sub_resource type="GDScript" id="GDScript_yjc15"]
+script/source = "extends Tower
+
+func _ready():
+	light_area = get_tree().get_first_node_in_group('light_area')
+	# tower_sprite.visible = false
+	
+	light_shape = light_shape_scene.instantiate()
+	light_shape.position = position
+	light_area.add_child(light_shape)
+
+	light_range = base_light_range
+	tower_range = base_tower_range
+
+func _on_target_reset(): 
+	if eligible_targets.size() > 0: target = _seek_target()
+	else: target = null
+
+func _load_properties():
+	light_shape.size = light_range
+	tower_range_shape.shape.radius = base_range * tower_range
+
+func _adapt_in_tile():
+	light_shape.position = position
+
+func _draw():
+	if visible_range: 
+		draw_circle(to_local(global_position), tower_range_shape.shape.radius, range_draw_color) ## Tower range
+		draw_circle(to_local(global_position), light_shape.shape.radius, light_draw_color) ## Light range
+
+func _physics_process(delta):
+	if visible_range: queue_redraw()
+
+func _on_cooldown_timer_timeout(): return
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
+radius = 160.0
+
+[node name="Lamp" type="Node2D"]
+script = SubResource("GDScript_yjc15")
+tower_cost = 25
+base_light_range = 2.0
+base_tower_range = 0.0
+
+[node name="TowerSprite" type="Sprite2D" parent="."]
+z_index = 50
+position = Vector2(0, -16)
+texture = ExtResource("1_pq7s3")
+
+[node name="TowerRangeArea" type="Area2D" parent="."]
+collision_mask = 64
+
+[node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
+shape = SubResource("CircleShape2D_4qdcu")
+debug_color = Color(0.603772, 0.367189, 1, 0)

@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://cnjfnlw21xwfp"]
+[gd_scene load_steps=12 format=3 uid="uid://cnjfnlw21xwfp"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_86o2k"]
 [ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui_screen_effect_layer.tscn" id="2_a6i11"]
+[ext_resource type="Script" path="res://scripts/main/stage_manager.gd" id="2_dd8c1"]
+[ext_resource type="Script" path="res://scripts/main/threat_manager.gd" id="3_g30f1"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/map_tileset.tres" id="3_qej7s"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="4_725yi"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/light_area_component.tscn" id="5_revdg"]
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="6_mscbj"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/mouse_light.tscn" id="8_r801v"]
-[ext_resource type="PackedScene" uid="uid://d4a5md1k8lkki" path="res://scenes/entities/prototype_enemy.tscn" id="9_17cd3"]
 [ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="13_2fvqk"]
 
 [sub_resource type="Curve2D" id="Curve2D_l0ktu"]
@@ -16,13 +17,21 @@ _data = {
 }
 point_count = 19
 
-[node name="StageZero" type="Node2D" node_paths=PackedStringArray("tilemap", "modulate_layer") groups=["stage"]]
+[node name="StageZero" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
 script = ExtResource("1_86o2k")
-tilemap = NodePath("TileMap")
 modulate_layer = NodePath("ModulateLayer")
 check_coordinate = true
 
 [node name="StageManager" type="Node" parent="."]
+script = ExtResource("2_dd8c1")
+initial_coins = 99999
+
+[node name="ThreatManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawn_point")]
+script = ExtResource("3_g30f1")
+enemy_spawn_point = NodePath("../Containers/SpawnPosition")
+
+[node name="SpawnCooldown" type="Timer" parent="ThreatManager"]
+autostart = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_qej7s")
@@ -32,7 +41,7 @@ layer_0/tile_data = PackedInt32Array(589833, 0, 0, 655369, 0, 0, 720905, 0, 0, 7
 layer_1/name = "object"
 layer_1/modulate = Color(2, 2, 2, 1)
 layer_1/z_index = 25
-layer_1/tile_data = PackedInt32Array(262161, 393216, 0, 131091, 393216, 0, 262166, 393216, 0, 393237, 393216, 0, 262163, 458752, 0)
+layer_1/tile_data = PackedInt32Array(262161, 393216, 0, 131091, 393216, 0, 262166, 393216, 0, 262163, 458752, 0, 393237, 393216, 0)
 layer_2/name = "interaction"
 layer_2/z_index = 10
 layer_2/navigation_enabled = false
@@ -96,22 +105,21 @@ width = 5.0
 
 [node name="Containers" type="Node2D" parent="."]
 
-[node name="EntityContainer" type="Node2D" parent="Containers" groups=["entity_container"]]
+[node name="SpawnPosition" type="Marker2D" parent="Containers"]
+position = Vector2(560, 944)
 
-[node name="ProjectileContainer" type="Node2D" parent="Containers" groups=["projectile_container"]]
+[node name="EntityContainer" type="Node2D" parent="Containers" groups=["entity_container"]]
 
 [node name="ObjectContainer" type="Node2D" parent="Containers" groups=["tower_container"]]
 
+[node name="ProjectileContainer" type="Node2D" parent="Containers" groups=["projectile_container"]]
+
 [node name="StagePath" type="Path2D" parent="."]
-visible = false
 curve = SubResource("Curve2D_l0ktu")
-
-[node name="Enemy" parent="StagePath" instance=ExtResource("9_17cd3")]
-position = Vector2(560, 944)
-
-[node name="PathFollow2D" type="PathFollow2D" parent="StagePath"]
-position = Vector2(560, 944)
-loop = false
 
 [node name="StageCamera" parent="." instance=ExtResource("6_mscbj")]
 zoom_enabled = true
+
+[connection signal="health_updated" from="StageManager" to="StageManager" method="_on_health_updated"]
+[connection signal="wave_completed" from="ThreatManager" to="StageManager" method="_on_threat_manager_wave_completed"]
+[connection signal="timeout" from="ThreatManager/SpawnCooldown" to="ThreatManager" method="_on_spawn_cooldown_timeout"]

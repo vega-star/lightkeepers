@@ -19,7 +19,7 @@ config/icon="res://assets/prototypes/icon.svg"
 
 [autoload]
 
-UI="*res://scenes/singletons/ui_component.tscn"
+UI="*res://scenes/singletons/ui.tscn"
 
 [display]
 

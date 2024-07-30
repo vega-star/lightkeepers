@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqf48hy6dmhk"
-path="res://.godot/imported/stylebox_base_1.png-4ddce9947770e1d5b027bde9a3886d28.ctex"
+uid="uid://tdykvrbkn0uc"
+path="res://.godot/imported/lamp.png-9ff552687c8ee18c8de0f96fef837597.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/stylebox_base_1.png"
-dest_files=["res://.godot/imported/stylebox_base_1.png-4ddce9947770e1d5b027bde9a3886d28.ctex"]
+source_file="res://assets/sprites/turrets/lamp.png"
+dest_files=["res://.godot/imported/lamp.png-9ff552687c8ee18c8de0f96fef837597.ctex"]
 
 [params]
 

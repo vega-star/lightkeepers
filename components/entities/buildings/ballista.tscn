@@ -1,31 +1,32 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdqtftfr80iq"]
+[gd_scene load_steps=13 format=3 uid="uid://cdqtftfr80iq"]
 
 [ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_ck6rn"]
-[ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://components/materials/unshaded_material.tres" id="2_yn08f"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turret_guns/ballista.png" id="3_to71y"]
+[ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_d6s6v"]
+[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_3mamr"]
+[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="4_g88o7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
-atlas = ExtResource("3_to71y")
+atlas = ExtResource("3_3mamr")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3qe0"]
-atlas = ExtResource("3_to71y")
+atlas = ExtResource("3_3mamr")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmkmr"]
-atlas = ExtResource("3_to71y")
+atlas = ExtResource("3_3mamr")
 region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1bh70"]
-atlas = ExtResource("3_to71y")
+atlas = ExtResource("3_3mamr")
 region = Rect2(0, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gj80s"]
-atlas = ExtResource("3_to71y")
+atlas = ExtResource("3_3mamr")
 region = Rect2(0, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_52wpk"]
-atlas = ExtResource("3_to71y")
+atlas = ExtResource("3_3mamr")
 region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yos0f"]
@@ -62,20 +63,34 @@ radius = 160.0
 
 [node name="Ballista" type="Node2D"]
 script = ExtResource("1_ck6rn")
+base_projectile = ExtResource("2_d6s6v")
+base_piercing = 5
 base_light_range = 0.5
 base_tower_range = 2.0
+base_range_draw_color = Color(0.321569, 0.466667, 0.176471, 0.247059)
+metadata/_edit_horizontal_guides_ = [-8.0]
+
+[node name="TowerSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -16)
+texture = ExtResource("3_3mamr")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="TowerGunSprite" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(1, 0.470588, 0.470588, 1)
 light_mask = 2
 visibility_layer = 3
 z_index = 50
-material = ExtResource("2_yn08f")
-position = Vector2(0, 0.5)
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_yos0f")
 animation = &"firing"
 frame = 6
 frame_progress = 1.0
+flip_h = true
+
+[node name="PropProjectile" type="Sprite2D" parent="TowerGunSprite"]
+position = Vector2(10, 0)
+texture = ExtResource("4_g88o7")
 flip_h = true
 
 [node name="TowerGunMuzzle" type="Marker2D" parent="TowerGunSprite"]
@@ -86,13 +101,14 @@ target_position = Vector2(320, 2.38419e-06)
 collision_mask = 4
 
 [node name="ColorRect" type="ColorRect" parent="TowerGunSprite/TowerGunMuzzle"]
+visible = false
 offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
 [node name="TowerRangeArea" type="Area2D" parent="."]
-collision_mask = 4
+collision_mask = 64
 
 [node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
 shape = SubResource("CircleShape2D_4qdcu")

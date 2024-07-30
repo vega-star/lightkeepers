@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n7joi58406ay"
-path="res://.godot/imported/ballista.png-1e73ae96ad8789243855ae38a5efcd30.ctex"
+uid="uid://cne0jbt34jcyq"
+path="res://.godot/imported/play_button_patch.png-5b20e903f54f8230a2096249c69f1a63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/turret_guns/ballista.png"
-dest_files=["res://.godot/imported/ballista.png-1e73ae96ad8789243855ae38a5efcd30.ctex"]
+source_file="res://assets/prototypes/play_button_patch.png"
+dest_files=["res://.godot/imported/play_button_patch.png-5b20e903f54f8230a2096249c69f1a63.ctex"]
 
 [params]
 

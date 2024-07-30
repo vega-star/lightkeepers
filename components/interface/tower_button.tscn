@@ -1,20 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8e2jpe7y87cm"]
+[gd_scene load_steps=7 format=3 uid="uid://b8e2jpe7y87cm"]
 
-[ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/prototypes/stylebox_base_1.png" id="1_2r0v5"]
+[ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/theme/styleboxes/stylebox_base_1.png" id="1_h8s0y"]
 [ext_resource type="Script" path="res://scripts/ui/tower_button.gd" id="1_txhdy"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turret_guns/ballista.png" id="2_jvijs"]
 [ext_resource type="PackedScene" uid="uid://cdqtftfr80iq" path="res://components/entities/buildings/ballista.tscn" id="2_or3kv"]
-[ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/prototypes/stylebox_base.png" id="5_nbhmf"]
+[ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/theme/styleboxes/stylebox_base.png" id="4_wnq5o"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1m1yf"]
-texture = ExtResource("1_2r0v5")
+texture = ExtResource("1_h8s0y")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ws7aq"]
-texture = ExtResource("5_nbhmf")
+texture = ExtResource("4_wnq5o")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
@@ -36,7 +35,6 @@ target_tower_scene = ExtResource("2_or3kv")
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 position = Vector2(32, 32)
-texture = ExtResource("2_jvijs")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 

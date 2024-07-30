@@ -13,7 +13,6 @@ func _ready():
 func merge_shapes():
 	for s in get_children():
 		light_shapes.append(s)
-	print(light_shapes)
 
 func toggle_enemy_visibility(enemy, toggle : bool):
 	pass

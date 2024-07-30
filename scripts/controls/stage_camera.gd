@@ -16,7 +16,11 @@ extends Camera2D
 @export var zoom_enabled : bool = true
 @export var dynamic_zoom : bool = false
 @export var camera_debug : bool = false
+@export var enable_camera_shake : bool = true
+@export var base_shake_strength : float = 2.0
+@export var shake_decay : float = 3.0
 
+const MINIMUM_SHAKE_STRENGTH = 0.05
 const click_threshold = 0.2
 
 var clicked
@@ -30,11 +34,17 @@ var _zoom_level : float = 1.0 : set = _set_zoom_level
 var zoom_tween : Tween
 var offset_tween : Tween
 var reset_offset_tween : Tween
+var shake_random = RandomNumberGenerator.new()
+var shake_strength : float
 
 func _process(delta):
 	current_pos = get_viewport().get_mouse_position()
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
 	position += direction * (drag_multiplier * 5) * zoom
+	
+	if enable_camera_shake:
+		shake_strength = lerpf(shake_strength, 0.0, shake_decay * delta)
+		if shake_strength > MINIMUM_SHAKE_STRENGTH: position += get_shake_offset(delta)
 	
 	if clicked:
 		click_lock = true
@@ -47,8 +57,8 @@ func _process(delta):
 		set_offset(Vector2.ZERO)
 		stored_offset = Vector2.ZERO
 		click_lock = false
-	
-	if camera_debug: UI.debug_label.set_text('MOUSE_POS: {4}\nG_POSITION: {0}\nOFFSET: {1}\nSTORED_OFFSET: {2}\nSTORED_POSITION: {3}\nGLOBAL_OFFSET_POSITION: {5}'.format({0: global_position, 1: offset, 2: stored_offset, 3: stored_pos, 4:current_pos, 5: to_global(offset)}))
+		
+	# if camera_debug: UI.debug_label.set_text('MOUSE_POS: {4}\nG_POSITION: {0}\nOFFSET: {1}\nSTORED_OFFSET: {2}\nSTORED_POSITION: {3}\nGLOBAL_OFFSET_POSITION: {5}'.format({0: global_position, 1: offset, 2: stored_offset, 3: stored_pos, 4:current_pos, 5: to_global(offset)}))
 
 func _input(event):
 	if event.is_action_pressed("drag_zoom"): 
@@ -57,6 +67,10 @@ func _input(event):
 		stored_pos = get_viewport().get_mouse_position()
 	elif event.is_action_released("drag_zoom"): 
 		clicked = false
+
+func toggle_shake(toggle : bool): enable_camera_shake = toggle
+func start_shake(strength : float = base_shake_strength): shake_strength = strength
+func get_shake_offset(delta, effect_multiplier = 1) -> Vector2: return Vector2(shake_random.randf_range(-shake_strength,shake_strength),shake_random.randf_range(-shake_strength,shake_strength))
 
 func _set_zoom_level(value: float):
 	_zoom_level = clamp(value, min_zoom, max_zoom)

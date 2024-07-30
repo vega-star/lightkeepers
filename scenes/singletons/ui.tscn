@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8ywb7b35x7rr"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_component.gd" id="1_o51w2"]
+[ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui_screen_effect_layer.tscn" id="2_nmhs7"]
+[ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/ui_hud.tscn" id="3_4fskw"]
+[ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui_pause_layer.tscn" id="4_wwglg"]
+[ext_resource type="Script" path="res://scenes/singletons/event_layer.gd" id="5_srt4u"]
+
+[sub_resource type="Environment" id="Environment_y81ly"]
+background_mode = 3
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_hfs7k"]
+
+[node name="UIComponent" type="Node"]
+process_mode = 3
+script = ExtResource("1_o51w2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y81ly")
+camera_attributes = SubResource("CameraAttributesPhysical_hfs7k")
+
+[node name="ScreenEffectLayer" parent="." instance=ExtResource("2_nmhs7")]
+
+[node name="HUD" parent="." instance=ExtResource("3_4fskw")]
+layer = 25
+
+[node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
+layer = 40
+
+[node name="EventLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 50
+script = ExtResource("5_srt4u")
+
+[node name="Control" type="Control" parent="EventLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="EventLayer/Control"]
+title = "REMOVE {0}"
+initial_position = 1
+size = Vector2i(389, 100)
+ok_button_text = "Confirm"
+dialog_text = "By deleting this object, you will retrieve {1} coins"
+dialog_close_on_escape = false

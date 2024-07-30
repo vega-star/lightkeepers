@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byw3hfyyoy1s2"
-path="res://.godot/imported/stylebox_base.png-dd359140ff75bea691a59b30df3a7567.ctex"
+uid="uid://n7joi58406ay"
+path="res://.godot/imported/ballista.png-9377f992809eb89b8853bbd9c24fd608.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/stylebox_base.png"
-dest_files=["res://.godot/imported/stylebox_base.png-dd359140ff75bea691a59b30df3a7567.ctex"]
+source_file="res://assets/sprites/turrets/ballista.png"
+dest_files=["res://.godot/imported/ballista.png-9377f992809eb89b8853bbd9c24fd608.ctex"]
 
 [params]
 

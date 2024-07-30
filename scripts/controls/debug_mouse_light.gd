@@ -16,10 +16,11 @@ func _ready():
 	nexus = get_tree().get_first_node_in_group('nexus')
 	var light_area = get_tree().get_first_node_in_group('light_area')
 	light_shape = light_shape_scene.instantiate()
-	light_area.add_child(light_shape)
+	light_area.add_child.call_deferred(light_shape)
 
 func _process(delta):
 	global_position = get_global_mouse_position()
+	light_shape.global_position = get_global_mouse_position()
 
 func _physics_process(delta):
 	if change_intensity: update_intensity()

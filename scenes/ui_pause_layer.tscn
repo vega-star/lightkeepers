@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp7bhsg5h41p4"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_pause_layer.gd" id="1_dqc40"]
+
+[node name="PauseLayer" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_dqc40")
+
+[node name="Label" type="Label" parent="."]
+z_index = -50
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "GAME PAUSED"
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0117647, 0.0117647, 0.0117647, 0.486275)

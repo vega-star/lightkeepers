@@ -9,6 +9,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-12, -12, 12, -12, 12, 
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x8td1"]
+polygon = PackedVector2Array(-16, 5, -12, 1, -8, 0, -4, 1, 0, 5, 4, 1, 8, 0, 11.5, 1, 16, 5, 16, 16, -16, 16)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gyepu"]
 light_mode = 1
 
@@ -35,9 +38,6 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(-12, -12, -12, -16, 12, -16, 12, -12, 16, -12, 16, 12, 12, 12, 12, 16, -12, 16, -12, 12, -16, 12, -16, -12)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x8td1"]
-polygon = PackedVector2Array(-16, 5, -12, 1, -8, 0, -4, 1, 0, 5, 4, 1, 8, 0, 11.5, 1, 16, 5, 16, 16, -16, 16)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vujeh"]
 vertices = PackedVector2Array(12, 12, -16, 12, -16, -12, -12, -16, 12, -16)
@@ -120,15 +120,24 @@ use_texture_padding = false
 5:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_eukbs")
 5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/0/custom_data_0 = {
+"placeable": false
+}
 4:2/0 = 0
 4:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_5jxu8")
 4:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:2/0/physics_layer_0/angular_velocity = 0.0
+4:2/0/custom_data_0 = {
+"placeable": false
+}
 3:2/next_alternative_id = 2
 3:2/0 = 0
 3:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_x8td1")
 3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/0/custom_data_0 = {
+"placeable": false
+}
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
@@ -172,17 +181,31 @@ use_texture_padding = false
 5:1/0 = 0
 5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:1/0/physics_layer_0/angular_velocity = 0.0
+5:1/0/custom_data_0 = {
+"placeable": false
+}
 0:2/next_alternative_id = 8
 0:2/0 = 0
+0:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_x8td1")
 0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:2/0/physics_layer_0/angular_velocity = 0.0
+0:2/0/custom_data_0 = {
+"placeable": false
+}
 1:2/next_alternative_id = 2
 1:2/0 = 0
+1:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_x8td1")
 1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:2/0/physics_layer_0/angular_velocity = 0.0
+1:2/0/custom_data_0 = {
+"placeable": false
+}
 6:1/0 = 0
 6:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:1/0/physics_layer_0/angular_velocity = 0.0
+6:1/0/custom_data_0 = {
+"placeable": false
+}
 6:0/0 = 0
 6:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_gcqp5")
 6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -194,18 +217,23 @@ use_texture_padding = false
 7:1/0 = 0
 7:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:1/0/physics_layer_0/angular_velocity = 0.0
+7:1/0/custom_data_0 = {
+"placeable": false
+}
 8:1/0 = 0
 8:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:1/0/physics_layer_0/angular_velocity = 0.0
 8:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_y8o73")
+8:1/0/custom_data_0 = {
+"placeable": false
+}
 6:2/0 = 0
 6:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_sxyjb")
 6:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:2/0/physics_layer_0/angular_velocity = 0.0
-7:2/0 = 0
-7:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_63wym")
-7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-7:2/0/physics_layer_0/angular_velocity = 0.0
+6:2/0/custom_data_0 = {
+"placeable": false
+}
 0:3/0 = 0
 0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:3/0/physics_layer_0/angular_velocity = 0.0
@@ -233,8 +261,25 @@ use_texture_padding = false
 0:4/0/physics_layer_0/angular_velocity = 0.0
 2:2/next_alternative_id = 2
 2:2/0 = 0
+2:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_x8td1")
 2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:2/0/physics_layer_0/angular_velocity = 0.0
+2:2/0/custom_data_0 = {
+"placeable": false
+}
+7:2/0 = 0
+7:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_63wym")
+7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:2/0/physics_layer_0/angular_velocity = 0.0
+7:2/0/custom_data_0 = {
+"placeable": false
+}
+3:3/0 = 0
+3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_0/angular_velocity = 0.0
+4:3/0 = 0
+4:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:3/0/physics_layer_0/angular_velocity = 0.0
 
 [resource]
 tile_size = Vector2i(32, 32)

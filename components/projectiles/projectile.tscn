@@ -4,15 +4,32 @@
 [ext_resource type="Texture2D" uid="uid://djbkbg4rjdi12" path="res://assets/prototypes/ballista_projectile.png" id="2_dvld6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xyjd"]
-radius = 3.0
-height = 12.0
+radius = 5.0
+height = 16.0
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 32
 collision_mask = 12
 script = ExtResource("1_5ijgk")
+projectile_type = "SEEKING"
 metadata/_edit_vertical_guides_ = [-6.0, 6.0]
 metadata/_edit_horizontal_guides_ = [-3.0, 3.0]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(6, 0)
+emitting = false
+explosiveness = 0.1
+randomness = 0.2
+draw_order = 1
+direction = Vector2(-200, 0)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 200.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-48, 0)
+scale = Vector2(0.6, 0.3)
 
 [node name="ProjectileSprite" type="Sprite2D" parent="."]
 position = Vector2(0, 2.98023e-07)
@@ -23,3 +40,4 @@ rotation = -1.5708
 shape = SubResource("CapsuleShape2D_1xyjd")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

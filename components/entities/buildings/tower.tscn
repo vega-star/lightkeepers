@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_tq6vs"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turret_guns/ballista.png" id="3_wyuhk"]
+[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_wyuhk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
 atlas = ExtResource("3_wyuhk")
@@ -63,12 +63,19 @@ radius = 160.0
 script = ExtResource("1_tq6vs")
 base_light_range = 0.5
 
+[node name="TowerSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -16)
+texture = ExtResource("3_wyuhk")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
 [node name="TowerGunSprite" type="AnimatedSprite2D" parent="."]
 self_modulate = Color(1, 0.470588, 0.470588, 1)
 light_mask = 2
 visibility_layer = 3
 z_index = 50
-position = Vector2(0, 0.5)
+position = Vector2(0, -15.5)
 sprite_frames = SubResource("SpriteFrames_yos0f")
 animation = &"firing"
 frame = 6
@@ -83,6 +90,7 @@ target_position = Vector2(320, 2.38419e-06)
 collision_mask = 4
 
 [node name="ColorRect" type="ColorRect" parent="TowerGunSprite/TowerGunMuzzle"]
+visible = false
 offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0

@@ -1,10 +1,10 @@
 extends CanvasLayer
 
+
 func _ready():
 	if visible: visible = false
 
 func pause():
-	# unpause_button.grab_focus()
 	UI.set_pause(true)
 	show()
 
