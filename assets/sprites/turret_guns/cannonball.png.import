@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyrjtqa6fmfdv"
-path="res://.godot/imported/play_button.png-02f358e094243dcc47079cb2bcb844b2.ctex"
+uid="uid://cwd06hc57w8v6"
+path="res://.godot/imported/cannonball.png-b8c24d24701e85b5544fec46b30cab7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/play_button.png"
-dest_files=["res://.godot/imported/play_button.png-02f358e094243dcc47079cb2bcb844b2.ctex"]
+source_file="res://assets/sprites/turret_guns/cannonball.png"
+dest_files=["res://.godot/imported/cannonball.png-b8c24d24701e85b5544fec46b30cab7f.ctex"]
 
 [params]
 

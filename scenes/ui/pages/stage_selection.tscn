@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://de52ovyt5s046"]
+[gd_scene load_steps=6 format=3 uid="uid://de52ovyt5s046"]
 
 [ext_resource type="Script" path="res://scenes/ui/pages/ui_stage_selection.gd" id="1_4ms2o"]
 [ext_resource type="Script" path="res://scenes/ui/ui_stage_button.gd" id="2_46b77"]
 [ext_resource type="PackedScene" uid="uid://bt42xu4vm08n" path="res://scenes/ui/pages/guidance_button.tscn" id="2_cnkw1"]
+[ext_resource type="Script" path="res://scripts/resources/stage_info.gd" id="4_0hmxp"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bfe6u"]
-size = Vector2(128, 128)
+[sub_resource type="Resource" id="Resource_bsvp5"]
+script = ExtResource("4_0hmxp")
+selected_stage_path = "res://scenes/stages/first_stage.tscn"
+locked = false
 
 [node name="StageSelection" type="Control"]
 layout_mode = 3
@@ -42,39 +45,34 @@ theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
 columns = 5
 
-[node name="TextureButton" type="TextureButton" parent="GridContainer"]
+[node name="TextureButton" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
 script = ExtResource("2_46b77")
-stage_path = "res://scenes/stages/first_stage.tscn"
+stage_selection = SubResource("Resource_bsvp5")
 
-[node name="TextureButton2" type="TextureButton" parent="GridContainer"]
+[node name="TextureButton2" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
 script = ExtResource("2_46b77")
-stage_path = "res://scenes/stages/first_stage.tscn"
+stage_selection = SubResource("Resource_bsvp5")
 
-[node name="TextureButton3" type="TextureButton" parent="GridContainer"]
+[node name="TextureButton3" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
 script = ExtResource("2_46b77")
-stage_path = "res://scenes/stages/first_stage.tscn"
+stage_selection = SubResource("Resource_bsvp5")
 
-[node name="TextureButton4" type="TextureButton" parent="GridContainer"]
+[node name="TextureButton4" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
 script = ExtResource("2_46b77")
-stage_path = "res://scenes/stages/first_stage.tscn"
+stage_selection = SubResource("Resource_bsvp5")
 
-[node name="TextureButton5" type="TextureButton" parent="GridContainer"]
+[node name="TextureButton5" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
 script = ExtResource("2_46b77")
-stage_path = "res://scenes/stages/first_stage.tscn"
+stage_selection = SubResource("Resource_bsvp5")
 
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

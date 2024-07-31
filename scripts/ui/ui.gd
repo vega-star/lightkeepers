@@ -1,6 +1,7 @@
 class_name GameUI
 extends CanvasLayer
 
+signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
 @onready var debug_label = $Screen/InfoBox/DebugLabel
@@ -16,6 +17,9 @@ signal turn_pass_requested
 func _on_play_button_pressed():
 	turn_pass_requested.emit()
 	# play_button.disabled = true
+
+func _on_autoplay_button_toggled(toggled_on):
+	autoplay_toggled.emit(toggled_on)
 
 func update_coins(coins : int): coin_label.set_text('[center][img]res://assets/prototypes/pyrite.png[/img]{0}'.format({0: coins}))
 

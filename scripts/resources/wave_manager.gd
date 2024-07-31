@@ -49,6 +49,7 @@ func _ready():
 	
 	max_turns = waves_resource.waves.size()
 	UI.HUD.turn_update(turn, max_turns)
+	UI.HUD.autoplay_toggled.connect(_on_autoplay_toggled)
 	UI.HUD.turn_pass_requested.connect(_on_turn_pass)
 
 func _process(delta):
@@ -66,6 +67,9 @@ func _process(delta):
 			entity_scene_loaded.emit()
 			entity_load_available.emit()
 			set_process(false)
+
+func _on_autoplay_toggled(toggle : bool):
+	autoplay = toggle
 
 func _on_turn_pass():
 	if !stage_initiated:

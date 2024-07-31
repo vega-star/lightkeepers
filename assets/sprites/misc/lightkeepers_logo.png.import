@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyrjtqa6fmfdv"
-path="res://.godot/imported/play_button.png-02f358e094243dcc47079cb2bcb844b2.ctex"
+uid="uid://cxku4cb1mx3pb"
+path="res://.godot/imported/lightkeepers_logo.png-8303e8b6fd2c59b72909f910edc5ea98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/play_button.png"
-dest_files=["res://.godot/imported/play_button.png-02f358e094243dcc47079cb2bcb844b2.ctex"]
+source_file="res://assets/sprites/misc/lightkeepers_logo.png"
+dest_files=["res://.godot/imported/lightkeepers_logo.png-8303e8b6fd2c59b72909f910edc5ea98.ctex"]
 
 [params]
 

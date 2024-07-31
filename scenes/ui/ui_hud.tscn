@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=28 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
@@ -10,9 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://cne0jbt34jcyq" path="res://assets/prototypes/play_button_patch.png" id="5_caru6"]
 [ext_resource type="Texture2D" uid="uid://b3l70bfuy0vfv" path="res://assets/prototypes/slot_fire.png" id="5_m8ogq"]
 [ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/theme/styleboxes/stylebox_base.png" id="5_sloql"]
-[ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/buildings/lamp.tscn" id="6_chx25"]
 [ext_resource type="Texture2D" uid="uid://cxrsxquitnl6o" path="res://assets/prototypes/slot_water.png" id="7_k6cer"]
+[ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/turrets/lamp.tscn" id="7_nkijl"]
 [ext_resource type="Texture2D" uid="uid://c8fgoka58nv7w" path="res://assets/prototypes/blue_label.png" id="8_28bjg"]
+[ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/turrets/cannon_tower.tscn" id="8_l8uqo"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
 [ext_resource type="Texture2D" uid="uid://c22keka5vgeln" path="res://assets/prototypes/slot_air.png" id="14_peyws"]
 [ext_resource type="PackedScene" uid="uid://boriu4du2rjyl" path="res://scenes/ui/rune_object.tscn" id="15_2n03c"]
@@ -173,10 +174,14 @@ columns = 2
 [node name="TowerButton" parent="Screen/ShopPanel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 object_type = "LIGHT"
-target_tower_scene = ExtResource("6_chx25")
+target_tower_scene = ExtResource("7_nkijl")
 
 [node name="TowerButton2" parent="Screen/ShopPanel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
+
+[node name="TowerButton3" parent="Screen/ShopPanel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+layout_mode = 2
+target_tower_scene = ExtResource("8_l8uqo")
 
 [node name="LifePanel" type="Panel" parent="Screen"]
 layout_mode = 1
@@ -444,6 +449,14 @@ texture_normal = ExtResource("17_y31f4")
 stretch_mode = 0
 script = ExtResource("3_h835t")
 
+[node name="AutoplayButton" type="CheckButton" parent="Screen/Controls/CornerPanel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 160.0
+offset_right = 49.0
+offset_bottom = 186.0
+tooltip_text = "AUTOPLAY"
+
 [node name="ScreenFrame" type="Panel" parent="Screen"]
 visible = false
 layout_mode = 1
@@ -457,3 +470,4 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
 
 [connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
 [connection signal="pressed" from="Screen/Controls/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="toggled" from="Screen/Controls/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]

@@ -9,6 +9,7 @@ const light_shape_scene = preload("res://components/light_shape.tscn")
 @export_group('Tower Properties')
 @export var base_projectile : PackedScene
 @export var tower_cost : int = 50
+@export var base_burst : int = 1
 @export var base_damage : int = 5
 @export var base_piercing : int = 1
 @export var base_tower_cooldown : float = 2
@@ -27,6 +28,8 @@ const light_shape_scene = preload("res://components/light_shape.tscn")
 @onready var tower_range_shape = $TowerRangeArea/TowerRangeShape
 @onready var cooldown_timer = $CooldownTimer
 @onready var target_reset_timer = $TargetResetTimer
+
+@export var prop : bool = false
 
 var cast_point : Vector2
 var nexus_position : Vector2
@@ -76,7 +79,7 @@ func _ready():
 	mouse_light = get_tree().get_first_node_in_group('mouse_light')
 	
 	piercing = base_piercing
-	tower_sprite.visible = false
+	if tower_gun_sprite.visible: tower_sprite.visible = false
 	
 	light_shape = light_shape_scene.instantiate()
 	light_shape.position = position
@@ -133,6 +136,7 @@ func _physics_process(delta):
 	if is_instance_valid(target): 
 		cast_point = target.global_position
 		tower_gun_sprite.look_at(cast_point)
+		if tower_sprite.visible: tower_sprite.look_at(cast_point)
 	tower_aim.force_raycast_update()
 	if tower_aim.is_colliding():
 		cooldown_timer.paused = false
@@ -143,7 +147,12 @@ func _physics_process(delta):
 		target_on_sight = false
 
 func _on_cooldown_timer_timeout():
-	$TowerGunSprite/PropProjectile.visible = false
+	for i in base_burst:
+		_fire()
+		await get_tree().create_timer(base_tower_cooldown / 2).timeout
+
+func _fire():
+	if prop: $TowerGunSprite/PropProjectile.visible = false
 	var projectile = base_projectile.instantiate()
 	projectile.position = tower_gun_muzzle.global_position
 	projectile.rotation_degrees = tower_gun_sprite.rotation_degrees
@@ -154,4 +163,4 @@ func _on_cooldown_timer_timeout():
 	tower_gun_sprite.play()
 	bullet_container.add_child(projectile)
 	await get_tree().create_timer(0.5).timeout
-	$TowerGunSprite/PropProjectile.visible = true
+	if prop: $TowerGunSprite/PropProjectile.visible = true

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyrjtqa6fmfdv"
-path="res://.godot/imported/play_button.png-02f358e094243dcc47079cb2bcb844b2.ctex"
+uid="uid://5ip5d0re285c"
+path="res://.godot/imported/cannon.png-606da5bb85b50284e847a538d9fc7571.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/play_button.png"
-dest_files=["res://.godot/imported/play_button.png-02f358e094243dcc47079cb2bcb844b2.ctex"]
+source_file="res://assets/sprites/turrets/cannon.png"
+dest_files=["res://.godot/imported/cannon.png-606da5bb85b50284e847a538d9fc7571.ctex"]
 
 [params]
 

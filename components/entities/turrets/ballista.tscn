@@ -1,32 +1,32 @@
 [gd_scene load_steps=13 format=3 uid="uid://cdqtftfr80iq"]
 
-[ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_ck6rn"]
-[ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_d6s6v"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_3mamr"]
-[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="4_g88o7"]
+[ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_nculw"]
+[ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_hw7jf"]
+[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_nstgh"]
+[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="4_v3usb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
-atlas = ExtResource("3_3mamr")
+atlas = ExtResource("3_nstgh")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3qe0"]
-atlas = ExtResource("3_3mamr")
+atlas = ExtResource("3_nstgh")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmkmr"]
-atlas = ExtResource("3_3mamr")
+atlas = ExtResource("3_nstgh")
 region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1bh70"]
-atlas = ExtResource("3_3mamr")
+atlas = ExtResource("3_nstgh")
 region = Rect2(0, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gj80s"]
-atlas = ExtResource("3_3mamr")
+atlas = ExtResource("3_nstgh")
 region = Rect2(0, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_52wpk"]
-atlas = ExtResource("3_3mamr")
+atlas = ExtResource("3_nstgh")
 region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yos0f"]
@@ -62,18 +62,19 @@ animations = [{
 radius = 160.0
 
 [node name="Ballista" type="Node2D"]
-script = ExtResource("1_ck6rn")
-base_projectile = ExtResource("2_d6s6v")
+script = ExtResource("1_nculw")
+base_projectile = ExtResource("2_hw7jf")
 base_piercing = 5
 base_light_range = 0.5
 base_tower_range = 2.0
 base_range_draw_color = Color(0.321569, 0.466667, 0.176471, 0.247059)
+prop = true
 metadata/_edit_horizontal_guides_ = [-8.0]
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, -16)
-texture = ExtResource("3_3mamr")
+texture = ExtResource("3_nstgh")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
@@ -90,7 +91,7 @@ flip_h = true
 
 [node name="PropProjectile" type="Sprite2D" parent="TowerGunSprite"]
 position = Vector2(10, 0)
-texture = ExtResource("4_g88o7")
+texture = ExtResource("4_v3usb")
 flip_h = true
 
 [node name="TowerGunMuzzle" type="Marker2D" parent="TowerGunSprite"]

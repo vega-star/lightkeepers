@@ -7,3 +7,5 @@
 /exports/linux/Lightkeepers.x86_64 filter=lfs diff=lfs merge=lfs -text
 /exports/web/lightkeepers.side.wasm filter=lfs diff=lfs merge=lfs -text
 /exports/windows/Lightkeepers.exe filter=lfs diff=lfs merge=lfs -text
+/exports/linux/Lightkeepers.pck filter=lfs diff=lfs merge=lfs -text
+/exports/web/lightkeepers.pck filter=lfs diff=lfs merge=lfs -text

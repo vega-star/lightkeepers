@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/theme/styleboxes/stylebox_base_1.png" id="1_h8s0y"]
 [ext_resource type="Script" path="res://scripts/ui/tower_button.gd" id="1_txhdy"]
-[ext_resource type="PackedScene" uid="uid://cdqtftfr80iq" path="res://components/entities/buildings/ballista.tscn" id="2_or3kv"]
+[ext_resource type="PackedScene" uid="uid://cdqtftfr80iq" path="res://components/entities/turrets/ballista.tscn" id="3_h43cm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1m1yf"]
 texture = ExtResource("1_h8s0y")
@@ -24,7 +24,7 @@ focus_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_1m1yf")
 script = ExtResource("1_txhdy")
-target_tower_scene = ExtResource("2_or3kv")
+target_tower_scene = ExtResource("3_h43cm")
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 position = Vector2(32, 32)
