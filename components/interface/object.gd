@@ -1,15 +1,22 @@
 class_name DraggableObject extends Node2D
 
+signal object_dragged
 signal object_picked
 signal source_quantity_change(previous_quantity : int, change : int)
 
 const HC_OFFSET = Vector2(64, 64)
+
+@export_flags(
+	'ELEMENT:1',
+	'ESSENCE:2'
+) var object_type : int = 0
 
 @export var container : Node
 @export var home_container : Container ## Return to this node position if something goes wrong or the screen which it was positioned gets closed
 @export var source_object : bool = false ## Instead of moving the object, creates another one
 
 @onready var object_collision = $ObjectCollision
+@onready var object_collision_area = $ObjectCollision/ObjectCollisionArea
 
 var offset : Vector2
 var initial_position : Vector2
@@ -28,8 +35,7 @@ var is_inside_dropable : bool = false
 var dropable_occupied : bool = false
 
 func _ready():
-	# object = self
-	pass
+	if !home_container: if owner is Container: home_container = owner
 
 func _process(delta):
 	if draggable:
@@ -61,7 +67,9 @@ func _process(delta):
 			object.initial_position = object.global_position
 			offset = get_global_mouse_position() - global_position
 		
-		if Input.is_action_just_pressed('alt'): _return_pos(true)
+		if Input.is_action_just_pressed('alt'):
+			UI.is_dragging = false
+			_return_pos(true)
 		
 		if Input.is_action_pressed('click'): # Drag
 			object.global_position = get_global_mouse_position() - offset
@@ -96,7 +104,9 @@ func _process(delta):
 			else:
 				_return_pos()
 			
-			draggable = false
+			# object_collision_area.set_disabled(true)
+			# object_collision_area.set_disabled(false)
+			# draggable = false
 
 func _return_pos(return_to_home : bool = false):
 	var tween = get_tree().create_tween()
@@ -118,16 +128,19 @@ func _on_object_collision_body_exited(body):
 		if body is Slot: body.hovered = false
 		is_inside_dropable = false
 
-func _on_object_collision_mouse_entered():
-	if !UI.is_dragging:
-		draggable = true
-		scale = Vector2(1.05, 1.05)
-	else: print('MOUSE DETECTED BUT DRAGGING IS DISABLED BY UI')
+func _on_object_collision_mouse_entered(): 
+	if !UI.is_dragging: _set_draggable(true)
+func _on_object_collision_mouse_exited(): 
+	if !UI.is_dragging: _set_draggable(false)
 
-func _on_object_collision_mouse_exited():
-	if !UI.is_dragging:
-		draggable = false
-		scale = Vector2(1, 1)
+func _set_draggable(drag : bool) -> void:
+	print('SET DRAG TO %s' % str(drag))
+	draggable = drag
+	match drag:
+		true:
+			scale = Vector2(1.05, 1.05)
+		false:
+			scale = Vector2(1, 1)
 
 func _on_source_quantity_change(previous_quantity, change):
 	source_quantity += change

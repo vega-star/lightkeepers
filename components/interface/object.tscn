@@ -9,8 +9,7 @@ radius = 48.0
 script = ExtResource("1_u5ai6")
 
 [node name="ObjectCollision" type="Area2D" parent="."]
-z_index = 25
-y_sort_enabled = true
+z_index = 5
 collision_layer = 129
 collision_mask = 129
 
@@ -22,3 +21,4 @@ shape = SubResource("CircleShape2D_7vtow")
 [connection signal="body_exited" from="ObjectCollision" to="." method="_on_object_collision_body_exited"]
 [connection signal="mouse_entered" from="ObjectCollision" to="." method="_on_object_collision_mouse_entered"]
 [connection signal="mouse_exited" from="ObjectCollision" to="." method="_on_object_collision_mouse_exited"]
+[connection signal="mouse_shape_entered" from="ObjectCollision" to="." method="_on_object_collision_mouse_shape_entered"]

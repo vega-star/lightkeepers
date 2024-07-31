@@ -6,7 +6,7 @@ signal slot_filled
 const DEFAULT_SLOT_SIZE : Vector2 = Vector2(48, 48)
 const SHAPE_RADIUS : float = 48
 
-@export_enum('PRIMARY:0', 'ESSENCE:1') var slot_type : int
+@export_enum('GENERIC:0','ELEMENT:1', 'ESSENCE:2') var slot_type : int = 0
 @export var is_output : bool = false
 
 @onready var color_rect = $ColorRect
@@ -31,7 +31,10 @@ func _drag_toggled(drag_status):
 	color_rect.set_visible(drag_status)
 
 func request_insert(object) -> bool:
-	if is_output: return false
+	if is_output or !visible: return false
+	
+	var object_type : int = object.object_type
+	print(object_type)
 	
 	if available:
 		object_in_slot = object
@@ -57,3 +60,8 @@ func _set_hover(is_hovering : bool):
 	
 	if is_hovering: modulate = Color(1.2, 1.2, 1.2)
 	else: modulate = Color.WHITE
+
+func _on_visibility_changed():
+	var visibility : bool = is_visible_in_tree()
+	if object_in_slot and !visibility:
+		object_in_slot._return_pos()

@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2i55ld4x0i83"]
+[gd_scene load_steps=5 format=3 uid="uid://c2i55ld4x0i83"]
 
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="1_dikgl"]
-[ext_resource type="Script" path="res://components/interface/event.gd" id="1_y5v5p"]
 [ext_resource type="Script" path="res://components/interface/event_fuse.gd" id="2_k3mig"]
 [ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_ulit7"]
 [ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://components/interface/object.tscn" id="4_tnlqi"]
@@ -9,11 +8,6 @@
 [node name="CanvasLayer" type="CanvasLayer"]
 
 [node name="StageCamera" parent="." instance=ExtResource("1_dikgl")]
-
-[node name="Node" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_y5v5p")
 
 [node name="Control" type="Control" parent="."]
 y_sort_enabled = true
@@ -23,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="TowerMenuPanel" type="Panel" parent="Control"]
 layout_mode = 1
@@ -30,7 +25,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 512.0
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="TopEssences" type="HBoxContainer" parent="Control/TowerMenuPanel"]
 layout_mode = 1
@@ -40,9 +35,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -182.0
-offset_top = -208.0
+offset_top = -432.0
 offset_right = 182.0
-offset_bottom = -112.0
+offset_bottom = -336.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16
@@ -70,9 +65,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -182.0
-offset_top = -112.0
+offset_top = -336.0
 offset_right = 182.0
-offset_bottom = -16.0
+offset_bottom = -240.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16
@@ -109,11 +104,13 @@ offset_left = 528.0
 offset_top = 144.0
 offset_right = 624.0
 offset_bottom = 240.0
+mouse_filter = 2
 use_top_left = true
 
 [node name="Object" parent="Control/TowerMenuPanel/ObjectSlot" node_paths=PackedStringArray("container") instance=ExtResource("4_tnlqi")]
-position = Vector2(48, 48)
+position = Vector2(48, -80)
 container = NodePath("../../..")
+source_object = true
 
 [node name="SourceSlot" type="CenterContainer" parent="Control/TowerMenuPanel"]
 custom_minimum_size = Vector2(96, 96)
@@ -126,7 +123,7 @@ use_top_left = true
 
 [node name="SourceObject" parent="Control/TowerMenuPanel/SourceSlot" node_paths=PackedStringArray("container") instance=ExtResource("4_tnlqi")]
 modulate = Color(0.399929, 0.278811, 9.62615e-08, 1)
-position = Vector2(48, 48)
+position = Vector2(176, -208)
 container = NodePath("../../..")
 source_object = true
 
@@ -134,13 +131,25 @@ source_object = true
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = 96.0
-offset_top = 176.0
-offset_right = 608.0
+offset_left = 512.0
+offset_top = 128.0
+offset_right = 1024.0
 offset_bottom = -208.0
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("2_k3mig")
+
+[node name="CloseEventButton" type="Button" parent="Control/FuseEvent"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+text = "X"
+flat = true
 
 [node name="BottomEssences" type="HBoxContainer" parent="Control/FuseEvent"]
 layout_mode = 1
@@ -199,3 +208,5 @@ use_top_left = true
 [node name="Output" parent="Control/FuseEvent/Slot3" instance=ExtResource("2_ulit7")]
 position = Vector2(48, 48)
 is_output = true
+
+[connection signal="pressed" from="Control/FuseEvent/CloseEventButton" to="Control/FuseEvent" method="_on_close_event_button_pressed"]

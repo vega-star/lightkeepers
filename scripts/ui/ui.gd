@@ -19,4 +19,4 @@ func update_coins(coins : int): coin_label.set_text('[center][img]res://assets/p
 func update_life(life : int): life_label.set_text(str(life))
 
 func _on_screen_mouse_exited():
-	print('mouse exited the ui')
+	pass

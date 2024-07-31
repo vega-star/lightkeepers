@@ -10,3 +10,15 @@ signal fuse_failed
 @onready var input_2 = $BottomEssences/Slot3/Input2
 @onready var output = $Slot3/Output
 
+const COMBINATIONS : Dictionary = {
+	"fire": {
+		"fire": "conflagration"
+	}
+}
+
+func _on_close_event_button_pressed():
+	print('close event pressed')
+	if enforced: return
+	
+	visible = false
+	call_deferred("queue_free")
