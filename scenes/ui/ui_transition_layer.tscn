@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0umly4sahrnr"]
+
+[ext_resource type="Script" path="res://scripts/ui_transition_layer.gd" id="1_ntq45"]
+[ext_resource type="Material" uid="uid://dg5qaehepdne4" path="res://assets/shaders/transition_shader.tres" id="2_wdt7s"]
+
+[sub_resource type="Animation" id="Animation_x68bt"]
+resource_name = "FADE"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenTransition/Shader:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScreenTransition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5tims"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenTransition/Shader:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScreenTransition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3fdoc"]
+_data = {
+"FADE": SubResource("Animation_x68bt"),
+"RESET": SubResource("Animation_5tims")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_mo51q"]
+
+[node name="TransitionLayer" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_ntq45")
+
+[node name="ScreenTransition" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FadeAnimation" type="AnimationPlayer" parent="ScreenTransition"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_3fdoc")
+}
+speed_scale = 1.5
+
+[node name="Shader" type="MeshInstance2D" parent="ScreenTransition"]
+material = ExtResource("2_wdt7s")
+position = Vector2(640, 360)
+scale = Vector2(1280, 720)
+mesh = SubResource("QuadMesh_mo51q")

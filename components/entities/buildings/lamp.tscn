@@ -27,11 +27,6 @@ func _load_properties():
 func _adapt_in_tile():
 	light_shape.position = position
 
-func _draw():
-	if visible_range: 
-		draw_circle(to_local(global_position), tower_range_shape.shape.radius, range_draw_color) ## Tower range
-		draw_circle(to_local(global_position), light_shape.shape.radius, light_draw_color) ## Light range
-
 func _physics_process(delta):
 	if visible_range: queue_redraw()
 

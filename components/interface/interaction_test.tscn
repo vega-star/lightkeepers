@@ -1,0 +1,201 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2i55ld4x0i83"]
+
+[ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="1_dikgl"]
+[ext_resource type="Script" path="res://components/interface/event.gd" id="1_y5v5p"]
+[ext_resource type="Script" path="res://components/interface/event_fuse.gd" id="2_k3mig"]
+[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_ulit7"]
+[ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://components/interface/object.tscn" id="4_tnlqi"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="StageCamera" parent="." instance=ExtResource("1_dikgl")]
+
+[node name="Node" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_y5v5p")
+
+[node name="Control" type="Control" parent="."]
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TowerMenuPanel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 512.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopEssences" type="HBoxContainer" parent="Control/TowerMenuPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -208.0
+offset_right = 182.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Slot4" type="CenterContainer" parent="Control/TowerMenuPanel/TopEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="SlotBody4" parent="Control/TowerMenuPanel/TopEssences/Slot4" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 32)
+
+[node name="Slot5" type="CenterContainer" parent="Control/TowerMenuPanel/TopEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="SlotBody5" parent="Control/TowerMenuPanel/TopEssences/Slot5" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 32)
+
+[node name="BottomEssences" type="HBoxContainer" parent="Control/TowerMenuPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -112.0
+offset_right = 182.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Slot" type="CenterContainer" parent="Control/TowerMenuPanel/BottomEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="SlotBody" parent="Control/TowerMenuPanel/BottomEssences/Slot" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 48)
+
+[node name="Slot2" type="CenterContainer" parent="Control/TowerMenuPanel/BottomEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="SlotBody2" parent="Control/TowerMenuPanel/BottomEssences/Slot2" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 48)
+
+[node name="Slot3" type="CenterContainer" parent="Control/TowerMenuPanel/BottomEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="SlotBody3" parent="Control/TowerMenuPanel/BottomEssences/Slot3" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 48)
+
+[node name="ObjectSlot" type="CenterContainer" parent="Control/TowerMenuPanel"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+offset_left = 528.0
+offset_top = 144.0
+offset_right = 624.0
+offset_bottom = 240.0
+use_top_left = true
+
+[node name="Object" parent="Control/TowerMenuPanel/ObjectSlot" node_paths=PackedStringArray("container") instance=ExtResource("4_tnlqi")]
+position = Vector2(48, 48)
+container = NodePath("../../..")
+
+[node name="SourceSlot" type="CenterContainer" parent="Control/TowerMenuPanel"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+offset_left = 528.0
+offset_top = 272.0
+offset_right = 624.0
+offset_bottom = 368.0
+use_top_left = true
+
+[node name="SourceObject" parent="Control/TowerMenuPanel/SourceSlot" node_paths=PackedStringArray("container") instance=ExtResource("4_tnlqi")]
+modulate = Color(0.399929, 0.278811, 9.62615e-08, 1)
+position = Vector2(48, 48)
+container = NodePath("../../..")
+source_object = true
+
+[node name="FuseEvent" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = 176.0
+offset_right = 608.0
+offset_bottom = -208.0
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_k3mig")
+
+[node name="BottomEssences" type="HBoxContainer" parent="Control/FuseEvent"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -256.0
+offset_right = 182.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Slot" type="CenterContainer" parent="Control/FuseEvent/BottomEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="Input1" parent="Control/FuseEvent/BottomEssences/Slot" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 48)
+
+[node name="Label" type="Label" parent="Control/FuseEvent/BottomEssences"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "+"
+horizontal_alignment = 1
+
+[node name="Slot3" type="CenterContainer" parent="Control/FuseEvent/BottomEssences"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="Input2" parent="Control/FuseEvent/BottomEssences/Slot3" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 48)
+
+[node name="Slot3" type="CenterContainer" parent="Control/FuseEvent"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -144.0
+offset_right = 48.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+use_top_left = true
+
+[node name="Output" parent="Control/FuseEvent/Slot3" instance=ExtResource("2_ulit7")]
+position = Vector2(48, 48)
+is_output = true

@@ -62,6 +62,8 @@ radius = 160.0
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_tq6vs")
 base_light_range = 0.5
+base_range_draw_color = Color(0, 0.845428, 0.776249, 1)
+base_light_draw_color = Color(0.863259, 0.3424, 0, 1)
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 visible = false

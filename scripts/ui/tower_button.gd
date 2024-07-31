@@ -4,7 +4,7 @@ class_name TowerButton extends Panel
 @export var reference_rect : ReferenceRect
 @export var target_tower_scene : PackedScene
 
-@onready var cost_label = $CostPanel/CostLabel
+@onready var cost_label = $CostLabel
 @onready var tower_sprite = $TowerSprite
 
 var stage : Node
@@ -41,6 +41,10 @@ func _on_gui_input(event):
 	elif event is InputEventMouseMotion and event.button_mask == 1: # Left mouse hold
 		if is_instance_valid(tower): tower.global_position = event.global_position
 		else: return
+		
+		if !stage: 
+			stage = get_tree().get_first_node_in_group('stage')
+			return
 		
 		var stage_query = stage.query_tile_insertion()
 		if !stage_query: tower.set_modulate(Color.BROWN) # Position invalid

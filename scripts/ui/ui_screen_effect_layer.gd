@@ -1,5 +1,12 @@
 extends CanvasLayer
 
+const effects_dict : Dictionary = {
+	'Tecnogarten' = {
+		'palette' = preload('res://assets/shaders/palette/technogarten-1x.png'),
+		'default_strength' = 0.6
+	}
+}
+
 @onready var effect_rect = $EffectRect
 
 @export_category('Graphic Effects')

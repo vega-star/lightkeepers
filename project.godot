@@ -13,13 +13,21 @@ config_version=5
 config/name="Lightkeepers"
 config/version="0.1.3"
 config/tags=PackedStringArray("jam")
-run/main_scene="res://scenes/stages/stagezero.tscn"
+run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://assets/prototypes/icon.svg"
+boot_splash/bg_color=Color(0.054902, 0.0392157, 0.180392, 1)
+boot_splash/show_image=false
+config/icon="res://assets/prototypes/lightkeepers_icon.png"
+
+[audio]
+
+buses/default_bus_layout=""
 
 [autoload]
 
 UI="*res://scenes/singletons/ui.tscn"
+LoadManager="*res://scenes/singletons/load_manager.tscn"
+AudioManager="*res://scenes/singletons/audio_manager.tscn"
 
 [display]
 
@@ -112,6 +120,7 @@ move_down={
 2d_physics/layer_5="Ally"
 2d_physics/layer_6="Ally Projectiles"
 2d_physics/layer_7="Enemy Alight"
+2d_physics/layer_8="UI"
 
 [rendering]
 

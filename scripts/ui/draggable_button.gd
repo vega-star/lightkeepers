@@ -1,1 +1,1 @@
-class_name RuneButton extends TextureButton
+extends Object

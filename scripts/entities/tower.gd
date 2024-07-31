@@ -34,6 +34,7 @@ var light_area : LightArea
 var bullet_container : Node2D
 var light_shape : LightShape
 
+var mouse_light
 var target : Object
 var eligible_targets : Array[Object]
 var tower_cooldown : float
@@ -72,6 +73,8 @@ func _ready():
 	nexus_position = get_tree().get_first_node_in_group('nexus').global_position
 	light_area = get_tree().get_first_node_in_group('light_area')
 	bullet_container = get_tree().get_first_node_in_group('projectile_container')
+	mouse_light = get_tree().get_first_node_in_group('mouse_light')
+	
 	piercing = base_piercing
 	tower_sprite.visible = false
 	
@@ -94,8 +97,8 @@ func _enemy_exited(body): eligible_targets.erase(body)
 
 func _draw():
 	if visible_range: 
-		draw_circle(to_local(global_position), tower_range_shape.shape.radius, range_draw_color) ## Tower range
-		draw_circle(to_local(global_position), light_shape.shape.radius, light_draw_color) ## Light range
+		draw_arc(to_local(global_position), light_shape.shape.radius, 0, TAU, 50, light_draw_color, 5)
+		draw_arc(to_local(global_position), tower_range_shape.shape.radius, 0, TAU, 50, range_draw_color, 5)
 
 func _seek_target():
 	var new_target : Object

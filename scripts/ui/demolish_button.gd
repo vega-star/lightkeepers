@@ -11,6 +11,8 @@ func _ready():
 	stage = get_tree().get_first_node_in_group('stage')
 
 func _on_gui_input(event):
+	if !stage: stage = get_tree().get_first_node_in_group('stage')
+	
 	if Input.is_action_pressed("alt") or Input.is_action_pressed("escape"):
 		if is_instance_valid(sprite):
 			sprite.queue_free()
@@ -26,10 +28,13 @@ func _on_gui_input(event):
 		if is_instance_valid(sprite): sprite.global_position = event.global_position
 		else: return
 		
+		if !is_instance_valid(stage): return
+		
 		var stage_query = stage.query_tile_insertion()
 		if !stage_query: sprite.set_modulate(Color.WHITE) # Position invalid
 		else: sprite.set_modulate(Color.DIM_GRAY) # Position valid
 	elif event is InputEventMouseButton and event.button_mask == 0 and valid: # Left mouse released
+		if !is_instance_valid(stage): return
 		var request = await stage.request_removal()
 		sprite.queue_free()
 		if !request: # Couldn't insert object because insertion failed

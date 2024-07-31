@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dabti1py4rn1a"]
+
+[ext_resource type="Script" path="res://components/interface/object.gd" id="1_u5ai6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
+radius = 48.0
+
+[node name="Object" type="Node2D"]
+script = ExtResource("1_u5ai6")
+
+[node name="ObjectCollision" type="Area2D" parent="."]
+z_index = 25
+y_sort_enabled = true
+collision_layer = 129
+collision_mask = 129
+
+[node name="ObjectCollisionArea" type="CollisionShape2D" parent="ObjectCollision"]
+shape = SubResource("CircleShape2D_7vtow")
+
+[connection signal="source_quantity_change" from="." to="." method="_on_source_quantity_change"]
+[connection signal="body_entered" from="ObjectCollision" to="." method="_on_object_collision_body_entered"]
+[connection signal="body_exited" from="ObjectCollision" to="." method="_on_object_collision_body_exited"]
+[connection signal="mouse_entered" from="ObjectCollision" to="." method="_on_object_collision_mouse_entered"]
+[connection signal="mouse_exited" from="ObjectCollision" to="." method="_on_object_collision_mouse_exited"]

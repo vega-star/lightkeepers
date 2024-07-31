@@ -7,7 +7,7 @@ extends PointLight2D
 const base_intensity : float = 1500
 const light_shape_scene = preload("res://components/light_shape.tscn")
 
-var nexus
+var nexus 
 var light_shape : LightShape
 var intensity : float = 1
 var change_intensity : bool = false

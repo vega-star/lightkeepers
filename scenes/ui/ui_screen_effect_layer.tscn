@@ -1,20 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://4u0tjvtopukg"]
+[gd_scene load_steps=5 format=3 uid="uid://4u0tjvtopukg"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_screen_effect_layer.gd" id="1_y3dkw"]
 [ext_resource type="Shader" path="res://assets/shaders/ohdude_palette.gdshader" id="2_qig4c"]
-[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/materials/lightkeepers_environment.tres" id="2_wwto4"]
-[ext_resource type="Texture2D" uid="uid://0fj5aihiauo7" path="res://assets/shaders/palette/technogarten-1x.png" id="3_aqvku"]
+[ext_resource type="Texture2D" uid="uid://p6pvh1xyi0p7" path="res://assets/shaders/palette/paper-8-1x.png" id="4_tjwtf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_78tvl"]
 shader = ExtResource("2_qig4c")
-shader_parameter/palette = ExtResource("3_aqvku")
+shader_parameter/palette = ExtResource("4_tjwtf")
 
 [node name="ScreenEffectLayer" type="CanvasLayer"]
 layer = 50
 script = ExtResource("1_y3dkw")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("2_wwto4")
 
 [node name="EffectRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_78tvl")
@@ -24,4 +20,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 1, 1, 0.694118)
+color = Color(1, 1, 1, 0.557)

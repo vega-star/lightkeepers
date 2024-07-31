@@ -96,7 +96,6 @@ func _on_path_ended():
 	die(nexus)
 
 func die(source):
-	print(source)
 	if !source == nexus: stage.stage_manager.change_coins(enemy_value, true)
 	died.emit(source)
 	queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=27 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
@@ -11,13 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://b3l70bfuy0vfv" path="res://assets/prototypes/slot_fire.png" id="5_m8ogq"]
 [ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/theme/styleboxes/stylebox_base.png" id="5_sloql"]
 [ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/buildings/lamp.tscn" id="6_chx25"]
-[ext_resource type="Texture2D" uid="uid://co20l02tloiky" path="res://assets/prototypes/play_button.png" id="6_wia60"]
 [ext_resource type="Texture2D" uid="uid://cxrsxquitnl6o" path="res://assets/prototypes/slot_water.png" id="7_k6cer"]
 [ext_resource type="Texture2D" uid="uid://c8fgoka58nv7w" path="res://assets/prototypes/blue_label.png" id="8_28bjg"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
-[ext_resource type="Texture2D" uid="uid://c22keka5vgeln" path="res://assets/prototypes/air.png" id="14_jwv46"]
+[ext_resource type="Texture2D" uid="uid://c22keka5vgeln" path="res://assets/prototypes/slot_air.png" id="14_peyws"]
+[ext_resource type="PackedScene" uid="uid://boriu4du2rjyl" path="res://scenes/ui/rune_object.tscn" id="15_2n03c"]
 [ext_resource type="Texture2D" uid="uid://bcce56w5be2ph" path="res://assets/prototypes/slot_earth.png" id="15_y78br"]
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
 [ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/styleboxes/stylebox_screen_frame.png" id="17_wrifp"]
+[ext_resource type="Texture2D" uid="uid://clkpgth2e4h7x" path="res://assets/prototypes/play_button_red.png" id="17_y31f4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n41go"]
 texture = ExtResource("3_iy0ie")
@@ -43,6 +45,11 @@ texture = ExtResource("5_caru6")
 texture_margin_left = 33.0
 texture_margin_top = 49.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5q6f8"]
+shader = ExtResource("17_nh1qq")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
 texture = ExtResource("17_wrifp")
 texture_margin_left = 3.0
@@ -66,6 +73,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_x8juj")
+
+[node name="ObjectContainer" type="Control" parent="Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="InfoBox" type="VBoxContainer" parent="Screen"]
 layout_mode = 1
@@ -118,7 +134,7 @@ offset_left = -256.0
 offset_top = 16.0
 offset_right = -192.0
 offset_bottom = 80.0
-grow_horizontal = 1
+grow_horizontal = 0
 grow_vertical = 1
 
 [node name="ShopPanel" type="Panel" parent="Screen"]
@@ -190,7 +206,25 @@ size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 26
 text = "100"
 
-[node name="HUD" type="Control" parent="Screen"]
+[node name="WaveCounter" type="Label" parent="Screen/LifePanel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -18.0
+offset_right = 166.0
+offset_bottom = 18.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "TURN 0/30"
+
+[node name="Controls" type="Control" parent="Screen"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -203,11 +237,12 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="RunesPatch" type="NinePatchRect" parent="Screen/HUD"]
+[node name="RunesPatch" type="NinePatchRect" parent="Screen/Controls"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 32.0
 offset_top = 48.0
 offset_right = -208.0
 grow_horizontal = 2
@@ -217,7 +252,78 @@ region_rect = Rect2(0, 0, 160, 120)
 patch_margin_left = 63
 patch_margin_right = 1
 
-[node name="Panel" type="Panel" parent="Screen/HUD"]
+[node name="RuneSlots" type="HBoxContainer" parent="Screen/Controls"]
+layout_mode = 2
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -688.0
+offset_top = -128.0
+offset_right = -224.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="FireContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="FireObject" parent="Screen/Controls/RuneSlots/FireContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+position = Vector2(64, 64)
+container = NodePath("../../../../ObjectContainer")
+home_container = NodePath("..")
+
+[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/FireContainer/FireObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("5_m8ogq")
+
+[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="WaterObject" parent="Screen/Controls/RuneSlots/WaterContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+position = Vector2(64, 64)
+container = NodePath("../../../../ObjectContainer")
+home_container = NodePath("..")
+
+[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/WaterContainer/WaterObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("7_k6cer")
+
+[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="AirObject" parent="Screen/Controls/RuneSlots/AirContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+position = Vector2(64, 64)
+container = NodePath("../../../../ObjectContainer")
+home_container = NodePath("..")
+
+[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/AirContainer/AirObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("14_peyws")
+
+[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EarthObject" parent="Screen/Controls/RuneSlots/EarthContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+position = Vector2(64, 64)
+container = NodePath("../../../../ObjectContainer")
+home_container = NodePath("..")
+
+[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/EarthContainer/EarthObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("15_y78br")
+
+[node name="CornerPanel" type="Panel" parent="Screen/Controls"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -230,53 +336,8 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_nn0rs")
 
-[node name="RuneSlots" type="HBoxContainer" parent="Screen/HUD"]
-layout_mode = 2
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -688.0
-offset_top = -128.0
-offset_right = -224.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-alignment = 1
-
-[node name="FireContainer" type="CenterContainer" parent="Screen/HUD/RuneSlots"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/HUD/RuneSlots/FireContainer"]
-layout_mode = 2
-texture_normal = ExtResource("5_m8ogq")
-script = ExtResource("3_h835t")
-
-[node name="WaterContainer" type="CenterContainer" parent="Screen/HUD/RuneSlots"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/HUD/RuneSlots/WaterContainer"]
-layout_mode = 2
-texture_normal = ExtResource("7_k6cer")
-script = ExtResource("3_h835t")
-
-[node name="AirContainer" type="CenterContainer" parent="Screen/HUD/RuneSlots"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/HUD/RuneSlots/AirContainer"]
-layout_mode = 2
-texture_normal = ExtResource("14_jwv46")
-script = ExtResource("3_h835t")
-
-[node name="EarthContainer" type="CenterContainer" parent="Screen/HUD/RuneSlots"]
-layout_mode = 2
-
-[node name="RuneButton" type="TextureButton" parent="Screen/HUD/RuneSlots/EarthContainer"]
-layout_mode = 2
-texture_normal = ExtResource("15_y78br")
-script = ExtResource("3_h835t")
-
-[node name="PlayButton" type="TextureButton" parent="Screen/HUD"]
+[node name="PlayButton" type="TextureButton" parent="Screen/Controls/CornerPanel"]
+material = SubResource("ShaderMaterial_5q6f8")
 layout_mode = 2
 anchor_left = 1.0
 anchor_top = 1.0
@@ -286,7 +347,7 @@ offset_left = -176.0
 offset_top = -176.0
 offset_right = -16.0
 offset_bottom = -16.0
-texture_normal = ExtResource("6_wia60")
+texture_normal = ExtResource("17_y31f4")
 stretch_mode = 0
 script = ExtResource("3_h835t")
 
@@ -301,4 +362,5 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
 
-[connection signal="pressed" from="Screen/HUD/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
+[connection signal="pressed" from="Screen/Controls/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]

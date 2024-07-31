@@ -17,7 +17,8 @@ extends Node2D
 
 const SELECTION_TILE : Vector2i = Vector2i(0,4)
 const TILE : Dictionary = {
-	'DEFAULT' = Vector2i(8,0),
+	'DEFAULT' = Vector2i(7,0),
+	'BLOCKED' = Vector2i(0,3),
 	'SELECT' = Vector2i(0,4),
 	'TARGET' = Vector2i(2,3)
 }
@@ -35,6 +36,8 @@ var previous_queried_cell : Vector2i
 
 func _ready():
 	if !modulate_layer.visible: modulate_layer.visible = true
+	
+	UI.start_stage()
 
 func _process(delta):
 	if check_coordinate:
@@ -76,13 +79,13 @@ func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool:
 		previous_queried_cell = tile_position
 	
 	var object_query = query_tile(Layer.OBJECT_LAYER, tile_position)
-	var tile_query = query_tile(Layer.GROUND_LAYER, tile_position)
+	var tile_query = query_tile(Layer.GROUND_LAYER, tile_position, 1)
 	var foreground_query = query_tile(Layer.FOREGROUND_LAYER, tile_position)
 	
 	if (object_query is Dictionary): return false # Returns negatively if an object is already placed there
 	elif (foreground_query is Dictionary): return false # Returns negatively if there's foreground tiles above it
-	elif (tile_query is Dictionary): # Ground can be detected everywhere but we need to know if it's placeable
-		if (!tile_query['placeable']): return false # Returns negatively if tile is not placeable
+	elif (tile_query is bool): # Ground can be detected everywhere but we need to know if it's placeable
+		if (!tile_query): return false # Returns negatively if tile is not placeable
 		else: return true # Returns positively
 	else: return false # Returns negatively, for a placeable tile in ground layer wasn't found
 
