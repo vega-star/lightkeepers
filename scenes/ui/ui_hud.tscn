@@ -237,7 +237,8 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Essences Patch" type="NinePatchRect" parent="Screen/Controls"]
+[node name="EssencesPatch" type="NinePatchRect" parent="Screen/Controls"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.702
@@ -253,7 +254,7 @@ region_rect = Rect2(0, 0, 160, 120)
 patch_margin_left = 63
 patch_margin_right = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Screen/Controls/Essences Patch"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Screen/Controls/EssencesPatch"]
 clip_contents = false
 layout_mode = 1
 anchors_preset = 15
@@ -264,72 +265,73 @@ offset_right = -656.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RuneSlots" type="HBoxContainer" parent="Screen/Controls/Essences Patch/ScrollContainer"]
+[node name="RuneSlots" type="HBoxContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_constants/separation = 16
 
-[node name="ReferenceRect" type="ReferenceRect" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots"]
+[node name="ReferenceRect" type="ReferenceRect" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots"]
 layout_mode = 2
 
-[node name="EssenceSlot" type="CenterContainer" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots"]
+[node name="EssenceSlot" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="FireObject" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/EssenceSlot" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
+[node name="FireObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/EssenceSlot" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
 z_index = 25
 z_as_relative = false
 position = Vector2(48, 47)
 container = NodePath("../../../../../../ObjectContainer")
 
-[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/EssenceSlot/FireObject"]
+[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/EssenceSlot/FireObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("5_m8ogq")
 
-[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots"]
+[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="WaterObject" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/WaterContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
+[node name="WaterObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/WaterContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
 z_index = 25
 z_as_relative = false
 position = Vector2(48, 48)
 container = NodePath("../../../../../../ObjectContainer")
 
-[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/WaterContainer/WaterObject"]
+[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/WaterContainer/WaterObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("7_k6cer")
 
-[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots"]
+[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="AirObject" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/AirContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
+[node name="AirObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/AirContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
 position = Vector2(48, 48)
 container = NodePath("../../../../../../ObjectContainer")
 
-[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/AirContainer/AirObject"]
+[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/AirContainer/AirObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("14_peyws")
 
-[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots"]
+[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="EarthObject" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/EarthContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
+[node name="EarthObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/EarthContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
 position = Vector2(48, 48)
 container = NodePath("../../../../../../ObjectContainer")
 
-[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/Essences Patch/ScrollContainer/RuneSlots/EarthContainer/EarthObject"]
+[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/RuneSlots/EarthContainer/EarthObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("15_y78br")
 
 [node name="RunesPatch" type="NinePatchRect" parent="Screen/Controls"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -344,72 +346,72 @@ region_rect = Rect2(0, 0, 160, 120)
 patch_margin_left = 63
 patch_margin_right = 1
 
-[node name="RuneSlots" type="HBoxContainer" parent="Screen/Controls"]
+[node name="RuneSlots" type="HBoxContainer" parent="Screen/Controls/RunesPatch"]
 layout_mode = 2
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -688.0
+offset_left = -480.0
 offset_top = -128.0
-offset_right = -224.0
+offset_right = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="FireContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+[node name="FireContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="FireObject" parent="Screen/Controls/RuneSlots/FireContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+[node name="FireObject" parent="Screen/Controls/RunesPatch/RuneSlots/FireContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
 position = Vector2(64, 64)
-container = NodePath("../../../../ObjectContainer")
+container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
 
-[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/FireContainer/FireObject"]
+[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/FireContainer/FireObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("5_m8ogq")
 
-[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="WaterObject" parent="Screen/Controls/RuneSlots/WaterContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+[node name="WaterObject" parent="Screen/Controls/RunesPatch/RuneSlots/WaterContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
 position = Vector2(64, 64)
-container = NodePath("../../../../ObjectContainer")
+container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
 
-[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/WaterContainer/WaterObject"]
+[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/WaterContainer/WaterObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("7_k6cer")
 
-[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="AirObject" parent="Screen/Controls/RuneSlots/AirContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+[node name="AirObject" parent="Screen/Controls/RunesPatch/RuneSlots/AirContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
 position = Vector2(64, 64)
-container = NodePath("../../../../ObjectContainer")
+container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
 
-[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/AirContainer/AirObject"]
+[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/AirContainer/AirObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("14_peyws")
 
-[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/RuneSlots"]
+[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="EarthObject" parent="Screen/Controls/RuneSlots/EarthContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
+[node name="EarthObject" parent="Screen/Controls/RunesPatch/RuneSlots/EarthContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
 position = Vector2(64, 64)
-container = NodePath("../../../../ObjectContainer")
+container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
 
-[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/RuneSlots/EarthContainer/EarthObject"]
+[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/EarthContainer/EarthObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("15_y78br")

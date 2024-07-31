@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dymi4cprjo821"]
+[gd_scene load_steps=4 format=3 uid="uid://dymi4cprjo821"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_4rx2m"]
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_i2qnv"]
+[ext_resource type="PackedScene" uid="uid://c1exo4vhhmcgf" path="res://scenes/ui/pages/central_page.tscn" id="2_us0w7"]
+[ext_resource type="PackedScene" uid="uid://de52ovyt5s046" path="res://scenes/ui/pages/stage_selection.tscn" id="3_pmb1n"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,21 +11,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4rx2m")
+script = ExtResource("1_i2qnv")
+menu_songs = Array[String](["Transcendence SL2024-06-26"])
 
-[node name="Button" type="Button" parent="."]
+[node name="MenuPages" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -123.5
-offset_top = -16.5
-offset_right = 123.5
-offset_bottom = 16.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "START"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="CentralPage" parent="MenuPages" instance=ExtResource("2_us0w7")]
+layout_mode = 1
+
+[node name="StageSelection" parent="MenuPages" instance=ExtResource("3_pmb1n")]
+layout_mode = 1
+offset_left = 1280.0
+offset_right = 1280.0
+hide_when_initiated = true

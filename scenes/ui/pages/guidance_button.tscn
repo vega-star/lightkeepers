@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt42xu4vm08n"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bfe6u"]
+size = Vector2(128, 128)
+
+[node name="GuidanceButton" type="TextureButton"]
+custom_minimum_size = Vector2(128, 128)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -64.0
+offset_right = 160.0
+offset_bottom = 64.0
+grow_vertical = 2
+texture_normal = SubResource("PlaceholderTexture2D_bfe6u")

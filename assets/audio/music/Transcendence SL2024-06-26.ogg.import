@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://6ca26em1d1sd"
+path="res://.godot/imported/Transcendence SL2024-06-26.ogg-3f9b6602870eea58dd80e89bde2d30c2.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Transcendence SL2024-06-26.ogg"
+dest_files=["res://.godot/imported/Transcendence SL2024-06-26.ogg-3f9b6602870eea58dd80e89bde2d30c2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

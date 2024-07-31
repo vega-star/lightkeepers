@@ -74,11 +74,13 @@ func set_pause(value):
 	music_player.stream_paused = value
 
 func set_music(music_id, fade_if_active : bool = true, random : bool = false, stage_songs : Array = []):
+	randomized_songs_array = stage_songs
+	
 	if random:
 		randomize()
 		randomized_songs = true
 		randomized_songs_array = stage_songs
-		music_id = randi_range(0, randomized_songs_array.size() - 1)
+		music_id = randomized_songs_array[randi_range(0, randomized_songs_array.size() - 1)]
 	else: randomized_songs = false
 	
 	if music_player.playing and fade_if_active:
@@ -89,6 +91,20 @@ func set_music(music_id, fade_if_active : bool = true, random : bool = false, st
 	music_player.stream = music_list[music_id]
 	music_player.volume_db = 0
 	music_player.play()
+
+func play_music(
+	music_array : Array,
+	music_id : int = 0,
+	fade : bool = true,
+	random : bool = false
+	):
+		if random: music_id = randi_range(0, music_array.size() - 1)
+		var selected_music = music_array[music_id]
+		AudioManager.set_music(selected_music, fade, random, music_array)
+
+func emit_random_sound_effect(position : Vector2, r_sfx_array : Array, interrupt : bool = false):
+	var effect_id = r_sfx_array[randi_range(0, r_sfx_array.size() - 1)]
+	emit_sound_effect(position, effect_id, interrupt)
 
 func emit_sound_effect(position, effect_id, interrupt : bool = false):
 	var ephemeral : bool = false

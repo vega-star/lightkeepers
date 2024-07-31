@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8ofyl47121r8"]
+
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_mwrks"]
+[ext_resource type="Script" path="res://scenes/ui/ui_button.gd" id="2_dcrhv"]
+
+[node name="UIButton" type="Button"]
+size_flags_vertical = 4
+theme = ExtResource("1_mwrks")
+theme_override_font_sizes/font_size = 32
+text = "
+"
+script = ExtResource("2_dcrhv")
+sound_when_pressed = "big_distant_thump"
+sound_when_focus = "big_distant_thump"
+sound_when_hovered = "big_distant_thump"
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

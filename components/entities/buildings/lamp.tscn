@@ -38,7 +38,7 @@ radius = 160.0
 
 [node name="Lamp" type="Node2D"]
 script = SubResource("GDScript_yjc15")
-tower_cost = 25
+tower_cost = 100
 base_light_range = 2.0
 base_tower_range = 0.0
 

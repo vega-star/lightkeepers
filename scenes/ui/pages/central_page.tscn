@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1exo4vhhmcgf"]
+
+[ext_resource type="Script" path="res://scenes/ui/ui_central_page.gd" id="1_7wa31"]
+[ext_resource type="PackedScene" uid="uid://b8ofyl47121r8" path="res://scenes/ui/ui_button.tscn" id="2_c5orx"]
+
+[node name="CentralPage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7wa31")
+hide_when_initiated = null
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -193.5
+offset_top = -360.0
+offset_right = 193.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="LoadButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+visible = false
+layout_mode = 2
+text = "LOAD"
+
+[node name="StartButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+layout_mode = 2
+text = "START"
+
+[node name="SettingsButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="QuitButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]

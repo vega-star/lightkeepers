@@ -2,13 +2,20 @@ class_name Projectile extends Node2D
 
 const fade_timer : float = 2
 
+@export_group('Projectile Properties')
 @export_enum('STRAIGHT', 'SEEKING') var projectile_type : String = 'STRAIGHT' ## Affects processes and movement
 @export var base_lifetime : float = 3
 @export var base_speed : int = 600
 @export var base_piercing : int = 1
 @export var base_damage : int = 5
 @export var base_seeking_weight : float = 0.5
-@export var disappear_outside_screen : bool = false
+
+@export_group('Cosmetic Properties')
+@export var sfx_when_launched : Array[String]
+@export var sfx_when_hit : Array[String]
+@export var sfx_when_broken : Array[String]
+
+@onready var projectile_sound = $ProjectileSound
 
 var source : Tower
 var target : Object
@@ -28,8 +35,10 @@ func _ready():
 
 func _activate():
 	$CPUParticles2D.emitting = true
+	AudioManager.emit_random_sound_effect(global_position, sfx_when_launched)
+	
 	await get_tree().create_timer(lifetime).timeout
-	queue_free()
+	_break()
 
 func _physics_process(delta):
 	match projectile_type:
@@ -46,9 +55,10 @@ func _on_body_entered(body):
 	if body is Enemy:
 		body.health_component.change(damage, true, source)
 		piercing_count -= 1
-	if piercing_count == 0: queue_free()
+		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
+	if piercing_count == 0: 
+		_break()
 
-func _on_screen_exited():
-	if disappear_outside_screen: 
-		await get_tree().create_timer(fade_timer).timeout
-		queue_free()
+func _break():
+	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)
+	queue_free()

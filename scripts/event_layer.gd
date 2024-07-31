@@ -2,7 +2,7 @@ extends CanvasLayer
 
 signal confirmation(value : bool)
 
-@onready var confirmation_dialog = $Control/ConfirmationDialog
+@onready var confirmation_dialog = $ConfirmationDialog
 
 func _ready():
 	confirmation_dialog.canceled.connect(_on_confirmation_canceled)

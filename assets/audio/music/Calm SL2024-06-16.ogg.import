@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://3uy5mokdujtt"
+path="res://.godot/imported/Calm SL2024-06-16.ogg-a4fe1d326145c3933092328753cd1d4d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Calm SL2024-06-16.ogg"
+dest_files=["res://.godot/imported/Calm SL2024-06-16.ogg-a4fe1d326145c3933092328753cd1d4d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

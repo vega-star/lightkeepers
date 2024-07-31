@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://blqy8mvo8s6l8"
+path="res://.godot/imported/stab 1.wav-b3d60f8c91b65c2ea77c842a3bf9dc13.sample"
+
+[deps]
+
+source_file="res://assets/audio/effects/stab 1.wav"
+dest_files=["res://.godot/imported/stab 1.wav-b3d60f8c91b65c2ea77c842a3bf9dc13.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

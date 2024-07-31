@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="Control"]
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "REMOVE {0}"
 initial_position = 1
 size = Vector2i(389, 100)

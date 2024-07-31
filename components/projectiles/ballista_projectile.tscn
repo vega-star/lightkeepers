@@ -1,27 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpomm15ssv0np"]
+[gd_scene load_steps=4 format=3 uid="uid://bpomm15ssv0np"]
 
 [ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_3xlou"]
 [ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="2_xvxdk"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_b2w0k"]
-radius = 3.0
 
 [sub_resource type="Curve" id="Curve_8pbtj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="BallistaProjectile" instance=ExtResource("1_3xlou")]
-
-[node name="RigidBody2D" type="RigidBody2D" parent="." index="0"]
-collision_layer = 32
-collision_mask = 4
-gravity_scale = 0.0
-
-[node name="CollisionShape" type="CollisionShape2D" parent="RigidBody2D" index="0"]
-position = Vector2(22, 0)
-rotation = -1.5708
-shape = SubResource("CircleShape2D_b2w0k")
-debug_color = Color(0.984679, 0, 0.341234, 0.42)
+base_piercing = 2
 
 [node name="CPUParticles2D" parent="." index="1"]
 emitting = true
@@ -36,4 +23,4 @@ texture = ExtResource("2_xvxdk")
 flip_h = true
 
 [node name="CollisionShape2D" parent="." index="4"]
-position = Vector2(20, 0)
+position = Vector2(13, 0)

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bxflfm2mj1fiw"
+path="res://.godot/imported/First Stage SL2024-05-08.ogg-857620073be4be0671ef5bb13a00fea7.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/First Stage SL2024-05-08.ogg"
+dest_files=["res://.godot/imported/First Stage SL2024-05-08.ogg-857620073be4be0671ef5bb13a00fea7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

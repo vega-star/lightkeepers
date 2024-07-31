@@ -5,6 +5,8 @@ class_name StageManager extends Node
 
 signal stage_won
 signal stage_lost
+signal turn_passed(previous_turn, next_turn_metadata)
+
 signal wave_initiated
 signal wave_completed
 signal health_updated()
@@ -16,9 +18,9 @@ const base_nexus_health : int = 100
 @export var initial_coins : int = 150
 @export var max_turns : int = 30
 
+var coins : int
 var nexus : Node
 var nexus_health : int = base_nexus_health
-var coins : int
 
 func _ready():
 	randomize()

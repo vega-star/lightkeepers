@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://de52ovyt5s046"]
+
+[ext_resource type="Script" path="res://scenes/ui/pages/ui_stage_selection.gd" id="1_4ms2o"]
+[ext_resource type="Script" path="res://scenes/ui/ui_stage_button.gd" id="2_46b77"]
+[ext_resource type="PackedScene" uid="uid://bt42xu4vm08n" path="res://scenes/ui/pages/guidance_button.tscn" id="2_cnkw1"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bfe6u"]
+size = Vector2(128, 128)
+
+[node name="StageSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ms2o")
+
+[node name="ReturnButton" parent="." instance=ExtResource("2_cnkw1")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -144.0
+offset_right = 144.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 206.0
+offset_top = 110.0
+offset_right = -189.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 24
+columns = 5
+
+[node name="TextureButton" type="TextureButton" parent="GridContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
+script = ExtResource("2_46b77")
+stage_path = "res://scenes/stages/first_stage.tscn"
+
+[node name="TextureButton2" type="TextureButton" parent="GridContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
+script = ExtResource("2_46b77")
+stage_path = "res://scenes/stages/first_stage.tscn"
+
+[node name="TextureButton3" type="TextureButton" parent="GridContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
+script = ExtResource("2_46b77")
+stage_path = "res://scenes/stages/first_stage.tscn"
+
+[node name="TextureButton4" type="TextureButton" parent="GridContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
+script = ExtResource("2_46b77")
+stage_path = "res://scenes/stages/first_stage.tscn"
+
+[node name="TextureButton5" type="TextureButton" parent="GridContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture_normal = SubResource("PlaceholderTexture2D_bfe6u")
+script = ExtResource("2_46b77")
+stage_path = "res://scenes/stages/first_stage.tscn"
+
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

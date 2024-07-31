@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://44yeg717g8rl"
+path="res://.godot/imported/Deserty SL2024-06-19.ogg-b540e4c9e8be71a865d403ae6b3949f3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Deserty SL2024-06-19.ogg"
+dest_files=["res://.godot/imported/Deserty SL2024-06-19.ogg-b540e4c9e8be71a865d403ae6b3949f3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

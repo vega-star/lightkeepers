@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=3 uid="uid://xrcvxw3gl6si"]
+
+[ext_resource type="Script" path="res://scripts/ui/event_fuse.gd" id="1_dh21w"]
+[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_k2jnm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_as80f"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qottb"]
+size = Vector2(96, 96)
+
+[node name="FuseEvent" type="Panel"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 512.0
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = -208.0
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_as80f")
+script = ExtResource("1_dh21w")
+
+[node name="EventBG" type="Panel" parent="."]
+z_index = -200
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputSlots" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -256.0
+offset_right = 182.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="InputSlot1" type="CenterContainer" parent="InputSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="Input1" parent="InputSlots/InputSlot1" instance=ExtResource("2_k2jnm")]
+position = Vector2(48, 48)
+slot_type = 1
+
+[node name="PlusSign" type="Label" parent="InputSlots"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "+"
+horizontal_alignment = 1
+
+[node name="InputSlot2" type="CenterContainer" parent="InputSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+use_top_left = true
+
+[node name="Input2" parent="InputSlots/InputSlot2" instance=ExtResource("2_k2jnm")]
+position = Vector2(48, 48)
+slot_type = 1
+
+[node name="OutputSlot" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -144.0
+offset_right = 48.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+use_top_left = true
+
+[node name="Output" parent="OutputSlot" instance=ExtResource("2_k2jnm")]
+position = Vector2(48, 48)
+is_output = true
+
+[node name="CloseEventButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+text = "X"
+flat = true
+
+[node name="ConfirmButton" type="TextureButton" parent="."]
+visible = false
+z_index = 50
+layout_mode = 0
+offset_left = 208.0
+offset_top = 240.0
+offset_right = 304.0
+offset_bottom = 336.0
+texture_normal = SubResource("PlaceholderTexture2D_qottb")
+
+[connection signal="pressed" from="CloseEventButton" to="." method="_on_close_event_button_pressed"]
+[connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]

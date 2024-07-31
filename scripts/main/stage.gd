@@ -15,6 +15,8 @@ extends Node2D
 @onready var stage_manager = $StageManager
 @onready var stage_path = $StagePath
 
+@export var stage_songs : Array[String] = []
+
 const SELECTION_TILE : Vector2i = Vector2i(0,4)
 const TILE : Dictionary = {
 	'DEFAULT' = Vector2i(7,0),
@@ -36,7 +38,7 @@ var previous_queried_cell : Vector2i
 
 func _ready():
 	if !modulate_layer.visible: modulate_layer.visible = true
-	
+	AudioManager.play_music(stage_songs, 0, false, true)
 	UI.start_stage()
 
 func _process(delta):

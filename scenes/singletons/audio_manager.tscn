@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://3tqx0f4g7hlj"]
+[gd_scene load_steps=3 format=3 uid="uid://3tqx0f4g7hlj"]
 
 [ext_resource type="Script" path="res://scripts/main/audio_server.gd" id="1_hdnxs"]
+[ext_resource type="AudioStream" uid="uid://df4husm5s0w62" path="res://assets/audio/effects/big_distant_thump.wav" id="2_aqpw4"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
@@ -8,6 +9,7 @@ script = ExtResource("1_hdnxs")
 debug = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_aqpw4")
 bus = &"Music"
 
 [node name="GlobalEffectPlayer" type="AudioStreamPlayer" parent="."]

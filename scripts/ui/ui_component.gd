@@ -22,9 +22,8 @@ var pause_state : bool: set = set_pause
 func _ready():
 	if debug: get_viewport().gui_focus_changed.connect(_on_focus_changed)
 
-func _on_focus_changed(control : Control) -> void:
-	if control != null:
-		print(control.name)
+func _on_focus_changed(control : Control):
+	print(control.name)
 
 func set_pause(state : bool):
 	pause_state = state

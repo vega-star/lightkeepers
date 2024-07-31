@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdkcd23fl4s0a"]
 
-[ext_resource type="Script" path="res://components/interface/slot.gd" id="1_8j22q"]
+[ext_resource type="Script" path="res://scripts/ui/slot.gd" id="1_8j22q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cagpj"]
 radius = 48.0
@@ -24,4 +24,6 @@ offset_top = -21.0
 offset_right = 21.0
 offset_bottom = 21.0
 
+[connection signal="slot_emptied" from="." to="." method="_on_slot_emptied"]
+[connection signal="slot_filled" from="." to="." method="_on_slot_filled"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

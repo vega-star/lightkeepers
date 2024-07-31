@@ -7,11 +7,12 @@ const fade_time : float = 2.5
 @export var skip_intro_on_debug : bool = false
 
 func _ready():
+	if UI.HUD.visible: UI.HUD.visible = false
+	
 	if OS.is_debug_build() and skip_intro_on_debug: # Skip intro when debug
 		get_tree().change_scene_to_packed(main_menu)
 		return
 	
-	UI.HUD.visible = false
 	UI.fade('IN')
 	$IntroAnimation.play('LOGO_FADE_IN')
 	await get_tree().create_timer(intro_timer).timeout

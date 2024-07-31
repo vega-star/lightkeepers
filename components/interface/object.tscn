@@ -1,11 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dabti1py4rn1a"]
 
-[ext_resource type="Script" path="res://components/interface/object.gd" id="1_u5ai6"]
+[ext_resource type="Script" path="res://scripts/ui/object.gd" id="1_u5ai6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
 radius = 48.0
 
 [node name="Object" type="Node2D"]
+z_index = 50
 script = ExtResource("1_u5ai6")
 
 [node name="ObjectCollision" type="Area2D" parent="."]

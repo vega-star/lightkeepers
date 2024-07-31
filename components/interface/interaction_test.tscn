@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2i55ld4x0i83"]
+[gd_scene load_steps=4 format=3 uid="uid://c2i55ld4x0i83"]
 
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="1_dikgl"]
-[ext_resource type="Script" path="res://components/interface/event_fuse.gd" id="2_k3mig"]
 [ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_ulit7"]
 [ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://components/interface/object.tscn" id="4_tnlqi"]
 
@@ -126,87 +125,3 @@ modulate = Color(0.399929, 0.278811, 9.62615e-08, 1)
 position = Vector2(176, -208)
 container = NodePath("../../..")
 source_object = true
-
-[node name="FuseEvent" type="Panel" parent="Control"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 512.0
-offset_top = 128.0
-offset_right = 1024.0
-offset_bottom = -208.0
-grow_vertical = 2
-mouse_filter = 1
-script = ExtResource("2_k3mig")
-
-[node name="CloseEventButton" type="Button" parent="Control/FuseEvent"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -32.0
-offset_bottom = 32.0
-grow_horizontal = 0
-mouse_default_cursor_shape = 2
-text = "X"
-flat = true
-
-[node name="BottomEssences" type="HBoxContainer" parent="Control/FuseEvent"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -182.0
-offset_top = -256.0
-offset_right = 182.0
-offset_bottom = -160.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="Slot" type="CenterContainer" parent="Control/FuseEvent/BottomEssences"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-use_top_left = true
-
-[node name="Input1" parent="Control/FuseEvent/BottomEssences/Slot" instance=ExtResource("2_ulit7")]
-position = Vector2(48, 48)
-
-[node name="Label" type="Label" parent="Control/FuseEvent/BottomEssences"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "+"
-horizontal_alignment = 1
-
-[node name="Slot3" type="CenterContainer" parent="Control/FuseEvent/BottomEssences"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-use_top_left = true
-
-[node name="Input2" parent="Control/FuseEvent/BottomEssences/Slot3" instance=ExtResource("2_ulit7")]
-position = Vector2(48, 48)
-
-[node name="Slot3" type="CenterContainer" parent="Control/FuseEvent"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -144.0
-offset_right = 48.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 0
-use_top_left = true
-
-[node name="Output" parent="Control/FuseEvent/Slot3" instance=ExtResource("2_ulit7")]
-position = Vector2(48, 48)
-is_output = true
-
-[connection signal="pressed" from="Control/FuseEvent/CloseEventButton" to="Control/FuseEvent" method="_on_close_event_button_pressed"]
