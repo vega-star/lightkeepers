@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 func _ready():
 	if visible: visible = false
 
@@ -12,6 +11,7 @@ func unpause():
 	UI.set_pause(false)
 	hide()
 
-func _input(_event):
+func _unhandled_input(_event):
+	if UI.pause_locked: return
 	if Input.is_action_just_pressed("pause") and !UI.pause_state: pause()
 	elif Input.is_action_just_pressed("pause") and UI.pause_state: unpause()

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://de52ovyt5s046" path="res://scenes/ui/pages/stage_selection.tscn" id="3_pmb1n"]
 
 [node name="MainMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

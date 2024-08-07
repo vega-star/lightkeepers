@@ -57,7 +57,7 @@ func _process(delta):
 		set_offset(Vector2.ZERO)
 		stored_offset = Vector2.ZERO
 		click_lock = false
-		
+	
 	# if camera_debug: UI.debug_label.set_text('MOUSE_POS: {4}\nG_POSITION: {0}\nOFFSET: {1}\nSTORED_OFFSET: {2}\nSTORED_POSITION: {3}\nGLOBAL_OFFSET_POSITION: {5}'.format({0: global_position, 1: offset, 2: stored_offset, 3: stored_pos, 4:current_pos, 5: to_global(offset)}))
 
 func _input(event):
@@ -76,16 +76,15 @@ func _set_zoom_level(value: float):
 	_zoom_level = clamp(value, min_zoom, max_zoom)
 	var previous_zoom : Vector2 = zoom
 	var new_zoom : Vector2 = Vector2(_zoom_level, _zoom_level)
-	
-	zoom_tween = get_tree().create_tween()
-	zoom_tween.tween_property(self, "zoom", new_zoom, zoom_duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	var mouse_position = get_viewport().get_mouse_position()
 	
 	if new_zoom.x >= max_zoom or new_zoom.x <= min_zoom: return # Cancel zoom if it exceeds zoom limits
-	if dynamic_zoom: _set_zoom_position(previous_zoom - new_zoom)
-
-func _set_zoom_position(delta : Vector2):
-	var mouse_position = get_viewport().get_mouse_position()
-	global_position = lerp(global_position, mouse_position, mouse_zoom_factor * zoom.x)
+	
+	var delta = new_zoom - previous_zoom
+	var mouse_pos : Vector2 = get_global_mouse_position()
+	zoom += delta
+	var new_mouse_pos : Vector2 = get_global_mouse_position()
+	position += mouse_pos - new_mouse_pos
 
 func _unhandled_input(event):
 	if event.is_action_pressed("zoom_in") and zoom_enabled: _set_zoom_level(_zoom_level + zoom_factor)

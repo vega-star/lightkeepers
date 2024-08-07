@@ -2,19 +2,16 @@
 
 [ext_resource type="Script" path="res://scripts/controls/stage_camera.gd" id="1_3p48j"]
 
-[node name="StageCamera" type="Camera2D"]
-anchor_mode = 0
+[node name="StageCamera" type="Camera2D" groups=["stage_camera"]]
 limit_left = -700
 limit_top = -700
 limit_right = 2100
 limit_bottom = 1600
 limit_smoothed = true
 position_smoothing_speed = 1.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("1_3p48j")
 drag_multiplier = 1.0
 min_zoom = 1.0
-zoom_enabled = false
+dynamic_zoom = true

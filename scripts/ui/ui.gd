@@ -6,17 +6,15 @@ signal turn_pass_requested
 
 @onready var debug_label = $Screen/InfoBox/DebugLabel
 @onready var tile_description_label = $Screen/InfoBox/TileDescriptionLabel
-@onready var rune_slots = $Screen/Controls/RuneSlots
+@onready var rune_slots = $Screen/Controls/RunesPatch/RuneSlots
+@onready var essence_slots = $Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots
 @onready var play_button = $Screen/Controls/CornerPanel/PlayButton
 @onready var coin_label = $Screen/CoinBox/CoinLabel
 @onready var life_label = $Screen/LifePanel/LifeContainer/LifeLabel
 @onready var wave_counter = $Screen/LifePanel/WaveCounter
 
-@onready var essence_manager = $"Screen/Controls/Essences Patch/ScrollContainer/EssenceManager"
-
 func _on_play_button_pressed():
 	turn_pass_requested.emit()
-	# play_button.disabled = true
 
 func _on_autoplay_button_toggled(toggled_on):
 	autoplay_toggled.emit(toggled_on)

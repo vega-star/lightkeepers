@@ -7,6 +7,7 @@ script/source = "extends Tower
 
 func _ready():
 	light_area = get_tree().get_first_node_in_group('light_area')
+	stage_camera = get_tree().get_first_node_in_group('stage_camera')
 	# tower_sprite.visible = false
 	
 	light_shape = light_shape_scene.instantiate()

@@ -10,7 +10,6 @@
 [node name="UIComponent" type="Node"]
 process_mode = 3
 script = ExtResource("1_o51w2")
-debug = true
 
 [node name="ScreenEffectLayer" parent="." instance=ExtResource("2_nmhs7")]
 layer = 100

@@ -20,11 +20,11 @@ const page_position_offset_x : int = 0
 const page_position_offset_y : int = 0
 
 func _ready():
-	
-	# version_label.text = "v%s" % project_version
+	version_label.text = "v%s" % project_version
 	screen_size = get_viewport_rect().size
 	UI.fade('IN')
 	AudioManager.play_music(menu_songs, 0, true, true)
+	$MenuPages/CentralPage.set_focus()
 
 func _on_start_button_pressed():
 	LoadManager.load_scene(stage_zero)

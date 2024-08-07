@@ -31,6 +31,7 @@ const light_shape_scene = preload("res://components/light_shape.tscn")
 
 @export var prop : bool = false
 
+var stage_camera : StageCamera
 var cast_point : Vector2
 var nexus_position : Vector2
 var light_area : LightArea
@@ -77,6 +78,7 @@ func _ready():
 	light_area = get_tree().get_first_node_in_group('light_area')
 	bullet_container = get_tree().get_first_node_in_group('projectile_container')
 	mouse_light = get_tree().get_first_node_in_group('mouse_light')
+	stage_camera = get_tree().get_first_node_in_group('stage_camera')
 	
 	piercing = base_piercing
 	if tower_gun_sprite.visible: tower_sprite.visible = false
@@ -100,8 +102,8 @@ func _enemy_exited(body): eligible_targets.erase(body)
 
 func _draw():
 	if visible_range: 
-		draw_arc(to_local(global_position), light_shape.shape.radius, 0, TAU, 50, light_draw_color, 5)
-		draw_arc(to_local(global_position), tower_range_shape.shape.radius, 0, TAU, 50, range_draw_color, 5)
+		draw_arc(to_local(global_position), light_shape.shape.radius * stage_camera.zoom.x, 0, TAU, 50, light_draw_color, 5)
+		draw_arc(to_local(global_position), tower_range_shape.shape.radius * stage_camera.zoom.x, 0, TAU, 50, range_draw_color, 5)
 
 func _seek_target():
 	var new_target : Object

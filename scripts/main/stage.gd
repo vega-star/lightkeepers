@@ -49,9 +49,10 @@ func _process(delta):
 
 func _input(event):
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
+	if Input.is_action_just_pressed('alt'): deselect_tile()
 
-func position_to_tile(position_vector : Vector2) -> Vector2i: ## Converts a Vector2 coordinate into an accurate tile position
-	return tilemap.local_to_map(position_vector)
+#? Converts a Vector2 coordinate into an accurate tile position
+func position_to_tile(position_vector : Vector2) -> Vector2i: return tilemap.local_to_map(position_vector)
 
 func query_tile(layer : Layer, tile_position : Vector2i, custom_data_layer_id : int = 0):
 	var tile_data = tilemap.get_cell_tile_data(layer, tile_position)
@@ -71,6 +72,8 @@ func select_tile(tile_position):
 	UI.HUD.tile_description_label.set_text(str(data))
 	
 	previous_selected_cell = tile_position
+
+func deselect_tile(): tilemap.erase_cell(Layer.INTERACT_LAYER, previous_selected_cell)
 
 func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool:
 	if tile_position == Vector2i.ZERO: tile_position = position_to_tile(get_global_mouse_position())

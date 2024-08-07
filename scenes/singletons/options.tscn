@@ -1,24 +1,261 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhpno5sgls8en"]
+[gd_scene load_steps=5 format=3 uid="uid://dhpno5sgls8en"]
 
 [ext_resource type="Script" path="res://scripts/options.gd" id="1_7g2ij"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_1i0vu"]
+[ext_resource type="PackedScene" uid="uid://dxc05c2onoqru" path="res://scenes/ui/keybind_button.tscn" id="2_bnuct"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j07d4"]
+bg_color = Color(0, 0, 0, 0.227451)
 
 [node name="Options" type="CanvasLayer"]
+process_mode = 3
+layer = 100
 script = ExtResource("1_7g2ij")
 
-[node name="OptionsMenu" type="TabContainer" parent="."]
+[node name="OptionsControl" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("2_1i0vu")
 
-[node name="MAIN_OPTIONS" type="TabBar" parent="OptionsMenu"]
-layout_mode = 2
+[node name="MenuLabel" type="Panel" parent="OptionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j07d4")
 
-[node name="CONTROLS" type="TabBar" parent="OptionsMenu"]
+[node name="OptionsMenu" type="TabContainer" parent="OptionsControl/MenuLabel"]
+custom_minimum_size = Vector2(350, 500)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -250.0
+offset_right = 477.0
+offset_bottom = 250.0
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 1
+
+[node name="MAIN_OPTIONS" type="TabBar" parent="OptionsControl/MenuLabel/OptionsMenu"]
 visible = false
 layout_mode = 2
 
-[node name="GRAPHICS" type="TabBar" parent="OptionsMenu"]
+[node name="ScrollableMenu" type="ScrollContainer" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Master_Label" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons"]
+layout_mode = 2
+text = "MASTER_VOLUME"
+horizontal_alignment = 1
+
+[node name="Master_Slider" type="HSlider" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Master_Toggle" type="CheckButton" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -12.0
+offset_right = -4.0
+offset_bottom = 12.0
+grow_vertical = 2
+
+[node name="Effect_Label" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons"]
+layout_mode = 2
+text = "SOUND_EFFECTS
+"
+horizontal_alignment = 1
+
+[node name="Effect_Slider" type="HSlider" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Effect_Toggle" type="CheckButton" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -12.0
+offset_right = -4.0
+offset_bottom = 12.0
+grow_vertical = 2
+
+[node name="Music_Label" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons"]
+layout_mode = 2
+text = "MUSIC_VOLUME"
+horizontal_alignment = 1
+
+[node name="Music_Slider" type="HSlider" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Music_Toggle" type="CheckButton" parent="OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -12.0
+offset_right = -4.0
+offset_bottom = 12.0
+grow_vertical = 2
+
+[node name="CONTROLS" type="TabBar" parent="OptionsControl/MenuLabel/OptionsMenu"]
+layout_mode = 2
+
+[node name="ScrollableMenu" type="ScrollContainer" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="VBoxContainer" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/separation = 20
+
+[node name="KeybindGrid" type="GridContainer" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 2
+
+[node name="LEFT" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "LEFT"
+horizontal_alignment = 2
+
+[node name="LEFT_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "move_left"
+
+[node name="RIGHT" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "RIGHT"
+horizontal_alignment = 2
+
+[node name="RIGHT_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "move_right"
+
+[node name="UP" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "UP"
+horizontal_alignment = 2
+
+[node name="UP_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "move_up"
+
+[node name="DOWN" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "DOWN"
+horizontal_alignment = 2
+
+[node name="DOWN_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "move_down"
+
+[node name="PAUSE" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "PAUSE"
+horizontal_alignment = 2
+
+[node name="PAUSE_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "pause"
+
+[node name="ENTER" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "ENTER"
+horizontal_alignment = 2
+
+[node name="ENTER_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "enter"
+
+[node name="ESCAPE" type="Label" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "ESCAPE
+"
+horizontal_alignment = 2
+
+[node name="ESCAPE_B" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("2_bnuct")]
+layout_mode = 2
+keybind = "escape"
+
+[node name="ResetKeybinds" type="Button" parent="OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "RESET_DEFAULT_KEYBINDS"
+
+[node name="GRAPHICS" type="TabBar" parent="OptionsControl/MenuLabel/OptionsMenu"]
 visible = false
 layout_mode = 2
+
+[node name="ExitButton" type="TextureButton" parent="OptionsControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1127.0
+offset_right = 1240.0
+offset_bottom = 113.0
+grow_horizontal = 0
+
+[node name="ExitCheck" type="ConfirmationDialog" parent="OptionsControl"]
+title = "EXIT"
+initial_position = 1
+size = Vector2i(329, 100)
+ok_button_text = "SAVE"
+dialog_text = "SAVE_OPTIONS_CONFIRMATION_DIALOG"
+cancel_button_text = "CANCEL"
+
+[node name="ResetKeybindsCheck" type="ConfirmationDialog" parent="OptionsControl"]
+title = "RESET"
+initial_position = 1
+size = Vector2i(267, 100)
+ok_button_text = "CONFIRM"
+dialog_text = "RESET_DEFAULT_KEYBINDS_TEXT"
+cancel_button_text = "CANCEL"

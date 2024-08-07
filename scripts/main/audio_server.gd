@@ -107,6 +107,8 @@ func emit_random_sound_effect(position : Vector2, r_sfx_array : Array, interrupt
 	emit_sound_effect(position, effect_id, interrupt)
 
 func emit_sound_effect(position, effect_id, interrupt : bool = false):
+	if !effect_id: push_warning('EMPTY SOUND REQUEST | No effect_id was given, returning without emission'); return
+	
 	var ephemeral : bool = false
 	var player # Audio player node
 	if position is Vector2:

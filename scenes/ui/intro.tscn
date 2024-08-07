@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://c46kwje3qqvjx"]
+[gd_scene load_steps=11 format=3 uid="uid://c46kwje3qqvjx"]
 
 [ext_resource type="Script" path="res://scripts/intro.gd" id="1_gv81k"]
-[ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/ui_screen_effect_layer.tscn" id="2_vtsfx"]
 [ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://components/materials/unshaded_material.tres" id="3_eirej"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_k8e1i"]
 [ext_resource type="Texture2D" uid="uid://byplld3o54jwl" path="res://assets/sprites/misc/godot-icon.png" id="4_uqdiy"]
@@ -123,6 +122,7 @@ polygon = PackedVector2Array(20, 61, 20, 46, 16, 41, 16, 38, 26, 28, 28, 29, 32,
 polygon = PackedVector2Array(-45, 22, -44, 22, -44, 21, -35, 21, -35, 22, -31, 22, -31, 23, -30, 23, -30, 26, -29, 26, -29, 29, -9, 29, -9, 26, -8, 26, -8, 23, -7, 23, -7, 22, 7, 22, 7, 23, 8, 23, 8, 26, 9, 26, 9, 29, 29, 29, 29, 26, 30, 26, 30, 23, 31, 23, 31, 22, 35, 22, 35, 21, 44, 21, 44, 22, 45, 22, 45, 24, 44, 24, 44, 26, 43, 26, 43, 28, 42, 28, 42, 29, 24, 42, 11, 45, -11, 45, -21, 43, -42, 29, -42, 28, -43, 28, -43, 26, -44, 26, -44, 24, -45, 24)
 
 [node name="Intro" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -132,9 +132,6 @@ grow_vertical = 2
 script = ExtResource("1_gv81k")
 intro_timer = 4.0
 skip_intro_on_debug = true
-
-[node name="ScreenEffectLayer" parent="." instance=ExtResource("2_vtsfx")]
-volatile = true
 
 [node name="IntroAnimation" type="AnimationPlayer" parent="."]
 libraries = {

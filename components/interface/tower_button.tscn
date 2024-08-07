@@ -45,3 +45,4 @@ horizontal_alignment = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="tower_placed" from="." to="." method="_on_tower_placed"]

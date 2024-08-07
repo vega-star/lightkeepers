@@ -17,13 +17,14 @@ var is_dragging : bool:
 		is_dragging = drag
 		drag_changed.emit(drag)
 
+var pause_locked : bool = false
 var pause_state : bool: set = set_pause
 
 func _ready():
 	if debug: get_viewport().gui_focus_changed.connect(_on_focus_changed)
 
 func _on_focus_changed(control : Control):
-	print(control.name)
+	print('UI DEBUG | Focus changed to ' + control.name)
 
 func set_pause(state : bool):
 	pause_state = state
@@ -32,6 +33,7 @@ func set_pause(state : bool):
 
 func start_stage():
 	UI.HUD.set_visible(true)
+	pause_locked = false
 
 func fade(mode):
 	var visibility : bool
