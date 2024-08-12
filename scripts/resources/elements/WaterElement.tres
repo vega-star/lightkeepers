@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Element" load_steps=2 format=3 uid="uid://d0a770bi30hno"]
+
+[ext_resource type="Script" path="res://scripts/resources/element.gd" id="1_44uqk"]
+
+[resource]
+script = ExtResource("1_44uqk")
+element_type = 1
+element_id = "water"

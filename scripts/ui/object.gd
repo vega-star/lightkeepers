@@ -6,14 +6,10 @@ signal source_quantity_change(previous_quantity : int, change : int)
 
 const HC_OFFSET = Vector2(64, 64)
 
-@export_flags(
-	'ELEMENT:1',
-	'ESSENCE:2'
-) var object_type : int = 0
-
 @export var container : Node
 @export var home_container : Container ## Return to this node position if something goes wrong or the screen which it was positioned gets closed
 @export var source_object : bool = false ## Instead of moving the object, creates another one
+@export var element : Element
 
 @onready var object_collision = $ObjectCollision
 @onready var object_collision_area = $ObjectCollision/ObjectCollisionArea
@@ -22,6 +18,7 @@ var offset : Vector2
 var initial_position : Vector2
 
 var object : Object = self
+var object_type : int
 var slot_reference : Slot
 var slot_occupied : Slot
 var metadata : Dictionary
@@ -36,6 +33,7 @@ var dropable_occupied : bool = false
 
 func _ready():
 	if !home_container: if owner is Container: home_container = owner
+	object_type = element.element_type
 
 func _process(delta):
 	if draggable:
@@ -98,7 +96,7 @@ func _process(delta):
 			
 			# object_collision_area.set_disabled(true)
 			# object_collision_area.set_disabled(false)
-			# draggable = false
+			draggable = false
 
 func _return_pos(return_to_home : bool = false):
 	var tween = get_tree().create_tween()

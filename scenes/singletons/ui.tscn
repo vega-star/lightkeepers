@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8ywb7b35x7rr"]
+[gd_scene load_steps=6 format=3 uid="uid://b8ywb7b35x7rr"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_component.gd" id="1_o51w2"]
 [ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/ui_screen_effect_layer.tscn" id="2_nmhs7"]
 [ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/ui/ui_hud.tscn" id="3_4fskw"]
 [ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui/ui_pause_layer.tscn" id="4_wwglg"]
-[ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="5_c4ii2"]
 [ext_resource type="PackedScene" uid="uid://b0umly4sahrnr" path="res://scenes/ui/ui_transition_layer.tscn" id="6_iltc1"]
 
 [node name="UIComponent" type="Node"]
@@ -19,9 +18,6 @@ layer = 25
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
 layer = 40
-
-[node name="EventLayer" parent="." instance=ExtResource("5_c4ii2")]
-layer = 45
 
 [node name="TransitionLayer" parent="." instance=ExtResource("6_iltc1")]
 layer = 50

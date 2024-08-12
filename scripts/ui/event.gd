@@ -27,7 +27,5 @@ func _on_event_completed():
 
 func _close_event():
 	if enforced: return
-	
 	visible = false
-	
 	if volatile: call_deferred("queue_free")

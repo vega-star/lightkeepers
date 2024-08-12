@@ -131,7 +131,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gv81k")
 intro_timer = 4.0
-skip_intro_on_debug = true
 
 [node name="IntroAnimation" type="AnimationPlayer" parent="."]
 libraries = {

@@ -7,7 +7,6 @@ signal game_paused(mode)
 @onready var EFFECT = $ScreenEffectLayer
 @onready var HUD = $HUD
 @onready var PAUSE_LAYER = $PauseLayer
-@onready var EVENT = $EventLayer
 @onready var TRANSITION = $TransitionLayer
 
 @export var debug : bool

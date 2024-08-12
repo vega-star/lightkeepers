@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=33 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
+[ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
 [ext_resource type="PackedScene" uid="uid://cjwy1y2fo5nc4" path="res://components/interface/demolish_button.tscn" id="3_ckdtt"]
 [ext_resource type="Script" path="res://scripts/ui/draggable_button.gd" id="3_h835t"]
@@ -15,11 +16,15 @@
 [ext_resource type="Texture2D" uid="uid://c8fgoka58nv7w" path="res://assets/prototypes/blue_label.png" id="8_28bjg"]
 [ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/turrets/cannon_tower.tscn" id="8_l8uqo"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
+[ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://scripts/resources/elements/FireElement.tres" id="13_hlgc1"]
 [ext_resource type="Texture2D" uid="uid://c22keka5vgeln" path="res://assets/prototypes/slot_air.png" id="14_peyws"]
 [ext_resource type="PackedScene" uid="uid://boriu4du2rjyl" path="res://scenes/ui/rune_object.tscn" id="15_2n03c"]
+[ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://scripts/resources/elements/WaterElement.tres" id="15_sqh7q"]
 [ext_resource type="Texture2D" uid="uid://bcce56w5be2ph" path="res://assets/prototypes/slot_earth.png" id="15_y78br"]
+[ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://scripts/resources/elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
 [ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/styleboxes/stylebox_screen_frame.png" id="17_wrifp"]
+[ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://scripts/resources/elements/EarthElement.tres" id="19_a637k"]
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n41go"]
@@ -41,6 +46,14 @@ region_rect = Rect2(0, 4, 50, 42)
 texture = ExtResource("8_28bjg")
 texture_margin_right = 24.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
+texture = ExtResource("17_wrifp")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+draw_center = false
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nn0rs"]
 texture = ExtResource("5_caru6")
 texture_margin_left = 33.0
@@ -50,14 +63,6 @@ texture_margin_top = 49.0
 shader = ExtResource("17_nh1qq")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 1.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
-texture = ExtResource("17_wrifp")
-texture_margin_left = 3.0
-texture_margin_top = 3.0
-texture_margin_right = 3.0
-texture_margin_bottom = 3.0
-draw_center = false
 
 [node name="HUD" type="CanvasLayer"]
 layer = 50
@@ -243,7 +248,6 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="EssencesPatch" type="NinePatchRect" parent="Screen/Controls"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.702
@@ -288,6 +292,7 @@ z_index = 25
 z_as_relative = false
 position = Vector2(48, 47)
 container = NodePath("../../../../../../ObjectContainer")
+element = ExtResource("13_hlgc1")
 
 [node name="FireSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EssenceSlot/FireObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -303,6 +308,7 @@ z_index = 25
 z_as_relative = false
 position = Vector2(48, 48)
 container = NodePath("../../../../../../ObjectContainer")
+element = ExtResource("15_sqh7q")
 
 [node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/WaterContainer/WaterObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -316,6 +322,7 @@ layout_mode = 2
 [node name="AirObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/AirContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
 position = Vector2(48, 48)
 container = NodePath("../../../../../../ObjectContainer")
+element = ExtResource("17_7oxc3")
 
 [node name="AirSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/AirContainer/AirObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -329,6 +336,7 @@ layout_mode = 2
 [node name="EarthObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EarthContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
 position = Vector2(48, 48)
 container = NodePath("../../../../../../ObjectContainer")
+element = ExtResource("19_a637k")
 
 [node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EarthContainer/EarthObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -372,6 +380,7 @@ layout_mode = 2
 position = Vector2(64, 64)
 container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
+element = ExtResource("13_hlgc1")
 
 [node name="FireSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/FireContainer/FireObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -386,6 +395,7 @@ layout_mode = 2
 position = Vector2(64, 64)
 container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
+element = ExtResource("15_sqh7q")
 
 [node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/WaterContainer/WaterObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -400,6 +410,7 @@ layout_mode = 2
 position = Vector2(64, 64)
 container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
+element = ExtResource("17_7oxc3")
 
 [node name="AirSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/AirContainer/AirObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
@@ -414,13 +425,24 @@ layout_mode = 2
 position = Vector2(64, 64)
 container = NodePath("../../../../../ObjectContainer")
 home_container = NodePath("..")
+element = ExtResource("19_a637k")
 
 [node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/EarthContainer/EarthObject"]
 position = Vector2(-1.3113e-05, -1.3113e-05)
 scale = Vector2(0.857143, 0.857143)
 texture = ExtResource("15_y78br")
 
-[node name="CornerPanel" type="Panel" parent="Screen/Controls"]
+[node name="ScreenFrame" type="Panel" parent="Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
+
+[node name="CornerPanel" type="Panel" parent="Screen"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 3
@@ -434,7 +456,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_nn0rs")
 
-[node name="PlayButton" type="TextureButton" parent="Screen/Controls/CornerPanel"]
+[node name="PlayButton" type="TextureButton" parent="Screen/CornerPanel"]
 material = SubResource("ShaderMaterial_5q6f8")
 layout_mode = 2
 anchor_left = 1.0
@@ -449,7 +471,7 @@ texture_normal = ExtResource("19_k7dll")
 stretch_mode = 0
 script = ExtResource("3_h835t")
 
-[node name="AutoplayButton" type="CheckButton" parent="Screen/Controls/CornerPanel"]
+[node name="AutoplayButton" type="CheckButton" parent="Screen/CornerPanel"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 160.0
@@ -457,17 +479,9 @@ offset_right = 49.0
 offset_bottom = 186.0
 tooltip_text = "AUTOPLAY"
 
-[node name="ScreenFrame" type="Panel" parent="Screen"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="EventLayer" parent="." instance=ExtResource("2_7rfuu")]
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
 
 [connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
-[connection signal="pressed" from="Screen/Controls/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="toggled" from="Screen/Controls/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
+[connection signal="pressed" from="Screen/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="toggled" from="Screen/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]

@@ -6,22 +6,17 @@ signal fuse_failed
 ## Fuse
 # Will merge two Elements into a complex Essence
 
-@onready var input_1 = $InputSlots/InputSlot1/Input1
+@onready var input_1 = $InputSlots/InputSlot1/Slot
 @onready var input_2 = $InputSlots/InputSlot2/Input2
 @onready var output = $OutputSlot/Output
 @onready var close_event_button = $CloseEventButton
 @onready var confirm_button = $ConfirmButton
 
-const COMBINATIONS : Dictionary = {
-	"fire": {
-		"fire": "conflagration"
-	}
-}
+var current_combination : String
 
 func _ready():
 	input_1.slot_changed.connect(_check_slots)
 	input_2.slot_changed.connect(_check_slots)
-	
 	_set_event_ready()
 
 func _input(event):
@@ -34,5 +29,10 @@ func _check_slots():
 	else: confirm_button.set_visible(false)
 
 func _on_confirm_button_pressed():
+	var first_element = input_1.object_in_slot.element.element_id
+	var second_element = input_2.object_in_slot.element.element_id
+	var combination = EventManager.combine(first_element, second_element)
+	print(combination)
+	
 	input_1.object_removed(true)
 	input_2.object_removed(true)

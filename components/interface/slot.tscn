@@ -24,6 +24,7 @@ offset_top = -21.0
 offset_right = 21.0
 offset_bottom = 21.0
 
+[connection signal="slot_changed" from="." to="." method="_on_slot_changed"]
 [connection signal="slot_emptied" from="." to="." method="_on_slot_emptied"]
 [connection signal="slot_filled" from="." to="." method="_on_slot_filled"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

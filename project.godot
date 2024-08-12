@@ -29,6 +29,7 @@ UI="*res://scenes/singletons/ui.tscn"
 LoadManager="*res://scenes/singletons/load_manager.tscn"
 Options="*res://scenes/singletons/options.tscn"
 AudioManager="*res://scenes/singletons/audio_manager.tscn"
+EventManager="*res://scenes/singletons/event_manager.gd"
 
 [display]
 

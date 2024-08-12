@@ -62,15 +62,12 @@ func query_tile(layer : Layer, tile_position : Vector2i, custom_data_layer_id : 
 func select_tile(tile_position):
 	if previous_selected_cell: tilemap.erase_cell(Layer.INTERACT_LAYER, previous_selected_cell)
 	tilemap.set_cell(Layer.INTERACT_LAYER, tile_position, 0, SELECTION_TILE)
-	
 	var data
 	var tile_data = tilemap.get_cell_tile_data(Layer.GROUND_LAYER, tile_position)
 	var object_data = tilemap.get_cell_tile_data(Layer.OBJECT_LAYER, tile_position)
 	# var object = object_dict[tile_position]['node']
-	
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)
 	UI.HUD.tile_description_label.set_text(str(data))
-	
 	previous_selected_cell = tile_position
 
 func deselect_tile(): tilemap.erase_cell(Layer.INTERACT_LAYER, previous_selected_cell)

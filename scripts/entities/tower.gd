@@ -133,8 +133,11 @@ func _seek_target():
 		_: push_error('INVALID SEEKING TYPE ON TURRET %s' % self.name)
 	return new_target
 
-func _physics_process(delta):
+func _process(delta):
 	if visible_range: queue_redraw()
+
+func _physics_process(delta):
+	# if visible_range: queue_redraw()
 	if is_instance_valid(target): 
 		cast_point = target.global_position
 		tower_gun_sprite.look_at(cast_point)

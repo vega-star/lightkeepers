@@ -126,8 +126,10 @@ motion_mirroring = Vector2(2560, 1440)
 
 [node name="ColorRect" type="ColorRect" parent="Parallax/StaticBG"]
 custom_minimum_size = Vector2(2560, 1440)
-offset_right = 2560.0
-offset_bottom = 1440.0
+offset_left = -30.0
+offset_top = -88.0
+offset_right = 2530.0
+offset_bottom = 1352.0
 color = Color(0, 0, 0, 1)
 
 [node name="ScreenEffectLayer" parent="." instance=ExtResource("7_call6")]

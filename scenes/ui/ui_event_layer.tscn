@@ -1,20 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbjip80jxb5mp"]
+[gd_scene load_steps=3 format=3 uid="uid://cbjip80jxb5mp"]
 
 [ext_resource type="Script" path="res://scripts/event_layer.gd" id="1_krorn"]
+[ext_resource type="PackedScene" uid="uid://xrcvxw3gl6si" path="res://components/interface/fuse_event.tscn" id="2_bfy7h"]
 
-[node name="EventLayer" type="CanvasLayer"]
+[node name="EventLayer" type="Control"]
 process_mode = 3
-layer = 50
-script = ExtResource("1_krorn")
-
-[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
+script = ExtResource("1_krorn")
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "REMOVE {0}"
@@ -23,3 +21,7 @@ size = Vector2i(389, 100)
 ok_button_text = "Confirm"
 dialog_text = "By deleting this object, you will retrieve {1} coins"
 dialog_close_on_escape = false
+
+[node name="FuseEvent" parent="." instance=ExtResource("2_bfy7h")]
+layout_mode = 1
+mouse_filter = 0
