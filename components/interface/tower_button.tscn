@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8e2jpe7y87cm"]
+[gd_scene load_steps=6 format=3 uid="uid://b8e2jpe7y87cm"]
 
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_7ecv1"]
 [ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/theme/styleboxes/stylebox_base_1.png" id="1_h8s0y"]
 [ext_resource type="Script" path="res://scripts/ui/tower_button.gd" id="1_txhdy"]
 [ext_resource type="PackedScene" uid="uid://cdqtftfr80iq" path="res://components/entities/turrets/ballista.tscn" id="3_h43cm"]
@@ -22,6 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 mouse_filter = 1
+theme = ExtResource("1_7ecv1")
 theme_override_styles/panel = SubResource("StyleBoxTexture_1m1yf")
 script = ExtResource("1_txhdy")
 target_tower_scene = ExtResource("3_h43cm")
@@ -42,6 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "0"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

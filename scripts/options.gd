@@ -1,8 +1,8 @@
 ## OPTIONS
-# This is a framework for changing important game configurations like volume, resolution, effects and such.
-# It is built upon a CanvasLayer so it also contains a interface/menu the user can interact and change. 
-# This menu can be heavily modified and personalized to each project. Just be sure to reconnect the nodes or add new ones to the code.
-# All information necessary to function is loaded from a ConfigFile, and if it doesn't exist, it creates it sucessfully!
+# This is a framework for changing important game configurations like volume, resolution, effects and such on a interactable menu
+# This menu can also be heavily modified and personalized to each project. Just be sure to reconnect the nodes!
+# All information necessary is loaded from a single ConfigFile, and if it doesn't exist or it is the first load, it will create it
+# Don't set this as a class, as it creates conflict when autoloaded.
 extends CanvasLayer
 
 signal config_file_loaded #? Used to wait until the file is correctly loaded
@@ -29,19 +29,21 @@ const SCREEN_DICT : Array = [ #? Different configurations to screen (Borderless 
 	"WINDOWED + BORDERLESS",
 	"MAXIMIZED",
 	"FULLSCREEN",
-	"EXCLUSIVE FULLSCREEN"]
+	"EXCLUSIVE FULLSCREEN"
+]
 const DEFAULT_KEY_DICT : Dictionary = { #? Default keybinds that is loaded when the game is first loaded. This needs to change to each game!
-	"move_up":4194320,
-	"move_down":4194322,
-	"move_right":4194321,
-	"move_left":4194319,
-	"pause": 32,
 	"enter": 4194309,
-	"escape": 4194305}
+	"escape": 4194305,
+	"space": 32,
+	"move_down": 83,
+	"move_left": 65,
+	"move_right": 68,
+	"move_up": 87
+}
 const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded when the game is first loaded
-	"language": ["MAIN_OPTIONS", "LANGUAGE", "en"],
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
 	"window_size": ["MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", DEFAULT_RESOLUTION],
+	"language": ["MAIN_OPTIONS", "LANGUAGE", "en"],
 	"toggle_photosens": ["MAIN_OPTIONS","PHOTOSENS_MODE", false],
 	"toggle_screen_shake": ["MAIN_OPTIONS","SCREEN_SHAKE", true],
 	"master_volume": ["MAIN_OPTIONS","MASTER_VOLUME", 0.5],
@@ -49,7 +51,8 @@ const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded
 	"music_volume": ["MAIN_OPTIONS","MUSIC_VOLUME", 0.25],
 	"music_toggled": ["MAIN_OPTIONS","MUSIC_TOGGLED", true],
 	"effects_volume": ["MAIN_OPTIONS","EFFECTS_VOLUME", 0.5],
-	"effects_toggled": ["MAIN_OPTIONS","EFFECTS_TOGGLED", true]}
+	"effects_toggled": ["MAIN_OPTIONS","EFFECTS_TOGGLED", true]
+}
 
 var temporary_config_file : ConfigFile = ConfigFile.new()
 var temporary_config_file_load = temporary_config_file.load(TEMP_CONFIG_FILE_PATH) 
@@ -64,15 +67,17 @@ var photosens_mode : bool
 ## Internal node references
 # These are subject to change as you modify the UI by creating new buttons or changing node orders.
 # Luckily, no button is strictly bound/controlled by its path directly. Change these accordingly:
-@onready var options_menu = $OptionsControl/MenuLabel/OptionsMenu
-@onready var master_slider = $OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider
-@onready var effect_slider = $OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider
-@onready var music_slider = $OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider
-@onready var master_toggle = $OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider/Master_Toggle
-@onready var effect_toggle = $OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider/Effect_Toggle
-@onready var music_toggle = $OptionsControl/MenuLabel/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider/Music_Toggle
-@onready var keybind_grid = $OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid
-@onready var reset_keybinds = $OptionsControl/MenuLabel/OptionsMenu/CONTROLS/ScrollableMenu/Container/ResetKeybinds
+@onready var ui_animation_player : AnimationPlayer = $UIAnimationPlayer
+@onready var options_menu = $OptionsControl/OptionsMenu
+@onready var master_slider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider
+@onready var effect_slider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider
+@onready var music_slider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider
+@onready var master_toggle = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider/Master_Toggle
+@onready var effect_toggle = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider/Effect_Toggle
+@onready var music_toggle = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider/Music_Toggle
+@onready var keybind_grid = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid
+@onready var reset_keybinds = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/ResetKeybinds
+@onready var exit_button : TextureButton = $OptionsControl/ExitButton
 @onready var exit_check = $OptionsControl/ExitCheck
 @onready var reset_keybinds_check = $OptionsControl/ResetKeybindsCheck
 #endregion
@@ -101,19 +106,28 @@ func _ready():
 	config_file_loaded.emit()
 	_load_data()
 	
-	match OS.get_name(): #? Instructions like nodes to hide if build is different. Web builds shouldn't need resolution controls, for example.
+	match OS.get_name(): #? Instructions like nodes to hide if build is different. Web builds probably don't need resolution controls, for instance.
 		"Web":
 			pass
 		_: pass
 	
 	if !UI.is_node_ready(): await UI.ready
 
-func _bind_signals(): #? Binds signals from UI nodes by code, which prevents having to recreate the links if this is script is re-implemented in another project.
+func _input(event): # Able the player to exit options screen using actions, needed for when using controllers
+	if Input.is_action_pressed("escape") and Options.visible == true: _toggle_menu(false)
+	if show_keycode == true: if event is InputEventKey: print(event.get_keycode_with_modifiers()) #? Prints every input as its keycode integer. Useful to fill the default key_dict manually.
+
+func _bind_signals(): #? Binds signals from UI nodes by code
+	#! Prevents having to recreate the links if this is script is re-implemented in another project, with new buttons and control nodes.
+	visibility_changed.connect(_on_options_visibility_changed)
 	reset_keybinds.pressed.connect(_on_reset_default_keybinds_button)
 	reset_keybinds_check.confirmed.connect(_on_reset_default_keybinds)
+	exit_check.confirmed.connect(_on_exit_check_confirmed)
+	exit_check.canceled.connect(_on_exit_check_canceled)
 	master_slider.drag_ended.connect(_on_master_slider_drag_ended); master_slider.value_changed.connect(_on_master_slider_value_changed)
 	music_slider.drag_ended.connect(_on_music_slider_drag_ended); music_slider.value_changed.connect(_on_music_slider_value_changed)
 	effect_slider.drag_ended.connect(_on_effect_slider_drag_ended); effect_slider.value_changed.connect(_on_effect_slider_value_changed)
+	exit_button.pressed.connect(_on_exit_menu_pressed)
 
 func _load_data(): #? Updates all buttons present in the framework accordingly with the loaded configuration
 	#$"ConfigTabs/MAIN_OPTIONS/Scroll/ConfigPanel/OptionsButtons/Language/LanguageMenu".selected = LANG_ORDER.find(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
@@ -131,16 +145,24 @@ func _load_data(): #? Updates all buttons present in the framework accordingly w
 	TranslationServer.set_locale(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
 	if reset_window_size_on_boot: DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
 
-func _input(event): # Able the player to exit options screen using actions, needed for when using controllers
-	if Input.is_action_pressed("escape") or Input.is_action_pressed("pause") and Options.visible == true: _on_exit_menu_pressed()
-	if show_keycode == true: ## This conditional prints every input as its keycode integer. This is useful to fill the default key_dict manually.
-		if event is InputEventKey: print(event.get_keycode_with_modifiers()) 
-
 func _button_group_input(button_index):
 	var index = button_index - 1
 	print(index)
 
-func _on_options_visibility_changed(): if visible: _update_menu() #? Updates menu if visible
+func _toggle_menu(toggle : bool):
+	if toggle:
+		ui_animation_player.play('toggle_menu')
+	else:
+		ui_animation_player.play_backwards('toggle_menu')
+		await ui_animation_player.animation_finished
+		_on_exit_menu_pressed()
+
+func _on_options_visibility_changed(): 
+	if visible: #? Updates menu if visible
+		_update_menu()
+		_toggle_menu(true)
+	else:
+		save_keys()
 
 func _update_menu(): #? Updates menu labels, buttons and temporary files
 	options_menu.get_tab_bar().grab_focus()
@@ -149,7 +171,7 @@ func _update_menu(): #? Updates menu labels, buttons and temporary files
 	var temporary_label : Label
 	for c in keybind_grid.get_children(): #? Resets each keybind button label to its default option. Fully scalable!
 		if c is Label: temporary_label = c
-		elif c is KeybindButton: temporary_label.text = OS.get_keycode_string(DEFAULT_KEY_DICT[c.keybind]) 
+		elif c is KeybindButton: c.text = OS.get_keycode_string(key_dict[c.keybind]).to_upper()
 	
 	if temporary_config_file_load == OK: pass
 	temporary_config_file.load(CONFIG_FILE_PATH)
@@ -217,17 +239,20 @@ func _load_keys():
 		printerr("ERROR | Keybind path is invalid! Unable to save keybinds.")
 
 #? Clear the old keys when inputting new ones
-func delete_old_keys(): for i in key_dict: var oldkey = InputEventKey.new(); oldkey.keycode = int(key_dict[i]); InputMap.action_erase_event(i,oldkey)
+func delete_old_keys():
+	for i in key_dict:
+		var oldkey = InputEventKey.new()
+		oldkey.keycode = int(Options.key_dict[i])
+		InputMap.action_erase_event(i,oldkey)
 
 func setup_keys(): #? Registry keys in dict as events
-	for i in key_dict: # | Iterates through elements in a dictionary
-		for j in get_tree().get_nodes_in_group("button_keys"): # | Iterates through buttons
-			if(j.action_name == i): # | Stops when the action name is equivalent to key
-				j.text = OS.get_keycode_string(key_dict[i]) # | Sets button text to the string label of a key
-			if debug == true: print('Element: {0} | Button {1}'.format({0:i,1:j})) # | (DEBUG |
-		var newkey = InputEventKey.new() # | Waits for a key press
-		newkey.keycode = int(key_dict[i]) # | Recieves keycode from 
-		InputMap.action_add_event(i,newkey) # | Finally, adds the new key to InputMap
+	for i in key_dict: #? Iterates through elements in a dictionary
+		for j in get_tree().get_nodes_in_group("button_keys"): #? Iterates through buttons
+			if(j.action_name == i): #? Stops when the action name is equivalent to key
+				j.text = OS.get_keycode_string(key_dict[i]) #? Sets button text to the string label of a key
+		var newkey = InputEventKey.new() #? Waits for a key press
+		newkey.keycode = int(key_dict[i]) #? Recieves keycode from 
+		InputMap.action_add_event(i,newkey) #? Adds the new key to InputMap
 	
 func save_keys(): #? Save the new keybindings to file
 	var file = FileAccess.open(KEYBIND_FILE_PATH, FileAccess.WRITE)
@@ -240,15 +265,18 @@ func save_keys(): #? Save the new keybindings to file
 func _on_reset_default_keybinds_button(): reset_keybinds_check.visible = true
 
 #? Reloads keys after redefining key_dict. Also prompts labels update to show the default keys in place
-func _on_reset_default_keybinds(): delete_old_keys(); key_dict = DEFAULT_KEY_DICT; setup_keys(); _update_menu(); save_keys(); settings_changed = true
-
+func _on_reset_default_keybinds():
+	await delete_old_keys()
+	key_dict = DEFAULT_KEY_DICT
+	await setup_keys()
+	_update_menu() 
+	settings_changed = true
 #endregion
 
 #region | Advanced Buttons
 
 func button_toggle(button, config, section : String = "MAIN_OPTIONS"):
 	var button_status = bool(button.button_pressed)
-	
 	config_file.set_value(section, config, button_status)
 	settings_changed = true
 

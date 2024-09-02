@@ -3,14 +3,14 @@ extends PointLight2D
 
 @export var max_intensity : float = 2.5
 @export var min_intensity : float = 0
+@export var change_intensity : bool = false
 
 const base_intensity : float = 1500
 const light_shape_scene = preload("res://components/light_shape.tscn")
 
-var nexus 
+var nexus
 var light_shape : LightShape
 var intensity : float = 1
-var change_intensity : bool = false
 
 func _ready(): 
 	nexus = get_tree().get_first_node_in_group('nexus')

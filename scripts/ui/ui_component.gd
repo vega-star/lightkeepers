@@ -4,20 +4,20 @@ extends Node
 signal drag_changed(drag : bool)
 signal game_paused(mode)
 
+@onready var EVENT = $Interface/EventLayer
 @onready var EFFECT = $ScreenEffectLayer
-@onready var HUD = $HUD
+@onready var HUD = $Interface
 @onready var PAUSE_LAYER = $PauseLayer
 @onready var TRANSITION = $TransitionLayer
 
 @export var debug : bool
 
+var pause_locked : bool = false
+var pause_state : bool: set = set_pause
 var is_dragging : bool: 
 	set(drag):
 		is_dragging = drag
 		drag_changed.emit(drag)
-
-var pause_locked : bool = false
-var pause_state : bool: set = set_pause
 
 func _ready():
 	if debug: get_viewport().gui_focus_changed.connect(_on_focus_changed)

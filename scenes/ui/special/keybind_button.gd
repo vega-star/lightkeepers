@@ -19,19 +19,14 @@ func _pressed():
 func _input(event):
 	if(do_set):
 		if(event is InputEventKey):
-			self.focus_mode = Control.FOCUS_NONE
-			# | Erase old keys
-			var newkey = InputEventKey.new()
-			newkey.keycode = int(Options.key_dict[keybind])
-			InputMap.action_erase_event(keybind,newkey)
-			# | Add the new key for this action
-			InputMap.action_add_event(keybind,event)
-			# | Return to the user
-			text = OS.get_keycode_string(event.keycode)
-			# | Update the key_dict with the keycode function
-			Options.key_dict[keybind] = event.keycode
-			# | Stop keybind process
-			do_set = false
+			self.focus_mode = Control.FOCUS_NONE #? Prevents some control issues
+			var key = InputEventKey.new()
+			key.keycode = int(Options.key_dict[keybind])
+			InputMap.action_erase_event(keybind, key)
+			InputMap.action_add_event(keybind, event) #? Add the new key for this action
+			text = OS.get_keycode_string(event.keycode) #? Return to the user
+			Options.key_dict[keybind] = int(event.keycode) #? Update the key_dict with the keycode function. Needs to be string, as dicts don't store value types
+			do_set = false #? Stop keybind process
 			self.focus_mode = Control.FOCUS_ALL
 
 func _emit_sound(sound_id : String): AudioManager.emit_sound_effect(null, sound_id)

@@ -10,8 +10,6 @@ extends Node2D
 @export_group('Stage Tools')
 @export_range(0, 1.0) var cashback_factor : float = 0.4
 @export var check_coordinate : bool = false
-
-@onready var tilemap = $TileMap
 @onready var stage_manager = $StageManager
 @onready var stage_path = $StagePath
 
@@ -25,16 +23,15 @@ const TILE : Dictionary = {
 	'TARGET' = Vector2i(2,3)
 }
 
-enum Layer {
-	GROUND_LAYER = 0,
-	OBJECT_LAYER = 1,
-	INTERACT_LAYER = 2,
-	FOREGROUND_LAYER = 3
-}
+@onready var GROUND_LAYER : TileMapLayer = $GroundLayer
+@onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
+@onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
+@onready var FOREGROUND_LAYER : TileMapLayer = $ForegroundLayer
 
-var object_dict : Dictionary
-var previous_selected_cell : Vector2i
-var previous_queried_cell : Vector2i
+var selected_object : TileObject #? Selected object node storage
+var object_dict : Dictionary #? Arranged by tile_position
+var previous_selected_cell : Vector2i #? draw_width
+var previous_queried_cell : Vector2i #? Used for input resetting
 
 func _ready():
 	if !modulate_layer.visible: modulate_layer.visible = true
@@ -52,37 +49,55 @@ func _input(event):
 	if Input.is_action_just_pressed('alt'): deselect_tile()
 
 #? Converts a Vector2 coordinate into an accurate tile position
-func position_to_tile(position_vector : Vector2) -> Vector2i: return tilemap.local_to_map(position_vector)
+func position_to_tile(position_vector : Vector2) -> Vector2i: return GROUND_LAYER.local_to_map(position_vector)
 
-func query_tile(layer : Layer, tile_position : Vector2i, custom_data_layer_id : int = 0):
-	var tile_data = tilemap.get_cell_tile_data(layer, tile_position)
+func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0):
+	var tile_data = layer.get_cell_tile_data(tile_position)
 	if tile_data: return tile_data.get_custom_data_by_layer_id(custom_data_layer_id)
 	else: return false
 
 func select_tile(tile_position):
-	if previous_selected_cell: tilemap.erase_cell(Layer.INTERACT_LAYER, previous_selected_cell)
-	tilemap.set_cell(Layer.INTERACT_LAYER, tile_position, 0, SELECTION_TILE)
+	if previous_selected_cell: deselect_tile()
+	INTERACTION_LAYER.set_cell(tile_position, 0, SELECTION_TILE)
 	var data
-	var tile_data = tilemap.get_cell_tile_data(Layer.GROUND_LAYER, tile_position)
-	var object_data = tilemap.get_cell_tile_data(Layer.OBJECT_LAYER, tile_position)
-	# var object = object_dict[tile_position]['node']
+	var tile_data = GROUND_LAYER.get_cell_tile_data(tile_position)
+	var object_data = OBJECT_LAYER.get_cell_tile_data(tile_position)
+	
+	if object_dict.has(tile_position): selected_object = object_dict[tile_position]['node']
+	
+	if is_instance_valid(selected_object):
+		UI.HUD.object_description_label.set_text('
+			TO_NODE: {0} 
+			TO_COST: {1}
+			TO_SEEKING_TYPE: {2}
+		'.format({
+			0: selected_object.name,
+			1: selected_object.tower_cost,
+			2: selected_object.seeking_type
+		}))
+		selected_object.visible_range = true
+	
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)
 	UI.HUD.tile_description_label.set_text(str(data))
 	previous_selected_cell = tile_position
 
-func deselect_tile(): tilemap.erase_cell(Layer.INTERACT_LAYER, previous_selected_cell)
+func deselect_tile():
+	INTERACTION_LAYER.erase_cell(previous_selected_cell)
+	UI.HUD.object_description_label.set_text("")
+	if is_instance_valid(selected_object): selected_object.visible_range = false
+	selected_object = null
 
-func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool:
+func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool: #? Returns true if tile is valid
 	if tile_position == Vector2i.ZERO: tile_position = position_to_tile(get_global_mouse_position())
 	 
-	tilemap.set_cell(Layer.INTERACT_LAYER, tile_position, 0, TILE.TARGET)
+	INTERACTION_LAYER.set_cell(tile_position, 0, TILE.TARGET)
 	if previous_queried_cell != tile_position: 
-		tilemap.erase_cell(Layer.INTERACT_LAYER, previous_queried_cell)
+		INTERACTION_LAYER.erase_cell(previous_queried_cell)
 		previous_queried_cell = tile_position
 	
-	var object_query = query_tile(Layer.OBJECT_LAYER, tile_position)
-	var tile_query = query_tile(Layer.GROUND_LAYER, tile_position, 1)
-	var foreground_query = query_tile(Layer.FOREGROUND_LAYER, tile_position)
+	var object_query = query_tile(OBJECT_LAYER, tile_position)
+	var tile_query = query_tile(GROUND_LAYER, tile_position, 1)
+	var foreground_query = query_tile(FOREGROUND_LAYER, tile_position)
 	
 	if (object_query is Dictionary): return false # Returns negatively if an object is already placed there
 	elif (foreground_query is Dictionary): return false # Returns negatively if there's foreground tiles above it
@@ -91,23 +106,26 @@ func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool:
 		else: return true # Returns positively
 	else: return false # Returns negatively, for a placeable tile in ground layer wasn't found
 
-func insert_tile_object(tile_object : Object) -> bool: # Returns true if object is successfully placed, and false if not
+func insert_tile_object(tile_object : TileObject) -> bool: #? Called from turret/object button when inserted into a tile
 	var tile_position : Vector2i = position_to_tile(get_global_mouse_position())
 	var tile_cost : int = tile_object.tower_cost
-	var coordinates : Vector2 = tilemap.map_to_local(tile_position)
+	var coordinates : Vector2 = GROUND_LAYER.map_to_local(tile_position)
 	var query_result : bool = query_tile_insertion(tile_position)
 	
+	#! Returns true if object is successfully placed, and false if not.
 	if (!query_result): return false # Recheck. Only returns negatively if invalidated in a series of checks
 	if (tile_cost > stage_manager.coins): return false # Returns negatively turret is more expensive than current total coins
 	
 	## Clear
-	tilemap.erase_cell(Layer.INTERACT_LAYER, previous_queried_cell)
+	INTERACTION_LAYER.erase_cell(previous_queried_cell)
 	
 	## Register
-	object_dict[tile_position] = {'node': tile_object}
+	object_dict[tile_position] = {
+		'node': tile_object
+	}
 	
 	## Insert
-	tilemap.set_cell(Layer.OBJECT_LAYER, tile_position, 0, TILE.DEFAULT)
+	OBJECT_LAYER.set_cell(tile_position, 0, TILE.DEFAULT)
 	tile_object.global_position = coordinates
 	tile_object.reparent($Containers/ObjectContainer)
 	stage_manager.change_coins(tile_object.tower_cost)
@@ -122,7 +140,6 @@ func request_removal() -> bool:
 	
 	var tower_value : int = roundi(object.tower_cost * cashback_factor)
 	var request : bool = await UI.EVENT.request_confirmation('Confirm Demolish', 'Demolishing this turret will grant you back {0} coins'.format({0: tower_value}), 'CONFIRM', 'CANCEL')
-	# await UI.EVENT.confirmation
 	
 	if request: 
 		remove_tile_object(tile_position, object)
@@ -132,7 +149,7 @@ func request_removal() -> bool:
 
 func remove_tile_object(tile_position : Vector2i, object : Node):
 	object.queue_free()
-	tilemap.erase_cell(Layer.OBJECT_LAYER, tile_position)
+	OBJECT_LAYER.erase_cell(tile_position)
 	object_dict.erase(tile_position)
 
 #func insert_data(tile_position : Vector2i, key : String, value : Variant, layer : Layer = Layer.OBJECT_LAYER): ## TODO

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ElementRegister" load_steps=3 format=3 uid="uid://djkttk26w5qaa"]
+
+[ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://scripts/resources/elements/EarthElement.tres" id="1_yive6"]
+[ext_resource type="Script" path="res://scripts/resources/element_register.gd" id="2_urj8b"]
+
+[resource]
+script = ExtResource("2_urj8b")
+element = ExtResource("1_yive6")
+control_slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/EarthContainer")
+slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/EarthContainer/Slot")
+quantity = 0

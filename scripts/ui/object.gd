@@ -4,7 +4,7 @@ signal object_dragged
 signal object_picked
 signal source_quantity_change(previous_quantity : int, change : int)
 
-const HC_OFFSET = Vector2(64, 64)
+const HC_OFFSET = Vector2(48, 48)
 
 @export var container : Node
 @export var home_container : Container ## Return to this node position if something goes wrong or the screen which it was positioned gets closed
@@ -65,7 +65,7 @@ func _process(delta):
 			object.global_position = get_global_mouse_position() - offset
 		elif Input.is_action_just_released('click'): # Release
 			UI.is_dragging = false
-			var tween = get_tree().create_tween()
+			var release_tween = get_tree().create_tween()
 			var slot_available : bool
 			
 			# print('INPUT | Inserting {0} into {1} | AVAILABLE: {2} | DROPABLE: {3}'.format({0:self.name, 1:slot_reference, 2: slot_available, 3: is_inside_dropable}))
@@ -74,7 +74,7 @@ func _process(delta):
 				slot_available = slot_reference.request_insert(object)
 				
 				if slot_available: # Inserting into slot
-					tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+					release_tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 					slot_occupied = slot_reference
 				else: # Failed to insert
 					var object_in_slot = slot_reference.object_in_slot
@@ -86,7 +86,7 @@ func _process(delta):
 						object_tween.tween_property(object_in_slot, "global_position", slot_occupied.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 						
 						slot_reference.request_insert(object)
-						tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+						release_tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 						slot_occupied = slot_reference
 					else: _return_pos()
 					
@@ -99,14 +99,14 @@ func _process(delta):
 			draggable = false
 
 func _return_pos(return_to_home : bool = false):
-	var tween = get_tree().create_tween()
-	
+	print('Queued return for {0}. Is forced? {1}'.format({0:name,1:return_to_home}))
+	var movement_tween = get_tree().create_tween()
 	if is_instance_valid(home_container) and return_to_home:
 		initial_position = home_container.global_position + HC_OFFSET
 		slot_occupied = null
-		tween.tween_property(object, "global_position", initial_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	else: 
-		tween.tween_property(object, "global_position", initial_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+		movement_tween.tween_property(object, "global_position", initial_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	else:
+		movement_tween.tween_property(object, "global_position", initial_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 
 func _on_object_collision_body_entered(body):
 	if body.is_in_group('dropable'):
@@ -119,19 +119,13 @@ func _on_object_collision_body_exited(body):
 		if body is Slot: body.hovered = false
 		is_inside_dropable = false
 
-func _on_object_collision_mouse_entered(): 
-	if !UI.is_dragging: _set_draggable(true)
-func _on_object_collision_mouse_exited(): 
-	if !UI.is_dragging: _set_draggable(false)
+func _on_object_collision_mouse_entered(): if !UI.is_dragging: _set_draggable(true)
+func _on_object_collision_mouse_exited(): if !UI.is_dragging: _set_draggable(false)
 
 func _set_draggable(drag : bool) -> void:
-	# print('SET DRAG TO %s' % str(drag))
 	draggable = drag
-	match drag:
-		true:
-			scale = Vector2(1.05, 1.05)
-		false:
-			scale = Vector2(1, 1)
+	if drag: scale = Vector2(1.05, 1.05)
+	else: scale = Vector2(1, 1)
 
 func _on_source_quantity_change(previous_quantity, change):
 	source_quantity += change

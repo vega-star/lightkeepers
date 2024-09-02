@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3566aquosx6y"
-path="res://.godot/imported/shovel.png-ba8abd06a5be35e25ec012453477eac5.ctex"
+uid="uid://301gww06uk6n"
+path="res://.godot/imported/gear.png-2ee9367593152440582f35c52f6ed029.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/shovel.png"
-dest_files=["res://.godot/imported/shovel.png-ba8abd06a5be35e25ec012453477eac5.ctex"]
+source_file="res://assets/prototypes/gear.png"
+dest_files=["res://.godot/imported/gear.png-2ee9367593152440582f35c52f6ed029.ctex"]
 
 [params]
 

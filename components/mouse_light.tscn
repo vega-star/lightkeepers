@@ -4,10 +4,23 @@
 [ext_resource type="Script" path="res://scripts/controls/debug_mouse_light.gd" id="2_obf7e"]
 
 [node name="MouseLight" type="PointLight2D"]
-position = Vector2(393, 286)
 color = Color(0.880596, 0.69876, 0.692039, 1)
 shadow_enabled = true
 shadow_item_cull_mask = 7
 texture = ExtResource("1_qopuk")
+texture_scale = 0.5
 height = 50.0
 script = ExtResource("2_obf7e")
+
+[node name="MouseLightOffset" type="PointLight2D" parent="."]
+position = Vector2(-1.33514e-05, 1.90735e-06)
+color = Color(0.975347, 0.694582, 0.170898, 1)
+energy = 0.5
+blend_mode = 1
+range_item_cull_mask = 7
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.486275)
+shadow_item_cull_mask = 6
+texture = ExtResource("1_qopuk")
+texture_scale = 0.2
+height = 100.0

@@ -1,38 +1,106 @@
-[gd_scene load_steps=33 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=42 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
+[ext_resource type="Resource" uid="uid://cxplnjmi337jt" path="res://scripts/resources/elements/default_registers/FireRegister.tres" id="2_ly4ir"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
 [ext_resource type="PackedScene" uid="uid://cjwy1y2fo5nc4" path="res://components/interface/demolish_button.tscn" id="3_ckdtt"]
 [ext_resource type="Script" path="res://scripts/ui/draggable_button.gd" id="3_h835t"]
-[ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/theme/styleboxes/stylebox_base_1.png" id="3_iy0ie"]
+[ext_resource type="Resource" uid="uid://nojuy8ypf07k" path="res://scripts/resources/elements/default_registers/WaterRegister.tres" id="3_iqwj1"]
+[ext_resource type="Resource" uid="uid://ci7epsk0qe7mk" path="res://scripts/resources/elements/default_registers/AirRegister.tres" id="4_06pcj"]
 [ext_resource type="PackedScene" uid="uid://b8e2jpe7y87cm" path="res://components/interface/tower_button.tscn" id="4_jbcwa"]
 [ext_resource type="Texture2D" uid="uid://ckw1wrf68j8i" path="res://assets/prototypes/frame_test.png" id="4_m44u3"]
+[ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://scripts/resources/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
 [ext_resource type="Texture2D" uid="uid://cne0jbt34jcyq" path="res://assets/prototypes/play_button_patch.png" id="5_caru6"]
 [ext_resource type="Texture2D" uid="uid://b3l70bfuy0vfv" path="res://assets/prototypes/slot_fire.png" id="5_m8ogq"]
 [ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/theme/styleboxes/stylebox_base.png" id="5_sloql"]
+[ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="6_eiqqm"]
 [ext_resource type="Texture2D" uid="uid://cxrsxquitnl6o" path="res://assets/prototypes/slot_water.png" id="7_k6cer"]
 [ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/turrets/lamp.tscn" id="7_nkijl"]
-[ext_resource type="Texture2D" uid="uid://c8fgoka58nv7w" path="res://assets/prototypes/blue_label.png" id="8_28bjg"]
 [ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/turrets/cannon_tower.tscn" id="8_l8uqo"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
 [ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://scripts/resources/elements/FireElement.tres" id="13_hlgc1"]
 [ext_resource type="Texture2D" uid="uid://c22keka5vgeln" path="res://assets/prototypes/slot_air.png" id="14_peyws"]
-[ext_resource type="PackedScene" uid="uid://boriu4du2rjyl" path="res://scenes/ui/rune_object.tscn" id="15_2n03c"]
+[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/prototypes/gear.png" id="14_rjvi7"]
+[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="14_s6gy4"]
 [ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://scripts/resources/elements/WaterElement.tres" id="15_sqh7q"]
 [ext_resource type="Texture2D" uid="uid://bcce56w5be2ph" path="res://assets/prototypes/slot_earth.png" id="15_y78br"]
 [ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://scripts/resources/elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
+[ext_resource type="PackedScene" uid="uid://boriu4du2rjyl" path="res://scenes/ui/draggable_object.tscn" id="17_opm6q"]
 [ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/styleboxes/stylebox_screen_frame.png" id="17_wrifp"]
+[ext_resource type="Script" path="res://components/interface/control_slot.gd" id="18_apeqk"]
 [ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://scripts/resources/elements/EarthElement.tres" id="19_a637k"]
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n41go"]
-texture = ExtResource("3_iy0ie")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
+[sub_resource type="Animation" id="Animation_ji73a"]
+resource_name = "toggle_element_menu"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen/ElementContainer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Screen/ElementContainer:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(576, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_mpjjs"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen/ElementContainer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Screen/ElementContainer:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(576, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_18c5d"]
+_data = {
+"RESET": SubResource("Animation_mpjjs"),
+"toggle_element_menu": SubResource("Animation_ji73a")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
+texture = ExtResource("17_wrifp")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+draw_center = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjjh3"]
+shader = ExtResource("17_nh1qq")
+shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
+shader_parameter/line_thickness = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ooj6b"]
 texture = ExtResource("5_sloql")
@@ -43,16 +111,7 @@ texture_margin_bottom = 5.0
 region_rect = Rect2(0, 4, 50, 42)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj3q8"]
-texture = ExtResource("8_28bjg")
 texture_margin_right = 24.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
-texture = ExtResource("17_wrifp")
-texture_margin_left = 3.0
-texture_margin_top = 3.0
-texture_margin_right = 3.0
-texture_margin_bottom = 3.0
-draw_center = false
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nn0rs"]
 texture = ExtResource("5_caru6")
@@ -64,11 +123,25 @@ shader = ExtResource("17_nh1qq")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 1.0
 
-[node name="HUD" type="CanvasLayer"]
+[node name="Interface" type="CanvasLayer"]
 layer = 50
 script = ExtResource("1_7no1j")
 
 [node name="UIAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_18c5d")
+}
+
+[node name="ScreenFrame" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
+
+[node name="EventLayer" parent="." instance=ExtResource("2_7rfuu")]
 
 [node name="Screen" type="Control" parent="."]
 layout_mode = 3
@@ -77,97 +150,289 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 theme = ExtResource("2_x8juj")
 
-[node name="ObjectContainer" type="Control" parent="Screen"]
+[node name="ElementContainer" type="HBoxContainer" parent="Screen"]
+custom_minimum_size = Vector2(0, 144)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+pivot_offset = Vector2(1280, 144)
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="HideButton" type="Button" parent="Screen/ElementContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "HIDE"
+clip_text = true
+
+[node name="EssenceInterface" type="NinePatchRect" parent="Screen/ElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_m44u3")
+region_rect = Rect2(64, 0, 96, 120)
+patch_margin_right = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Screen/ElementContainer/EssenceInterface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = -10.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+follow_focus = true
 
-[node name="InfoBox" type="VBoxContainer" parent="Screen"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -336.0
-offset_right = 384.0
-grow_vertical = 0
-alignment = 2
+[node name="EssenceSlots" type="HBoxContainer" parent="Screen/ElementContainer/EssenceInterface/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 16
 
-[node name="DebugLabel" type="Label" parent="Screen/InfoBox"]
+[node name="ControlSlot" parent="Screen/ElementContainer/EssenceInterface/ScrollContainer/EssenceSlots" instance_placeholder="res://components/interface/control_slot.tscn"]
 layout_mode = 2
 
-[node name="TileDescriptionLabel" type="Label" parent="Screen/InfoBox"]
+[node name="ElementInterface" type="NinePatchRect" parent="Screen/ElementContainer"]
+custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
+texture = ExtResource("4_m44u3")
+region_rect = Rect2(66, 0, 94, 120)
+patch_margin_right = 1
 
-[node name="CoinBox" type="Panel" parent="Screen"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -176.0
-offset_bottom = 50.0
-grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_n41go")
-
-[node name="CoinLabel" type="RichTextLabel" parent="Screen/CoinBox"]
+[node name="ElementSlots" type="HBoxContainer" parent="Screen/ElementContainer/ElementInterface"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
+offset_top = -48.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 26
-bbcode_enabled = true
-text = "[center][img]res://assets/prototypes/pyrite.png[/img]0"
-fit_content = true
+theme_override_constants/separation = 16
+alignment = 1
 
-[node name="DemolishButton" parent="Screen" instance=ExtResource("3_ckdtt")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-offset_left = -256.0
-offset_top = 16.0
-offset_right = -192.0
-offset_bottom = 80.0
-grow_horizontal = 0
-grow_vertical = 1
+[node name="FireContainer" type="CenterContainer" parent="Screen/ElementContainer/ElementInterface/ElementSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("18_apeqk")
+slot_register = ExtResource("2_ly4ir")
 
-[node name="ShopPanel" type="Panel" parent="Screen"]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -176.0
-offset_top = 50.0
-offset_bottom = -192.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ooj6b")
+[node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer" instance=ExtResource("14_s6gy4")]
+position = Vector2(48, 48)
+slot_type = 1
+is_output = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Screen/ShopPanel"]
+[node name="FireObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
+home_container = NodePath("../..")
+element = ExtResource("13_hlgc1")
+
+[node name="FireSprite" type="Sprite2D" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("5_m8ogq")
+
+[node name="Control" type="Control" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer"]
+layout_mode = 2
+
+[node name="QuantityLabel" type="Label" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Control"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = 25.0
+offset_right = 57.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0?"
+
+[node name="WaterContainer" type="CenterContainer" parent="Screen/ElementContainer/ElementInterface/ElementSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("18_apeqk")
+slot_register = ExtResource("3_iqwj1")
+
+[node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer" instance=ExtResource("14_s6gy4")]
+position = Vector2(48, 48)
+slot_type = 1
+is_output = true
+
+[node name="WaterObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
+home_container = NodePath("../..")
+element = ExtResource("15_sqh7q")
+
+[node name="WaterSprite" type="Sprite2D" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("7_k6cer")
+
+[node name="Control" type="Control" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer"]
+layout_mode = 2
+
+[node name="QuantityLabel" type="Label" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Control"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = 25.0
+offset_right = 57.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0?"
+
+[node name="AirContainer" type="CenterContainer" parent="Screen/ElementContainer/ElementInterface/ElementSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("18_apeqk")
+slot_register = ExtResource("4_06pcj")
+
+[node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer" instance=ExtResource("14_s6gy4")]
+position = Vector2(48, 48)
+slot_type = 1
+is_output = true
+
+[node name="AirObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
+home_container = NodePath("../..")
+element = ExtResource("17_7oxc3")
+
+[node name="AirSprite" type="Sprite2D" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("14_peyws")
+
+[node name="Control" type="Control" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer"]
+layout_mode = 2
+
+[node name="QuantityLabel" type="Label" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer/Control"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = 25.0
+offset_right = 57.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0?"
+
+[node name="EarthContainer" type="CenterContainer" parent="Screen/ElementContainer/ElementInterface/ElementSlots"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("18_apeqk")
+slot_register = ExtResource("5_5ri6y")
+
+[node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer" instance=ExtResource("14_s6gy4")]
+position = Vector2(48, 48)
+slot_type = 1
+is_output = true
+
+[node name="EarthObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
+home_container = NodePath("../..")
+element = ExtResource("19_a637k")
+
+[node name="EarthSprite" type="Sprite2D" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject"]
+position = Vector2(-1.3113e-05, -1.3113e-05)
+scale = Vector2(0.857143, 0.857143)
+texture = ExtResource("15_y78br")
+
+[node name="Control" type="Control" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer"]
+layout_mode = 2
+
+[node name="QuantityLabel" type="Label" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Control"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = 25.0
+offset_right = 57.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0?"
+
+[node name="CornerRect" type="ReferenceRect" parent="Screen/ElementContainer"]
+custom_minimum_size = Vector2(208, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+border_width = 0.0
+editor_only = false
+
+[node name="HUDContainer" type="Control" parent="Screen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 16.0
-offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WaveCounter" type="Label" parent="Screen/HUDContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -334.0
+offset_top = 8.0
+offset_right = -184.0
+offset_bottom = 44.0
+grow_horizontal = 0
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "TURN 0/30"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ToolsBox" type="VBoxContainer" parent="Screen/HUDContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 48.0
+offset_right = -176.0
+offset_bottom = 180.0
+grow_horizontal = 0
+
+[node name="OptionsButton" type="TextureButton" parent="Screen/HUDContainer/ToolsBox"]
+material = SubResource("ShaderMaterial_cjjh3")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "CONFIG"
+texture_normal = ExtResource("14_rjvi7")
+
+[node name="DemolishButton" parent="Screen/HUDContainer/ToolsBox" instance=ExtResource("3_ckdtt")]
+layout_mode = 2
+tooltip_text = "DEMOLISH"
+
+[node name="Towers" type="Panel" parent="Screen/HUDContainer"]
+layout_mode = 2
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.003
+offset_left = -176.0
+offset_bottom = -194.16
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ooj6b")
+
+[node name="TowerScrollContainer" type="ScrollContainer" parent="Screen/HUDContainer/Towers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FlowContainer" type="GridContainer" parent="Screen/ShopPanel/ScrollContainer"]
+[node name="TowerGrid" type="GridContainer" parent="Screen/HUDContainer/Towers/TowerScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
@@ -176,25 +441,54 @@ theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 32
 columns = 2
 
-[node name="LampTower" parent="Screen/ShopPanel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+[node name="LampTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 object_type = "LIGHT"
 target_tower_scene = ExtResource("7_nkijl")
 
-[node name="BallistaTower" parent="Screen/ShopPanel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+[node name="BallistaTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 
-[node name="CannonTower" parent="Screen/ShopPanel/ScrollContainer/FlowContainer" instance=ExtResource("4_jbcwa")]
+[node name="CannonTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 target_tower_scene = ExtResource("8_l8uqo")
 
-[node name="LifePanel" type="Panel" parent="Screen"]
+[node name="PlaceholderTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower2" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower3" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower4" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower5" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower6" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower7" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower8" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="PlaceholderTower9" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+layout_mode = 2
+
+[node name="LifePanel" type="Panel" parent="Screen/HUDContainer"]
 layout_mode = 1
-offset_right = 144.0
-offset_bottom = 48.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 290.0
+offset_bottom = 52.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_xj3q8")
 
-[node name="LifeContainer" type="HBoxContainer" parent="Screen/LifePanel"]
+[node name="DataContainer" type="HBoxContainer" parent="Screen/HUDContainer/LifePanel"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -204,243 +498,52 @@ offset_right = 202.0
 offset_bottom = 24.0
 grow_vertical = 2
 
-[node name="LifeIcon" type="TextureButton" parent="Screen/LifePanel/LifeContainer"]
+[node name="LifeIcon" type="TextureButton" parent="Screen/HUDContainer/LifePanel/DataContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture_normal = ExtResource("8_qvuwj")
+stretch_mode = 0
 
-[node name="LifeLabel" type="Label" parent="Screen/LifePanel/LifeContainer"]
-custom_minimum_size = Vector2(150, 0)
+[node name="LifeLabel" type="Label" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 26
 text = "100"
 
-[node name="WaveCounter" type="Label" parent="Screen/LifePanel"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 16.0
-offset_top = -18.0
-offset_right = 166.0
-offset_bottom = 18.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="CoinIcon" type="TextureButton" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture_normal = ExtResource("6_eiqqm")
+stretch_mode = 0
+
+[node name="CoinLabel" type="Label" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 26
-text = "TURN 0/30"
+text = "0
+"
 
-[node name="Controls" type="Control" parent="Screen"]
+[node name="InfoBox" type="VBoxContainer" parent="Screen/HUDContainer"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -752.0
-offset_top = -192.0
-grow_horizontal = 0
+offset_top = -480.0
+offset_right = 384.0
+offset_bottom = -144.0
 grow_vertical = 0
-mouse_filter = 2
+alignment = 2
 
-[node name="EssencesPatch" type="NinePatchRect" parent="Screen/Controls"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.702
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -80.096
-offset_top = -128.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("4_m44u3")
-region_rect = Rect2(0, 0, 160, 120)
-patch_margin_left = 63
-patch_margin_right = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Screen/Controls/EssencesPatch"]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_right = -656.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EssenceSlots" type="HBoxContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_constants/separation = 16
-
-[node name="ReferenceRect" type="ReferenceRect" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots"]
+[node name="ObjectDescriptionLabel" type="Label" parent="Screen/HUDContainer/InfoBox"]
 layout_mode = 2
 
-[node name="EssenceSlot" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots"]
-custom_minimum_size = Vector2(96, 96)
+[node name="DebugLabel" type="Label" parent="Screen/HUDContainer/InfoBox"]
 layout_mode = 2
 
-[node name="FireObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EssenceSlot" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
-z_index = 25
-z_as_relative = false
-position = Vector2(48, 47)
-container = NodePath("../../../../../../ObjectContainer")
-element = ExtResource("13_hlgc1")
-
-[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EssenceSlot/FireObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("5_m8ogq")
-
-[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots"]
-custom_minimum_size = Vector2(96, 96)
+[node name="TileDescriptionLabel" type="Label" parent="Screen/HUDContainer/InfoBox"]
 layout_mode = 2
-
-[node name="WaterObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/WaterContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
-z_index = 25
-z_as_relative = false
-position = Vector2(48, 48)
-container = NodePath("../../../../../../ObjectContainer")
-element = ExtResource("15_sqh7q")
-
-[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/WaterContainer/WaterObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("7_k6cer")
-
-[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-
-[node name="AirObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/AirContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
-position = Vector2(48, 48)
-container = NodePath("../../../../../../ObjectContainer")
-element = ExtResource("17_7oxc3")
-
-[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/AirContainer/AirObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("14_peyws")
-
-[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-
-[node name="EarthObject" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EarthContainer" node_paths=PackedStringArray("container") instance=ExtResource("15_2n03c")]
-position = Vector2(48, 48)
-container = NodePath("../../../../../../ObjectContainer")
-element = ExtResource("19_a637k")
-
-[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/EssencesPatch/ScrollContainer/EssenceSlots/EarthContainer/EarthObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("15_y78br")
-
-[node name="RunesPatch" type="NinePatchRect" parent="Screen/Controls"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 48.0
-offset_right = -208.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_m44u3")
-region_rect = Rect2(0, 0, 160, 120)
-patch_margin_left = 63
-patch_margin_right = 1
-
-[node name="RuneSlots" type="HBoxContainer" parent="Screen/Controls/RunesPatch"]
-layout_mode = 2
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -128.0
-offset_right = -16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="FireContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-
-[node name="FireObject" parent="Screen/Controls/RunesPatch/RuneSlots/FireContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
-position = Vector2(64, 64)
-container = NodePath("../../../../../ObjectContainer")
-home_container = NodePath("..")
-element = ExtResource("13_hlgc1")
-
-[node name="FireSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/FireContainer/FireObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("5_m8ogq")
-
-[node name="WaterContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-
-[node name="WaterObject" parent="Screen/Controls/RunesPatch/RuneSlots/WaterContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
-position = Vector2(64, 64)
-container = NodePath("../../../../../ObjectContainer")
-home_container = NodePath("..")
-element = ExtResource("15_sqh7q")
-
-[node name="WaterSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/WaterContainer/WaterObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("7_k6cer")
-
-[node name="AirContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-
-[node name="AirObject" parent="Screen/Controls/RunesPatch/RuneSlots/AirContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
-position = Vector2(64, 64)
-container = NodePath("../../../../../ObjectContainer")
-home_container = NodePath("..")
-element = ExtResource("17_7oxc3")
-
-[node name="AirSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/AirContainer/AirObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("14_peyws")
-
-[node name="EarthContainer" type="CenterContainer" parent="Screen/Controls/RunesPatch/RuneSlots"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-
-[node name="EarthObject" parent="Screen/Controls/RunesPatch/RuneSlots/EarthContainer" node_paths=PackedStringArray("container", "home_container") instance=ExtResource("15_2n03c")]
-position = Vector2(64, 64)
-container = NodePath("../../../../../ObjectContainer")
-home_container = NodePath("..")
-element = ExtResource("19_a637k")
-
-[node name="EarthSprite" type="Sprite2D" parent="Screen/Controls/RunesPatch/RuneSlots/EarthContainer/EarthObject"]
-position = Vector2(-1.3113e-05, -1.3113e-05)
-scale = Vector2(0.857143, 0.857143)
-texture = ExtResource("15_y78br")
-
-[node name="ScreenFrame" type="Panel" parent="Screen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
 
 [node name="CornerPanel" type="Panel" parent="Screen"]
 clip_contents = true
@@ -479,9 +582,8 @@ offset_right = 49.0
 offset_bottom = 186.0
 tooltip_text = "AUTOPLAY"
 
-[node name="EventLayer" parent="." instance=ExtResource("2_7rfuu")]
-mouse_filter = 2
-
 [connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
+[connection signal="pressed" from="Screen/ElementContainer/HideButton" to="." method="_on_hide_button_pressed"]
+[connection signal="pressed" from="Screen/HUDContainer/ToolsBox/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="Screen/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="toggled" from="Screen/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]

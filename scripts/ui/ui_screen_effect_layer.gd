@@ -17,12 +17,6 @@ const effects_dict : Dictionary = {
 
 @export_category('Graphic Effects')
 
-@export_category('Layer Properties')
-@export var volatile : bool = false ## Autodestructs when loaded. Useful to test the graphic effects while building new scenes
-
-func _ready():
-	if volatile: queue_free()
-
 func _change_effect(effect_id : String, strength : float = 0):
 	effect_rect.material.set_shader_parameter("Palette", effects_dict[effect_id]['palette'])
 	if strength > 0: effect_rect.modulate = Color(1, 1, 1, strength)

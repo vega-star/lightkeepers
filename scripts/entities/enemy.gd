@@ -21,12 +21,13 @@ signal died(source : Node)
 @export var enemy_area : Area2D
 @export var enemy_path : Path2D
 
-var stage : Stage
+var navigation_agent : NavigationAgent2D #? Smart enemy nav agent
+var line_agent : PathFollow2D #? Line2D node to follow
+var stage : Stage #? Stage to call upon
+
 var damage_on_nexus : int
 var enemy_value : int
 var on_sight : bool = false : set = _set_on_sight
-var navigation_agent : NavigationAgent2D
-var line_agent : PathFollow2D
 var nexus : Node2D : set = _set_target
 var target_position : Vector2
 var next_position

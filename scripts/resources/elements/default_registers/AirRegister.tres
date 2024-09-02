@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ElementRegister" load_steps=3 format=3 uid="uid://ci7epsk0qe7mk"]
+
+[ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://scripts/resources/elements/AirElement.tres" id="1_qvbpd"]
+[ext_resource type="Script" path="res://scripts/resources/element_register.gd" id="2_0umqo"]
+
+[resource]
+script = ExtResource("2_0umqo")
+element = ExtResource("1_qvbpd")
+control_slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/AirContainer")
+slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/AirContainer/Slot")
+quantity = 0

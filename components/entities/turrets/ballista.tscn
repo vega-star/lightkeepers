@@ -67,7 +67,6 @@ base_projectile = ExtResource("2_hw7jf")
 base_piercing = 5
 base_light_range = 0.5
 base_tower_range = 2.0
-base_range_draw_color = Color(0.321569, 0.466667, 0.176471, 0.247059)
 prop = true
 metadata/_edit_horizontal_guides_ = [-8.0]
 

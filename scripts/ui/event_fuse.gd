@@ -32,7 +32,7 @@ func _on_confirm_button_pressed():
 	var first_element = input_1.object_in_slot.element.element_id
 	var second_element = input_2.object_in_slot.element.element_id
 	var combination = EventManager.combine(first_element, second_element)
-	print(combination)
+	if combination: EventManager.fuse(combination)
 	
 	input_1.object_removed(true)
 	input_2.object_removed(true)

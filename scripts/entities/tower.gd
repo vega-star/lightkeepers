@@ -1,8 +1,9 @@
-class_name Tower extends Node2D
+class_name Tower extends TileObject
 
 signal tower_disabled
 signal tower_destroyed
 
+const draw_width : float = 2.5
 const base_range : float = 160
 const light_shape_scene = preload("res://components/light_shape.tscn")
 
@@ -17,8 +18,8 @@ const light_shape_scene = preload("res://components/light_shape.tscn")
 @export_enum('nearest', 'closest', 'farthest', 'strongest', 'target') var seeking_type = 'nearest'
 @export_range(0, 50) var base_light_range : float = 1
 @export_range(0, 50) var base_tower_range : float = 1
-@export var base_range_draw_color : Color = Color(0, 0.6, 0.702, 0.129)
-@export var base_light_draw_color : Color = Color(0.714, 0.476, 0.249, 0.129)
+@export var base_range_draw_color : Color = Color(0, 0.845, 0.776)
+@export var base_light_draw_color : Color = Color(1, 0.633, 0.22)
 
 @onready var tower_gun_muzzle = $TowerGunSprite/TowerGunMuzzle
 @onready var tower_aim = $TowerGunSprite/TowerGunMuzzle/TowerAim
@@ -101,9 +102,15 @@ func _enemy_detected(body): if body is Enemy: eligible_targets.append(body) # ; 
 func _enemy_exited(body): eligible_targets.erase(body)
 
 func _draw():
-	if visible_range: 
-		draw_arc(to_local(global_position), light_shape.shape.radius * stage_camera.zoom.x, 0, TAU, 50, light_draw_color, 5)
-		draw_arc(to_local(global_position), tower_range_shape.shape.radius * stage_camera.zoom.x, 0, TAU, 50, range_draw_color, 5)
+	if visible_range: ## Draw visible cues to tower range based on the shape of the range itself and camera zoom. No adjustment is necessary!
+		var set_zoom : float
+		if !top_level: set_zoom = 1
+		else: set_zoom = stage_camera.zoom.x
+		
+		draw_arc(to_local(global_position), light_shape.shape.radius * set_zoom, 0, TAU, 50, light_draw_color, draw_width)
+		draw_arc(to_local(global_position), tower_range_shape.shape.radius * set_zoom, 0, TAU, 50, range_draw_color, draw_width)
+		draw_circle(to_local(global_position), light_shape.shape.radius * set_zoom, Color(light_draw_color, 0.2), true)
+		draw_circle(to_local(global_position), tower_range_shape.shape.radius * set_zoom, Color(range_draw_color, 0.2), true)
 
 func _seek_target():
 	var new_target : Object
@@ -133,11 +140,9 @@ func _seek_target():
 		_: push_error('INVALID SEEKING TYPE ON TURRET %s' % self.name)
 	return new_target
 
-func _process(delta):
-	if visible_range: queue_redraw()
-
 func _physics_process(delta):
-	# if visible_range: queue_redraw()
+	queue_redraw() #? Updates draw functions
+	
 	if is_instance_valid(target): 
 		cast_point = target.global_position
 		tower_gun_sprite.look_at(cast_point)

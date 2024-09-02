@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://q7ct18pusa6o"]
+[gd_scene load_steps=6 format=3 uid="uid://q7ct18pusa6o"]
 
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="1_apdox"]
 [ext_resource type="Script" path="res://scripts/main/light_shape.gd" id="1_e5unc"]
@@ -6,12 +6,21 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c2ngf"]
 radius = 128.0
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y2nl6"]
+noise_type = 2
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wyliy"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_y2nl6")
+
 [node name="LightShape" type="CollisionShape2D"]
 shape = SubResource("CircleShape2D_c2ngf")
 debug_color = Color(0.788235, 0.509804, 0.313726, 0.0431373)
 script = ExtResource("1_e5unc")
+noise = SubResource("NoiseTexture2D_wyliy")
 default_color = Color(0.976471, 0.694118, 0.172549, 1)
-test_oscillation = false
 
 [node name="ShapePointLight" type="PointLight2D" parent="."]
 energy = 2.0

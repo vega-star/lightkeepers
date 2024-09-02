@@ -1,3 +1,7 @@
+## Slot
+# Acts as a placeable input
+# Physical slot with 2D properties extending from StaticBody2D
+# Has to be that way to detect CollisionShapes and element movement
 class_name Slot extends StaticBody2D
 
 signal slot_changed
@@ -25,7 +29,7 @@ func _drag_toggled(drag_status):
 	elif is_output and !drag_status:
 		modulate = Color.WHITE
 		return
-	if OS.is_debug_build(): color_rect.set_visible(drag_status)
+	if OS.is_debug_build(): if color_rect: color_rect.set_visible(drag_status)
 
 func request_insert(object) -> bool:
 	if is_output or !visible: return false
@@ -45,7 +49,7 @@ func request_insert(object) -> bool:
 		return false
 
 func object_removed(forced : bool = false):
-	object_in_slot._return_pos(forced)
+	if forced: object_in_slot._return_pos(forced)
 	object_in_slot.object_picked.disconnect(object_removed)
 	object_in_slot = null
 	slot_emptied.emit()
@@ -61,10 +65,7 @@ func _set_hover(is_hovering : bool):
 	else: modulate = Color.WHITE
 
 func _on_visibility_changed():
-	var visibility : bool = is_visible_in_tree()
-	
-	if object_in_slot and !visibility:
-		object_in_slot._return_pos(true)
+	if object_in_slot and !is_visible_in_tree(): object_in_slot._return_pos(true)
 
 func _on_slot_emptied(): slot_changed.emit()
 func _on_slot_filled(): slot_changed.emit()

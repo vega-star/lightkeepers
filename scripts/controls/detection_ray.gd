@@ -12,6 +12,6 @@ func _process(delta):
 	if is_colliding():
 		cast_point = get_collision_point()
 		target = get_collider()
-		$Line2D.points[-1] = cast_point
+		$NexusRayLine.points[-1] = cast_point
 	else:
-		$Line2D.points[-1] = to_global(ray_point)
+		$NexusRayLine.points[-1] = to_global(ray_point)
