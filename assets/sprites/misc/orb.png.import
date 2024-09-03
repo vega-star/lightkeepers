@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf1oaintv76wx"
-path="res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"
+uid="uid://jw8eotmm5j81"
+path="res://.godot/imported/orb.png-50191abb7885ef463774181188700136.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exports/web/lightkeepers.apple-touch-icon.png"
-dest_files=["res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"]
+source_file="res://assets/sprites/misc/orb.png"
+dest_files=["res://.godot/imported/orb.png-50191abb7885ef463774181188700136.ctex"]
 
 [params]
 

@@ -7,7 +7,7 @@ signal control_slot_changed
 
 const MINIMUM_SIZE : Vector2 = Vector2(96,96)
 
-@onready var quantity_label = $Control/QuantityLabel
+@onready var quantity_label = $OffsetControl/QuantityLabel
 @onready var slot = $Slot : set = _config_slot
 
 @export var slot_register : ElementRegister : set = _config_register

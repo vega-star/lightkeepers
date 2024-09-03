@@ -70,6 +70,7 @@ func _on_gui_input(event):
 		tower._adapt_in_tile()
 		tower.process_mode = Node.PROCESS_MODE_INHERIT
 		tower_placed.emit()
+		tower = null
 
 func _on_focus_entered(): valid = true #? Simply resets valid when clicked again. Wouldn't work without this line!
 

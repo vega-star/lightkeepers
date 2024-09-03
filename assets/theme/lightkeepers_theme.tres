@@ -12,5 +12,6 @@ texture_margin_bottom = 5.0
 
 [resource]
 default_font = ExtResource("2_grbqt")
-default_font_size = 12
+default_font_size = 16
 Button/styles/normal = SubResource("StyleBoxTexture_vju4b")
+Label/colors/font_color = Color(1, 0.992157, 0.921569, 1)

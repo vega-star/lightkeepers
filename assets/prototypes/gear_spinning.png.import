@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf1oaintv76wx"
-path="res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"
+uid="uid://cllqlo67juoq0"
+path="res://.godot/imported/gear_spinning.png-6c255a8ba3e8ece1ecc29072a5d2bdb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exports/web/lightkeepers.apple-touch-icon.png"
-dest_files=["res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"]
+source_file="res://assets/prototypes/gear_spinning.png"
+dest_files=["res://.godot/imported/gear_spinning.png-6c255a8ba3e8ece1ecc29072a5d2bdb2.ctex"]
 
 [params]
 

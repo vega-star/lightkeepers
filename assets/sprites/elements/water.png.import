@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf1oaintv76wx"
-path="res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"
+uid="uid://heffv4rim1jj"
+path="res://.godot/imported/water.png-2a9ff45fdff282f0663451a200a509fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exports/web/lightkeepers.apple-touch-icon.png"
-dest_files=["res://.godot/imported/lightkeepers.apple-touch-icon.png-537eae07a08437fcb38a0e91cadc41c2.ctex"]
+source_file="res://assets/sprites/elements/water.png"
+dest_files=["res://.godot/imported/water.png-2a9ff45fdff282f0663451a200a509fd.ctex"]
 
 [params]
 

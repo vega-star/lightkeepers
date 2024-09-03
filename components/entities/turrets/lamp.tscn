@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://clmhdu52mt0lt"]
+[gd_scene load_steps=5 format=3 uid="uid://clmhdu52mt0lt"]
 
+[ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://components/entities/turrets/turret_material.tres" id="1_3au02"]
 [ext_resource type="Texture2D" uid="uid://tdykvrbkn0uc" path="res://assets/sprites/turrets/lamp.png" id="1_pq7s3"]
 
 [sub_resource type="GDScript" id="GDScript_yjc15"]
@@ -17,10 +18,6 @@ func _ready():
 	light_range = base_light_range
 	tower_range = base_tower_range
 
-func _on_target_reset(): 
-	if eligible_targets.size() > 0: target = _seek_target()
-	else: target = null
-
 func _load_properties():
 	light_shape.size = light_range
 	tower_range_shape.shape.radius = base_range * tower_range
@@ -29,7 +26,7 @@ func _adapt_in_tile():
 	light_shape.position = position
 
 func _physics_process(delta):
-	if visible_range: queue_redraw()
+	queue_redraw()
 
 func _on_cooldown_timer_timeout(): return
 "
@@ -38,6 +35,7 @@ func _on_cooldown_timer_timeout(): return
 radius = 160.0
 
 [node name="Lamp" type="Node2D"]
+material = ExtResource("1_3au02")
 script = SubResource("GDScript_yjc15")
 tower_cost = 100
 base_light_range = 2.0

@@ -67,19 +67,19 @@ var photosens_mode : bool
 ## Internal node references
 # These are subject to change as you modify the UI by creating new buttons or changing node orders.
 # Luckily, no button is strictly bound/controlled by its path directly. Change these accordingly:
-@onready var ui_animation_player : AnimationPlayer = $UIAnimationPlayer
-@onready var options_menu = $OptionsControl/OptionsMenu
-@onready var master_slider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider
-@onready var effect_slider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider
-@onready var music_slider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider
-@onready var master_toggle = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider/Master_Toggle
-@onready var effect_toggle = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider/Effect_Toggle
-@onready var music_toggle = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider/Music_Toggle
-@onready var keybind_grid = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid
-@onready var reset_keybinds = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/ResetKeybinds
+@onready var options_control : Control = $OptionsControl
+@onready var options_menu : TabContainer = $OptionsControl/OptionsMenu
+@onready var master_slider : HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider
+@onready var effect_slider : HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider
+@onready var music_slider : HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider
+@onready var master_toggle : CheckButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Master_Slider/Master_Toggle
+@onready var effect_toggle : CheckButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Effect_Slider/Effect_Toggle
+@onready var music_toggle : CheckButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/Buttons/Music_Slider/Music_Toggle
+@onready var keybind_grid : GridContainer = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid
+@onready var reset_keybinds : Button = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/ResetKeybinds
 @onready var exit_button : TextureButton = $OptionsControl/ExitButton
-@onready var exit_check = $OptionsControl/ExitCheck
-@onready var reset_keybinds_check = $OptionsControl/ResetKeybindsCheck
+@onready var exit_check : ConfirmationDialog = $OptionsControl/ExitCheck
+@onready var reset_keybinds_check : ConfirmationDialog = $OptionsControl/ResetKeybindsCheck
 #endregion
 
 #region | Core Functions
@@ -150,11 +150,12 @@ func _button_group_input(button_index):
 	print(index)
 
 func _toggle_menu(toggle : bool):
+	var toggle_tween : Tween = get_tree().create_tween()
 	if toggle:
-		ui_animation_player.play('toggle_menu')
-	else:
-		ui_animation_player.play_backwards('toggle_menu')
-		await ui_animation_player.animation_finished
+		options_control.position.x = -options_menu.size.x
+		toggle_tween.tween_property(options_control, "position", Vector2(0, 0), 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	else: 
+		toggle_tween.tween_property(options_control, "position", Vector2(-options_menu.size.x, 0), 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		_on_exit_menu_pressed()
 
 func _on_options_visibility_changed(): 

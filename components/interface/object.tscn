@@ -1,20 +1,62 @@
-[gd_scene load_steps=5 format=3 uid="uid://dabti1py4rn1a"]
+[gd_scene load_steps=14 format=3 uid="uid://dabti1py4rn1a"]
 
 [ext_resource type="Script" path="res://scripts/ui/object.gd" id="1_u5ai6"]
 [ext_resource type="Script" path="res://scripts/resources/element.gd" id="2_nq7bo"]
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_38vht"]
+[ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="3_mly1j"]
+[ext_resource type="Shader" path="res://components/materials/element_shader.gdshader" id="5_vorre"]
 
 [sub_resource type="Resource" id="Resource_jg31s"]
 script = ExtResource("2_nq7bo")
 element_type = 0
 element_id = "fire"
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqkb4"]
+shader = ExtResource("3_38vht")
+shader_parameter/line_color = Color(0.835294, 0.235294, 0.415686, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aq2y4"]
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_63r2q"]
+seamless = true
+noise = SubResource("FastNoiseLite_aq2y4")
+
+[sub_resource type="Gradient" id="Gradient_12ln6"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.145329, 0.321799, 0.453287, 0.612457, 0.799308)
+colors = PackedColorArray(0, 0, 0, 0, 0.419, 0.224, 0.062, 0.25, 0.582, 0.427, 0.293, 0.6, 0.88, 0.728, 0, 0.8, 0.88, 0.728, 0, 1, 1, 0.988235, 0.784314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cnsej"]
+gradient = SubResource("Gradient_12ln6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwny5"]
+shader = ExtResource("5_vorre")
+shader_parameter/NOISE_SCALE_1 = Vector2(1, 1)
+shader_parameter/NOISE_SCALE_2 = Vector2(1, 1)
+shader_parameter/SCROLL_1 = Vector2(0.65, 0.1)
+shader_parameter/SCROLL_2 = Vector2(0.2, 0.3)
+shader_parameter/BLUR = 3.0
+shader_parameter/BASE_INTENSITY = 0.05
+shader_parameter/INTENSITY_FACTOR = 0.35
+shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_63r2q")
+shader_parameter/TONE_MAPPING = SubResource("GradientTexture1D_cnsej")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
 radius = 48.0
 
 [node name="Object" type="Node2D"]
-z_index = 50
+z_index = 5
 script = ExtResource("1_u5ai6")
 element = SubResource("Resource_jg31s")
+
+[node name="ObjectOrb" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_lqkb4")
+texture = ExtResource("3_mly1j")
+
+[node name="ObjectElement" type="Sprite2D" parent="ObjectOrb"]
+material = SubResource("ShaderMaterial_pwny5")
 
 [node name="ObjectCollision" type="Area2D" parent="."]
 z_index = 5
@@ -23,7 +65,9 @@ collision_mask = 129
 
 [node name="ObjectCollisionArea" type="CollisionShape2D" parent="ObjectCollision"]
 shape = SubResource("CircleShape2D_7vtow")
+debug_color = Color(0.703217, 0.292634, 0.549932, 0.065)
 
+[connection signal="object_inserted" from="." to="." method="_on_object_inserted"]
 [connection signal="source_quantity_change" from="." to="." method="_on_source_quantity_change"]
 [connection signal="body_entered" from="ObjectCollision" to="." method="_on_object_collision_body_entered"]
 [connection signal="body_exited" from="ObjectCollision" to="." method="_on_object_collision_body_exited"]

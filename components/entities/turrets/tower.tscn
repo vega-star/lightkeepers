@@ -1,7 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bg8dos7yx10dx"]
+[gd_scene load_steps=16 format=3 uid="uid://bg8dos7yx10dx"]
 
+[ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://components/entities/turrets/turret_material.tres" id="1_1obre"]
 [ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_tq6vs"]
+[ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="2_wbhdj"]
+[ext_resource type="Script" path="res://components/systems/state_machine.gd" id="3_il4xo"]
 [ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_wyuhk"]
+[ext_resource type="Script" path="res://components/systems/states/turret_seeking.gd" id="5_1orpj"]
+[ext_resource type="Script" path="res://components/systems/states/turret_firing.gd" id="6_nvwfr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
 atlas = ExtResource("3_wyuhk")
@@ -60,10 +65,10 @@ animations = [{
 radius = 160.0
 
 [node name="Tower" type="Node2D"]
+material = ExtResource("1_1obre")
 script = ExtResource("1_tq6vs")
+base_projectile = ExtResource("2_wbhdj")
 base_light_range = 0.5
-base_range_draw_color = Color(0, 0.845428, 0.776249, 1)
-base_light_draw_color = Color(0.863259, 0.3424, 0, 1)
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 visible = false
@@ -105,11 +110,26 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_4qdcu")
 debug_color = Color(0, 0.6, 0.701961, 0.129412)
 
-[node name="TargetResetTimer" type="Timer" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
+script = ExtResource("3_il4xo")
+entity = NodePath("..")
+initial_state = NodePath("Seeking")
+
+[node name="Seeking" type="Node" parent="StateMachine" node_paths=PackedStringArray("firing_state")]
+script = ExtResource("5_1orpj")
+firing_state = NodePath("../Firing")
+
+[node name="TargetResetTimer" type="Timer" parent="StateMachine/Seeking"]
 process_callback = 0
 
-[node name="CooldownTimer" type="Timer" parent="."]
+[node name="Firing" type="Node" parent="StateMachine" node_paths=PackedStringArray("seeking_state")]
+script = ExtResource("6_nvwfr")
+seeking_state = NodePath("../Seeking")
+
+[node name="FiringCooldown" type="Timer" parent="StateMachine/Firing"]
+process_callback = 0
+one_shot = true
 autostart = true
 
-[connection signal="timeout" from="TargetResetTimer" to="." method="_on_target_reset"]
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Seeking/TargetResetTimer" to="StateMachine/Seeking" method="_on_target_reset"]
+[connection signal="timeout" from="StateMachine/Firing/FiringCooldown" to="StateMachine/Firing" method="_on_firing_cooldown_available"]

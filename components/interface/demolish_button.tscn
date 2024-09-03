@@ -4,14 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://di140fuq0tu8e" path="res://assets/prototypes/hammer.png" id="2_0xj5j"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="2_emoej"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yvfsa"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_450yu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvuuj"]
 shader = ExtResource("2_emoej")
 shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
 shader_parameter/line_thickness = 1.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_87i8g"]
+texture = ExtResource("2_0xj5j")
+
 [node name="DemolishButton" type="Panel"]
+material = SubResource("ShaderMaterial_wvuuj")
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = -1
 anchor_right = 0.05
@@ -21,14 +23,9 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxEmpty_yvfsa")
+theme_override_styles/panel = SubResource("StyleBoxTexture_87i8g")
 script = ExtResource("1_85b61")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_450yu")
-position = Vector2(32, 32)
-texture = ExtResource("2_0xj5j")
-region_rect = Rect2(0, 0, 32, 32)
+demolish_Texture = ExtResource("2_0xj5j")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

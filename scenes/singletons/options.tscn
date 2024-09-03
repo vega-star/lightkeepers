@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhpno5sgls8en"]
+[gd_scene load_steps=8 format=3 uid="uid://dhpno5sgls8en"]
 
 [ext_resource type="Script" path="res://scripts/options.gd" id="1_7g2ij"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_1i0vu"]
@@ -6,107 +6,6 @@
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/materials/lightkeepers_environment.tres" id="2_g6yrr"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="5_7mkoa"]
 [ext_resource type="Texture2D" uid="uid://ekrnron0ftim" path="res://assets/prototypes/x.png" id="6_cvrvg"]
-
-[sub_resource type="Animation" id="Animation_fr6ds"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("OptionsControl/OptionsMenu:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OptionsControl/OptionsMenu:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(110, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("OptionsControl/ExitButton:position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(420, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("OptionsControl/ExitButton:position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(84, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_7bayk"]
-resource_name = "toggle_menu"
-length = 0.3
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("OptionsControl/OptionsMenu:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-496, -0.25, 0, 0.25, 0, 0, -0.0666667, -97, 0.25, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OptionsControl/OptionsMenu:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(110, -0.25, 0, 0.25, 0, 110, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("OptionsControl/ExitButton:position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-76, -0.15, 0, 0.15, 0, 420, -0.0333333, -91, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("OptionsControl/ExitButton:position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(84, -0.15, 0, 0.15, 0, 84, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fh52l"]
-_data = {
-"RESET": SubResource("Animation_fr6ds"),
-"toggle_menu": SubResource("Animation_7bayk")
-}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wpns1"]
 shader = ExtResource("5_7mkoa")
@@ -121,12 +20,6 @@ script = ExtResource("1_7g2ij")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_g6yrr")
 
-[node name="UIAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_fh52l")
-}
-autoplay = "RESET"
-
 [node name="OptionsControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -134,7 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 theme = ExtResource("2_1i0vu")
 
 [node name="OptionsMenu" type="TabContainer" parent="OptionsControl"]
@@ -143,9 +36,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -250.0
+offset_top = -298.0
 offset_right = 477.0
-offset_bottom = 250.0
+offset_bottom = 202.0
 grow_vertical = 2
 tab_alignment = 1
 current_tab = 1
@@ -339,11 +232,6 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "RESET_DEFAULT_KEYBINDS"
 
-[node name="GRAPHICS" type="Control" parent="OptionsControl/OptionsMenu"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
 [node name="ExitButton" type="TextureButton" parent="OptionsControl"]
 material = SubResource("ShaderMaterial_wpns1")
 custom_minimum_size = Vector2(48, 48)
@@ -351,12 +239,11 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 420.0
-offset_top = -276.0
-offset_right = 468.0
-offset_bottom = -228.0
+offset_left = 484.0
+offset_top = -301.0
+offset_right = 532.0
+offset_bottom = -253.0
 grow_vertical = 2
-scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("6_cvrvg")
 
 [node name="ExitCheck" type="ConfirmationDialog" parent="OptionsControl"]

@@ -62,7 +62,6 @@ func select_tile(tile_position):
 	var data
 	var tile_data = GROUND_LAYER.get_cell_tile_data(tile_position)
 	var object_data = OBJECT_LAYER.get_cell_tile_data(tile_position)
-	
 	if object_dict.has(tile_position): selected_object = object_dict[tile_position]['node']
 	
 	if is_instance_valid(selected_object):

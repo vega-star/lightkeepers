@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_7ecv1"]
 [ext_resource type="Texture2D" uid="uid://bqf48hy6dmhk" path="res://assets/theme/styleboxes/stylebox_base_1.png" id="1_h8s0y"]
 [ext_resource type="Script" path="res://scripts/ui/tower_button.gd" id="1_txhdy"]
-[ext_resource type="PackedScene" uid="uid://cdqtftfr80iq" path="res://components/entities/turrets/ballista.tscn" id="3_h43cm"]
+[ext_resource type="PackedScene" uid="uid://oo6aeu1wjpj1" path="res://components/entities/turrets/ballista.tscn" id="3_h43cm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1m1yf"]
 texture = ExtResource("1_h8s0y")
@@ -14,11 +14,12 @@ texture_margin_bottom = 5.0
 region_rect = Rect2(0, 0, 50, 50)
 
 [node name="TowerButton" type="Panel"]
-custom_minimum_size = Vector2(64, 80)
+custom_minimum_size = Vector2(80, 96)
 anchors_preset = -1
-anchor_right = 0.05
-anchor_bottom = 0.111
-offset_bottom = 0.0799942
+anchor_right = 0.062
+anchor_bottom = 0.133
+offset_right = 0.639999
+offset_bottom = 0.239998
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
@@ -29,7 +30,7 @@ script = ExtResource("1_txhdy")
 target_tower_scene = ExtResource("3_h43cm")
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
+position = Vector2(40, 33)
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
@@ -38,10 +39,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 54.0
-offset_bottom = -3.0
+offset_top = 57.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 2
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1

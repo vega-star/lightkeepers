@@ -1,9 +1,11 @@
 class_name DraggableObject extends Node2D
 
+signal object_inserted
 signal object_dragged
 signal object_picked
 signal source_quantity_change(previous_quantity : int, change : int)
 
+const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png")
 const HC_OFFSET = Vector2(48, 48)
 
 @export var container : Node
@@ -76,6 +78,7 @@ func _process(delta):
 				if slot_available: # Inserting into slot
 					release_tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 					slot_occupied = slot_reference
+					object_inserted.emit()
 				else: # Failed to insert
 					var object_in_slot = slot_reference.object_in_slot
 					if object_in_slot and slot_occupied: # Failed because there's already an object there. Will switch place with this object if it's already on a slot
@@ -93,9 +96,6 @@ func _process(delta):
 					if volatile: queue_free()
 			else:
 				_return_pos()
-			
-			# object_collision_area.set_disabled(true)
-			# object_collision_area.set_disabled(false)
 			draggable = false
 
 func _return_pos(return_to_home : bool = false):
@@ -131,3 +131,8 @@ func _on_source_quantity_change(previous_quantity, change):
 	source_quantity += change
 	if source_quantity == 0: locked = true
 	else: locked = false
+
+func _on_object_inserted() -> void:
+	object_collision_area.set_disabled(true)
+	await get_tree().create_timer(0.2).timeout
+	object_collision_area.set_disabled(false)

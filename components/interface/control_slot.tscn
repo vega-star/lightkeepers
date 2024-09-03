@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://c63fegbp12b6o"]
+[gd_scene load_steps=4 format=3 uid="uid://c63fegbp12b6o"]
 
 [ext_resource type="Script" path="res://components/interface/control_slot.gd" id="1_x04jd"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_ybso5"]
 [ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_b1h2b"]
 
 [node name="ControlSlot" type="CenterContainer"]
 custom_minimum_size = Vector2(96, 96)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("1_ybso5")
 script = ExtResource("1_x04jd")
 
 [node name="Slot" parent="." instance=ExtResource("2_b1h2b")]
@@ -14,14 +17,16 @@ position = Vector2(48, 48)
 slot_type = 2
 is_output = true
 
-[node name="Control" type="Control" parent="."]
+[node name="OffsetControl" type="Control" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="QuantityLabel" type="Label" parent="Control"]
+[node name="QuantityLabel" type="Label" parent="OffsetControl"]
+z_index = 15
 layout_mode = 2
-offset_left = 38.0
+offset_left = 31.0
 offset_top = 25.0
-offset_right = 57.0
+offset_right = 67.0
 offset_bottom = 48.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "0?"
+text = "0"

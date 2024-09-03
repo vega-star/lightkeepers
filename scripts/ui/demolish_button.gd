@@ -1,6 +1,6 @@
 extends Panel
 
-@onready var source_sprite = $Sprite
+@export var demolish_Texture : Texture2D
 
 var stage : Node
 var sprite : Sprite2D
@@ -21,7 +21,7 @@ func _on_gui_input(event):
 	
 	if event is InputEventMouseButton and event.button_mask == 1 and valid: # Left mouse click
 		sprite = Sprite2D.new()
-		sprite.set_texture(source_sprite.get_texture())
+		sprite.set_texture(demolish_Texture)
 		sprite.global_position = event.global_position
 		add_child(sprite)
 	elif event is InputEventMouseMotion and event.button_mask == 1: # Left mouse hold
@@ -40,4 +40,4 @@ func _on_gui_input(event):
 		if !request: # Couldn't insert object because insertion failed
 			return
 
-func _on_focus_entered(): valid = true #? Simply resets valid when clicked again. Wouldn't work without this line!
+func _on_focus_entered(): valid = true #? Simply resets valid when clicked again. Breaks without this line

@@ -1,5 +1,6 @@
 class_name LightShape extends CollisionShape2D
 
+@export var base_energy : float = 2
 @export var noise : NoiseTexture2D
 @export var default_color : Color = Color.WHITE
 @export var test_oscillation : bool = true
@@ -33,4 +34,4 @@ func _physics_process(delta):
 	time += delta
 	var sampled_noise = abs(noise.noise.get_noise_1d(time))
 	if test_oscillation:
-		$ShapePointLight.energy = sampled_noise
+		$ShapePointLight.energy = base_energy * sampled_noise
