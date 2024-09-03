@@ -32,7 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="19_1inae"]
 [ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://scripts/resources/elements/EarthElement.tres" id="19_a637k"]
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
-[ext_resource type="Texture2D" path="res://assets/prototypes/speed3.png" id="23_5e4l5"]
+[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/prototypes/gear.png" id="23_5e4l5"]
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/turrets/tower.tscn" id="30_d0kwp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
