@@ -113,5 +113,5 @@ func _draw() -> void:
 		draw_circle(to_local(global_position), light_shape.shape.radius * set_zoom, Color(light_draw_color, 0.2), true)
 		draw_circle(to_local(global_position), tower_range_shape.shape.radius * set_zoom, Color(range_draw_color, 0.2), true)
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	queue_redraw() #? Updates draw functions
