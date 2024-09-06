@@ -19,10 +19,9 @@ jobs:
               with:
                 lfs: true
             
-            # Checkout LFS objects 
-            # These objects are game executables stored in other places because GitHub has a file size limit
-            - name: Checkout LFS objects
-              run: git lfs checkout
+            ## Pull specific LFS objects to fulfill this step
+            - name: Pull LFS Objects
+              run: git lfs pull --include="exports/web"
             
             # Butler install
             - name: Download butler
@@ -73,7 +72,13 @@ jobs:
             # Checkout repo to Github Actions runner
             - name: Checkout
               uses: actions/checkout@v4.1.1
-
+              with:
+                lfs: true
+            
+            ## Pull specific LFS objects to fulfill this step
+            - name: Pull LFS Objects
+              run: git lfs pull --include="exports/linux"
+            
             # Butler install
             - name: Download butler
               run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
@@ -113,6 +118,12 @@ jobs:
             # Checkout repo to Github Actions runner
             - name: Checkout
               uses: actions/checkout@v4.1.1
+              with:
+                lfs: true
+            
+            ## Pull specific LFS objects to fulfill this step
+            - name: Pull LFS Objects
+              run: git lfs pull --include="exports/windows"
             
             # Butler install
             - name: Download butler
