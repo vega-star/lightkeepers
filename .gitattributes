@@ -25,6 +25,7 @@
 *.exe filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
 *.godot filter=lfs diff=lfs merge=lfs -text
+*.md filter=lfs diff=lfs merge=lfs -text
 * !text !filter !merge !diff
 /export/linux/Lightkeepers.x86_64 filter=lfs diff=lfs merge=lfs -text
 /export/web/lightkeepers.side.wasm filter=lfs diff=lfs merge=lfs -text
