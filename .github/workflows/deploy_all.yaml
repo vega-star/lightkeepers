@@ -45,9 +45,12 @@ jobs:
             # Patch index.html requirement
             - id: 'patch_html'
               name: 'Rename project.html to index.html'
+              if: 
               run: |
+               if ! [ -f exports/web/index.html ]; then
                 echo "::warning file=app.py,line=10,col=5::Index file was not renamed after export, which is fine! Patched during upload."
                 mv exports/web/*.html exports/web/index.html
+               fi
               
             # Update build number
             - id: 'update_build'
@@ -88,6 +91,11 @@ jobs:
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run: ./butler login
+            
+            # Update build number
+            - id: 'update_build'
+              name: 'Update build_number.txt file with a direct reading of project.godot file'
+              run: cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])' > build_number.txt
 
             # Upload with parameters
             - name: Upload
@@ -123,6 +131,11 @@ jobs:
               env:
                 BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
               run: ./butler login
+            
+            # Update build number
+            - id: 'update_build'
+              name: 'Update build_number.txt file with a direct reading of project.godot file'
+              run: cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])' > build_number.txt
             
             # Upload with parameters
             - name: Upload
