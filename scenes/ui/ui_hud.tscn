@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://scripts/resources/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
 [ext_resource type="Texture2D" uid="uid://dql2gj46mbt71" path="res://assets/prototypes/seta.png" id="5_us4v6"]
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="6_eiqqm"]
-[ext_resource type="StyleBox" uid="uid://behn0ug145wni" path="res://components/interface/ui_frame.tres" id="7_mrlhg"]
+[ext_resource type="StyleBox" uid="uid://behn0ug145wni" path="res://assets/theme/styleboxes/flat/ui_frame.tres" id="7_mrlhg"]
 [ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/turrets/lamp.tscn" id="7_nkijl"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://components/interface/control_slot.tscn" id="8_am10k"]
 [ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/turrets/cannon_tower.tscn" id="8_l8uqo"]

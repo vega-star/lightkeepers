@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/edosz.ttf-e0fee4406ee1015d3ae7b39ccc0e9266.fo
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
