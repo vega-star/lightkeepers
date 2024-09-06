@@ -1,9 +1,6 @@
 name: 'Deploy all'
 
-on:
-    push:
-        branches: 
-        - main
+on: workflow_dispatch
 
 env:
   GAME_ID: lightkeepers
@@ -19,6 +16,13 @@ jobs:
             # Checkout repo to Github Actions runner
             - name: Checkout
               uses: actions/checkout@v4.1.1
+              with:
+                lfs: true
+            
+            # Checkout LFS objects 
+            # These objects are game executables stored in other places because GitHub has a file size limit
+            - name: Checkout LFS objects
+              run: git lfs checkout
             
             # Butler install
             - name: Download butler
