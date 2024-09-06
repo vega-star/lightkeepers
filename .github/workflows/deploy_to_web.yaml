@@ -8,6 +8,9 @@ on:
                 description: Version override
                 required: true
 
+env:
+  GAME_ID: lightkeepers
+
 jobs:
     upload:
         name: 'Butler validation'

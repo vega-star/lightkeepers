@@ -7,8 +7,6 @@ const fade_time : float = 2.5
 @export var skip_intro_on_debug : bool = false
 
 func _ready():
-	if UI.HUD.visible: UI.HUD.visible = false
-	
 	if OS.is_debug_build() and skip_intro_on_debug: # Skip intro when debug
 		get_tree().change_scene_to_packed(main_menu)
 		return
@@ -19,5 +17,3 @@ func _ready():
 	$IntroAnimation.play_backwards('LOGO_FADE_IN')
 	await UI.fade('OUT')
 	get_tree().change_scene_to_packed(main_menu)
-	
-	# UI.HUD.visible = true

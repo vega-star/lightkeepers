@@ -35,10 +35,11 @@ const DEFAULT_KEY_DICT : Dictionary = { #? Default keybinds that is loaded when 
 	"enter": 4194309,
 	"escape": 4194305,
 	"space": 32,
-	"move_down": 83,
-	"move_left": 65,
-	"move_right": 68,
-	"move_up": 87
+	"move_up": 4194320,
+	"move_down": 4194322,
+	"move_left": 4194319,
+	"move_right": 4194321
+	
 }
 const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded when the game is first loaded
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
@@ -115,7 +116,7 @@ func _ready():
 
 func _input(event): # Able the player to exit options screen using actions, needed for when using controllers
 	if Input.is_action_pressed("escape") and Options.visible == true: _toggle_menu(false)
-	if show_keycode == true: if event is InputEventKey: print(event.get_keycode_with_modifiers()) #? Prints every input as its keycode integer. Useful to fill the default key_dict manually.
+	if show_keycode == true: if event is InputEventKey: print(OS.get_keycode_string(event.get_keycode_with_modifiers()) ,' - ', event.get_keycode_with_modifiers()) #? Prints every input as its keycode integer. Useful to fill the default key_dict manually.
 
 func _bind_signals(): #? Binds signals from UI nodes by code
 	#! Prevents having to recreate the links if this is script is re-implemented in another project, with new buttons and control nodes.
@@ -149,15 +150,6 @@ func _button_group_input(button_index):
 	var index = button_index - 1
 	print(index)
 
-func _toggle_menu(toggle : bool):
-	var toggle_tween : Tween = get_tree().create_tween()
-	if toggle:
-		options_control.position.x = -options_menu.size.x
-		toggle_tween.tween_property(options_control, "position", Vector2(0, 0), 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	else: 
-		toggle_tween.tween_property(options_control, "position", Vector2(-options_menu.size.x, 0), 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-		_on_exit_menu_pressed()
-
 func _on_options_visibility_changed(): 
 	if visible: #? Updates menu if visible
 		_update_menu()
@@ -180,9 +172,27 @@ func _update_menu(): #? Updates menu labels, buttons and temporary files
 
 func _on_config_tabs_tab_selected(_tab): options_menu.get_tab_bar().grab_focus()
 
+func _exit(turbo : bool = false): # Clean temporary data and reset signal
+	if language_changed_detect: language_changed.emit()
+	settings_changed = false
+	language_changed_detect = false
+	
+	if !turbo:
+		var toggle_tween : Tween = get_tree().create_tween()
+		toggle_tween.tween_property(options_control, "position", Vector2(-options_menu.size.x, 0), 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		await get_tree().create_timer(0.3).timeout
+	Options.visible = false
+
 func _on_exit_menu_pressed():
 	if settings_changed == true: exit_check.visible = true
 	else: _exit()
+
+func _toggle_menu(toggle : bool):
+	var toggle_tween : Tween = get_tree().create_tween()
+	if toggle:
+		options_control.position.x = -options_menu.size.x
+		toggle_tween.tween_property(options_control, "position", Vector2(0, 0), 0.3).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	else: _on_exit_menu_pressed()
 
 func _on_exit_check_confirmed():
 	save_keys()
@@ -195,12 +205,6 @@ func _on_exit_check_canceled():
 	await config_file.load(TEMP_CONFIG_FILE_PATH)
 	await _load_data()
 	_exit()
-
-func _exit(): # Clean temporary data and reset signal
-	Options.visible = false
-	if language_changed_detect: language_changed.emit()
-	settings_changed = false
-	language_changed_detect = false
 
 func _screen_mode_update():
 	var new_mode = DisplayServer.window_get_mode()

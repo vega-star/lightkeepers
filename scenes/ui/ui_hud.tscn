@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=45 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
@@ -9,16 +9,17 @@
 [ext_resource type="Resource" uid="uid://nojuy8ypf07k" path="res://scripts/resources/elements/default_registers/WaterRegister.tres" id="3_iqwj1"]
 [ext_resource type="Resource" uid="uid://ci7epsk0qe7mk" path="res://scripts/resources/elements/default_registers/AirRegister.tres" id="4_06pcj"]
 [ext_resource type="PackedScene" uid="uid://b8e2jpe7y87cm" path="res://components/interface/tower_button.tscn" id="4_jbcwa"]
-[ext_resource type="Texture2D" uid="uid://ckw1wrf68j8i" path="res://assets/prototypes/frame_test.png" id="4_m44u3"]
 [ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://scripts/resources/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
-[ext_resource type="Texture2D" uid="uid://cne0jbt34jcyq" path="res://assets/prototypes/play_button_patch.png" id="5_caru6"]
-[ext_resource type="Texture2D" uid="uid://byw3hfyyoy1s2" path="res://assets/theme/styleboxes/stylebox_base.png" id="5_sloql"]
 [ext_resource type="Texture2D" uid="uid://dql2gj46mbt71" path="res://assets/prototypes/seta.png" id="5_us4v6"]
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="6_eiqqm"]
+[ext_resource type="StyleBox" uid="uid://behn0ug145wni" path="res://components/interface/ui_frame.tres" id="7_mrlhg"]
 [ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/turrets/lamp.tscn" id="7_nkijl"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://components/interface/control_slot.tscn" id="8_am10k"]
 [ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/turrets/cannon_tower.tscn" id="8_l8uqo"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
+[ext_resource type="Script" path="res://scripts/ui/event_fuse.gd" id="8_wp3i2"]
+[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="9_ii0gs"]
+[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="10_0snv3"]
 [ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="12_5tcgt"]
 [ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://scripts/resources/elements/FireElement.tres" id="13_hlgc1"]
 [ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="14_dyp6q"]
@@ -32,8 +33,10 @@
 [ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="19_1inae"]
 [ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://scripts/resources/elements/EarthElement.tres" id="19_a637k"]
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
-[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/prototypes/gear.png" id="23_5e4l5"]
+[ext_resource type="Texture2D" uid="uid://dhc5dpc01fp4w" path="res://assets/prototypes/speed.png" id="24_dr5sr"]
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/turrets/tower.tscn" id="30_d0kwp"]
+[ext_resource type="FontFile" uid="uid://dk26vsfaimn17" path="res://assets/theme/fonts/dpcomic.ttf" id="31_ulfvl"]
+[ext_resource type="ButtonGroup" uid="uid://cdaiitge3bsbm" path="res://components/interface/shop_buttons.tres" id="33_24gcv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
 texture = ExtResource("17_wrifp")
@@ -43,26 +46,22 @@ texture_margin_right = 3.0
 texture_margin_bottom = 3.0
 draw_center = false
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ooj6b"]
-texture = ExtResource("5_sloql")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
-region_rect = Rect2(0, 0, 50, 50)
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v1emh"]
+size = Vector2(96, 96)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cjjh3"]
 shader = ExtResource("17_nh1qq")
 shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
 shader_parameter/line_thickness = 1.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5qoe"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj3q8"]
 texture_margin_right = 24.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nn0rs"]
-texture = ExtResource("5_caru6")
-texture_margin_left = 33.0
-texture_margin_top = 49.0
+[sub_resource type="SystemFont" id="SystemFont_xb3ae"]
+subpixel_positioning = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5q6f8"]
 shader = ExtResource("17_nh1qq")
@@ -72,8 +71,10 @@ shader_parameter/line_thickness = 1.0
 [node name="Interface" type="CanvasLayer"]
 layer = 50
 script = ExtResource("1_7no1j")
+shop_button_group = ExtResource("33_24gcv")
 
 [node name="ScreenFrame" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,7 +95,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_x8juj")
 
-[node name="ElementContainer" type="HBoxContainer" parent="Screen"]
+[node name="ElementContainer" type="BoxContainer" parent="Screen"]
 custom_minimum_size = Vector2(0, 145)
 layout_mode = 1
 anchors_preset = -1
@@ -124,44 +125,81 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ooj6b")
+theme_override_styles/panel = ExtResource("7_mrlhg")
 
-[node name="EssenceInterface" type="NinePatchRect" parent="Screen/ElementContainer"]
+[node name="FusePanel" type="Panel" parent="Screen/ElementContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("4_m44u3")
-region_rect = Rect2(64, 0, 96, 120)
-patch_margin_right = 1
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_mrlhg")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Screen/ElementContainer/EssenceInterface"]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 7.0
-offset_right = -10.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-follow_focus = true
-
-[node name="EssenceSlots" type="BoxContainer" parent="Screen/ElementContainer/EssenceInterface/ScrollContainer"]
+[node name="FuseSystem" type="HBoxContainer" parent="Screen/ElementContainer/FusePanel"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
+offset_left = 58.5
+offset_top = 24.5
+offset_right = 476.5
+offset_bottom = 120.5
+mouse_filter = 2
+theme = ExtResource("2_x8juj")
 theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("8_wp3i2")
 
-[node name="ControlSlot" parent="Screen/ElementContainer/EssenceInterface/ScrollContainer/EssenceSlots" instance_placeholder="res://components/interface/control_slot.tscn"]
+[node name="InputSlot1" parent="Screen/ElementContainer/FusePanel/FuseSystem" instance=ExtResource("9_ii0gs")]
 layout_mode = 2
 
-[node name="ElementInterface" type="NinePatchRect" parent="Screen/ElementContainer"]
+[node name="Slot" parent="Screen/ElementContainer/FusePanel/FuseSystem/InputSlot1" index="0"]
+slot_type = 0
+
+[node name="PlusSign" type="Label" parent="Screen/ElementContainer/FusePanel/FuseSystem"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputSlot2" parent="Screen/ElementContainer/FusePanel/FuseSystem" instance=ExtResource("9_ii0gs")]
+layout_mode = 2
+
+[node name="Slot" parent="Screen/ElementContainer/FusePanel/FuseSystem/InputSlot2" index="0"]
+slot_type = 0
+
+[node name="EqualSign" type="Label" parent="Screen/ElementContainer/FusePanel/FuseSystem"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "="
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OutputSlot" type="CenterContainer" parent="Screen/ElementContainer/FusePanel/FuseSystem"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+use_top_left = true
+
+[node name="OffsetControl" type="Control" parent="Screen/ElementContainer/FusePanel/FuseSystem/OutputSlot"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ConfirmButton" type="TextureButton" parent="Screen/ElementContainer/FusePanel/FuseSystem/OutputSlot/OffsetControl"]
+visible = false
+layout_mode = 2
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(48, 48)
+texture_normal = SubResource("PlaceholderTexture2D_v1emh")
+
+[node name="Output" parent="Screen/ElementContainer/FusePanel/FuseSystem/OutputSlot" instance=ExtResource("10_0snv3")]
+position = Vector2(48, 48)
+is_output = true
+
+[node name="ElementInterface" type="Panel" parent="Screen/ElementContainer"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
-texture = ExtResource("4_m44u3")
-region_rect = Rect2(66, 0, 94, 120)
-patch_margin_right = 1
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_mrlhg")
 
 [node name="ElementSlots" type="BoxContainer" parent="Screen/ElementContainer/ElementInterface"]
 layout_mode = 1
@@ -233,13 +271,13 @@ element = ExtResource("19_a637k")
 texture = ExtResource("19_1inae")
 
 [node name="CornerRect" type="ReferenceRect" parent="Screen/ElementContainer"]
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(221, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 border_width = 0.0
 editor_only = false
 
-[node name="HUDContainer" type="Control" parent="Screen"]
+[node name="HUD" type="Control" parent="Screen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -248,50 +286,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WaveCounter" type="Label" parent="Screen/HUDContainer"]
-custom_minimum_size = Vector2(150, 0)
+[node name="Tools" type="BoxContainer" parent="Screen/HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -435.0
-offset_top = 8.0
-offset_right = -212.0
-offset_bottom = 44.0
-grow_horizontal = 0
-size_flags_horizontal = 2
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 22
-text = "TURN 0/30"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="ToolsBox" type="BoxContainer" parent="Screen/HUDContainer"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -413.0
-offset_top = 48.0
-offset_right = -213.0
-offset_bottom = 112.0
+offset_left = -300.0
+offset_top = 60.0
+offset_right = -236.0
+offset_bottom = 260.0
 grow_horizontal = 0
 alignment = 2
+vertical = true
 
-[node name="DemolishButton" parent="Screen/HUDContainer/ToolsBox" instance=ExtResource("3_ckdtt")]
-layout_mode = 2
-tooltip_text = "DEMOLISH"
-
-[node name="SpeedButton" type="TextureButton" parent="Screen/HUDContainer/ToolsBox"]
-material = SubResource("ShaderMaterial_cjjh3")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-tooltip_text = "CONFIG"
-toggle_mode = true
-texture_normal = ExtResource("23_5e4l5")
-stretch_mode = 3
-
-[node name="OptionsButton" type="TextureButton" parent="Screen/HUDContainer/ToolsBox"]
+[node name="OptionsButton" type="TextureButton" parent="Screen/HUD/Tools"]
 material = SubResource("ShaderMaterial_cjjh3")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -300,17 +308,71 @@ toggle_mode = true
 texture_normal = ExtResource("14_rjvi7")
 stretch_mode = 3
 
-[node name="Towers" type="Panel" parent="Screen/HUDContainer"]
+[node name="SpeedButton" type="TextureButton" parent="Screen/HUD/Tools"]
+material = SubResource("ShaderMaterial_cjjh3")
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+tooltip_text = "CONFIG"
+toggle_mode = true
+texture_normal = ExtResource("24_dr5sr")
+stretch_mode = 3
+
+[node name="DemolishButton" parent="Screen/HUD/Tools" instance=ExtResource("3_ckdtt")]
+layout_mode = 2
+tooltip_text = "DEMOLISH"
+
+[node name="Shop" type="VBoxContainer" parent="Screen/HUD"]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.003
-offset_left = -208.0
-offset_bottom = -194.16
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ooj6b")
+anchor_bottom = 1.004
+offset_left = -221.0
+offset_bottom = -146.88
+grow_horizontal = 0
+theme_override_constants/separation = 0
 
-[node name="TowerScrollContainer" type="ScrollContainer" parent="Screen/HUDContainer/Towers"]
+[node name="ShopButtons" type="Panel" parent="Screen/HUD/Shop"]
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s5qoe")
+
+[node name="ShopButtonsContainer" type="HBoxContainer" parent="Screen/HUD/Shop/ShopButtons"]
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+mouse_filter = 2
+alignment = 1
+
+[node name="TowersButton" type="Button" parent="Screen/HUD/Shop/ShopButtons/ShopButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("33_24gcv")
+text = "TOWERS"
+
+[node name="ElementsButton" type="Button" parent="Screen/HUD/Shop/ShopButtons/ShopButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_group = ExtResource("33_24gcv")
+text = "ELEMENTS"
+
+[node name="Towers" type="Panel" parent="Screen/HUD/Shop"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_mrlhg")
+
+[node name="TowerScrollContainer" type="ScrollContainer" parent="Screen/HUD/Shop/Towers"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -322,72 +384,136 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TowerGrid" type="GridContainer" parent="Screen/HUDContainer/Towers/TowerScrollContainer"]
+[node name="TowerGrid" type="GridContainer" parent="Screen/HUD/Shop/Towers/TowerScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_constants/h_separation = 12
+theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 12
 columns = 2
 
-[node name="LampTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
+[node name="LampTower" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 object_type = "LIGHT"
 target_tower_scene = ExtResource("7_nkijl")
 
-[node name="BallistaTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
+[node name="BallistaTower" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 
-[node name="CannonTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
+[node name="CannonTower" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
 target_tower_scene = ExtResource("8_l8uqo")
 
-[node name="PlaceholderTower" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower2" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower2" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower3" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower3" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower4" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower4" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower5" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower5" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower6" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower6" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower7" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower7" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower8" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower8" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower9" parent="Screen/HUDContainer/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
+[node name="PlaceholderTower9" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="LifePanel" type="Panel" parent="Screen/HUDContainer"]
+[node name="Elements" type="Panel" parent="Screen/HUD/Shop"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_mrlhg")
+
+[node name="ElementsScrollContainer" type="ScrollContainer" parent="Screen/HUD/Shop/Elements"]
+clip_contents = false
 layout_mode = 1
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 290.0
-offset_bottom = 52.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ElementsGrid" type="GridContainer" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+mouse_filter = 2
+columns = 2
+
+[node name="ControlSlot" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot2" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot3" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot4" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot5" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot6" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot7" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot8" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot9" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot10" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot11" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="ControlSlot12" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+layout_mode = 2
+
+[node name="Status" type="Panel" parent="Screen/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -221.0
+offset_bottom = 48.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_xj3q8")
 
-[node name="DataContainer" type="HBoxContainer" parent="Screen/HUDContainer/LifePanel"]
+[node name="DataContainer" type="HBoxContainer" parent="Screen/HUD/Status"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -397,36 +523,60 @@ offset_right = 202.0
 offset_bottom = 24.0
 grow_vertical = 2
 
-[node name="LifeIcon" type="TextureButton" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+[node name="LifeIcon" type="TextureButton" parent="Screen/HUD/Status/DataContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture_normal = ExtResource("8_qvuwj")
 stretch_mode = 0
 
-[node name="LifeLabel" type="Label" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+[node name="LifeLabel" type="Label" parent="Screen/HUD/Status/DataContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("31_ulfvl")
+theme_override_font_sizes/font_size = 32
 text = "100"
 
-[node name="CoinIcon" type="TextureButton" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+[node name="CoinIcon" type="TextureButton" parent="Screen/HUD/Status/DataContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture_normal = ExtResource("6_eiqqm")
 stretch_mode = 0
 
-[node name="CoinLabel" type="Label" parent="Screen/HUDContainer/LifePanel/DataContainer"]
+[node name="CoinLabel" type="Label" parent="Screen/HUD/Status/DataContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("31_ulfvl")
+theme_override_font_sizes/font_size = 32
 text = "0
 "
 
-[node name="InfoBox" type="VBoxContainer" parent="Screen/HUDContainer"]
+[node name="WaveCounter" type="Label" parent="Screen/HUD/Status"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -18.0
+offset_right = -12.0
+offset_bottom = 18.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 2
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("31_ulfvl")
+theme_override_font_sizes/font_size = 32
+text = "TURN 0/30"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Info" type="VBoxContainer" parent="Screen/HUD"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -440,16 +590,19 @@ pivot_offset = Vector2(157, 164)
 mouse_filter = 2
 alignment = 2
 
-[node name="ObjectDescriptionLabel" type="Label" parent="Screen/HUDContainer/InfoBox"]
+[node name="ObjectDescriptionLabel" type="Label" parent="Screen/HUD/Info"]
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_xb3ae")
 
-[node name="DebugLabel" type="Label" parent="Screen/HUDContainer/InfoBox"]
+[node name="DebugLabel" type="Label" parent="Screen/HUD/Info"]
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_xb3ae")
 
-[node name="TileDescriptionLabel" type="Label" parent="Screen/HUDContainer/InfoBox"]
+[node name="TileDescriptionLabel" type="Label" parent="Screen/HUD/Info"]
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_xb3ae")
 
-[node name="CornerPanel" type="Panel" parent="Screen"]
+[node name="CornerPanel" type="Panel" parent="Screen/HUD"]
 z_index = 20
 clip_contents = true
 layout_mode = 1
@@ -458,43 +611,51 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -240.0
-offset_top = -192.0
+offset_left = -221.0
+offset_top = -144.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_nn0rs")
+theme_override_styles/panel = ExtResource("7_mrlhg")
 
-[node name="PlayButton" type="TextureButton" parent="Screen/CornerPanel"]
+[node name="PlayButton" type="TextureButton" parent="Screen/HUD/CornerPanel"]
 material = SubResource("ShaderMaterial_5q6f8")
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -176.0
-offset_top = -176.0
-offset_right = -16.0
-offset_bottom = -16.0
+offset_left = -108.0
+offset_top = -124.0
+offset_right = -8.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
 texture_normal = ExtResource("19_k7dll")
+ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_h835t")
 
-[node name="AutoplayButton" type="CheckButton" parent="Screen/CornerPanel"]
+[node name="AutoplayButton" type="CheckButton" parent="Screen/HUD/CornerPanel"]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 160.0
-offset_right = 49.0
-offset_bottom = 186.0
+offset_left = 23.0
+offset_top = 56.0
+offset_right = 71.0
+offset_bottom = 90.0
 tooltip_text = "AUTOPLAY"
+alignment = 1
 icon_alignment = 1
+expand_icon = true
 
 [connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
 [connection signal="pressed" from="Screen/ElementContainer/HideButton" to="." method="_on_hide_button_pressed"]
-[connection signal="pressed" from="Screen/HUDContainer/ToolsBox/SpeedButton" to="." method="_on_speed_button_pressed"]
-[connection signal="pressed" from="Screen/HUDContainer/ToolsBox/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="Screen/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="toggled" from="Screen/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
+[connection signal="pressed" from="Screen/HUD/Tools/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Screen/HUD/Tools/SpeedButton" to="." method="_on_speed_button_pressed"]
+[connection signal="pressed" from="Screen/HUD/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="toggled" from="Screen/HUD/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
 
+[editable path="Screen/ElementContainer/FusePanel/FuseSystem/InputSlot1"]
+[editable path="Screen/ElementContainer/FusePanel/FuseSystem/InputSlot2"]
 [editable path="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer"]
 [editable path="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot"]
 [editable path="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject"]

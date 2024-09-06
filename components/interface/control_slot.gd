@@ -24,6 +24,7 @@ func _config_register(reg : ElementRegister):
 	slot_register = reg
 	slot_register.element_quantity_changed.connect(_on_quantity_changed)
 	if quantity_label: quantity_label.text = str(slot_register.quantity)
+	# set_tooltip_text(reg.element.element_id.capitalize())
 
 func _on_slot_changed(): control_slot_changed.emit()
 

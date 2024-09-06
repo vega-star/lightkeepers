@@ -1,7 +1,7 @@
 class_name Tower extends TileObject
 
-signal tower_disabled
-signal tower_destroyed
+# signal tower_disabled
+# signal tower_destroyed
 
 const draw_width : float = 2.5
 const base_range : float = 160

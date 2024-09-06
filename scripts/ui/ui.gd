@@ -4,7 +4,7 @@ extends CanvasLayer
 signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
-const TIME_SCALE_MULTIPLY : int = 3
+const TIME_SCALE_MULTIPLY : int = 4
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload('res://components/interface/object.tscn')
 const CONTROL_SLOT_SCENE : PackedScene = preload('res://components/interface/control_slot.tscn')
 const STARTING_ELEMENT_REG : Array[ElementRegister] = [
@@ -19,21 +19,32 @@ const DEFAULT_LABEL_MODULATE_POSITIVE = Color(0.2,20,1)
 const DEFAULT_LABEL_MODULATE_NEGATIVE = Color(20,0.2,0.2)
 const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 
-@export var active_elements : Array[ElementRegister] #? Acts as a gateway to registers in each slot. Makes it way easier to make UI changes and checks!
+@export var shop_button_group : ButtonGroup
 
-@onready var essence_slots : BoxContainer = $Screen/ElementContainer/EssenceInterface/ScrollContainer/EssenceSlots
+@onready var essence_slots : GridContainer = $Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid
 @onready var element_slots : BoxContainer = $Screen/ElementContainer/ElementInterface/ElementSlots
-@onready var play_button : TextureButton = $Screen/CornerPanel/PlayButton
-@onready var life_icon: TextureButton = $Screen/HUDContainer/LifePanel/DataContainer/LifeIcon
-@onready var life_label: Label = $Screen/HUDContainer/LifePanel/DataContainer/LifeLabel
-@onready var wave_counter: Label = $Screen/HUDContainer/WaveCounter
-@onready var coin_label: Label = $Screen/HUDContainer/LifePanel/DataContainer/CoinLabel
-@onready var debug_label : Label = $Screen/HUDContainer/InfoBox/DebugLabel
-@onready var tile_description_label : Label = $Screen/HUDContainer/InfoBox/TileDescriptionLabel
-@onready var object_description_label : Label = $Screen/HUDContainer/InfoBox/ObjectDescriptionLabel
-@onready var options_button: TextureButton = $Screen/HUDContainer/ToolsBox/OptionsButton
-@onready var hide_button : TextureButton = $Screen/ElementContainer/HideButton
+@onready var play_button: TextureButton = $Screen/HUD/CornerPanel/PlayButton
 
+@onready var life_icon: TextureButton = $Screen/HUD/Status/DataContainer/LifeIcon
+@onready var life_label: Label = $Screen/HUD/Status/DataContainer/LifeLabel
+@onready var wave_counter: Label = $Screen/HUD/Status/WaveCounter
+@onready var coin_label: Label = $Screen/HUD/Status/DataContainer/CoinLabel
+
+@onready var options_button: TextureButton = $Screen/HUD/Tools/OptionsButton
+@onready var hide_button : TextureButton = $Screen/ElementContainer/HideButton
+@onready var corner_panel : Panel = $Screen/HUD/CornerPanel
+
+@onready var towers_panel : Panel = $Screen/HUD/Shop/Towers
+@onready var elements_storage_panel : Panel = $Screen/HUD/Shop/Elements
+@onready var element_container : BoxContainer = $Screen/ElementContainer
+@onready var elements_grid : GridContainer = $Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid
+
+@onready var info_container : VBoxContainer = $Screen/HUD/Info
+@onready var debug_label : Label = $Screen/HUD/Info/DebugLabel
+@onready var tile_description_label : Label = $Screen/HUD/Info/TileDescriptionLabel
+@onready var object_description_label : Label = $Screen/HUD/Info/ObjectDescriptionLabel
+
+var active_elements : Array[ElementRegister] #? Acts as a gateway to registers in each slot
 var previous_life : int
 var previous_coins : int
 var element_textures : Dictionary = {}
@@ -41,10 +52,23 @@ var element_menu_hidden : bool = false
 var speed_toggled : bool = false
 
 func _ready():
+	set_visible(false)
 	active_elements.append_array(STARTING_ELEMENT_REG)
 	var temp_dos : DraggableObjectSprite = DraggableObjectSprite.new()
 	element_textures = temp_dos.load_all_sprites()
 	temp_dos.queue_free()
+	
+	for button in shop_button_group.get_buttons():
+		button.pressed.connect(func(): _on_shop_button_pressed(button.get_index()))
+
+func _on_shop_button_pressed(index : int):
+	match index:
+		0: #! Towers buttons pressed
+			elements_storage_panel.set_visible(false)
+			towers_panel.set_visible(true)
+		1: #! Elements buttons pressed
+			towers_panel.set_visible(false)
+			elements_storage_panel.set_visible(true)
 
 func _on_play_button_pressed(): turn_pass_requested.emit()
 func _on_autoplay_button_toggled(toggled_on): autoplay_toggled.emit(toggled_on)
@@ -116,8 +140,8 @@ func _on_hide_button_pressed() -> void:
 	var info_new_y : int = INFO_DEFAULT_Y
 	
 	if !element_menu_hidden: # Element menu visible
-		new_x = get_viewport().get_visible_rect().size.x - $Screen/CornerPanel.size.x - $Screen/ElementContainer/HideButton.size.x
-		info_new_y = get_viewport().get_visible_rect().size.y - $Screen/HUDContainer/InfoBox.size.y - INFO_DEFAULT_X
+		new_x = get_viewport().get_visible_rect().size.x - corner_panel.size.x - hide_button.size.x
+		info_new_y = get_viewport().get_visible_rect().size.y - info_container.size.y - INFO_DEFAULT_X
 		element_menu_hidden = true
 		hide_button.flip_h = false
 	else: #? Element menu invisible
@@ -126,8 +150,8 @@ func _on_hide_button_pressed() -> void:
 		element_menu_hidden = false
 		hide_button.flip_h = true
 	
-	hide_tween.tween_property($Screen/ElementContainer, "position", Vector2(new_x, $Screen/ElementContainer.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	info_tween.tween_property($Screen/HUDContainer/InfoBox, "position", Vector2(INFO_DEFAULT_X, info_new_y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	hide_tween.tween_property(element_container, "position", Vector2(new_x, element_container.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	info_tween.tween_property(info_container, "position", Vector2(INFO_DEFAULT_X, info_new_y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 func _on_speed_button_pressed() -> void:
 	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true

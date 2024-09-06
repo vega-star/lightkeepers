@@ -14,7 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_3vsxr")
 script = ExtResource("1_2dyl0")
-hide_when_initiated = null
 
 [node name="TextureRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -67,7 +66,6 @@ layout_mode = 2
 text = "START"
 
 [node name="SettingsButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
-visible = false
 layout_mode = 2
 text = "SETTINGS"
 

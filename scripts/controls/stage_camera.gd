@@ -40,7 +40,7 @@ var shake_strength : float
 func _process(delta):
 	current_pos = get_viewport().get_mouse_position()
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
-	position += direction * (drag_multiplier * 5) * zoom
+	position += direction * (drag_multiplier * 5 * zoom)
 	
 	if enable_camera_shake:
 		shake_strength = lerpf(shake_strength, 0.0, shake_decay * delta)

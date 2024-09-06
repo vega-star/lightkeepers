@@ -14,7 +14,8 @@ func _on_start_button_pressed():
 	owner.set_page_position(-1) # Stage Selection
 
 func _on_settings_button_pressed():
-	pass # Replace with function body
+	if !Options.visible: Options.show()
+	else: Options._on_exit_menu_pressed()
 
 func _on_quit_button_pressed(): # QuitButton
 	get_tree().quit()

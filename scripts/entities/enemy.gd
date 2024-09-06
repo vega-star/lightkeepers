@@ -25,6 +25,7 @@ var navigation_agent : NavigationAgent2D #? Smart enemy nav agent
 var line_agent : PathFollow2D #? Line2D node to follow
 var stage : Stage #? Stage to call upon
 
+var initial_rotation : float = 0
 var damage_on_nexus : int
 var enemy_value : int
 var on_sight : bool = false : set = _set_on_sight
@@ -40,6 +41,7 @@ func _set_enemy_properties():
 	enemy_value = base_enemy_value
 	
 	if smart_enemy:
+		assert(nexus)
 		navigation_agent = NavigationAgent2D.new()
 		navigation_agent.path_postprocessing = NavigationPathQueryParameters2D.PATH_POSTPROCESSING_EDGECENTERED
 		navigation_agent.navigation_finished.connect(_on_navigation_finished)
@@ -55,18 +57,16 @@ func _ready():
 	set_physics_process(true)
 
 func _physics_process(delta):
-	if is_instance_valid(line_agent):
+	if !smart_enemy: #? Update Line2D
 		line_agent.set_progress(line_agent.get_progress() + base_speed * delta)
 		if position != Vector2.ZERO: position = Vector2.ZERO
 		if (line_agent.get_progress_ratio() == 1): path_ended.emit()
-	elif is_instance_valid(navigation_agent): # Navigate through map
+	else: #? Call NavigationAgent
 		next_position = navigation_agent.get_next_path_position()
 		direction = to_local(next_position).normalized()
-		$EnemySprite.rotation = next_position.angle_to_point(position)
-		
+		$EnemySprite.rotation = initial_rotation + next_position.angle_to_point(position)
 		if direction != Vector2.ZERO: velocity.move_toward(direction * base_speed, base_acceleration * delta)
 		else: velocity.move_toward(Vector2.ZERO, base_acceleration * delta)
-		
 		velocity = velocity.lerp(direction * base_speed, base_acceleration)
 		move_and_slide()
 
@@ -76,12 +76,11 @@ func _set_path2d(line_node : Path2D):
 	line_agent.position = line_node.position
 	line_agent.loop = false
 	line_node.add_child(line_agent)
+	enemy_sprite.rotation = get_angle_to(line_node.curve.get_point_position(1))
 	reparent(line_agent)
-	# position = Vector2.ZERO
-	
-func _create_path():
-	assert(nexus)
-	navigation_agent.target_position = target_position
+
+func _create_path(): navigation_agent.target_position = target_position
+
 func _set_target(node : Node2D): 
 	nexus = node
 	target_position = node.global_position
@@ -90,7 +89,8 @@ func _set_on_sight(toggle : bool):
 	on_sight = toggle
 	set_collision_layer_value(7, toggle)
 
-func _on_navigation_finished(): path_ended.emit()
+func _on_navigation_finished():
+	path_ended.emit()
 
 func _on_path_ended():
 	stage.stage_manager.change_health(damage_on_nexus)
