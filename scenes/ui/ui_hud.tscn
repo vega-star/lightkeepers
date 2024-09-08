@@ -86,6 +86,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
 [node name="EventLayer" parent="." instance=ExtResource("2_7rfuu")]
 
 [node name="Screen" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -221,8 +222,9 @@ slot_register = ExtResource("2_ly4ir")
 [node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer" index="0"]
 slot_type = 1
 
-[node name="FireObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" index="0" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
-home_container = NodePath("../..")
+[node name="FireObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" index="0" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
 element = ExtResource("13_hlgc1")
 
 [node name="ObjectElement" parent="Screen/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject/ObjectOrb" index="0"]
@@ -235,8 +237,9 @@ slot_register = ExtResource("3_iqwj1")
 [node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer" index="0"]
 slot_type = 1
 
-[node name="WaterObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot" index="2" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
-home_container = NodePath("../..")
+[node name="WaterObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
 element = ExtResource("15_sqh7q")
 
 [node name="ObjectElement" parent="Screen/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject/ObjectOrb" index="0"]
@@ -249,8 +252,9 @@ slot_register = ExtResource("4_06pcj")
 [node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer" index="0"]
 slot_type = 1
 
-[node name="AirObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot" index="2" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
-home_container = NodePath("../..")
+[node name="AirObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
 element = ExtResource("17_7oxc3")
 
 [node name="ObjectElement" parent="Screen/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject/ObjectOrb" index="0"]
@@ -263,8 +267,9 @@ slot_register = ExtResource("5_5ri6y")
 [node name="Slot" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer" index="0"]
 slot_type = 1
 
-[node name="EarthObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot" index="2" node_paths=PackedStringArray("home_container") instance=ExtResource("17_opm6q")]
-home_container = NodePath("../..")
+[node name="EarthObject" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
 element = ExtResource("19_a637k")
 
 [node name="ObjectElement" parent="Screen/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject/ObjectOrb" index="0"]
@@ -409,38 +414,6 @@ target_tower_scene = ExtResource("8_l8uqo")
 layout_mode = 2
 target_tower_scene = ExtResource("30_d0kwp")
 
-[node name="PlaceholderTower2" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower3" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower4" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower5" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower6" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower7" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower8" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
-[node name="PlaceholderTower9" parent="Screen/HUD/Shop/Towers/TowerScrollContainer/TowerGrid" instance_placeholder="res://components/interface/tower_button.tscn"]
-layout_mode = 2
-target_tower_scene = ExtResource("30_d0kwp")
-
 [node name="Elements" type="Panel" parent="Screen/HUD/Shop"]
 visible = false
 layout_mode = 2
@@ -468,40 +441,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 columns = 2
 
-[node name="ControlSlot" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot2" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot3" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot4" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot5" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot6" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot7" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot8" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot9" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot10" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot11" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
-layout_mode = 2
-
-[node name="ControlSlot12" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
+[node name="Placeholder" parent="Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid" instance_placeholder="res://components/interface/control_slot.tscn"]
 layout_mode = 2
 
 [node name="Status" type="Panel" parent="Screen/HUD"]

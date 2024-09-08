@@ -1,16 +1,14 @@
 class_name DraggableObject extends Node2D
 
 signal object_inserted
-signal object_dragged
 signal object_picked
-signal source_quantity_change(previous_quantity : int, change : int)
 
+const INPUT_COOLDOWN : float = 0.2
 const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png")
-const HC_OFFSET = Vector2(48, 48)
 
-@export var container : Node
-@export var home_container : Container ## Return to this node position if something goes wrong or the screen which it was positioned gets closed
-@export var source_object : bool = false ## Instead of moving the object, creates another one
+@export var active_slot : Slot #? Currently active slot
+@export var home_slot : Slot #? Slot on which it returns if something goes wrong or the screen which it was positioned gets closed
+@export var source_object : bool = false
 @export var element : Element
 
 @onready var object_collision = $ObjectCollision
@@ -18,121 +16,99 @@ const HC_OFFSET = Vector2(48, 48)
 
 var offset : Vector2
 var initial_position : Vector2
-
-var object : Object = self
 var object_type : int
-var slot_reference : Slot
-var slot_occupied : Slot
-var metadata : Dictionary
-
-var source_quantity : int = 1
-var volatile : bool = false
+var target_slot : Slot #? Slot selected between overlapping bodies 
 
 var locked : bool = false
 var draggable : bool = false
 var is_inside_dropable : bool = false
-var dropable_occupied : bool = false
 
-func _ready():
-	if !home_container: if owner is Container: home_container = owner
+func _ready() -> void:
+	if !active_slot: active_slot = home_slot
 	object_type = element.element_type
-
-func _process(delta):
-	if draggable:
-		if !is_instance_valid(object): return
-		
-		if object_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: # If colliding with multiple slots, choose the closest one
-			var distance_array : Array = []
-			is_inside_dropable = true
-			for o in object_collision.get_overlapping_bodies():
-				distance_array.append([o, global_position.distance_to(o.global_position)])
-			distance_array.sort()
-			slot_reference = distance_array[0][0]
-		
-		if Input.is_action_just_pressed('click'): # Click
-			if locked: return
-			
-			UI.is_dragging = true
-			object_picked.emit()
-			
-			object.initial_position = object.global_position
-			offset = get_global_mouse_position() - global_position
-		
-		if Input.is_action_just_pressed('alt'):
-			object_picked.emit()
-			UI.is_dragging = false
-			_return_pos(true)
-		
-		if Input.is_action_pressed('click'): # Drag
-			object.global_position = get_global_mouse_position() - offset
-		elif Input.is_action_just_released('click'): # Release
-			UI.is_dragging = false
-			var release_tween = get_tree().create_tween()
-			var slot_available : bool
-			
-			# print('INPUT | Inserting {0} into {1} | AVAILABLE: {2} | DROPABLE: {3}'.format({0:self.name, 1:slot_reference, 2: slot_available, 3: is_inside_dropable}))
-			
-			if is_instance_valid(slot_reference):
-				slot_available = slot_reference.request_insert(object)
-				
-				if slot_available: # Inserting into slot
-					release_tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-					slot_occupied = slot_reference
-					object_inserted.emit()
-				else: # Failed to insert
-					var object_in_slot = slot_reference.object_in_slot
-					if object_in_slot and slot_occupied: # Failed because there's already an object there. Will switch place with this object if it's already on a slot
-						var object_tween = get_tree().create_tween()
-						
-						object_in_slot.object_picked.emit()
-						slot_occupied.request_insert(object_in_slot)
-						object_tween.tween_property(object_in_slot, "global_position", slot_occupied.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-						
-						slot_reference.request_insert(object)
-						release_tween.tween_property(object, "global_position", slot_reference.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-						slot_occupied = slot_reference
-					else: _return_pos()
-					
-					if volatile: queue_free()
-			else:
-				_return_pos()
-			draggable = false
-
-func _return_pos(return_to_home : bool = false):
-	print('Queued return for {0}. Is forced? {1}'.format({0:name,1:return_to_home}))
-	var movement_tween = get_tree().create_tween()
-	if is_instance_valid(home_container) and return_to_home:
-		initial_position = home_container.global_position + HC_OFFSET
-		slot_occupied = null
-		movement_tween.tween_property(object, "global_position", initial_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	else:
-		movement_tween.tween_property(object, "global_position", initial_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-
-func _on_object_collision_body_entered(body):
-	if body.is_in_group('dropable'):
-		if body is Slot: body.hovered = true
-		is_inside_dropable = true
-		slot_reference = body
-
-func _on_object_collision_body_exited(body):
-	if body.is_in_group('dropable'):
-		if body is Slot: body.hovered = false
-		is_inside_dropable = false
-
-func _on_object_collision_mouse_entered(): if !UI.is_dragging: _set_draggable(true)
-func _on_object_collision_mouse_exited(): if !UI.is_dragging: _set_draggable(false)
 
 func _set_draggable(drag : bool) -> void:
 	draggable = drag
 	if drag: scale = Vector2(1.05, 1.05)
 	else: scale = Vector2(1, 1)
 
-func _on_source_quantity_change(previous_quantity, change):
-	source_quantity += change
-	if source_quantity == 0: locked = true
-	else: locked = false
+#? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions, preventing dragging multiple objects
+func _on_object_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate object when mouse enters it collision shape
+func _on_object_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate object
+
+#? Body detection handling
+func _on_object_collision_body_entered(body) -> void: if body is Slot or body.is_in_group('dropable'): body.hovered = true; is_inside_dropable = true; target_slot = body
+func _on_object_collision_body_exited(body) -> void: if body is Slot or body.is_in_group('dropable'): body.hovered = false; is_inside_dropable = false
+
+func _process(_delta) -> void:
+	if draggable:
+		if object_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
+			var distance_array : Array = []
+			is_inside_dropable = true
+			for o in object_collision.get_overlapping_bodies(): distance_array.append([o, global_position.distance_to(o.global_position)])
+			distance_array.sort()
+			target_slot = distance_array[0][0] #? Closest target slot
+		
+		if Input.is_action_just_pressed('click'): #? Click action
+			if locked: return
+			object_picked.emit()
+			UI.is_dragging = true
+			_set_draggable(true)
+			initial_position = global_position
+			offset = get_global_mouse_position() - global_position
+		
+		if Input.is_action_just_pressed('alt'): #? Cancel with alt (Right mouse button)
+			object_picked.emit()
+			UI.is_dragging = false
+			_return_to_slot(true)
+		
+		if Input.is_action_pressed('click'): global_position = get_global_mouse_position() - offset #? Drag
+		elif Input.is_action_just_released('click'): #? Release
+			print('Released click')
+			UI.is_dragging = false
+			if target_slot: _insert(target_slot)
+			else: _return_to_slot()
+
+func _return_to_slot(force : bool = false) -> void:
+	UI.is_dragging = false
+	object_picked.emit()
+	if !is_instance_valid(active_slot) or force: active_slot = home_slot
+	print(self.name + ' returning to slot ' + str(active_slot.get_path()))
+	_insert(active_slot)
+
+func _insert(slot : Slot) -> bool:
+	_set_draggable(false)
+	if is_instance_valid(slot):
+		var release_tween = get_tree().create_tween()
+		var request = slot.request_insert(self)
+		if request: #? Slot available and inserting object
+			print('Insertion successful')
+			active_slot = slot
+			object_inserted.emit()
+			release_tween.tween_property(self, "global_position", slot.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+			reparent(active_slot)
+		else: #? Failed to insert
+			print('Insertion failed')
+			if is_instance_valid(slot.active_object): return _replace_slot(active_slot, slot) #? Failed because there's already an self there. Will switch place with this self if it's already on a slot
+			else: return false
+		return true #? Object successfully inserted and returning positively
+	else: return false
+
+func _replace_slot(previous_slot : Slot, next_slot : Slot) -> bool:
+	if next_slot.is_output: return false
+	var target_object = next_slot.active_object
+	
+	active_slot._remove_object()
+	next_slot._remove_object()
+	target_object._insert(active_slot)
+	_insert(next_slot)
+	return true
 
 func _on_object_inserted() -> void:
+	UI.is_dragging = false
 	object_collision_area.set_disabled(true)
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(INPUT_COOLDOWN).timeout
 	object_collision_area.set_disabled(false)
+
+func _destroy():
+	queue_free()

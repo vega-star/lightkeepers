@@ -109,13 +109,17 @@ func add_element(element_type : int, element : Element, quantity : int = 1):
 		
 		control_slot.set_name('{0}{1}'.format({0: element_string, 1: 'Container'}))
 		new_object.set_name('{0}{1}'.format({0: element_string, 1: 'Object'}))
-		new_object.element = element
-		new_object.home_container = control_slot
-		new_object.source_quantity = quantity
 		
 		control_slot.slot_register = register
 		slot_container.add_child(control_slot)
 		control_slot.get_child(0).add_child(new_object)
+		
+		element.element_type = 2
+		
+		new_object.element = element
+		new_object.active_slot = control_slot.slot
+		new_object.home_slot = control_slot.slot
+		control_slot.slot.slot_type = 2
 		
 		register.element = element
 		register.control_slot = control_slot.get_path()
@@ -134,8 +138,8 @@ func _on_options_button_pressed() -> void:
 	else: Options._on_exit_menu_pressed()
 
 func _on_hide_button_pressed() -> void:
-	var info_tween : Tween = get_tree().create_tween()
-	var hide_tween : Tween = get_tree().create_tween()
+	var info_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
 	var info_new_y : int = INFO_DEFAULT_Y
 	

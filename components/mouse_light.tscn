@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/controls/debug_mouse_light.gd" id="2_obf7e"]
 
 [node name="MouseLight" type="PointLight2D"]
+process_mode = 3
 color = Color(0.880596, 0.69876, 0.692039, 1)
 shadow_enabled = true
 shadow_item_cull_mask = 7

@@ -5,8 +5,6 @@
 class_name Slot extends StaticBody2D
 
 signal slot_changed
-signal slot_emptied
-signal slot_filled
 
 const DEFAULT_SLOT_SIZE : Vector2 = Vector2(48, 48)
 const SHAPE_RADIUS : float = 48
@@ -15,44 +13,41 @@ const SHAPE_RADIUS : float = 48
 @export var is_output : bool = false
 @onready var color_rect = $ColorRect
 
-var object_in_slot : DraggableObject
+var active_object : DraggableObject
 var slot_locked : bool = false
 var hovered : bool = false: set = _set_hover
 
-func _ready():
+func _ready(): 
 	UI.drag_changed.connect(_drag_toggled)
+	if active_object: active_object.object_picked.connect(_remove_object)
 
 func _drag_toggled(drag_status):
-	if is_output and drag_status: 
-		modulate = Color(1.5, 0.5, 0.5)
-		return
-	elif is_output and !drag_status:
-		modulate = Color.WHITE
-		return
+	if is_output and drag_status: modulate = Color(1.5, 0.5, 0.5); return #? Drag active
+	elif is_output and !drag_status: modulate = Color.WHITE; return # Drag inactive
 	if OS.is_debug_build(): if color_rect: color_rect.set_visible(drag_status)
 
-func request_insert(object) -> bool:
-	if is_output or !visible: return false
-	
-	var object_type : int = object.object_type
-	
+func request_insert(object : DraggableObject) -> bool:
+	var object_type : int = object.element.element_type
 	if slot_type != 0 and object_type != slot_type:
 		printerr('Slot not compatible')
 		return false
 	
-	if !object_in_slot:
-		object_in_slot = object
-		object_in_slot.object_picked.connect(object_removed)
-		slot_filled.emit()
+	if !is_instance_valid(active_object): #? Successful
+		active_object = object
+		active_object.object_picked.connect(_remove_object)
+		slot_changed.emit()
 		return true
 	else:
+		printerr('Slot refusing {0} insertion due to being already full with {1}'.format({0:object.name,1:active_object.name}))
 		return false
 
-func object_removed(forced : bool = false):
-	if forced: object_in_slot._return_pos(forced)
-	object_in_slot.object_picked.disconnect(object_removed)
-	object_in_slot = null
-	slot_emptied.emit()
+func _remove_object(destroy : bool = false) -> void:
+	slot_changed.emit()
+	if is_instance_valid(active_object):
+		active_object.object_picked.disconnect(_remove_object)
+		active_object = null
+	
+	if destroy: active_object._destroy()
 
 func spawn_output(output : String, phantom : bool):
 	if !is_output: push_error('Trying to generate output on a input slot')
@@ -64,9 +59,4 @@ func _set_hover(is_hovering : bool):
 	if is_hovering: modulate = Color(1.2, 1.2, 1.2)
 	else: modulate = Color.WHITE
 
-func _on_visibility_changed():
-	if object_in_slot and !is_visible_in_tree(): object_in_slot._return_pos(true)
-
-func _on_slot_emptied(): slot_changed.emit()
-func _on_slot_filled(): slot_changed.emit()
-func _on_slot_changed(): pass
+func _on_visibility_changed(): if active_object and !is_visible_in_tree(): active_object._return_to_slot()

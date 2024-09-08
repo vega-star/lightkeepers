@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/controls/stage_camera.gd" id="1_3p48j"]
 
 [node name="StageCamera" type="Camera2D" groups=["stage_camera"]]
+process_mode = 3
 limit_left = -700
 limit_top = -700
 limit_right = 2100
