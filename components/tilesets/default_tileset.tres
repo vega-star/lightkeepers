@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=16 format=3 uid="uid://b4eq1ur4r1nxo"]
 
 [ext_resource type="Texture2D" uid="uid://bk28oebi10ftv" path="res://assets/tilesets/main_atlas.png" id="1_gu04n"]
-[ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://components/materials/unshaded_material.tres" id="1_x6u1s"]
+[ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://assets/materials/unshaded_material.tres" id="1_x6u1s"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r1obq"]
 vertices = PackedVector2Array(12, 16, -12, 16, -12, -12, 12, -12)

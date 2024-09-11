@@ -10,6 +10,7 @@ const DEFAULT_SLOT_SIZE : Vector2 = Vector2(48, 48)
 const SHAPE_RADIUS : float = 48
 
 @export_enum('GENERIC:0','ELEMENT:1', 'ESSENCE:2') var slot_type : int = 0
+@export var element_register : ElementRegister
 @export var is_output : bool = false
 @onready var color_rect = $ColorRect
 

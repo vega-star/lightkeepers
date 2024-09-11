@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bofauc2hnv1d0"
+
+[deps]
+
+files=["res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt.translation"]
+
+source_file="res://assets/lang/lightkeepers.csv"
+dest_files=["res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt.translation"]
+
+[params]
+
+compress=true
+delimiter=0

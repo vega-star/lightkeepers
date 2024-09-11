@@ -1,8 +1,7 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dau23jgucm04a"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://dau23jgucm04a"]
 
 [ext_resource type="StyleBox" uid="uid://ourjgpyc2mcq" path="res://assets/theme/styleboxes/flat/hover_nb.tres" id="1_5kh8x"]
 [ext_resource type="StyleBox" uid="uid://osqvn3yc7hqs" path="res://assets/theme/styleboxes/flat/disabled.tres" id="1_7y3md"]
-[ext_resource type="FontFile" uid="uid://tbta38src6tl" path="res://assets/theme/fonts/8bitlim.ttf" id="1_e3n60"]
 [ext_resource type="StyleBox" uid="uid://c435p756gya7e" path="res://assets/theme/styleboxes/flat/focus_b.tres" id="2_p2xub"]
 [ext_resource type="StyleBox" uid="uid://bn1behg2p2xg7" path="res://assets/theme/styleboxes/flat/hover_pressed_nb.tres" id="2_t0vdp"]
 [ext_resource type="StyleBox" uid="uid://ixt2c6ihgp5x" path="res://assets/theme/styleboxes/flat/hover_b.tres" id="3_dg3xj"]
@@ -11,10 +10,12 @@
 [ext_resource type="StyleBox" uid="uid://doqexvy4ytqfh" path="res://assets/theme/styleboxes/flat/pressed_nb.tres" id="4_yct6x"]
 [ext_resource type="StyleBox" uid="uid://dgo0fy144cgtl" path="res://assets/theme/styleboxes/flat/normal_b.tres" id="5_j3kkt"]
 [ext_resource type="StyleBox" uid="uid://culmmbb85o4ji" path="res://assets/theme/styleboxes/flat/pressed_b.tres" id="6_4npyw"]
+[ext_resource type="FontFile" uid="uid://bafi6ns28fxcd" path="res://assets/theme/fonts/Handjet-VariableFont_ELGR,ELSH,wght.ttf" id="11_5yf2f"]
+[ext_resource type="StyleBox" uid="uid://c3mkd26pntgue" path="res://assets/theme/styleboxes/high_contrast_sb.tres" id="11_i8ytd"]
 
 [resource]
-default_font = ExtResource("1_e3n60")
-default_font_size = 26
+default_font = ExtResource("11_5yf2f")
+default_font_size = 32
 Button/colors/font_hover_color = Color(0.376471, 1, 0.980392, 1)
 Button/colors/font_hover_pressed_color = Color(0.376471, 1, 0.980392, 1)
 Button/styles/disabled = ExtResource("1_7y3md")
@@ -34,3 +35,10 @@ CheckButton/styles/pressed = ExtResource("4_yct6x")
 Label/colors/font_color = Color(1, 0.992157, 0.921569, 1)
 MenuButton/styles/normal = ExtResource("5_j3kkt")
 MenuButton/styles/pressed = ExtResource("6_4npyw")
+Panel/styles/panel = ExtResource("11_i8ytd")
+TabContainer/styles/panel = ExtResource("11_i8ytd")
+TabContainer/styles/tab_disabled = ExtResource("1_7y3md")
+TabContainer/styles/tab_focus = ExtResource("6_4npyw")
+TabContainer/styles/tab_hovered = ExtResource("3_dg3xj")
+TabContainer/styles/tab_selected = ExtResource("6_4npyw")
+TabContainer/styles/tab_unselected = ExtResource("5_j3kkt")

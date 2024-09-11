@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dxc05c2onoqru"]
 
-[ext_resource type="Script" path="res://scenes/ui/special/keybind_button.gd" id="1_ifspa"]
+[ext_resource type="Script" path="res://scripts/ui/keybind_button.gd" id="1_ifspa"]
 
 [node name="KEY_B" type="Button"]
 custom_minimum_size = Vector2(150, 40)

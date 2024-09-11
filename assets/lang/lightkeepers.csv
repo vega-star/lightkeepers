@@ -1,0 +1,50 @@
+keys,en,pt-br
+START,Start,Iniciar
+TURN,Turn,Turno
+TOWER,Tower,Torre
+TOWERS,Towers,Torres
+ELEMENT,Element,Elemento
+ELEMENTS,Elements,Elementos
+PROFILE,Profile,Perfil
+CODEX,Codex,Códice
+COINS,Coins,Moedas
+CREDITS,Credits,Créditos
+QUIT,Quit,Sair
+CREATORS,CREATORS,CRIADORES
+DANGER,DANGER,PERIGO
+DEBUGMESSAGE,This is a debug message and should [b]NOT[/b] be appearing in normal gameplay,Esta é uma mensagem de debug e [b]NÃO[/b] deveria estar aparecendo na gameplay normal.
+LANGUAGE,Language,Linguagem
+MASTER_VOLUME,Master Volume,Volume Principal
+MUSIC_VOLUME,Music,Música
+SOUND_EFFECTS,Sound Effects,Efeitos Sonoros
+UP,Up,Cima
+DOWN,Down,Baixo
+LEFT,Left,Esquerda
+RIGHT,Right,Direita
+PAUSE,Pause,Pausar
+ENTER,Enter,Enter
+ESCAPE,Escape,Escape
+SPACE,Space,Espaço
+RESET_DEFAULT_KEYBINDS,RESET DEFAULT KEYBINDS,RESTAURAR CONTROLES PADRÕES
+MAIN_OPTIONS,Main Options,Opções Principais
+CONTROLS,Controls,Controles
+UI,UI,UI
+GRAPHICS,Graphics,Gráficos
+ACCESSIBILITY,Accessibility,Acessibilidade
+HEALTH,Health,Vida
+AMMO,Ammo,Munição
+WORK_IN_PROGRESS,Work in Progress,Trabalho em Andamento
+SCREEN_MODE,Screen Mode,Modo de Tela
+VISUAL_EFFECTS,Visual Effects,Efeitos Visuais
+PHOTOSENSIBILITY_MODE,Photosensibility Mode,Modo de Fotossensibilidade
+SCREEN_SHAKE,Screen Shake,Tremor de Tela
+UNPAUSE,UNPAUSE,RESUMIR
+MAIN_MENU,MAIN MENU,MENU PRINCIPAL
+SAVE_OPTIONS_CONFIRMATION_DIALOG,Confirm changes,Confirme as mudanças
+DEMOLISH_REQUEST_TEXT,Demolishing this turret will give you back,Demolir essa torre lhe retornará
+EXIT,Exit,Sair
+CONFIRM,Confirm,Confirmar
+CANCEL,Cancel,Cancelar
+VERSION,Version,Versão
+TUTORIAL,Tutorial,Tutorial
+PRACTICE,Practice,Praticar

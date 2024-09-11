@@ -20,29 +20,27 @@ const DEFAULT_LABEL_MODULATE_NEGATIVE = Color(20,0.2,0.2)
 const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 
 @export var shop_button_group : ButtonGroup
+@export var hide_elements_when_start : bool = true
 
-@onready var essence_slots : GridContainer = $Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var element_slots : BoxContainer = $Screen/ElementContainer/ElementInterface/ElementSlots
-@onready var play_button: TextureButton = $Screen/HUD/CornerPanel/PlayButton
-
-@onready var life_icon: TextureButton = $Screen/HUD/Status/DataContainer/LifeIcon
-@onready var life_label: Label = $Screen/HUD/Status/DataContainer/LifeLabel
-@onready var wave_counter: Label = $Screen/HUD/Status/WaveCounter
-@onready var coin_label: Label = $Screen/HUD/Status/DataContainer/CoinLabel
-
-@onready var options_button: TextureButton = $Screen/HUD/Tools/OptionsButton
-@onready var hide_button : TextureButton = $Screen/ElementContainer/HideButton
-@onready var corner_panel : Panel = $Screen/HUD/CornerPanel
-
-@onready var towers_panel : Panel = $Screen/HUD/Shop/Towers
-@onready var elements_storage_panel : Panel = $Screen/HUD/Shop/Elements
-@onready var element_container : BoxContainer = $Screen/ElementContainer
-@onready var elements_grid : GridContainer = $Screen/HUD/Shop/Elements/ElementsScrollContainer/ElementsGrid
-
-@onready var info_container : VBoxContainer = $Screen/HUD/Info
-@onready var debug_label : Label = $Screen/HUD/Info/DebugLabel
-@onready var tile_description_label : Label = $Screen/HUD/Info/TileDescriptionLabel
-@onready var object_description_label : Label = $Screen/HUD/Info/ObjectDescriptionLabel
+@onready var essence_slots : GridContainer = $Screen/Shop/Elements/ElementsScrollContainer/ElementsGrid
+@onready var element_slots : BoxContainer = $Screen/Elements/ElementContainer/ElementInterface/ElementSlots
+@onready var play_button: TextureButton = $Screen/CornerPanel/PlayButton
+@onready var life_icon: TextureButton = $Screen/Status/DataContainer/LifeIcon
+@onready var life_label: Label = $Screen/Status/DataContainer/LifeLabel
+@onready var wave_counter: Label = $Screen/Status/TurnContainer/WaveCounter
+@onready var coin_label: Label = $Screen/Status/DataContainer/CoinLabel
+@onready var options_button: TextureButton = $Screen/Tools/OptionsButton
+@onready var hide_button : TextureButton = $Screen/Elements/HideButton
+@onready var corner_panel : Panel = $Screen/CornerPanel
+@onready var towers_panel : Panel = $Screen/Shop/Towers
+@onready var elements_storage_panel : Panel = $Screen/Shop/Elements
+@onready var element_container : BoxContainer = $Screen/Elements
+@onready var elements_grid : GridContainer = $Screen/Shop/Elements/ElementsScrollContainer/ElementsGrid
+@onready var info_container : VBoxContainer = $Screen/Info
+@onready var debug_label : Label = $Screen/Info/DebugLabel
+@onready var tile_description_label : Label = $Screen/Info/TileDescriptionLabel
+@onready var object_description_label : Label = $Screen/Info/ObjectDescriptionLabel
+@onready var tower_panel : TowerPanel = $Screen/TowerPanel
 
 var active_elements : Array[ElementRegister] #? Acts as a gateway to registers in each slot
 var previous_life : int
@@ -58,6 +56,7 @@ func _ready():
 	element_textures = temp_dos.load_all_sprites()
 	temp_dos.queue_free()
 	
+	if hide_elements_when_start: hide_button.pressed.emit()
 	for button in shop_button_group.get_buttons():
 		button.pressed.connect(func(): _on_shop_button_pressed(button.get_index()))
 
@@ -83,7 +82,7 @@ func update_label(label : Label, new_value : int, previous_value : int, timer : 
 	modulate_tween.tween_property(label, "modulate", Color(1,1,1), timer)
 func update_coins(coins : int): update_label(coin_label, coins, previous_coins); previous_coins = coins
 func update_life(life : int): update_label(life_label, life, previous_life); previous_life = life
-func turn_update(turn : int, max_turn : int): wave_counter.set_text(TranslationServer.tr('TURN {0}/{1}'.format({0: turn, 1: max_turn})))
+func turn_update(turn : int, max_turn : int): wave_counter.set_text(TranslationServer.tr('{0}/{1}'.format({0: turn, 1: max_turn})))
 
 func add_element(element_type : int, element : Element, quantity : int = 1):
 	var register : ElementRegister
@@ -141,21 +140,21 @@ func _on_hide_button_pressed() -> void:
 	var info_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
-	var info_new_y : int = INFO_DEFAULT_Y
+	# var info_new_y : int = INFO_DEFAULT_Y
 	
 	if !element_menu_hidden: # Element menu visible
 		new_x = get_viewport().get_visible_rect().size.x - corner_panel.size.x - hide_button.size.x
-		info_new_y = get_viewport().get_visible_rect().size.y - info_container.size.y - INFO_DEFAULT_X
+		# info_new_y = get_viewport().get_visible_rect().size.y - info_container.size.y - INFO_DEFAULT_X
 		element_menu_hidden = true
 		hide_button.flip_h = false
 	else: #? Element menu invisible
-		new_x = 0
-		info_new_y = INFO_DEFAULT_Y
+		new_x = get_viewport().get_visible_rect().size.x - element_container.size.x
+		# info_new_y = INFO_DEFAULT_Y
 		element_menu_hidden = false
-		hide_button.flip_h = true
+		# hide_button.flip_h = true
 	
 	hide_tween.tween_property(element_container, "position", Vector2(new_x, element_container.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	info_tween.tween_property(info_container, "position", Vector2(INFO_DEFAULT_X, info_new_y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	# info_tween.tween_property(info_container, "position", Vector2(INFO_DEFAULT_X, info_new_y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 func _on_speed_button_pressed() -> void:
 	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true

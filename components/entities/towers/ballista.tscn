@@ -1,0 +1,148 @@
+[gd_scene load_steps=17 format=3 uid="uid://oo6aeu1wjpj1"]
+
+[ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_nculw"]
+[ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_xycvt"]
+[ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_hw7jf"]
+[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_nstgh"]
+[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="4_v3usb"]
+[ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="5_vhjkh"]
+[ext_resource type="Script" path="res://scripts/states/turret_seeking.gd" id="6_uuvv4"]
+[ext_resource type="Script" path="res://scripts/states/turret_firing.gd" id="7_yaslq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
+atlas = ExtResource("3_nstgh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3qe0"]
+atlas = ExtResource("3_nstgh")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmkmr"]
+atlas = ExtResource("3_nstgh")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bh70"]
+atlas = ExtResource("3_nstgh")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj80s"]
+atlas = ExtResource("3_nstgh")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52wpk"]
+atlas = ExtResource("3_nstgh")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yos0f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck6dk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3qe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmkmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bh70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj80s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52wpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck6dk")
+}],
+"loop": false,
+"name": &"firing",
+"speed": 11.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
+radius = 160.0
+
+[node name="Ballista" type="Node2D"]
+material = ExtResource("1_xycvt")
+script = ExtResource("1_nculw")
+base_target_priority = 4
+base_projectile = ExtResource("2_hw7jf")
+base_damage = 10
+base_piercing = 3
+base_light_range = 0.6
+base_tower_range = 1.6
+tower_name = "Ballista"
+
+[node name="TowerSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -16)
+texture = ExtResource("3_nstgh")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="TowerGunSprite" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 0.470588, 0.470588, 1)
+light_mask = 2
+visibility_layer = 3
+z_index = 50
+position = Vector2(0, -15.5)
+sprite_frames = SubResource("SpriteFrames_yos0f")
+animation = &"firing"
+frame = 6
+frame_progress = 1.0
+flip_h = true
+
+[node name="ProjectileProp" type="Sprite2D" parent="TowerGunSprite"]
+position = Vector2(-2, 0)
+texture = ExtResource("4_v3usb")
+flip_h = true
+
+[node name="TowerGunMuzzle" type="Marker2D" parent="TowerGunSprite"]
+position = Vector2(-13, -0.500001)
+
+[node name="TowerAim" type="RayCast2D" parent="TowerGunSprite/TowerGunMuzzle"]
+target_position = Vector2(360, 0)
+collision_mask = 4
+
+[node name="ColorRect" type="ColorRect" parent="TowerGunSprite/TowerGunMuzzle"]
+visible = false
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+
+[node name="TowerRangeArea" type="Area2D" parent="."]
+collision_mask = 64
+
+[node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
+shape = SubResource("CircleShape2D_4qdcu")
+debug_color = Color(0, 0.6, 0.701961, 0.129412)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
+script = ExtResource("5_vhjkh")
+entity = NodePath("..")
+initial_state = NodePath("Seeking")
+
+[node name="Seeking" type="Node" parent="StateMachine" node_paths=PackedStringArray("firing_state")]
+script = ExtResource("6_uuvv4")
+firing_state = NodePath("../Firing")
+
+[node name="TargetResetTimer" type="Timer" parent="StateMachine/Seeking"]
+process_callback = 0
+
+[node name="Firing" type="Node" parent="StateMachine" node_paths=PackedStringArray("seeking_state", "projectile_prop_sprite")]
+script = ExtResource("7_yaslq")
+seeking_state = NodePath("../Seeking")
+projectile_prop = true
+projectile_prop_sprite = NodePath("../../TowerGunSprite/ProjectileProp")
+
+[node name="FiringCooldown" type="Timer" parent="StateMachine/Firing"]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="StateMachine/Seeking/TargetResetTimer" to="StateMachine/Seeking" method="_on_target_reset"]
+[connection signal="timeout" from="StateMachine/Firing/FiringCooldown" to="StateMachine/Firing" method="_on_firing_cooldown_available"]

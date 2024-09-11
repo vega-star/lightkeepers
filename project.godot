@@ -27,9 +27,9 @@ buses/default_bus_layout="res://assets/audio/audio_bus.tres"
 
 UI="*res://scenes/singletons/ui.tscn"
 LoadManager="*res://scenes/singletons/load_manager.tscn"
-Options="*res://scenes/singletons/options.tscn"
+Options="*res://components/options.tscn"
 AudioManager="*res://scenes/singletons/audio_manager.tscn"
-EventManager="*res://scenes/singletons/event_manager.gd"
+EventManager="*res://scripts/main/event_manager.gd"
 
 [display]
 
@@ -41,12 +41,11 @@ window/stretch/aspect="expand"
 [file_customization]
 
 folder_colors={
-"res://assets/": "blue",
+"res://assets/": "yellow",
 "res://components/": "purple",
-"res://data/": "orange",
-"res://exports/": "pink",
-"res://scenes/": "yellow",
-"res://scripts/": "green"
+"res://exports/": "red",
+"res://scenes/": "teal",
+"res://scripts/": "blue"
 }
 
 [input]
@@ -113,6 +112,10 @@ space={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt.translation")
+
 [layer_names]
 
 2d_render/layer_1="General"
@@ -131,7 +134,11 @@ space={
 
 [rendering]
 
+occlusion_culling/bvh_build_quality=1
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
 viewport/hdr_2d=true
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true

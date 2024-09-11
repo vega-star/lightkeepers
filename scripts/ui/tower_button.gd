@@ -22,9 +22,10 @@ func _ready():
 
 func _update_button():
 	var load_tower = target_tower_scene.instantiate()
-	stored_cost = load_tower.tower_cost
+	stored_cost = load_tower.base_tower_cost
 	cost_label.set_text(str(stored_cost))
-	tower_sprite.set_texture(load_tower.get_node('TowerSprite').get_texture())
+	tower_sprite.set_texture(load_tower.tower_icon)
+	set_tooltip_text(TranslationServer.tr(load_tower.name.to_upper()))
 	load_tower.queue_free()
 
 func _on_gui_input(event):

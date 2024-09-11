@@ -1,25 +1,40 @@
 class_name Tower extends TileObject
 
+signal tower_updated
 # signal tower_disabled
 # signal tower_destroyed
 
-const draw_width : float = 2.5
-const base_range : float = 160
-const light_shape_scene = preload("res://components/light_shape.tscn")
+enum TARGET_PRIORITIES {
+	FIRST, ## First in place to reach nexus
+	LAST, ## Last in place to reach nexus
+	CLOSE, ## Closest to tower
+	WEAK, ## Weakest enemy from array
+	STRONG ## Strongest enemy from array
+}
+
+const DRAW_WIDTH : float = 2.5
+const BASE_RANGE : float = 160
+const LIGHT_SHAPE_SCENE : PackedScene = preload("res://components/systems/light_shape.tscn")
+const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_sprite_placeholder.png")
 
 #region Turret Configuration
 ## Main variables
 @export_group('Tower Properties')
+@export var base_target_priority : TARGET_PRIORITIES = 0
 @export var base_projectile : PackedScene
-@export var tower_cost : int = 50
+@export var base_tower_cost : int = 50
 @export var base_burst : int = 1
 @export var base_damage : int = 5
 @export var base_piercing : int = 1
 @export var base_firing_cooldown : float = 1.5
 @export var base_seeking_timeout : float = 0.3
-@export_enum('nearest', 'closest', 'farthest', 'strongest', 'target') var seeking_type = 0
 @export_range(0, 50) var base_light_range : float = 1
 @export_range(0, 50) var base_tower_range : float = 1
+
+@export_group('Cosmetic Properties')
+@export var show_targeting_priorities : bool = true
+@export var tower_name : String = 'Tower'
+@export var tower_icon : Texture2D = DEFAULT_TOWER_ICON
 @export var base_range_draw_color : Color = Color(0, 0.845, 0.776, 0.5)
 @export var base_light_draw_color : Color = Color(0.863, 0.342, 0, 0.5)
 
@@ -37,7 +52,9 @@ const light_shape_scene = preload("res://components/light_shape.tscn")
 var prop : bool = false #? Used when the turret is being dragged on screen and not truly in game
 #endregion
 
-#region Variables
+#region Variable
+var tower_value : int
+var target_priority : int = base_target_priority
 var stage_camera : StageCamera
 var light_area : LightArea
 var light_shape : LightShape
@@ -74,7 +91,10 @@ var tower_range : float:
 #endregion
 
 func _ready() -> void:
-	light_shape = light_shape_scene.instantiate()
+	tower_value = base_tower_cost
+	target_priority = base_target_priority
+	
+	light_shape = LIGHT_SHAPE_SCENE.instantiate()
 	nexus_position = get_tree().get_first_node_in_group('nexus').global_position
 	light_area = get_tree().get_first_node_in_group('light_area')
 	stage_camera = get_tree().get_first_node_in_group('stage_camera')
@@ -95,10 +115,9 @@ func _ready() -> void:
 
 func _load_properties() -> void:
 	light_shape.size = light_range
-	tower_range_shape.shape.radius = base_range * tower_range
+	tower_range_shape.shape.radius = BASE_RANGE * tower_range
 
 func _adapt_in_tile() -> void: light_shape.position = position
-
 func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body) # ; print('ENEMY DETECTED BY TURRET %s' % self.name)
 func _enemy_exited(body) -> void: eligible_targets.erase(body)
 
@@ -108,8 +127,8 @@ func _draw() -> void:
 		if !top_level: set_zoom = 1
 		else: set_zoom = stage_camera.zoom.x
 		
-		draw_arc(to_local(global_position), light_shape.shape.radius * set_zoom, 0, TAU, 50, light_draw_color, draw_width)
-		draw_arc(to_local(global_position), tower_range_shape.shape.radius * set_zoom, 0, TAU, 50, range_draw_color, draw_width)
+		draw_arc(to_local(global_position), light_shape.shape.radius * set_zoom, 0, TAU, 50, light_draw_color, DRAW_WIDTH)
+		draw_arc(to_local(global_position), tower_range_shape.shape.radius * set_zoom, 0, TAU, 50, range_draw_color, DRAW_WIDTH)
 		draw_circle(to_local(global_position), light_shape.shape.radius * set_zoom, Color(light_draw_color, 0.2), true)
 		draw_circle(to_local(global_position), tower_range_shape.shape.radius * set_zoom, Color(range_draw_color, 0.2), true)
 

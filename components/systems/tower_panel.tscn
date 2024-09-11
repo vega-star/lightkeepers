@@ -1,0 +1,264 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3tvxsgupe3gs"]
+
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_cy4x5"]
+[ext_resource type="Texture2D" uid="uid://vc2pjcubiw31" path="res://assets/prototypes/tower_lb.png" id="2_7carv"]
+[ext_resource type="Script" path="res://scripts/main/tower_panel.gd" id="2_emv2q"]
+[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="2_i25mg"]
+[ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="3_5y2yf"]
+[ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/prototypes/next_button.png" id="3_7ki8e"]
+[ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_ansxj"]
+[ext_resource type="Texture2D" uid="uid://ph1ecubanwp7" path="res://assets/prototypes/tower_lb_progress.png" id="3_oihrn"]
+[ext_resource type="Texture2D" uid="uid://di140fuq0tu8e" path="res://assets/prototypes/hammer.png" id="4_pjssm"]
+[ext_resource type="Texture2D" uid="uid://8snjtlxm3ui2" path="res://assets/prototypes/tower_lb_button.png" id="5_nk1o0"]
+[ext_resource type="Texture2D" uid="uid://qxtbqfensmmc" path="res://assets/prototypes/tower_lb_button_pressed.png" id="6_3s7xj"]
+[ext_resource type="Texture2D" uid="uid://sunekol6mdhk" path="res://assets/prototypes/tower_lb_button_hover.png" id="7_u4qp0"]
+[ext_resource type="Texture2D" uid="uid://cnq2y2d1karmh" path="res://assets/prototypes/tower_lb_button_disabled.png" id="8_u7wd6"]
+
+[node name="TowerPanel" type="Panel"]
+clip_contents = true
+offset_top = 56.0
+offset_right = 309.0
+offset_bottom = 617.0
+mouse_filter = 2
+theme = ExtResource("1_cy4x5")
+script = ExtResource("2_emv2q")
+focus_button_group = ExtResource("3_ansxj")
+
+[node name="TowerLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 45.0
+grow_horizontal = 2
+text = "TOWER_NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FocusContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 6.0
+offset_top = 162.0
+offset_right = -6.0
+offset_bottom = 202.0
+grow_horizontal = 2
+
+[node name="PreviousButton" type="TextureButton" parent="FocusContainer"]
+layout_mode = 2
+button_group = ExtResource("3_ansxj")
+texture_normal = ExtResource("3_7ki8e")
+stretch_mode = 5
+flip_h = true
+
+[node name="FocusPanel" type="Panel" parent="FocusContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FocusLabel" type="Label" parent="FocusContainer/FocusPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "NEAREST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="TextureButton" parent="FocusContainer"]
+layout_mode = 2
+button_group = ExtResource("3_ansxj")
+texture_normal = ExtResource("3_7ki8e")
+stretch_mode = 5
+
+[node name="Upgrades" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 208.0
+offset_right = -11.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="Slot1" parent="Upgrades" instance=ExtResource("2_i25mg")]
+layout_mode = 2
+
+[node name="Slot" parent="Upgrades/Slot1" index="0"]
+slot_type = 0
+
+[node name="Slot1Progress" type="TextureProgressBar" parent="Upgrades"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+max_value = 5.0
+texture_under = ExtResource("2_7carv")
+texture_progress = ExtResource("3_oihrn")
+
+[node name="Slot1Button" type="TextureButton" parent="Upgrades"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("5_nk1o0")
+texture_pressed = ExtResource("6_3s7xj")
+texture_hover = ExtResource("7_u4qp0")
+texture_disabled = ExtResource("8_u7wd6")
+texture_focused = ExtResource("7_u4qp0")
+stretch_mode = 0
+
+[node name="UpgradeCost" type="Label" parent="Upgrades/Slot1Button"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot2" parent="Upgrades" instance=ExtResource("2_i25mg")]
+layout_mode = 2
+
+[node name="Slot" parent="Upgrades/Slot2" index="0"]
+slot_type = 0
+
+[node name="Slot2Progress" type="TextureProgressBar" parent="Upgrades"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+max_value = 5.0
+texture_under = ExtResource("2_7carv")
+texture_progress = ExtResource("3_oihrn")
+
+[node name="Slot2Button" type="TextureButton" parent="Upgrades"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture_normal = ExtResource("5_nk1o0")
+texture_pressed = ExtResource("6_3s7xj")
+texture_hover = ExtResource("7_u4qp0")
+texture_disabled = ExtResource("8_u7wd6")
+texture_focused = ExtResource("7_u4qp0")
+stretch_mode = 0
+
+[node name="UpgradeCost" type="Label" parent="Upgrades/Slot2Button"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot3" parent="Upgrades" instance=ExtResource("2_i25mg")]
+layout_mode = 2
+
+[node name="Slot" parent="Upgrades/Slot3" index="0"]
+slot_type = 0
+
+[node name="Slot3Progress" type="TextureProgressBar" parent="Upgrades"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+max_value = 5.0
+texture_under = ExtResource("2_7carv")
+texture_progress = ExtResource("3_oihrn")
+
+[node name="Slot3Button" type="TextureButton" parent="Upgrades"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture_normal = ExtResource("5_nk1o0")
+texture_pressed = ExtResource("6_3s7xj")
+texture_hover = ExtResource("7_u4qp0")
+texture_disabled = ExtResource("8_u7wd6")
+texture_focused = ExtResource("7_u4qp0")
+stretch_mode = 0
+
+[node name="UpgradeCost" type="Label" parent="Upgrades/Slot3Button"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TowerValuePanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Container" type="HBoxContainer" parent="TowerValuePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoinIcon" type="TextureButton" parent="TowerValuePanel/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("3_5y2yf")
+stretch_mode = 6
+
+[node name="Value" type="Label" parent="TowerValuePanel/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "150"
+
+[node name="SellButton" type="Button" parent="TowerValuePanel/Container"]
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "SELL"
+icon = ExtResource("4_pjssm")
+icon_alignment = 2
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -27.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 47.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = "X"
+flat = true
+
+[connection signal="pressed" from="TowerValuePanel/Container/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+
+[editable path="Upgrades/Slot1"]
+[editable path="Upgrades/Slot2"]
+[editable path="Upgrades/Slot3"]

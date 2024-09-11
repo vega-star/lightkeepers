@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=16 format=3 uid="uid://dgq7fx75nrqu4"]
 
-[ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://components/materials/unshaded_material.tres" id="1_158si"]
+[ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://assets/materials/unshaded_material.tres" id="1_158si"]
 [ext_resource type="Texture2D" uid="uid://dro64mcjf0lyn" path="res://assets/tilesets/main_atlas_hex.png" id="2_m7u0f"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r1obq"]

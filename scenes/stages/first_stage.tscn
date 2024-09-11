@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=4 uid="uid://2stxk6mbvwbv"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_u513e"]
-[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/materials/lightkeepers_environment.tres" id="2_2wtx5"]
+[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="2_2wtx5"]
 [ext_resource type="Script" path="res://scripts/main/stage_manager.gd" id="2_top5x"]
 [ext_resource type="Script" path="res://scripts/resources/wave_manager.gd" id="3_xxwxp"]
 [ext_resource type="Script" path="res://scripts/resources/waves.gd" id="4_3sdrw"]
@@ -9,8 +9,8 @@
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_gjeh3"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="8_txpjo"]
 [ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="9_fgewh"]
-[ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/light_area_component.tscn" id="11_x4sy4"]
-[ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/mouse_light.tscn" id="12_oob5i"]
+[ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="11_x4sy4"]
+[ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="12_oob5i"]
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="13_ggfcb"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2unhy"]

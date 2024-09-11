@@ -19,7 +19,7 @@ texture = ExtResource("2_apmlb")
 
 [node name="SlotCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cagpj")
-debug_color = Color(0.657461, 0.428328, 0.75151, 0.42)
+debug_color = Color(0.658824, 0.427451, 0.752941, 0.0745098)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

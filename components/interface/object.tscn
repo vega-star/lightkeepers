@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/resources/element.gd" id="2_nq7bo"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_38vht"]
 [ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="3_mly1j"]
-[ext_resource type="Shader" path="res://components/materials/element_shader.gdshader" id="5_vorre"]
+[ext_resource type="Shader" path="res://assets/shaders/element_shader.gdshader" id="5_vorre"]
 
 [sub_resource type="Resource" id="Resource_jg31s"]
 script = ExtResource("2_nq7bo")

@@ -71,6 +71,7 @@ func _process(_delta) -> void:
 
 func _return_to_slot(force : bool = false) -> void:
 	UI.is_dragging = false
+	active_slot.slot_changed.emit()
 	object_picked.emit()
 	if !is_instance_valid(active_slot) or force: active_slot = home_slot
 	print(self.name + ' returning to slot ' + str(active_slot.get_path()))
@@ -79,7 +80,7 @@ func _return_to_slot(force : bool = false) -> void:
 func _insert(slot : Slot) -> bool:
 	_set_draggable(false)
 	if is_instance_valid(slot):
-		var release_tween = get_tree().create_tween()
+		var release_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		var request = slot.request_insert(self)
 		if request: #? Slot available and inserting object
 			print('Insertion successful')
@@ -90,7 +91,9 @@ func _insert(slot : Slot) -> bool:
 		else: #? Failed to insert
 			print('Insertion failed')
 			if is_instance_valid(slot.active_object): return _replace_slot(active_slot, slot) #? Failed because there's already an self there. Will switch place with this self if it's already on a slot
-			else: return false
+			else: 
+				_return_to_slot()
+				return false
 		return true #? Object successfully inserted and returning positively
 	else: return false
 

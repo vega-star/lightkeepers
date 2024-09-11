@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbjip80jxb5mp"]
+[gd_scene load_steps=3 format=3 uid="uid://cbjip80jxb5mp"]
 
-[ext_resource type="Script" path="res://scripts/event_layer.gd" id="1_krorn"]
+[ext_resource type="Script" path="res://scripts/ui/event_layer.gd" id="1_krorn"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_t7m6o"]
 
 [node name="EventLayer" type="Control"]
 process_mode = 3
@@ -11,12 +12,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_t7m6o")
 script = ExtResource("1_krorn")
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "REMOVE {0}"
 initial_position = 1
 size = Vector2i(389, 100)
-ok_button_text = "Confirm"
+ok_button_text = "CONFIRM"
 dialog_text = "By deleting this object, you will retrieve {1} coins"
 dialog_close_on_escape = false
+cancel_button_text = "CANCEL"
