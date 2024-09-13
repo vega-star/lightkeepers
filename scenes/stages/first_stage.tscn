@@ -75,6 +75,7 @@ _data = {
 point_count = 34
 
 [node name="StageZero" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
+process_mode = 3
 script = ExtResource("1_u513e")
 modulate_layer = NodePath("StageEffects/DarknessLayer")
 check_coordinate = true
@@ -200,6 +201,7 @@ width = 5.0
 [node name="MouseLight" parent="LightAreaComponent" groups=["mouse_light"] instance=ExtResource("12_oob5i")]
 
 [node name="Containers" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="SpawnPosition" type="Marker2D" parent="Containers"]
 position = Vector2(624, 1280)

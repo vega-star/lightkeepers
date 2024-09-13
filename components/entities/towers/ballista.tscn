@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_nstgh"]
 [ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="4_v3usb"]
 [ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="5_vhjkh"]
-[ext_resource type="Script" path="res://scripts/states/turret_seeking.gd" id="6_uuvv4"]
-[ext_resource type="Script" path="res://scripts/states/turret_firing.gd" id="7_yaslq"]
+[ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="7_28w67"]
+[ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="8_de5nu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
 atlas = ExtResource("3_nstgh")
@@ -124,25 +124,12 @@ debug_color = Color(0, 0.6, 0.701961, 0.129412)
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
 script = ExtResource("5_vhjkh")
 entity = NodePath("..")
-initial_state = NodePath("Seeking")
+initial_state = NodePath("")
 
-[node name="Seeking" type="Node" parent="StateMachine" node_paths=PackedStringArray("firing_state")]
-script = ExtResource("6_uuvv4")
+[node name="Seeking" parent="StateMachine" node_paths=PackedStringArray("firing_state") instance=ExtResource("7_28w67")]
 firing_state = NodePath("../Firing")
 
-[node name="TargetResetTimer" type="Timer" parent="StateMachine/Seeking"]
-process_callback = 0
-
-[node name="Firing" type="Node" parent="StateMachine" node_paths=PackedStringArray("seeking_state", "projectile_prop_sprite")]
-script = ExtResource("7_yaslq")
+[node name="Firing" parent="StateMachine" node_paths=PackedStringArray("seeking_state", "projectile_prop_sprite") instance=ExtResource("8_de5nu")]
 seeking_state = NodePath("../Seeking")
 projectile_prop = true
 projectile_prop_sprite = NodePath("../../TowerGunSprite/ProjectileProp")
-
-[node name="FiringCooldown" type="Timer" parent="StateMachine/Firing"]
-process_callback = 0
-one_shot = true
-autostart = true
-
-[connection signal="timeout" from="StateMachine/Seeking/TargetResetTimer" to="StateMachine/Seeking" method="_on_target_reset"]
-[connection signal="timeout" from="StateMachine/Firing/FiringCooldown" to="StateMachine/Firing" method="_on_firing_cooldown_available"]

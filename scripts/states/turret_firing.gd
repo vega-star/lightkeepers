@@ -14,6 +14,7 @@ var bullet_container : Node2D
 var cast_point : Vector2
 
 func _ready() -> void:
+	firing_cooldown.start()
 	bullet_container = get_tree().get_first_node_in_group('projectile_container')
 
 func enter() -> void: 
@@ -22,7 +23,6 @@ func enter() -> void:
 	firing_cooldown.start()
 
 func exit() -> void:
-	firing_cooldown.start()
 	active = false
 
 func state_physics_update(delta : float) -> void:

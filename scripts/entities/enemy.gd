@@ -4,10 +4,19 @@ extends CharacterBody2D
 signal path_ended
 signal died(source : Node)
 
+enum ENEMY_CLASS {
+	CREEP,
+	BRUTE,
+	BULKWARK,
+	GIANT,
+	BEHEMOTH,
+	TIAMAT
+}
+
 @onready var health_component = $HealthComponent
 
 @export_group('Enemy Properties')
-@export_enum('creep') var enemy_class = 'creep'
+@export var enemy_class : ENEMY_CLASS = 0
 @export var default_damage_on_nexus : int = 5
 @export var base_enemy_value : int = 3
 @export var base_health : int = 10
