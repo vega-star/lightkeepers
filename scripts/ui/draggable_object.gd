@@ -10,9 +10,11 @@ const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png"
 @export var home_slot : Slot #? Slot on which it returns if something goes wrong or the screen which it was positioned gets closed
 @export var source_object : bool = false
 @export var element : Element
+@export var debug : bool = false
 
-@onready var object_collision = $ObjectCollision
-@onready var object_collision_area = $ObjectCollision/ObjectCollisionArea
+@onready var object_collision : Area2D = $ObjectCollision
+@onready var object_collision_area : CollisionShape2D = $ObjectCollision/ObjectCollisionArea
+@onready var object_element_sprite : Sprite2D = $ObjectOrb/ObjectElement
 
 var offset : Vector2
 var initial_position : Vector2
@@ -64,7 +66,6 @@ func _process(_delta) -> void:
 		
 		if Input.is_action_pressed('click'): global_position = get_global_mouse_position() - offset #? Drag
 		elif Input.is_action_just_released('click'): #? Release
-			print('Released click')
 			UI.is_dragging = false
 			if target_slot: _insert(target_slot)
 			else: _return_to_slot()
@@ -74,7 +75,7 @@ func _return_to_slot(force : bool = false) -> void:
 	active_slot.slot_changed.emit()
 	object_picked.emit()
 	if !is_instance_valid(active_slot) or force: active_slot = home_slot
-	print(self.name + ' returning to slot ' + str(active_slot.get_path()))
+	if debug: print(self.name, ' | Returning to slot ' + str(active_slot.get_path()))
 	_insert(active_slot)
 
 func _insert(slot : Slot) -> bool:
@@ -83,13 +84,13 @@ func _insert(slot : Slot) -> bool:
 		var release_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		var request = slot.request_insert(self)
 		if request: #? Slot available and inserting object
-			print('Insertion successful')
+			if debug: print(self.name, ' | Insertion successful')
 			active_slot = slot
 			object_inserted.emit()
 			release_tween.tween_property(self, "global_position", slot.global_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 			reparent(active_slot)
 		else: #? Failed to insert
-			print('Insertion failed')
+			if debug: print(self.name, ' | Insertion failed')
 			if is_instance_valid(slot.active_object): return _replace_slot(active_slot, slot) #? Failed because there's already an self there. Will switch place with this self if it's already on a slot
 			else: 
 				_return_to_slot()

@@ -24,9 +24,6 @@ func load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of spri
 				else: #? File not found in dict, thus loaded
 					var file_path = str(SPRITES_PATH + file[0] + '.' + file[1])
 					elements_dict[file[0]] = load(file_path)
-					print(file)
-					print(file_path)
-					print(elements_dict[file[0]])
 			else: pass #? Normal file
 			file_name = elements_folder.get_next()
 		

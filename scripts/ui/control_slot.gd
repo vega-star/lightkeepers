@@ -7,7 +7,6 @@ signal control_slot_changed
 
 const MINIMUM_SIZE : Vector2 = Vector2(96,96)
 
-@onready var quantity_label = $OffsetControl/QuantityLabel
 @onready var slot = $Slot : set = _config_slot
 
 @export var slot_register : ElementRegister : set = _config_register
@@ -21,11 +20,11 @@ func _config_slot(new_slot : Slot):
 	slot.slot_changed.connect(_on_slot_changed)
 
 func _config_register(reg : ElementRegister):
+	if slot_register: slot_register.element_quantity_changed.disconnect(_on_quantity_changed)
 	slot_register = reg
 	slot_register.element_quantity_changed.connect(_on_quantity_changed)
-	if quantity_label: quantity_label.text = str(slot_register.quantity)
-	# set_tooltip_text(reg.element.element_id.capitalize())
+	$OffsetControl/QuantityLabel.text = str(slot_register.quantity)
 
 func _on_slot_changed(): control_slot_changed.emit()
 
-func _on_quantity_changed(): quantity_label.text = str(slot_register.quantity)
+func _on_quantity_changed(): $OffsetControl/QuantityLabel.text = str(slot_register.quantity)

@@ -1,7 +1,5 @@
 class_name Menu extends Control
 
-const stage_zero : String = "res://scenes/stages/stagezero.tscn"
-
 @export var menu_songs : Array[String] = []
 @export var start_button : UIButton
 
@@ -23,11 +21,10 @@ func _ready():
 	version_label.text = "v%s" % project_version
 	screen_size = get_viewport_rect().size
 	UI.fade('IN')
+	UI.HUD.set_visible(false)
+	LoadManager._scene_is_stage = false
 	AudioManager.play_music(menu_songs, 0, true, true)
 	$MenuPages/CentralPage.set_focus()
-
-func _on_start_button_pressed():
-	LoadManager.load_scene(stage_zero)
 
 func set_focus(focus_position, direction):
 	var page = get_page_from_position(focus_position, direction)

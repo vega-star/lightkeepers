@@ -44,7 +44,7 @@ func state_physics_update(delta : float) -> void:
 func _fire() -> void:
 	if projectile_prop_sprite: projectile_prop_sprite.visible = false
 	
-	var projectile = entity.base_projectile.instantiate()
+	var projectile = entity.default_projectile.instantiate()
 	projectile.position = entity.tower_gun_muzzle.global_position
 	projectile.rotation_degrees = entity.tower_gun_sprite.rotation_degrees
 	projectile.piercing_count = entity.piercing
@@ -60,15 +60,13 @@ func _fire() -> void:
 
 func _on_firing_cooldown_available() -> void:
 	if !active: firing_buffered = true; return
-	
-	if entity.base_burst > 1:
+	if entity.burst > 1:
 		firing_cooldown.set_wait_time(entity.firing_cooldown / burst_cooldown_damping)
-		for i in entity.base_burst:
+		for i in entity.burst:
 			firing_cooldown.start()
 			_fire()
 			await firing_cooldown.timeout
 		firing_cooldown.set_wait_time(entity.firing_cooldown)
 	else: _fire()
-	
 	firing_cooldown.start()
 	transition.emit(self, seeking_state)

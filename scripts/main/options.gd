@@ -82,6 +82,7 @@ var photosens_mode : bool
 @onready var exit_button : TextureButton = $OptionsControl/ExitButton
 @onready var exit_check : ConfirmationDialog = $OptionsControl/ExitCheck
 @onready var reset_keybinds_check : ConfirmationDialog = $OptionsControl/ResetKeybindsCheck
+@onready var stage_container : VBoxContainer = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage
 #endregion
 
 #region | Core Functions
@@ -115,8 +116,8 @@ func _ready() -> void:
 	if !UI.is_node_ready(): await UI.ready
 
 func _input(event) -> void: # Able the player to exit options screen using actions, needed for when using controllers
-	if Input.is_action_just_pressed("escape") and !Options.visible: show(); _toggle_menu(true)
-	elif Input.is_action_just_pressed("escape") and Options.visible: _toggle_menu(false)
+	if Input.is_action_just_pressed("escape") and !Options.visible: show()
+	elif Input.is_action_just_pressed("escape") and Options.visible: _on_exit_menu_pressed()
 	if show_keycode == true: if event is InputEventKey: print(OS.get_keycode_string(event.get_keycode_with_modifiers()) ,' - ', event.get_keycode_with_modifiers()) #? Prints every input as its keycode integer. Useful to fill the default key_dict manually.
 
 func _bind_signals() -> void: #? Binds signals from UI nodes by code
@@ -153,12 +154,14 @@ func _button_group_input(button_index : int) -> void:
 	print(index)
 
 func _on_options_visibility_changed() -> void: 
-	if visible: _update_menu(); _toggle_menu(true) #? Updates menu if visible
+	if visible: _update_menu() #? Updates menu if visible
 	else: save_keys() #? Updates keys
 
 func _update_menu() -> void: #? Updates menu labels, buttons and temporary files
 	options_menu.get_tab_bar().grab_focus()
 	_screen_mode_update()
+	
+	stage_container.set_visible(LoadManager._scene_is_stage)
 	
 	var temporary_label : Label
 	for c in keybind_grid.get_children(): #? Resets each keybind button label to its default option. Fully scalable!
@@ -174,10 +177,6 @@ func _on_config_tabs_tab_selected(_tab) -> void: options_menu.get_tab_bar().grab
 func _on_exit_menu_pressed() -> void:
 	if settings_changed == true: exit_check.visible = true
 	else: _exit()
-
-func _toggle_menu(toggle : bool) -> void: #? Toggle menu visibility or animation
-	if toggle: pass
-	else: _on_exit_menu_pressed()
 
 func _on_exit_check_confirmed() -> void: #? Save new configuration
 	save_keys()
@@ -321,4 +320,7 @@ func _on_music_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE_P
 func _on_effects_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE_PATH)
 #endregion
 
-# func _on_visual_effect_selected(index): UI.ScreenEffect.change_effect(effect_menu.get_item_text(index))
+#region Loaders
+func _on_resource_loaded() -> void: pass
+func _on_restart_stage_button_pressed() -> void: _exit(); LoadManager.reload_scene()
+func _on_main_menu_button_pressed() -> void: _exit(); LoadManager.return_to_menu()

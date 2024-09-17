@@ -4,9 +4,9 @@ extends Node
 signal drag_changed(drag : bool)
 signal game_paused(mode)
 
+@onready var HUD : Interface = $Interface
 @onready var EVENT = $Interface/EventLayer
 @onready var EFFECT = $ScreenEffectLayer
-@onready var HUD = $Interface
 @onready var PAUSE_LAYER = $PauseLayer
 @onready var TRANSITION = $TransitionLayer
 

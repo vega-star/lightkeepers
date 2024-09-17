@@ -172,17 +172,20 @@ offset_bottom = 15.0
 grow_vertical = 2
 icon_alignment = 1
 
-[node name="StageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+[node name="Stage" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+
+[node name="StageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
 layout_mode = 2
 text = "STAGE"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="RestartStageButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+[node name="RestartStageButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
 layout_mode = 2
 text = "RESTART"
 
-[node name="MainMenuButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+[node name="ReturnToMenuButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
 layout_mode = 2
 text = "MAIN_MENU"
 
@@ -317,3 +320,6 @@ size = Vector2i(267, 100)
 ok_button_text = "CONFIRM"
 dialog_text = "RESET_DEFAULT_KEYBINDS_TEXT"
 cancel_button_text = "CANCEL"
+
+[connection signal="pressed" from="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/RestartStageButton" to="." method="_on_restart_stage_button_pressed"]
+[connection signal="pressed" from="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/ReturnToMenuButton" to="." method="_on_main_menu_button_pressed"]

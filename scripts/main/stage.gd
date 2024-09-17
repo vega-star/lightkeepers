@@ -37,6 +37,7 @@ var previous_queried_cell : Vector2i #? Used for input resetting
 func _ready():
 	if !modulate_layer.visible: modulate_layer.visible = true
 	AudioManager.play_music(stage_songs, 0, false, true)
+	LoadManager._scene_is_stage = true
 	UI.start_stage()
 
 func _process(delta):
@@ -111,7 +112,7 @@ func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool: #? 
 
 func insert_tile_object(tile_object : TileObject) -> bool: #? Called from turret/object button when inserted into a tile
 	var tile_position : Vector2i = position_to_tile(get_global_mouse_position())
-	var tile_cost : int = tile_object.base_tower_cost
+	var tile_cost : int = tile_object.default_tower_cost
 	var coordinates : Vector2 = GROUND_LAYER.map_to_local(tile_position)
 	var query_result : bool = query_tile_insertion(tile_position)
 	
@@ -132,7 +133,7 @@ func insert_tile_object(tile_object : TileObject) -> bool: #? Called from turret
 	OBJECT_LAYER.set_cell(tile_position, 0, TILE.DEFAULT)
 	tile_object.global_position = coordinates
 	tile_object.reparent($Containers/ObjectContainer)
-	stage_manager.change_coins(tile_object.base_tower_cost)
+	stage_manager.change_coins(tile_object.default_tower_cost)
 	
 	return true ## Return sucessfully
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dabti1py4rn1a"]
+[gd_scene load_steps=15 format=3 uid="uid://dabti1py4rn1a"]
 
 [ext_resource type="Script" path="res://scripts/ui/draggable_object.gd" id="1_u5ai6"]
 [ext_resource type="Script" path="res://scripts/resources/element.gd" id="2_nq7bo"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_38vht"]
 [ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="3_mly1j"]
 [ext_resource type="Shader" path="res://assets/shaders/element_shader.gdshader" id="5_vorre"]
+[ext_resource type="Script" path="res://scripts/ui/draggable_object_sprite.gd" id="6_63oux"]
 
 [sub_resource type="Resource" id="Resource_jg31s"]
 script = ExtResource("2_nq7bo")
@@ -58,6 +59,7 @@ texture = ExtResource("3_mly1j")
 
 [node name="ObjectElement" type="Sprite2D" parent="ObjectOrb"]
 material = SubResource("ShaderMaterial_pwny5")
+script = ExtResource("6_63oux")
 
 [node name="ObjectCollision" type="Area2D" parent="."]
 z_index = 5

@@ -37,12 +37,16 @@ func request_insert(object : DraggableObject) -> bool:
 		active_object = object
 		active_object.object_picked.connect(_remove_object)
 		slot_changed.emit()
+		
+		if element_register: element_register.quantity += 1 #! Adding/readding quantity to slot
 		return true
 	else:
 		printerr('Slot refusing {0} insertion due to being already full with {1}'.format({0:object.name,1:active_object.name}))
 		return false
 
 func _remove_object(destroy : bool = false) -> void:
+	if element_register: element_register.quantity -= 1
+	
 	slot_changed.emit()
 	if is_instance_valid(active_object):
 		active_object.object_picked.disconnect(_remove_object)

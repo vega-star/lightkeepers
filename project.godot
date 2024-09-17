@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Lightkeepers"
-config/version="0.2.4"
+config/version="0.3.0"
 config/tags=PackedStringArray("jam", "tower_defense")
 run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
@@ -29,7 +29,7 @@ UI="*res://scenes/singletons/ui.tscn"
 LoadManager="*res://scenes/singletons/load_manager.tscn"
 Options="*res://components/options.tscn"
 AudioManager="*res://scenes/singletons/audio_manager.tscn"
-EventManager="*res://scripts/main/event_manager.gd"
+ElementManager="*res://scripts/main/element_manager.gd"
 
 [display]
 

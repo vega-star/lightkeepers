@@ -1,5 +1,13 @@
 keys,en,pt-br
 START,Start,Iniciar
+SETTINGS,Settings,Opções
+STAGE,Stage,Fase
+SAVE,Save,Salvar
+RESTART,Restart,Reiniciar
+CONFIRM,Confirm,Confirmar
+EXIT,Exit,Sair
+CANCEL,Cancel,Cancelar
+VERSION,Version,Versão
 TURN,Turn,Turno
 TOWER,Tower,Torre
 TOWERS,Towers,Torres
@@ -10,10 +18,10 @@ CODEX,Codex,Códice
 COINS,Coins,Moedas
 CREDITS,Credits,Créditos
 QUIT,Quit,Sair
-CREATORS,CREATORS,CRIADORES
-DANGER,DANGER,PERIGO
+CREATORS,Creators,Criadores
+DANGER,Danger,Perigo
 DEBUGMESSAGE,This is a debug message and should [b]NOT[/b] be appearing in normal gameplay,Esta é uma mensagem de debug e [b]NÃO[/b] deveria estar aparecendo na gameplay normal.
-LANGUAGE,Language,Linguagem
+LANGUAGE,Language,Idioma
 MASTER_VOLUME,Master Volume,Volume Principal
 MUSIC_VOLUME,Music,Música
 SOUND_EFFECTS,Sound Effects,Efeitos Sonoros
@@ -42,9 +50,6 @@ UNPAUSE,UNPAUSE,RESUMIR
 MAIN_MENU,MAIN MENU,MENU PRINCIPAL
 SAVE_OPTIONS_CONFIRMATION_DIALOG,Confirm changes,Confirme as mudanças
 DEMOLISH_REQUEST_TEXT,Demolishing this turret will give you back,Demolir essa torre lhe retornará
-EXIT,Exit,Sair
-CONFIRM,Confirm,Confirmar
-CANCEL,Cancel,Cancelar
-VERSION,Version,Versão
+RESET_DEFAULT_KEYBINDS_TEXT,Reset all default keybinds?,Redefinir todas as teclas?
 TUTORIAL,Tutorial,Tutorial
 PRACTICE,Practice,Praticar

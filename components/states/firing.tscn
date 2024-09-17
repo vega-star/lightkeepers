@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/states/turret_firing.gd" id="1_wejd7"]
 
-[node name="Firing" type="Node" node_paths=PackedStringArray("seeking_state")]
+[node name="Firing" type="Node"]
 script = ExtResource("1_wejd7")
-seeking_state = NodePath("")
 
 [node name="FiringCooldown" type="Timer" parent="."]
 process_callback = 0

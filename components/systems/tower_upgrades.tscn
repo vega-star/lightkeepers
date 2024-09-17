@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://yrds2ot5w6ar"]
+
+[ext_resource type="Script" path="res://scripts/main/tower_upgrades.gd" id="1_hqd0s"]
+[ext_resource type="Resource" uid="uid://jhkdgy5l0lgk" path="res://components/upgrade_trees/default.tres" id="2_m80pj"]
+
+[node name="TowerUpgrades" type="Node"]
+script = ExtResource("1_hqd0s")
+upgrade_tree_1 = ExtResource("2_m80pj")
+upgrade_tree_2 = ExtResource("2_m80pj")
+upgrade_tree_3 = ExtResource("2_m80pj")

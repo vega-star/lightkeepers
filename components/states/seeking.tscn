@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/states/turret_seeking.gd" id="1_gy5cp"]
 
-[node name="Seeking" type="Node" node_paths=PackedStringArray("firing_state")]
+[node name="Seeking" type="Node"]
 script = ExtResource("1_gy5cp")
-firing_state = NodePath("")
 
 [node name="TargetResetTimer" type="Timer" parent="."]
 process_callback = 0

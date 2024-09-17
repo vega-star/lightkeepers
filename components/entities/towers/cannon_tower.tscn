@@ -1,9 +1,102 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdgvmycunep3f"]
+[gd_scene load_steps=32 format=3 uid="uid://cdgvmycunep3f"]
 
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/towers/tower.tscn" id="1_wel7w"]
 [ext_resource type="PackedScene" uid="uid://cupxwutf72o83" path="res://components/projectiles/cannon_projectile.tscn" id="2_k2kr6"]
 [ext_resource type="Texture2D" uid="uid://5ip5d0re285c" path="res://assets/sprites/turrets/cannon.png" id="3_dq8sw"]
+[ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="3_w1am6"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="4_74n68"]
 [ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="4_hs554"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="5_6yeod"]
+
+[sub_resource type="Resource" id="Resource_6iduf"]
+script = ExtResource("5_6yeod")
+upgrade_type = 0
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_rxd5c"]
+script = ExtResource("5_6yeod")
+upgrade_type = 0
+upgrade_value = ""
+
+[sub_resource type="Resource" id="Resource_2ytgt"]
+script = ExtResource("4_74n68")
+upgrade_title = "UPGRADE_TITLE"
+upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
+upgrade_cost = 75
+upgrade_commands = Array[ExtResource("5_6yeod")]([SubResource("Resource_6iduf"), SubResource("Resource_rxd5c")])
+
+[sub_resource type="Resource" id="Resource_5wwqu"]
+script = ExtResource("5_6yeod")
+upgrade_type = 1
+upgrade_value = "2"
+
+[sub_resource type="Resource" id="Resource_qpcvs"]
+script = ExtResource("5_6yeod")
+upgrade_type = 6
+upgrade_value = "1.2"
+
+[sub_resource type="Resource" id="Resource_i6ccn"]
+script = ExtResource("5_6yeod")
+upgrade_type = 8
+upgrade_value = "2"
+
+[sub_resource type="Resource" id="Resource_jg6d7"]
+script = ExtResource("5_6yeod")
+upgrade_type = 7
+upgrade_value = "1.2"
+
+[sub_resource type="Resource" id="Resource_4whvn"]
+script = ExtResource("4_74n68")
+upgrade_title = "UPGRADE_TITLE"
+upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
+upgrade_cost = 155
+upgrade_commands = Array[ExtResource("5_6yeod")]([SubResource("Resource_5wwqu"), SubResource("Resource_qpcvs"), SubResource("Resource_i6ccn"), SubResource("Resource_jg6d7")])
+
+[sub_resource type="Resource" id="Resource_ou1bg"]
+script = ExtResource("5_6yeod")
+upgrade_type = 3
+upgrade_value = "2"
+
+[sub_resource type="Resource" id="Resource_qa0eg"]
+script = ExtResource("5_6yeod")
+upgrade_type = 6
+upgrade_value = "1.5"
+
+[sub_resource type="Resource" id="Resource_0cwvg"]
+script = ExtResource("4_74n68")
+upgrade_title = "UPGRADE_TITLE"
+upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
+upgrade_cost = 460
+upgrade_commands = Array[ExtResource("5_6yeod")]([SubResource("Resource_ou1bg"), SubResource("Resource_qa0eg")])
+
+[sub_resource type="Resource" id="Resource_eyaot"]
+script = ExtResource("5_6yeod")
+upgrade_type = 6
+upgrade_value = "1.75"
+
+[sub_resource type="Resource" id="Resource_o4rpp"]
+script = ExtResource("5_6yeod")
+upgrade_type = 4
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_8fwva"]
+script = ExtResource("4_74n68")
+upgrade_title = "UPGRADE_TITLE"
+upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
+upgrade_cost = 950
+upgrade_commands = Array[ExtResource("5_6yeod")]([SubResource("Resource_eyaot"), SubResource("Resource_o4rpp")])
+
+[sub_resource type="Resource" id="Resource_d8gh4"]
+script = ExtResource("4_74n68")
+upgrade_title = "ULTIMATE_STOCK"
+upgrade_description = "ULTIMATE_STOCK_DESCRIPTION"
+upgrade_cost = 5000
+upgrade_commands = Array[ExtResource("5_6yeod")]([])
+
+[sub_resource type="Resource" id="Resource_loc58"]
+resource_local_to_scene = true
+script = ExtResource("3_w1am6")
+upgrades = Array[ExtResource("4_74n68")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
 atlas = ExtResource("4_hs554")
@@ -62,19 +155,23 @@ animations = [{
 radius = 160.0
 
 [node name="Cannon_Tower" instance=ExtResource("1_wel7w")]
-base_projectile = ExtResource("2_k2kr6")
-base_tower_cost = 75
-base_burst = 2
-base_light_range = 1.0
+default_projectile = ExtResource("2_k2kr6")
+default_burst = 3
+default_firing_cooldown = 2.0
 tower_name = "Cannon"
 
-[node name="TowerSprite" parent="." index="0"]
+[node name="TowerUpgrades" parent="." index="0"]
+upgrade_tree_1 = SubResource("Resource_loc58")
+upgrade_tree_2 = SubResource("Resource_loc58")
+upgrade_tree_3 = SubResource("Resource_loc58")
+
+[node name="TowerSprite" parent="." index="2"]
 visible = true
 z_index = 50
 texture = ExtResource("3_dq8sw")
 flip_h = true
 
-[node name="TowerGunSprite" parent="." index="1"]
+[node name="TowerGunSprite" parent="." index="3"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_yos0f")
 frame = 0

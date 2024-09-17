@@ -38,6 +38,9 @@ func _ready() -> void:
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
+	else:
+		states[0].enter()
+		current_state = initial_state
 
 func _process(delta : float) -> void:
 	if current_state: current_state.state_update(delta)

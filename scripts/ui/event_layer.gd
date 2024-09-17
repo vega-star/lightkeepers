@@ -15,7 +15,6 @@ func request_confirmation(title : String, text : String, confirm_text : String =
 	confirmation_dialog.visible = true
 	var confirmation_value = await confirmation
 	
-	print(request_confirmation)
 	UI.set_pause(false)
 	confirmation_dialog.visible = false
 	return confirmation_value
