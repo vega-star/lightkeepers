@@ -22,12 +22,12 @@ func _process(delta):
 	global_position = get_global_mouse_position()
 	light_shape.global_position = get_global_mouse_position()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if change_intensity: update_intensity()
 
 func update_intensity():
 	var distance = global_position.distance_to(nexus.global_position)
-	var dampening = distance
+	# var dampening = distance
 	
 	intensity = 10 / (BASE_INTENSITY - (BASE_INTENSITY - distance))
 	intensity = clamp(intensity, min_intensity, max_intensity)

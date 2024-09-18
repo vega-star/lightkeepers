@@ -68,3 +68,5 @@ func _apply_upgrade(commands : Array[UpgradeCommand]) -> void:
 			6: tower.firing_cooldown /= float(u_value)
 			7: tower.tower_range *= float(u_value)
 			8: tower.light_range *= float(u_value)
+
+func _on_tower_upgraded() -> void: tower.tower_updated.emit()

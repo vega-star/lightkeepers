@@ -21,13 +21,5 @@ texture = ExtResource("2_apmlb")
 shape = SubResource("CircleShape2D_cagpj")
 debug_color = Color(0.658824, 0.427451, 0.752941, 0.0745098)
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-custom_minimum_size = Vector2(42, 42)
-offset_left = -21.0
-offset_top = -21.0
-offset_right = 21.0
-offset_bottom = 21.0
-
 [connection signal="slot_changed" from="." to="." method="_on_slot_changed"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

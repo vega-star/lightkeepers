@@ -7,7 +7,6 @@ signal tower_sold
 const MOVEMENT_PERIOD : float = 0.2
 
 @export var focus_button_group : ButtonGroup
-@export var upgrade_button_group : ButtonGroup
 
 @onready var tower_label: Label = $TowerLabel
 @onready var slot_1_progress: TextureProgressBar = $Upgrades/Slot1Progress
@@ -27,7 +26,6 @@ var upgrade_system : TowerUpgrades
 func _ready() -> void:
 	stage = get_tree().get_first_node_in_group('stage')
 	for button in focus_button_group.get_buttons(): button.pressed.connect(func(): _on_focus_button_pressed(button.get_index()))
-	for button in upgrade_button_group.get_buttons(): button.pressed.connect(func(): _on_upgrade_button_pressed(button.get_index()))
 
 func load_tower(new_tower : Tower) -> void:
 	if new_tower != tower: #? Executes only if the new tower is different from the one actively stored
@@ -104,13 +102,17 @@ func _on_focus_button_pressed(button_index : int) -> void:
 	tower.target_priority = NEW_TARGET_PRIORITY
 	tower.tower_updated.emit()
 
+func _on_slot_1_button_pressed() -> void: _on_upgrade_button_pressed(0)
+func _on_slot_2_button_pressed() -> void: _on_upgrade_button_pressed(1)
+func _on_slot_3_button_pressed() -> void: _on_upgrade_button_pressed(2)
+
 func _on_upgrade_button_pressed(button_index : int) -> void:
-	var TREE_INDEX : int
+	var tree_index : int
 	match button_index:
-		2: TREE_INDEX = 0 #! Upgrade Tree 1
-		5: TREE_INDEX = 1 #! Upgrade Tree 2
-		8: TREE_INDEX = 2 #! Upgrade Tree 3
-		_: return
-	var request = upgrade_system._request_upgrade(upgrade_system.upgrade_trees_array[TREE_INDEX])
+		2: tree_index = 0 #! Upgrade Tree 1
+		5: tree_index = 1 #! Upgrade Tree 2
+		8: tree_index = 2 #! Upgrade Tree 3
+		_: push_error('INVALID TREE INDEX')
+	var request = upgrade_system._request_upgrade(upgrade_system.upgrade_trees_array[tree_index])
 	if request: tower.tower_updated.emit()
 	else: pass

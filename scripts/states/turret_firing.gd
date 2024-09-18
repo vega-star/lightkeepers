@@ -25,7 +25,7 @@ func enter() -> void:
 func exit() -> void:
 	active = false
 
-func state_physics_update(delta : float) -> void:
+func state_physics_update(_delta : float) -> void:
 	entity.tower_aim.force_raycast_update()
 	
 	if is_instance_valid(entity.target): #? Control firing angle

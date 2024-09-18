@@ -102,6 +102,7 @@ func _set_firing_cooldown(new_cooldown : float): firing_cooldown = new_cooldown;
 func _load_properties() -> void:
 	light_shape.size = light_range
 	tower_range_shape.shape.radius = DEFAULT_RANGE * tower_range
+	tower_updated.emit()
 
 func _load_default_values() -> void:
 	tower_value = default_tower_cost
@@ -111,6 +112,7 @@ func _load_default_values() -> void:
 	projectile_quantity = default_projectile_quantity
 	firing_cooldown = default_firing_cooldown; firing_cooldown_timer.wait_time = firing_cooldown
 	if tower_gun_sprite.visible: tower_sprite.visible = false
+	tower_updated.emit()
 
 func _physics_process(_delta) -> void: queue_redraw()
 

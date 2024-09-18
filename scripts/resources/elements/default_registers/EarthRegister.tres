@@ -8,4 +8,4 @@ script = ExtResource("2_urj8b")
 element = ExtResource("1_yive6")
 control_slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/EarthContainer")
 slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/EarthContainer/Slot")
-quantity = 1
+quantity = 2

@@ -2,7 +2,7 @@ extends RayCast2D
 
 var target
 
-func _process(delta):
+func _process(_delta) -> void:
 	var ray_point = get_local_mouse_position()
 	var cast_point
 	force_raycast_update()

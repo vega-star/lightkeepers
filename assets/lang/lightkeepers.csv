@@ -46,8 +46,8 @@ SCREEN_MODE,Screen Mode,Modo de Tela
 VISUAL_EFFECTS,Visual Effects,Efeitos Visuais
 PHOTOSENSIBILITY_MODE,Photosensibility Mode,Modo de Fotossensibilidade
 SCREEN_SHAKE,Screen Shake,Tremor de Tela
-UNPAUSE,UNPAUSE,RESUMIR
-MAIN_MENU,MAIN MENU,MENU PRINCIPAL
+UNPAUSE,Unpause,Resumir
+MAIN_MENU,Main Menu,Menu Principal
 SAVE_OPTIONS_CONFIRMATION_DIALOG,Confirm changes,Confirme as mudanças
 DEMOLISH_REQUEST_TEXT,Demolishing this turret will give you back,Demolir essa torre lhe retornará
 RESET_DEFAULT_KEYBINDS_TEXT,Reset all default keybinds?,Redefinir todas as teclas?

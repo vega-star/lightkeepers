@@ -4,7 +4,12 @@
 extends Node
 
 const CONTROL_SLOT_SCENE : PackedScene = preload('res://components/interface/control_slot.tscn')
-const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/object.tscn")
+const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/draggable_object.tscn")
+const STARTING_ELEMENT_REG : Array[ElementRegister] = [
+	preload("res://scripts/resources/elements/default_registers/FireRegister.tres"),
+	preload("res://scripts/resources/elements/default_registers/WaterRegister.tres"),
+	preload("res://scripts/resources/elements/default_registers/AirRegister.tres"),
+	preload("res://scripts/resources/elements/default_registers/EarthRegister.tres")]
 const COMBINATIONS : Dictionary = {
 	"fire": {
 		"fire": "conflagration",
@@ -43,9 +48,15 @@ var active_registers : Array[ElementRegister]
 var element_textures : Dictionary = {}
 
 func _ready() -> void:
+	active_registers.append_array(STARTING_ELEMENT_REG)
 	var temp_dos : DraggableObjectSprite = DraggableObjectSprite.new()
 	element_textures = temp_dos.load_all_sprites()
 	temp_dos.queue_free()
+
+## Purge all elements, resetting everything! Used when restarting stages and such
+func _purge():
+	active_registers.clear()
+	active_registers.append_array(STARTING_ELEMENT_REG)
 
 #region Element Manipulation
 ## Returns an element ID from two other IDs by checking the COMBINATIONS dictionary
@@ -65,20 +76,9 @@ func fuse(combination_id : String, add_directly : bool = false) -> Element:
 	return combined_essence
 
 ## Generates a draggable object which can be located on containers in screen and attached into slots
-func generate_object( 
-		root_slot : Slot,
-		source_object : bool,
-		element : Element
-	) -> DraggableObject:
+func generate_object(element : Element) -> DraggableObject:
 	var object = DRAGGABLE_OBJECT_SCENE.instantiate()
-	object.active_slot = root_slot
-	object.home_slot = root_slot ## Return to this node position if something goes wrong or the screen which it was positioned gets closed
-	object.source_object = source_object ## Instead of moving the object, creates another one
 	object.element = element
-	root_slot.add_child(object)
-	
-	if element_textures.has(element.element_id): object.object_element_sprite.set_texture(element_textures[element.element_id])
-	else: push_warning(element, ' | Element sprite not found!')
 	return object
 
 ## Generates an Element resource from an ID and type
@@ -93,22 +93,22 @@ func generate_element(
 	return new_element
 
 ## Query an element to see if it already exists on the runtime array
-func query_element(id : String) -> bool:
-	for reg in active_registers: if id == reg.element.element_id: return true
-	return false
+func query_element(id : String) -> ElementRegister:
+	for reg in active_registers: 
+		if id == reg.element.element_id: return reg
+	return null
 
-## Add to an existing element or a new one
+## Add to an existing element or a new one to ElementRegister array, as well as creating the required nodes
 func add_element(
-		element : Element,
-		element_type : int = 1,
-		quantity : int = 1,
-		container : Container = UI.HUD._request_container(element.element_type)
+		element : Element, #? Element resource to add
+		element_type : int = 1, #? 0 is Essence, 1 is Element
+		quantity : int = 1, #? How many charges will be added
+		container : Container = UI.HUD._request_container(element.element_type) #? Defaults to UI containers
 	) -> ElementRegister:
-	assert(container)
-	var register : ElementRegister
-	var element_registered : bool = query_element(element.element_id)
 	
-	if element_registered: #? Element already exists on register
+	assert(container)
+	var register : ElementRegister = query_element(element.element_id)
+	if register: #? Element already exists on register
 		register.quantity += quantity
 		return register
 	else: #? New element
@@ -123,7 +123,8 @@ func add_element(
 		register.control_slot = control_slot.get_path()
 		register.slot = control_slot.slot.get_path()
 		
-		var object = _set_object(control_slot, element)
+		var _object = _set_object(control_slot.slot, element)
+		control_slot.slot.element_register = register
 		active_registers.append(register)
 		return register
 #endregion
@@ -137,9 +138,25 @@ func _set_control_slot(reg : ElementRegister) -> ControlSlot:
 	return control_slot
 
 ## Create and define DraggableObject
-func _set_object(c_slot : ControlSlot, element : Element) -> DraggableObject:
-	var new_object : DraggableObject = generate_object(c_slot.slot, true, element)
-	new_object.set_name('{0}{1}'.format({0: element.element_id.capitalize(), 1: 'Object'}))
-	c_slot.slot.add_child(new_object)
-	return new_object
+func _set_object(slot : Slot, element : Element, additional : String = '') -> DraggableObject:
+	var object : DraggableObject = generate_object(element)
+	object.set_name('{0}{1}{2}'.format({0: element.element_id.capitalize(), 1: 'Object', 2: additional}))
+	object.active_slot = slot
+	object.home_slot = slot
+	slot.add_child(object)
+	slot.active_object = object
+	
+	if element_textures.has(element.element_id): object.object_element_sprite.set_texture(element_textures[element.element_id])
+	else: printerr(element.element_id, ' | Element sprite not found!')
+	return object
+
+## Restock slot
+func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject:
+	print(slot.get_path())
+	assert(slot.is_output)
+	if reg.quantity > 0:
+		reg.quantity -= 1
+		var regen_object = _set_object(slot, reg.element)
+		return regen_object
+	else: return null
 #endregion

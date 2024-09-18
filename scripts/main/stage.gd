@@ -4,6 +4,7 @@
 class_name Stage
 extends Node2D
 
+#region Variables
 const CASHBACK_FACTOR : float = 0.65
 
 @export_group('Node Connections')
@@ -16,6 +17,11 @@ const CASHBACK_FACTOR : float = 0.65
 
 @export var stage_songs : Array[String] = []
 
+@onready var GROUND_LAYER : TileMapLayer = $GroundLayer
+@onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
+@onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
+@onready var FOREGROUND_LAYER : TileMapLayer = $ForegroundLayer
+
 const SELECTION_TILE : Vector2i = Vector2i(0,4)
 const TILE : Dictionary = {
 	'DEFAULT' = Vector2i(7,0),
@@ -24,35 +30,35 @@ const TILE : Dictionary = {
 	'TARGET' = Vector2i(2,3)
 }
 
-@onready var GROUND_LAYER : TileMapLayer = $GroundLayer
-@onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
-@onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
-@onready var FOREGROUND_LAYER : TileMapLayer = $ForegroundLayer
-
 var selected_object : TileObject #? Selected object node storage
 var object_dict : Dictionary #? Arranged by tile_position
 var previous_selected_cell : Vector2i #? draw_width
 var previous_queried_cell : Vector2i #? Used for input resetting
+#endregion
 
-func _ready():
+#region Main functions
+func _ready() -> void:
 	if !modulate_layer.visible: modulate_layer.visible = true
-	AudioManager.play_music(stage_songs, 0, false, true)
 	LoadManager._scene_is_stage = true
+	AudioManager.play_music(stage_songs, 0, false, true)
 	UI.start_stage()
 
-func _process(delta):
-	if check_coordinate:
+func _process(_delta) -> void:
+	if check_coordinate: #? Output tile coordinate on screen
 		var current_mouse_pos = get_global_mouse_position()
 		var tile_position = position_to_tile(current_mouse_pos)
 		UI.HUD.debug_label.set_text(str(tile_position))
 
-func _input(event):
+func _input(_event) -> void:
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
 	if Input.is_action_just_pressed('alt'): deselect_tile()
+#endregion
 
-#? Converts a Vector2 coordinate into an accurate tile position
+#region Tile management
+## Converts a Vector2 coordinate into an accurate tile position
 func position_to_tile(position_vector : Vector2) -> Vector2i: return GROUND_LAYER.local_to_map(position_vector)
 
+## Query tile metadata
 func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0):
 	var tile_data = layer.get_cell_tile_data(tile_position)
 	if tile_data: return tile_data.get_custom_data_by_layer_id(custom_data_layer_id)
@@ -69,23 +75,12 @@ func select_tile(tile_position):
 	if is_instance_valid(selected_object):
 		if selected_object is Tower: UI.HUD.tower_panel.load_tower(selected_object)
 		selected_object.visible_range = true
-		
-		# UI.HUD.object_description_label.set_text('
-		#	TO_NODE: {0} 
-		#	TO_COST: {1}
-		#	TO_SEEKING_TYPE: {2}
-		#'.format({
-		#	0: selected_object.name,
-		#	1: selected_object.base_tower_cost,
-		#	2: selected_object.seeking_type
-		#}))
-		
 	
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)
 	UI.HUD.tile_description_label.set_text(str(data))
 	previous_selected_cell = tile_position
 
-func deselect_tile():
+func deselect_tile() -> void:
 	INTERACTION_LAYER.erase_cell(previous_selected_cell)
 	UI.HUD.object_description_label.set_text("")
 	if is_instance_valid(selected_object): selected_object.visible_range = false
@@ -156,7 +151,7 @@ func request_removal(tile_position : Vector2i = Vector2i.MIN) -> bool:
 		return true
 	else: return false
 
-func remove_tile_object(tile_position : Vector2i, object : Node):
+func remove_tile_object(tile_position : Vector2i, object : Node) -> void:
 	object.queue_free()
 	OBJECT_LAYER.erase_cell(tile_position)
 	object_dict.erase(tile_position)
@@ -164,3 +159,4 @@ func remove_tile_object(tile_position : Vector2i, object : Node):
 #func insert_data(tile_position : Vector2i, key : String, value : Variant, layer : Layer = Layer.OBJECT_LAYER): ## TODO
 	# var tile_data = tilemap.get_cell_tile_data(layer, tile_position)
 	# tilemap.set_custom_data_layer_name(layer_index: int, layer_name: String)
+#endregion

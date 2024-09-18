@@ -4,12 +4,8 @@ extends CanvasLayer
 signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
+#region Variables
 const TIME_SCALE_MULTIPLY : int = 4
-const STARTING_ELEMENT_REG : Array[ElementRegister] = [
-	preload("res://scripts/resources/elements/default_registers/FireRegister.tres"),
-	preload("res://scripts/resources/elements/default_registers/WaterRegister.tres"),
-	preload("res://scripts/resources/elements/default_registers/AirRegister.tres"),
-	preload("res://scripts/resources/elements/default_registers/EarthRegister.tres")]
 const INFO_DEFAULT_X : int = 11
 const INFO_DEFAULT_Y : int = 240
 const DEFAULT_LABEL_MODULATE = Color(10,10,10)
@@ -44,14 +40,14 @@ var previous_life : int
 var previous_coins : int
 var element_menu_hidden : bool = false
 var speed_toggled : bool = false
+#endregion
 
+#region Main functions
 func _ready():
 	set_visible(false)
-	ElementManager.active_registers.append_array(STARTING_ELEMENT_REG)
 	if hide_elements_when_start: hide_button.pressed.emit()
 	for button in shop_button_group.get_buttons(): button.pressed.connect(func(): _on_shop_button_pressed(button.get_index()))
 
-#region Update functions
 func update_coins(coins : int): update_label(coin_label, coins, previous_coins); previous_coins = coins
 
 func update_life(life : int): update_label(life_label, life, previous_life); previous_life = life
@@ -62,8 +58,7 @@ func _on_screen_mouse_exited() -> void: pass
 #endregion
 
 #region Inputs and buttons
-func _input(event) -> void:
-	if Input.is_action_just_pressed('enter'): turn_pass_requested.emit()
+func _input(_event) -> void: if Input.is_action_just_pressed('enter'): turn_pass_requested.emit()
 
 func _on_play_button_pressed(): turn_pass_requested.emit()
 
@@ -92,21 +87,17 @@ func _on_options_button_pressed() -> void:
 	else: Options._on_exit_menu_pressed()
 
 func _on_hide_button_pressed() -> void:
-	var info_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
-	# var info_new_y : int = INFO_DEFAULT_Y
 	
 	if !element_menu_hidden: # Element menu visible
-		new_x = get_viewport().get_visible_rect().size.x - corner_panel.size.x - hide_button.size.x
-		# info_new_y = get_viewport().get_visible_rect().size.y - info_container.size.y - INFO_DEFAULT_X
+		new_x = roundi(get_viewport().get_visible_rect().size.x - corner_panel.size.x - hide_button.size.x)
 		element_menu_hidden = true
 		hide_button.flip_h = false
 	else: #? Element menu invisible
-		new_x = get_viewport().get_visible_rect().size.x - element_container.size.x
-		# info_new_y = INFO_DEFAULT_Y
+		new_x = roundi(get_viewport().get_visible_rect().size.x - element_container.size.x)
 		element_menu_hidden = false
-		# hide_button.flip_h = true
+		hide_button.flip_h = true
 	
 	hide_tween.tween_property(element_container, "position", Vector2(new_x, element_container.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	# info_tween.tween_property(info_container, "position", Vector2(INFO_DEFAULT_X, info_new_y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)

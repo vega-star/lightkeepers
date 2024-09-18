@@ -1,5 +1,6 @@
 class_name TowerButton extends Panel
 
+signal tower_selected
 signal tower_placed
 
 @export_enum('TOWER', 'LIGHT', 'DECORATION') var object_type : String = 'TOWER'

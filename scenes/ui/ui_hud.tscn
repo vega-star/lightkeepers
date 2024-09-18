@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=45 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
@@ -25,7 +25,7 @@
 [ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://scripts/resources/elements/WaterElement.tres" id="15_sqh7q"]
 [ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://scripts/resources/elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
-[ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://components/interface/object.tscn" id="17_opm6q"]
+[ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://components/interface/draggable_object.tscn" id="17_opm6q"]
 [ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/textures/stylebox_screen_frame.png" id="17_wrifp"]
 [ext_resource type="Texture2D" uid="uid://bcfhqtysyihks" path="res://assets/sprites/elements/air.png" id="18_4h15y"]
 [ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="19_1inae"]
@@ -54,8 +54,6 @@ shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
 shader_parameter/line_thickness = 1.0
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_6gsry"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_embwu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cjjh3"]
 shader = ExtResource("17_nh1qq")
@@ -225,6 +223,10 @@ vertical_alignment = 1
 [node name="OutputSlot" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem" instance=ExtResource("8_am10k")]
 layout_mode = 2
 
+[node name="Slot" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot" index="0"]
+slot_type = 0
+slot_locked = true
+
 [node name="ConfirmButton" type="TextureButton" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot/OffsetControl" index="0"]
 layout_mode = 2
 offset_left = -48.0
@@ -234,6 +236,9 @@ offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(48, 48)
+
+[node name="QuantityLabel" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot/OffsetControl" index="1"]
+visible = false
 
 [node name="ElementInterface" type="Panel" parent="Screen/Elements/ElementContainer"]
 custom_minimum_size = Vector2(460, 145)
@@ -256,11 +261,14 @@ alignment = 1
 [node name="FireContainer" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("2_ly4ir")
+toggle_based_on_quantity = false
 
-[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer" index="0"]
+[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
+element_register = ExtResource("2_ly4ir")
+active_object = NodePath("FireObject")
 
-[node name="FireObject" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" index="0" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+[node name="FireObject" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
 home_slot = NodePath("..")
 element = ExtResource("13_hlgc1")
@@ -271,9 +279,12 @@ texture = ExtResource("12_5tcgt")
 [node name="WaterContainer" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("3_iqwj1")
+toggle_based_on_quantity = false
 
-[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer" index="0"]
+[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
+element_register = ExtResource("3_iqwj1")
+active_object = NodePath("WaterObject")
 
 [node name="WaterObject" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
@@ -286,9 +297,12 @@ texture = ExtResource("14_dyp6q")
 [node name="AirContainer" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("4_06pcj")
+toggle_based_on_quantity = false
 
-[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer" index="0"]
+[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
+element_register = ExtResource("4_06pcj")
+active_object = NodePath("AirObject")
 
 [node name="AirObject" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
@@ -301,9 +315,12 @@ texture = ExtResource("18_4h15y")
 [node name="EarthContainer" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("5_5ri6y")
+toggle_based_on_quantity = false
 
-[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer" index="0"]
+[node name="Slot" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
+element_register = ExtResource("5_5ri6y")
+active_object = NodePath("EarthObject")
 
 [node name="EarthObject" parent="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
@@ -326,7 +343,6 @@ offset_left = -298.0
 offset_top = 47.0
 offset_right = 0.0
 focus_button_group = SubResource("ButtonGroup_6gsry")
-upgrade_button_group = SubResource("ButtonGroup_embwu")
 
 [node name="Tools" type="BoxContainer" parent="Screen"]
 layout_mode = 1
@@ -413,7 +429,7 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="TowerDescription" type="Panel" parent="Screen/Shop/Towers"]
+[node name="TowerName" type="Panel" parent="Screen/Shop/Towers"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 1
@@ -421,7 +437,7 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
-[node name="Button" type="Button" parent="Screen/Shop/Towers/TowerDescription"]
+[node name="TowerNameButton" type="Button" parent="Screen/Shop/Towers/TowerName"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -429,7 +445,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 action_mode = 0
-text = "DESCRIPTION"
 flat = true
 
 [node name="TowerScrollContainer" type="ScrollContainer" parent="Screen/Shop/Towers"]
@@ -643,8 +658,11 @@ expand_icon = true
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer"]
+[editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer"]
+[editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer"]
+[editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject"]

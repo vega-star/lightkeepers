@@ -163,9 +163,9 @@ func _update_menu() -> void: #? Updates menu labels, buttons and temporary files
 	
 	stage_container.set_visible(LoadManager._scene_is_stage)
 	
-	var temporary_label : Label
+	var _temporary_label : Label
 	for c in keybind_grid.get_children(): #? Resets each keybind button label to its default option. Fully scalable!
-		if c is Label: temporary_label = c
+		if c is Label: _temporary_label = c
 		elif c is KeybindButton: c.text = OS.get_keycode_string(key_dict[c.keybind]).to_upper()
 	
 	if temporary_config_file_load == OK: pass
@@ -294,7 +294,7 @@ func _on_screen_mode_selected(index):
 	config_file.save(CONFIG_FILE_PATH)
 #endregion
 
-#region | Audio Controls
+#region Audio Controls
 enum CHANNELS {MASTER, MUSIC, EFFECTS}
 
 func _toggle_channel(channel : CHANNELS, toggle : bool, skip_master : bool = false):
@@ -324,3 +324,4 @@ func _on_effects_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE
 func _on_resource_loaded() -> void: pass
 func _on_restart_stage_button_pressed() -> void: _exit(); LoadManager.reload_scene()
 func _on_main_menu_button_pressed() -> void: _exit(); LoadManager.return_to_menu()
+#endregion

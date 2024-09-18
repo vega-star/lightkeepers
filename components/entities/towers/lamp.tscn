@@ -22,7 +22,7 @@ func _load_properties():
 
 func _adapt_in_tile(): light_shape.position = position
 
-func _physics_process(delta): queue_redraw()
+func _physics_process(_delta): queue_redraw()
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]

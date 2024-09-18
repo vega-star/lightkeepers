@@ -11,11 +11,14 @@ const MAIN_MENU_PATH : String = "res://scenes/ui/main_menu.tscn"
 var _loaded_resource : PackedScene
 var _scene_path : String
 var _progress : Array = []
-var _scene_is_stage : bool = false
+@warning_ignore("unused_private_class_variable")
+var _scene_is_stage : bool
 
 func _ready(): set_process(false)
 func return_to_menu(): load_scene(MAIN_MENU_PATH)
-func reload_scene(): load_scene(_scene_path) #? Reload active scene
+func reload_scene(): 
+	ElementManager._purge()
+	load_scene(_scene_path) #? Reload active scene
 
 func load_scene(next_scene):
 	_scene_path = next_scene

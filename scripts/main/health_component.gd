@@ -48,7 +48,8 @@ func reset_health():
 
 func change(amount : int, negative : bool = true, source = null):
 	if amount == 0 or lock_health: return
-	var previous_value := health
+	var _previous_value : int = health
+	
 	if negative: health -= amount
 	else: health += amount
 	if health <= 0: invoke_death(source)

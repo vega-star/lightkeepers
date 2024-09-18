@@ -51,7 +51,7 @@ func _physics_process(delta : float) -> void:
 func _on_child_transition(previous_state : State, next_state : State) -> void:
 	assert(previous_state); assert(next_state)
 	if debug: print('STATE MACHINE | {0} TRANSITIONING STATE FROM {1} TO {2}'.format({0: owner.name, 1:previous_state.name, 2:next_state.name}))
-	await current_state.exit()
+	current_state.exit()
 	next_state.enter()
 	current_state = next_state
 

@@ -22,21 +22,21 @@ var coins : int
 var nexus : Node
 var nexus_health : int = base_nexus_health
 
-func _ready():
+func _ready() -> void:
 	randomize()
 	coins = initial_coins
 	nexus = get_tree().get_first_node_in_group('nexus')
 	UI.HUD.update_coins(coins)
 	set_process(false)
 
-func change_coins(quantity : int, addition : bool = false):
+func change_coins(quantity : int, addition : bool = false) -> void:
 	var previous_coins : int = coins
 	if addition: coins += quantity
 	else: coins -= quantity
 	coins_updated.emit(previous_coins, coins)
 	UI.HUD.update_coins(coins)
 
-func change_health(quantity : int, addition : bool = false):
+func change_health(quantity : int, addition : bool = false) -> void:
 	var previous_health : int = nexus_health
 	if addition: nexus_health += quantity
 	else: nexus_health -= quantity
@@ -44,9 +44,8 @@ func change_health(quantity : int, addition : bool = false):
 	health_updated.emit(previous_health, nexus_health)
 	UI.HUD.update_life(nexus_health)
 
-func _on_threat_manager_wave_completed():
-	wave_completed.emit()
+func _on_threat_manager_wave_completed() -> void: wave_completed.emit()
 
-func _on_health_updated(_previous_health, _nexus_health):
+func _on_health_updated(_previous_health, _nexus_health) -> void:
 	if nexus_health == 0: stage_lost.emit()
 	$"../StageCamera".start_shake()

@@ -1,19 +1,19 @@
 [gd_scene load_steps=15 format=3 uid="uid://dabti1py4rn1a"]
 
-[ext_resource type="Script" path="res://scripts/ui/draggable_object.gd" id="1_u5ai6"]
-[ext_resource type="Script" path="res://scripts/resources/element.gd" id="2_nq7bo"]
-[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_38vht"]
-[ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="3_mly1j"]
-[ext_resource type="Shader" path="res://assets/shaders/element_shader.gdshader" id="5_vorre"]
-[ext_resource type="Script" path="res://scripts/ui/draggable_object_sprite.gd" id="6_63oux"]
+[ext_resource type="Script" path="res://scripts/ui/draggable_object.gd" id="1_sw81t"]
+[ext_resource type="Script" path="res://scripts/resources/element.gd" id="2_2lswg"]
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_vdtyu"]
+[ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="4_ffuvr"]
+[ext_resource type="Shader" path="res://assets/shaders/element_shader.gdshader" id="5_gn4yx"]
+[ext_resource type="Script" path="res://scripts/ui/draggable_object_sprite.gd" id="6_jtics"]
 
 [sub_resource type="Resource" id="Resource_jg31s"]
-script = ExtResource("2_nq7bo")
+script = ExtResource("2_2lswg")
 element_type = 0
 element_id = "fire"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lqkb4"]
-shader = ExtResource("3_38vht")
+shader = ExtResource("3_vdtyu")
 shader_parameter/line_color = Color(0.835294, 0.235294, 0.415686, 1)
 shader_parameter/line_thickness = 1.0
 
@@ -33,7 +33,7 @@ colors = PackedColorArray(0, 0, 0, 0, 0.419, 0.224, 0.062, 0.25, 0.582, 0.427, 0
 gradient = SubResource("Gradient_12ln6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pwny5"]
-shader = ExtResource("5_vorre")
+shader = ExtResource("5_gn4yx")
 shader_parameter/NOISE_SCALE_1 = Vector2(1, 1)
 shader_parameter/NOISE_SCALE_2 = Vector2(1, 1)
 shader_parameter/SCROLL_1 = Vector2(0.65, 0.1)
@@ -47,19 +47,19 @@ shader_parameter/TONE_MAPPING = SubResource("GradientTexture1D_cnsej")
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
 radius = 48.0
 
-[node name="Object" type="Node2D"]
+[node name="DraggableObject" type="Node2D"]
 process_mode = 3
 z_index = 5
-script = ExtResource("1_u5ai6")
+script = ExtResource("1_sw81t")
 element = SubResource("Resource_jg31s")
 
 [node name="ObjectOrb" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_lqkb4")
-texture = ExtResource("3_mly1j")
+texture = ExtResource("4_ffuvr")
 
 [node name="ObjectElement" type="Sprite2D" parent="ObjectOrb"]
 material = SubResource("ShaderMaterial_pwny5")
-script = ExtResource("6_63oux")
+script = ExtResource("6_jtics")
 
 [node name="ObjectCollision" type="Area2D" parent="."]
 z_index = 5
