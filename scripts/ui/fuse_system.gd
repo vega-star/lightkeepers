@@ -13,6 +13,8 @@ signal fuse_done(status : bool)
 @onready var output_slot : ControlSlot = $OutputSlot
 @onready var confirm_button : TextureButton = $OutputSlot/OffsetControl/ConfirmButton
 
+const MOVEMENT_OFFSET : Vector2 = Vector2(64, 64)
+
 var current_combination : String
 var prop_object : DraggableObject
 var result_element : Element
@@ -37,7 +39,7 @@ func _check_combination() -> Element:
 	var second_element : String
 	if is_instance_valid(input_1.active_object): first_element = input_1.active_object.element.element_id
 	else: return null
-	if is_instance_valid(input_1.active_object): second_element = input_2.active_object.element.element_id
+	if is_instance_valid(input_2.active_object): second_element = input_2.active_object.element.element_id
 	else: return null
 	var combination = ElementManager.combine(first_element, second_element)
 	if combination:
@@ -73,9 +75,11 @@ func _fuse() -> bool:
 
 func _remove_prop() -> void:
 	if is_instance_valid(prop_object):
-		var modulate_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-		prop_object.volatile = true
-		if !UI.HUD.essence_slots.visible: $"../../../../Shop/ShopButtons/ShopButtonsContainer/ElementsButton".pressed
-		prop_object._move_to(result_position)
-		modulate_tween.tween_property(prop_object, "modulate", Color.TRANSPARENT, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-		prop_object = null
+		if !UI.HUD.elements_storage_panel.visible: UI.HUD._on_shop_button_pressed(1) #? Show elements menu
+		prop_object.queue_free()
+		
+		## TODO: Prop animation
+		# prop_object.volatile = true
+		# await get_tree().create_timer(0.3).timeout
+		# prop_object._move_to(result_position + MOVEMENT_OFFSET)
+		# prop_object = null

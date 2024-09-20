@@ -12,24 +12,24 @@ const MINIMUM_SIZE : Vector2 = Vector2(96,96)
 @export var slot_register : ElementRegister : set = _config_register
 @export var toggle_based_on_quantity : bool = true
 
-func _ready():
+func _ready() -> void:
 	slot.slot_changed.connect(_on_slot_changed)
 	set_custom_minimum_size(MINIMUM_SIZE)
 
-func _config_slot(new_slot : Slot):
+func _config_slot(new_slot : Slot) -> void:
 	slot = new_slot
 	slot.slot_changed.connect(_on_slot_changed)
 
-func _config_register(reg : ElementRegister):
+func _config_register(reg : ElementRegister) -> void:
 	if slot_register: slot_register.element_quantity_changed.disconnect(_on_quantity_changed)
 	slot_register = reg
 	slot_register.element_quantity_changed.connect(_on_quantity_changed)
 	$OffsetControl/QuantityLabel.text = str(slot_register.quantity)
 
-func _on_slot_changed(): control_slot_changed.emit()
+func _on_slot_changed() -> void: control_slot_changed.emit()
 
-func _on_quantity_changed():
+func _on_quantity_changed(new_quantity : int) -> void:
 	if toggle_based_on_quantity:
-		if slot_register.quantity == 0: slot.slot_locked = true
+		if new_quantity == 0: slot.slot_locked = true
 		else: slot.slot_locked = false
-	$OffsetControl/QuantityLabel.text = str(slot_register.quantity)
+	$OffsetControl/QuantityLabel.text = str(new_quantity)

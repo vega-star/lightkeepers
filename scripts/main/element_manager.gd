@@ -152,11 +152,13 @@ func _set_object(slot : Slot, element : Element, additional : String = '') -> Dr
 
 ## Restock slot
 func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject:
-	print(slot.get_path())
 	assert(slot.is_output)
-	if reg.quantity > 0:
-		reg.quantity -= 1
+	if reg.quantity >= 1:
 		var regen_object = _set_object(slot, reg.element)
+		reg.quantity - 1
+		print('ElementManager | New object generated on', slot.get_path())
 		return regen_object
-	else: return null
+	else: #! Register empty
+		print('ElementManager | Output cannot generate object because quantity is zero!')
+		return null
 #endregion

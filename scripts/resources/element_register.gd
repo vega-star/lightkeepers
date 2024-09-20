@@ -3,7 +3,7 @@
 # Used to interact with elements without actually modifying the element itself
 class_name ElementRegister extends Resource
 
-signal element_quantity_changed
+signal element_quantity_changed(new_quantity : int)
 
 @export var element : Element
 @export var control_slot : NodePath
@@ -14,5 +14,5 @@ var debug : bool = true
 
 func set_quantity(new_quantity : int):
 	quantity = new_quantity
-	element_quantity_changed.emit()
+	element_quantity_changed.emit(new_quantity)
 	if debug: print(element.element_id, ' | Quantity updated: ', quantity)

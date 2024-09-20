@@ -77,7 +77,7 @@ func _process(_delta) -> void:
 		
 		if Input.is_action_just_pressed('alt'): #? Cancel with alt (Right mouse button)
 			if active_slot == home_slot: return
-			# object_picked.emit()
+			object_picked.emit()
 			UI.is_dragging = false
 			_return_to_slot(true)
 		
@@ -92,12 +92,12 @@ func _process(_delta) -> void:
 #region Slot controls
 func _return_to_slot(home : bool = false) -> void:
 	UI.is_dragging = false
-	active_slot.slot_changed.emit()
+	# active_slot.slot_changed.emit()
 	if !is_instance_valid(active_slot) or home: active_slot = home_slot
-	var return_check = active_slot.request_insert(self)
-	
-	if !return_check: #! Return failed, breaking before a stack overflow
-		push_error(self.name,' could not return to neither active_slot or home_slot'); return 
+	#var return_check = active_slot.request_insert(self)
+	#
+	#if !return_check: #! Return failed, breaking before a stack overflow
+	#	push_error(self.name,' could not return to neither active_slot or home_slot'); return 
 	_insert(active_slot)
 
 func _move_to(position : Vector2) -> void:
@@ -117,14 +117,21 @@ func _insert(slot : Slot) -> bool:
 			_move_to(slot.global_position)
 			reparent(active_slot)
 		else: #? Failed to insert
-			if is_instance_valid(slot.active_object): return _replace_slot(active_slot, slot) #? Failed because there's already an self there. Will switch place with this self if it's already on a slot
+			if is_instance_valid(slot.active_object): 
+				return _replace_slot(active_slot, slot) #? Failed because there's already an self there. Will switch place with this self if it's already on a slot
 			else: _return_to_slot(true); return false
 		return true #? Object successfully inserted and returning positively
 	else: return false
 
-func _replace_slot(_previous_slot : Slot, next_slot : Slot) -> bool:
+func _replace_slot(_previous_slot : Slot, next_slot : Slot) -> bool: #? Switch objects position
+	if _previous_slot.is_output and !next_slot.is_output: #? Target object is ocuppying an input slot but cannot be switched.
+		next_slot.active_object._return_to_slot(true)
+		next_slot._remove_object()
+		_insert(next_slot)
+		return true
+	
 	if next_slot.is_output: _return_to_slot(true); return false
-	if active_slot == next_slot: _return_to_slot(true);; return false
+	if active_slot == next_slot: _return_to_slot(true); return false
 	var target_object = next_slot.active_object
 	
 	active_slot._remove_object()

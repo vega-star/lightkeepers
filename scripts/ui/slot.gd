@@ -4,6 +4,7 @@
 # Has to be that way to detect CollisionShapes and element movement
 class_name Slot extends StaticBody2D
 
+signal register_changed
 signal slot_changed
 
 const HOVERED_COLOR : Color = Color(1.5, 1.5, 1.5)
@@ -20,21 +21,23 @@ const SHAPE_RADIUS : float = 48
 
 var hovered : bool = false: set = _set_hover
 
-func _ready() -> void: UI.drag_changed.connect(_drag_toggled)
+func _ready() -> void: 
+	UI.drag_changed.connect(_drag_toggled)
 
 #region Object Controls
 func _set_object(new_object : DraggableObject) -> void:
 	if is_instance_valid(active_object): active_object.object_picked.disconnect(_remove_object)
-	
 	if !new_object: active_object = null; return
-	
 	active_object = new_object
 	active_object.object_picked.connect(_remove_object)
 
 func _set_reg(new_reg : ElementRegister) -> void:
-	# if element_register: pass
+	if element_register: element_register.element_quantity_changed.disconnect(_on_quantity_changed)
 	element_register = new_reg
-	if !element_register: return
+	register_changed.emit()
+	element_register.element_quantity_changed.connect(_on_quantity_changed)
+
+func _on_quantity_changed(_new_quantity : int): if !active_object: _restock()
 
 func _restock() -> void: active_object = ElementManager._restock_output(self, element_register)
 
@@ -81,12 +84,10 @@ func request_insert(object : DraggableObject) -> bool:
 		#return false
 
 func _remove_object(destroy : bool = false) -> void:
-	slot_changed.emit()
-	if is_instance_valid(active_object):
-		active_object.object_picked.disconnect(_remove_object)
-		active_object = null
+	active_object = null
+	if is_output: element_register.quantity -= 1 #? Object is removed, thus -1 on quantity
 	if destroy: active_object._destroy()
-	if is_output: _restock()
+	slot_changed.emit()
 
 func _destroy_active_object() -> void: if active_object: active_object._destroy()
 
