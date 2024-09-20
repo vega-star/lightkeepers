@@ -75,7 +75,9 @@ func _fuse() -> bool:
 
 func _remove_prop() -> void:
 	if is_instance_valid(prop_object):
-		if !UI.HUD.elements_storage_panel.visible: UI.HUD._on_shop_button_pressed(1) #? Show elements menu
+		if !UI.HUD.elements_storage_panel.visible: 
+			$"../../../../Shop/ShopButtons/ShopButtonsContainer/ElementsButton".set_pressed(true)
+			UI.HUD._on_shop_button_pressed(1) #? Show elements menu
 		prop_object.queue_free()
 		
 		## TODO: Prop animation

@@ -92,12 +92,7 @@ func _process(_delta) -> void:
 #region Slot controls
 func _return_to_slot(home : bool = false) -> void:
 	UI.is_dragging = false
-	# active_slot.slot_changed.emit()
 	if !is_instance_valid(active_slot) or home: active_slot = home_slot
-	#var return_check = active_slot.request_insert(self)
-	#
-	#if !return_check: #! Return failed, breaking before a stack overflow
-	#	push_error(self.name,' could not return to neither active_slot or home_slot'); return 
 	_insert(active_slot)
 
 func _move_to(position : Vector2) -> void:

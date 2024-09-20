@@ -73,15 +73,6 @@ func request_insert(object : DraggableObject) -> bool:
 	else: #? Already filled
 		slot_changed.emit()
 		return false
-		
-		#if is_instance_valid(active_object) and homogeneous_insert: #? Tried filling object with the same object
-		#	object.volatile = true
-		#	object_reg.quantity += 1
-		#	slot_changed.emit()
-		#	return true #? Sucessful as input
-		#else: #? Failed because slot is filled with a different kind of element, and for some reason cannot replace it
-		#	push_warning('Slot refusing {0} insertion due to being already full with {1}'.format({0:object.name,1:active_object.name}))
-		#return false
 
 func _remove_object(destroy : bool = false) -> void:
 	active_object = null

@@ -8,9 +8,9 @@
 custom_minimum_size = Vector2(96, 96)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-mouse_filter = 2
 theme = ExtResource("1_ybso5")
 script = ExtResource("1_x04jd")
+metadata/_edit_vertical_guides_ = [48.0]
 
 [node name="Slot" parent="." instance=ExtResource("2_b1h2b")]
 position = Vector2(48, 48)
