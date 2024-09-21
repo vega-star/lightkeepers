@@ -22,6 +22,7 @@ jobs:
       - name: Upload Butler
         uses: actions/upload-artifact@v4
         with:
+          name: ${{ env.BUTLER_FILE }}
           path: "butler.zip"
           retention-days: 1
 
@@ -46,13 +47,13 @@ jobs:
           echo "BUILD_NUMBER=$GET_VERSION" >> "$GITHUB_OUTPUT"
       
       - name: 'Download Godot'
-        run: wget ${{ env.GODOT_DOWNLOAD_URL }}
+        run: wget -q ${{ env.GODOT_DOWNLOAD_URL }}
       
-      - name: Install Godot
+      - name: Install Godot to Path
         run: |
           unzip Godot_*.zip
-          mv Godot_*.64 godot.64 && chmod +x godot.64
-          cd godot.64 $HOME/.local/bin/godot
+          mv Godot_*.x86_64 godot.x86_64 && chmod +x godot.x86_64
+          mkdir $HOME/.local/bin/godot && mv godot.x86_64 $HOME/.local/bin/godot
       
       - name: Godot check
         run: godot -v
