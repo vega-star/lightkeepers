@@ -12,6 +12,7 @@ env:
   BUTLER_FILE: butler-file
   ITCH_USER: nyeptun
   GAME_ID: lightkeepers
+  GODOT_TEMPLATES_PATH: "~/.local/share/godot/templates/${{ inputs.godot-version }}.stable"
   GODOT_TEMPLATES_URL: https://downloads.tuxfamily.org/godotengine/${{ inputs.godot-version }}/Godot_v${{ inputs.godot-version }}-stable_export_templates.tpz
   GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot/releases/download/${{ inputs.godot-version }}-stable/Godot_v${{ inputs.godot-version }}-stable_linux.x86_64.zip
 
@@ -24,6 +25,7 @@ jobs:
     defaults:
       run:
         shell: bash
+    env:
 
     steps:
       - name: Checkout
@@ -56,9 +58,8 @@ jobs:
       
       - name: 'Download build templates'
         run: |
-          mkdir -p --verbose ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
-          curl -o ./godot-templates.zip ${{ env.GODOT_TEMPLATES_URL }} && mv ./godot_templates.zip ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
-          unzip ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable/godot_templates.zip
+          mkdir -p --verbose ${{ env.GODOT_TEMPLATES_PATH }}
+          curl -o ./godot_templates.zip ${{ env.GODOT_TEMPLATES_URL }} && unzip ./godot_templates.zip -d ${{ env.GODOT_TEMPLATES_PATH }}
       
       - id: 'run_export'
         name: Run export
