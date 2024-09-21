@@ -1,0 +1,179 @@
+name: 'Deploy Game 🎮'
+
+on: workflow_dispatch
+
+env:
+  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+  BUTLER_FILE: butler-file
+  ITCH_USER: nyeptun
+  GAME_ID: lightkeepers
+
+jobs:
+  configure_butler:
+    name: 'Set butler as an artifact to be used with setup_butler action'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - id: 'download_butler'
+        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+      
+      - name: Upload Butler
+        uses: actions/upload-artifact@v4
+        with:
+          path: "butler.zip"
+          retention-days: 1
+
+  setup:
+    name: 'Setup Godot project'
+    runs-on: ubuntu-latest
+    needs: configure_butler
+    outputs:
+      BUILD_NUMBER: ${{ steps.get_version.outputs.BUILD_NUMBER }}
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - id: 'get_version'
+        name: 'Get build number from a direct reading of project.godot file'
+        run: |
+          GET_VERSION = cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])'
+          echo "BUILD_NUMBER=$GET_VERSION" >> "$GITHUB_OUTPUT"
+      
+      - name: 'Download Godot'
+        run: wget ${{ env.GODOT_DOWNLOAD_URL }}
+      
+      - name: Install Godot
+        run: |
+          unzip Godot_*.zip
+          mv Godot_*.64 godot.64 && chmod +x godot.64
+          cd godot.64 $HOME/.local/bin/godot
+      
+      - name: Godot check
+        run: godot -v
+      
+      - name: Godot editor check
+        run: godot --editor --path ./ --headless --quit
+      
+      - id: 'run_export'
+        name: Run export
+        run: |
+          godot --verbose --headless --export-release "Lightkeepers_Web" exports/web
+          godot --verbose --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
+          godot --verbose --headless --export-release "Lightkeepers_Linux" exports/linux
+
+      - name: Patch .html file
+        run:  mv exports/web/*.html exports/web/index.html
+        
+      - name: Upload Web export artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp_web
+          path: exports/web
+          retention-days: 1
+          if-no-files-found: error
+      
+      - name: Upload Windows export artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp_windows
+          path: exports/windows
+          retention-days: 1
+          if-no-files-found: error
+      
+      - name: Upload Linux export artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp_linux
+          path: exports/linux
+          retention-days: 1
+          if-no-files-found: error
+
+  upload_web:
+    name: 'Upload to web'
+    runs-on: ubuntu-latest
+    needs: setup
+    defaults:
+      run:
+        shell: bash
+    env:
+      EXP_ARTIFACT: "exp_web"
+      OS_TAG: "web"
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+    
+    steps:
+      - uses: ./.github/actions/setup_butler
+        with:
+          BUTLER-ARTIFACT: ${{ env.BUTLER_FILE }} 
+      
+      - name: Butler auth
+        run: ./butler login
+      
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.EXP_ARTIFACT }}
+          path: export
+
+      - name: 'upload_web'
+        run: ./butler push export ${{ env.ITCH_USER }}/${{ env.GAME_ID }}:${{ env.OS_TAG }} --userversion ${{ needs.setup.outputs.BUILD_NUMBER }}
+  
+  upload_linux:
+    name: 'Upload linux executable'
+    runs-on: ubuntu-latest
+    needs: setup
+    defaults:
+      run:
+        shell: bash
+    env:
+      EXP_ARTIFACT: "exp_linux"
+      OS_TAG: "linux"
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+    
+    steps:
+      - uses: ./.github/actions/setup_butler
+        with:
+          BUTLER-ARTIFACT: ${{ env.BUTLER_FILE }} 
+      
+      - name: Butler auth
+        run: ./butler login
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.EXP_ARTIFACT }}
+          path: export
+
+      - id: 'upload_linux'
+        run: ./butler push export ${{ env.ITCH_USER }}/${{ env.GAME_ID }}:${{ env.OS_TAG }} --userversion ${{ needs.setup.outputs.BUILD_NUMBER }}
+
+  upload_windows:
+    name: 'Upload windows executable'
+    runs-on: ubuntu-latest
+    needs: setup
+    defaults:
+      run:
+        shell: bash
+    env:
+      EXP_ARTIFACT: "exp_windows"
+      OS_TAG: "win64"
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+    
+    steps:
+      - uses: ./.github/actions/setup_butler
+        with:
+          BUTLER-ARTIFACT: ${{ env.BUTLER_FILE }} 
+      
+      - name: Butler auth
+        run: ./butler login
+      
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.EXP_ARTIFACT }}
+          path: export
+      
+      - id: 'upload_windows'
+        run: ./butler push export ${{ env.ITCH_USER }}/${{ env.GAME_ID }}:${{ env.OS_TAG }} --userversion ${{ needs.setup.outputs.BUILD_NUMBER }}
