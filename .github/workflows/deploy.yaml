@@ -42,7 +42,7 @@ jobs:
       - id: 'get_version'
         name: 'Get build number from a direct reading of project.godot file'
         run: |
-          GET_VERSION = cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])'
+          GET_VERSION="$(cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])')"
           echo "BUILD_NUMBER=$GET_VERSION" >> "$GITHUB_OUTPUT"
       
       - name: 'Download Godot'
