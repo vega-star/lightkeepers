@@ -53,7 +53,7 @@ jobs:
         run: |
           unzip Godot_*.zip
           mv Godot_*.x86_64 godot.x86_64 && chmod +x godot.x86_64
-          echo "godot.x86_64" >> $GITHUB_PATH
+          echo "$(pwd)/godot.x86_64" >> $GITHUB_PATH
       
       - name: Godot check
         run: godot -v
