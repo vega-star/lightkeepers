@@ -12,7 +12,7 @@ env:
   BUTLER_FILE: butler-file
   ITCH_USER: nyeptun
   GAME_ID: lightkeepers
-  GODOT_TEMPLATES_PATH: "~/.local/share/godot/templates/${{ inputs.godot-version }}.stable"
+  GODOT_TEMPLATES_PATH: ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
   GODOT_TEMPLATES_URL: https://downloads.tuxfamily.org/godotengine/${{ inputs.godot-version }}/Godot_v${{ inputs.godot-version }}-stable_export_templates.tpz
   GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot/releases/download/${{ inputs.godot-version }}-stable/Godot_v${{ inputs.godot-version }}-stable_linux.x86_64.zip
 
@@ -25,8 +25,6 @@ jobs:
     defaults:
       run:
         shell: bash
-    env:
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
