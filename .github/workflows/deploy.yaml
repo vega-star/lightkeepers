@@ -54,6 +54,9 @@ jobs:
       - name: Godot check
         run: ./godot.x86_64 --version
       
+      - name: Godot initialize
+        run: ./godot.x86_64 --headless --quit
+      
       - name: 'Download build templates'
         run: |
           mkdir -p --verbose ${{ env.GODOT_TEMPLATES_PATH }}
