@@ -56,7 +56,7 @@ jobs:
       
       - name: 'Download build templates'
         run: |
-          mkdir --verbose ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
+          mkdir -p --verbose ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
           curl -o ./godot-templates.zip ${{ env.GODOT_TEMPLATES_URL }} && mv ./godot_templates.zip ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
           unzip ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable/godot_templates.zip
       
