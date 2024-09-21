@@ -28,16 +28,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-
-      - name: Download latest Butler
-        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
-      
-      - name: Upload Butler
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.BUTLER_FILE }}
-          path: "butler.zip"
-          retention-days: 1
       
       - id: 'get_version'
         name: 'Get build number from a direct reading of project.godot file'
@@ -110,10 +100,17 @@ jobs:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
     
     steps:
-      - uses: ./.github/actions/setup_butler
-        with:
-          BUTLER-ARTIFACT: ${{ env.BUTLER_FILE }} 
-      
+      - name: Download latest Butler
+        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+
+      - name: Uncompact butler
+        shell: bash
+        run: unzip butler.zip && chmod +x butler
+
+      - name: Butler check
+        shell: bash
+        run: ./butler -V
+        
       - name: Butler auth
         run: ./butler login
       
@@ -138,10 +135,17 @@ jobs:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
     
     steps:
-      - uses: ./.github/actions/setup_butler
-        with:
-          BUTLER-ARTIFACT: ${{ env.BUTLER_FILE }} 
+      - name: Download latest Butler
+        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
       
+      - name: Uncompact butler
+        shell: bash
+        run: unzip butler.zip && chmod +x butler
+
+      - name: Butler check
+        shell: bash
+        run: ./butler -V
+        
       - name: Butler auth
         run: ./butler login
 
@@ -166,10 +170,17 @@ jobs:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
     
     steps:
-      - uses: ./.github/actions/setup_butler
-        with:
-          BUTLER-ARTIFACT: ${{ env.BUTLER_FILE }} 
+      - name: Download latest Butler
+        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
       
+      - name: Uncompact butler
+        shell: bash
+        run: unzip butler.zip && chmod +x butler
+
+      - name: Butler check
+        shell: bash
+        run: ./butler -V
+        
       - name: Butler auth
         run: ./butler login
       
