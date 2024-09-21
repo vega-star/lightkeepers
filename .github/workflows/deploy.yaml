@@ -37,6 +37,7 @@ jobs:
         run: |
           GET_VERSION="$(cat project.godot | grep 'config/version' | grep -oP '"\K[^"\047]+(?=["\047])')"
           echo "BUILD_NUMBER=$GET_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Game version: $GET_VERSION"
       
       - name: 'Download Godot'
         run: wget -q ${{ env.GODOT_DOWNLOAD_URL }}
@@ -47,17 +48,14 @@ jobs:
           mv Godot_*.x86_64 godot.x86_64 && chmod +x godot.x86_64
       
       - name: Godot check
-        run: ./godot.x86_64 -v
-      
-      - name: Godot editor check
-        run: ./godot.x86_64 --editor --path ./ --headless --quit
+        run: ./godot.x86_64 --version
       
       - id: 'run_export'
         name: Run export
         run: |
-          ./godot.x86_64 --verbose --headless --export-release "Lightkeepers_Web" exports/web
-          ./godot.x86_64 --verbose --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
-          ./godot.x86_64 --verbose --headless --export-release "Lightkeepers_Linux" exports/linux
+          ./godot.x86_64 -v --headless --export-release "Lightkeepers_Web" exports/web
+          ./godot.x86_64 -v --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
+          ./godot.x86_64 -v --headless --export-release "Lightkeepers_Linux" exports/linux
 
       - name: Patch .html file
         run:  mv exports/web/*.html exports/web/index.html
