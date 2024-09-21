@@ -1,12 +1,19 @@
 name: 'Deploy Game 🎮'
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      godot-version:
+        type: string
+        description: 'Godot version used on project'
+        default: "4.3"
 
 env:
-  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
   BUTLER_FILE: butler-file
   ITCH_USER: nyeptun
   GAME_ID: lightkeepers
+  GODOT_TEMPLATES_URL: https://downloads.tuxfamily.org/godotengine/${{ inputs.godot-version }}/Godot_v${{ inputs.godot-version }}-stable_export_templates.tpz
+  GODOT_DOWNLOAD_URL: https://github.com/godotengine/godot/releases/download/${{ inputs.godot-version }}-stable/Godot_v${{ inputs.godot-version }}-stable_linux.x86_64.zip
 
 jobs:
   setup:
@@ -40,26 +47,29 @@ jobs:
           echo "Game version: $GET_VERSION"
       
       - name: 'Download Godot'
-        run: wget -q ${{ env.GODOT_DOWNLOAD_URL }}
-      
-      - name: Install Godot to Path
         run: |
-          unzip Godot_*.zip
+          curl -o godot.zip ${{ env.GODOT_DOWNLOAD_URL }} && unzip godot.zip
           mv Godot_*.x86_64 godot.x86_64 && chmod +x godot.x86_64
       
       - name: Godot check
         run: ./godot.x86_64 --version
       
+      - name: 'Download build templates'
+        run: |
+          mkdir --verbose ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
+          curl -o ./godot-templates.zip ${{ env.GODOT_TEMPLATES_URL }} && mv ./godot_templates.zip ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
+          unzip ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable/godot_templates.zip
+      
       - id: 'run_export'
         name: Run export
         run: |
-          ./godot.x86_64 -v --headless --export-release "Lightkeepers_Web" exports/web
-          ./godot.x86_64 -v --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
-          ./godot.x86_64 -v --headless --export-release "Lightkeepers_Linux" exports/linux
+          ./godot.x86_64 -q --headless --export-release "Lightkeepers_Web" exports/web
+          ./godot.x86_64 -q --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
+          ./godot.x86_64 -q --headless --export-release "Lightkeepers_Linux" exports/linux
 
       - name: Patch .html file
         run:  mv exports/web/*.html exports/web/index.html
-        
+      
       - name: Upload Web export artifact
         uses: actions/upload-artifact@v4
         with:
