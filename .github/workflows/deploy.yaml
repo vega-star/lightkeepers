@@ -9,27 +9,9 @@ env:
   GAME_ID: lightkeepers
 
 jobs:
-  configure_butler:
-    name: 'Set butler as an artifact to be used with setup_butler action'
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - id: 'download_butler'
-        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
-      
-      - name: Upload Butler
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.BUTLER_FILE }}
-          path: "butler.zip"
-          retention-days: 1
-
   setup:
     name: 'Setup Godot project'
     runs-on: ubuntu-latest
-    needs: configure_butler
     outputs:
       BUILD_NUMBER: ${{ steps.get_version.outputs.BUILD_NUMBER }}
     defaults:
@@ -40,6 +22,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
+      - name: Download latest Butler
+        run: curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+      
+      - name: Upload Butler
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BUTLER_FILE }}
+          path: "butler.zip"
+          retention-days: 1
+      
       - id: 'get_version'
         name: 'Get build number from a direct reading of project.godot file'
         run: |
@@ -53,20 +45,19 @@ jobs:
         run: |
           unzip Godot_*.zip
           mv Godot_*.x86_64 godot.x86_64 && chmod +x godot.x86_64
-          echo "$(pwd)/godot.x86_64" >> $GITHUB_PATH
       
       - name: Godot check
-        run: godot -v
+        run: ./godot.x86_64 -v
       
       - name: Godot editor check
-        run: godot --editor --path ./ --headless --quit
+        run: ./godot.x86_64 --editor --path ./ --headless --quit
       
       - id: 'run_export'
         name: Run export
         run: |
-          godot --verbose --headless --export-release "Lightkeepers_Web" exports/web
-          godot --verbose --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
-          godot --verbose --headless --export-release "Lightkeepers_Linux" exports/linux
+          ./godot.x86_64 --verbose --headless --export-release "Lightkeepers_Web" exports/web
+          ./godot.x86_64 --verbose --headless --export-release "Lightkeepers_Windows" exports/windows/Lightkeepers.exe
+          ./godot.x86_64 --verbose --headless --export-release "Lightkeepers_Linux" exports/linux
 
       - name: Patch .html file
         run:  mv exports/web/*.html exports/web/index.html
