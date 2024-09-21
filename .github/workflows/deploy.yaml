@@ -48,7 +48,7 @@ jobs:
       
       - name: 'Download Godot'
         run: |
-          wget --quiet ${{ env.GODOT_DOWNLOAD_URL }} && unzip Godot_v${{ inputs.godot-version }}-stable.x86_64_linux.zip
+          wget --quiet ${{ env.GODOT_DOWNLOAD_URL }} && unzip Godot_v${{ inputs.godot-version }}-stable_linux.x86_64.zip
           mv Godot_v${{ inputs.godot-version }}-stable_linux.x86_64 godot.x86_64 && chmod +x godot.x86_64
       
       - name: Godot check
