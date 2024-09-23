@@ -1,4 +1,5 @@
 name: 'Deploy Game 🎮'
+run-name: Deploying with Godot version ${{ inputs.godot-version }} | ${{ github.run_number }}
 
 on:
   workflow_dispatch:
