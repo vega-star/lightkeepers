@@ -18,7 +18,7 @@ func _ready():
 	light_shape = LIGHT_SHAPE_SCENE.instantiate()
 	light_area.add_child.call_deferred(light_shape)
 
-func _process(delta):
+func _process(_delta):
 	global_position = get_global_mouse_position()
 	light_shape.global_position = get_global_mouse_position()
 

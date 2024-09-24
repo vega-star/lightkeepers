@@ -55,6 +55,8 @@ func update_life(life : int): update_label(life_label, life, previous_life); pre
 func turn_update(turn : int, max_turn : int): wave_counter.set_text(TranslationServer.tr('{0}/{1}'.format({0: turn, 1: max_turn})))
 
 func _on_screen_mouse_exited() -> void: pass
+
+func _purge_elements() -> void: for c in elements_grid.get_children(): c.queue_free()
 #endregion
 
 #region Inputs and buttons

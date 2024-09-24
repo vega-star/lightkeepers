@@ -28,8 +28,4 @@ func _config_register(reg : ElementRegister) -> void:
 
 func _on_slot_changed() -> void: control_slot_changed.emit()
 
-func _on_quantity_changed(new_quantity : int) -> void:
-	if toggle_based_on_quantity:
-		if new_quantity == 0: slot.slot_locked = true
-		else: slot.slot_locked = false
-	$OffsetControl/QuantityLabel.text = str(new_quantity)
+func _on_quantity_changed(new_quantity : int) -> void: $OffsetControl/QuantityLabel.text = str(new_quantity)

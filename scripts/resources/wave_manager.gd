@@ -52,7 +52,7 @@ func _ready():
 	UI.HUD.autoplay_toggled.connect(_on_autoplay_toggled)
 	UI.HUD.turn_pass_requested.connect(_on_turn_pass)
 
-func _process(delta):
+func _process(_delta):
 	var load_status = ResourceLoader.load_threaded_get_status(entity_scene_path, entity_load_progress)
 	match load_status:
 		0, 2: #? THREAD_LOAD_INVALID_RESOURCE, THREAD_LOAD_FAILED

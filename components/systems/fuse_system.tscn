@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcda8yi81i3or"]
+
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_na57j"]
+[ext_resource type="Script" path="res://scripts/ui/fuse_system.gd" id="2_a2mc2"]
+[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="3_8m32b"]
+[ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://components/interface/control_slot.tscn" id="4_bp3h0"]
+
+[node name="FuseSystem" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.0
+offset_top = -48.0
+offset_right = 209.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_na57j")
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("2_a2mc2")
+
+[node name="InputSlot1" parent="." instance=ExtResource("3_8m32b")]
+layout_mode = 2
+
+[node name="Slot" parent="InputSlot1" index="0"]
+slot_type = 0
+
+[node name="PlusSign" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputSlot2" parent="." instance=ExtResource("3_8m32b")]
+layout_mode = 2
+
+[node name="Slot" parent="InputSlot2" index="0"]
+slot_type = 0
+
+[node name="EqualSign" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "="
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OutputSlot" parent="." instance=ExtResource("4_bp3h0")]
+layout_mode = 2
+
+[node name="Slot" parent="OutputSlot" index="0"]
+slot_type = 0
+slot_locked = true
+
+[node name="ConfirmButton" type="TextureButton" parent="OutputSlot/OffsetControl" index="0"]
+layout_mode = 2
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(48, 48)
+
+[node name="QuantityLabel" parent="OutputSlot/OffsetControl" index="1"]
+visible = false
+
+[editable path="InputSlot1"]
+[editable path="InputSlot2"]
+[editable path="OutputSlot"]

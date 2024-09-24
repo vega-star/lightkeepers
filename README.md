@@ -11,7 +11,7 @@ It's rather complex as a whole, but all components/scripts are populated with ex
 * Modular CI/CD pipeline with GitHub Actions to upload games directly to itch.io based on repository and environmental variables.
   * The guide to properly configure and use the Actions is public.
   * During workflow execution, Godot is installed in the action runner and commands are executed to export the project as-is, meaning no manual export is needed; **the deployment will always export the latest build on the repo!**
-  * The pipeline also patches web builds by renaming the <kbd>.html</kbd> file to <kbd>index.html</kbd> during runtime, avoiding manual intervention.
+  * The pipeline also patches web builds by renaming the <kbd>*.html</kbd> file to <kbd>index.html</kbd> during runtime, avoiding manual intervention.
   * As well as other components in the code, feel free to reuse the Github Actions workflow. Mind that you'll still change some environment variables such as project, user, e mainly the BUTLER_API_KEY variable stored as a secret.
 
 ## Game features

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=44 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
@@ -14,10 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="6_eiqqm"]
 [ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/towers/lamp.tscn" id="7_nkijl"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://components/interface/control_slot.tscn" id="8_am10k"]
+[ext_resource type="PackedScene" uid="uid://dcda8yi81i3or" path="res://components/systems/fuse_system.tscn" id="8_kjueb"]
 [ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/towers/cannon_tower.tscn" id="8_l8uqo"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
-[ext_resource type="Script" path="res://scripts/ui/fuse_system.gd" id="8_wp3i2"]
-[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="9_ii0gs"]
 [ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="12_5tcgt"]
 [ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://scripts/resources/elements/FireElement.tres" id="13_hlgc1"]
 [ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="14_dyp6q"]
@@ -175,70 +174,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="FuseSystem" type="HBoxContainer" parent="Screen/Elements/ElementContainer/FusePanel"]
+[node name="FuseSystem" parent="Screen/Elements/ElementContainer/FusePanel" instance=ExtResource("8_kjueb")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -209.0
-offset_top = -48.0
-offset_right = 209.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = ExtResource("2_x8juj")
-theme_override_constants/separation = 16
-alignment = 1
-script = ExtResource("8_wp3i2")
-
-[node name="InputSlot1" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem" instance=ExtResource("9_ii0gs")]
-layout_mode = 2
-
-[node name="Slot" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/InputSlot1" index="0"]
-slot_type = 0
-
-[node name="PlusSign" type="Label" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "+"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="InputSlot2" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem" instance=ExtResource("9_ii0gs")]
-layout_mode = 2
-
-[node name="Slot" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/InputSlot2" index="0"]
-slot_type = 0
-
-[node name="EqualSign" type="Label" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "="
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="OutputSlot" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem" instance=ExtResource("8_am10k")]
-layout_mode = 2
-
-[node name="Slot" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot" index="0"]
-slot_type = 0
-slot_locked = true
-
-[node name="ConfirmButton" type="TextureButton" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot/OffsetControl" index="0"]
-layout_mode = 2
-offset_left = -48.0
-offset_top = -48.0
-offset_right = 48.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(48, 48)
-
-[node name="QuantityLabel" parent="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot/OffsetControl" index="1"]
-visible = false
 
 [node name="ElementInterface" type="Panel" parent="Screen/Elements/ElementContainer"]
 custom_minimum_size = Vector2(460, 145)
@@ -651,9 +588,6 @@ expand_icon = true
 [connection signal="pressed" from="Screen/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="toggled" from="Screen/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
 
-[editable path="Screen/Elements/ElementContainer/FusePanel/FuseSystem/InputSlot1"]
-[editable path="Screen/Elements/ElementContainer/FusePanel/FuseSystem/InputSlot2"]
-[editable path="Screen/Elements/ElementContainer/FusePanel/FuseSystem/OutputSlot"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject"]

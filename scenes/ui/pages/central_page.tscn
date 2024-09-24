@@ -25,7 +25,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(640, 112)
+position = Vector2(640, 160)
 texture = ExtResource("3_3uyyw")
 
 [node name="VersionLabel" type="Label" parent="."]

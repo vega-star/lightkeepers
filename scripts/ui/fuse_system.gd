@@ -28,6 +28,7 @@ func _ready():
 
 func _check_slots():
 	if input_1.active_object and input_2.active_object:
+		_remove_prop()
 		confirm_button.set_visible(true)
 		_check_combination()
 	else:
@@ -47,6 +48,8 @@ func _check_combination() -> Element:
 		if invoke_prop:
 			prop_object = ElementManager._set_object(output_slot.slot, result_element, 'Prop')
 			prop_object.locked = true
+			prop_object.force_show_label = true
+			prop_object.element_label.set_visible(true)
 		return result_element
 	else: return null
 
@@ -59,7 +62,7 @@ func _fuse() -> bool:
 		return false ## Invalid element
 	else:
 		invoke_prop = false
-		result_element_reg = ElementManager.add_element(result_element, 1, 1)
+		result_element_reg = ElementManager.add_element(result_element, 2, 1)
 		result_position = get_node(result_element_reg.control_slot).global_position
 		if delete_when_fused:
 			input_1._destroy_active_object()
@@ -79,9 +82,9 @@ func _remove_prop() -> void:
 			$"../../../../Shop/ShopButtons/ShopButtonsContainer/ElementsButton".set_pressed(true)
 			UI.HUD._on_shop_button_pressed(1) #? Show elements menu
 		prop_object.queue_free()
+		prop_object = null
 		
 		## TODO: Prop animation
 		# prop_object.volatile = true
 		# await get_tree().create_timer(0.3).timeout
 		# prop_object._move_to(result_position + MOVEMENT_OFFSET)
-		# prop_object = null

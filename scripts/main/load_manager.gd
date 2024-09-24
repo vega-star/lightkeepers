@@ -3,6 +3,7 @@ extends Node
 signal progress_changed(progress)
 signal load_completed
 
+@warning_ignore("unused_private_class_variable")
 @export var use_sub_threads : bool = true
 
 const LOADING_SCENE : PackedScene = preload("res://scenes/ui/loading_scene.tscn")
@@ -11,17 +12,20 @@ const MAIN_MENU_PATH : String = "res://scenes/ui/main_menu.tscn"
 var _loaded_resource : PackedScene
 var _scene_path : String
 var _progress : Array = []
-@warning_ignore("unused_private_class_variable")
 var _scene_is_stage : bool
 
 func _ready(): set_process(false)
+
 func return_to_menu(): load_scene(MAIN_MENU_PATH)
+
 func reload_scene(): 
 	ElementManager._purge()
+	UI.HUD._purge_elements()
 	load_scene(_scene_path) #? Reload active scene
 
 func load_scene(next_scene):
 	_scene_path = next_scene
+	assert(_scene_path)
 	var loading_screen = LOADING_SCENE.instantiate()
 	get_tree().get_root().call_deferred("add_child", loading_screen)
 	self.progress_changed.connect(loading_screen._update_progress_bar)
@@ -38,7 +42,7 @@ func _process(_delta):
 	match load_status:
 		0, 2: #? THREAD_LOAD_INVALID_RESOURCE, THREAD_LOAD_FAILED
 			set_process(false)
-			push_error("ERROR LOADING SCENE | Scene path may be wrong or invalid")
+			push_error("ERROR LOADING SCENE | Scene path ", _scene_path, " may be wrong or invalid")
 			return
 		1: #? THREAD_LOAD_IN_PROGRESS
 			emit_signal("progress_changed", _progress[0])

@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dabti1py4rn1a"]
+[gd_scene load_steps=16 format=3 uid="uid://dabti1py4rn1a"]
 
 [ext_resource type="Script" path="res://scripts/ui/draggable_object.gd" id="1_sw81t"]
 [ext_resource type="Script" path="res://scripts/resources/element.gd" id="2_2lswg"]
+[ext_resource type="LabelSettings" uid="uid://corgcjje16a0i" path="res://assets/theme/tresfiles/element_label_settings.tres" id="3_lon1o"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_vdtyu"]
 [ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="4_ffuvr"]
 [ext_resource type="Shader" path="res://assets/shaders/element_shader.gdshader" id="5_gn4yx"]
@@ -52,6 +53,24 @@ process_mode = 3
 z_index = 5
 script = ExtResource("1_sw81t")
 element = SubResource("Resource_jg31s")
+
+[node name="ElementLabel" type="Label" parent="."]
+z_index = 20
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -53.5
+offset_right = 49.5
+offset_bottom = -16.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Firewand"
+label_settings = ExtResource("3_lon1o")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ObjectOrb" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_lqkb4")

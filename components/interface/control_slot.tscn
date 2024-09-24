@@ -24,9 +24,9 @@ mouse_filter = 2
 [node name="QuantityLabel" type="Label" parent="OffsetControl"]
 z_index = 15
 layout_mode = 2
-offset_left = 31.0
+offset_left = 32.0
 offset_top = 25.0
-offset_right = 67.0
-offset_bottom = 48.0
+offset_right = 68.0
+offset_bottom = 62.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0"

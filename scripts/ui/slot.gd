@@ -18,6 +18,7 @@ const SHAPE_RADIUS : float = 48
 @export var active_object : DraggableObject: set = _set_object
 @export var is_output : bool = false
 @export var slot_locked : bool = false
+@export var debug : bool = false
 
 var hovered : bool = false: set = _set_hover
 
@@ -48,10 +49,8 @@ func request_insert(object : DraggableObject) -> bool:
 	
 	## INITIAL CHECKS
 	if object_reg: if object_reg == element_register: homogeneous_insert = true
-	if slot_locked: return false
-	if slot_type != 0 and object_type != slot_type:
-		printerr('Slot not compatible')
-		return false
+	if slot_locked: push_warning('Insert requested by slot is locked: ', self.get_path()); return false
+	if slot_type != 0 and object_type != slot_type: printerr('Slot not compatible'); return false
 	
 	## OUTPUT
 	if is_output and homogeneous_insert: #? Inserting/returning to output slot
@@ -60,7 +59,8 @@ func request_insert(object : DraggableObject) -> bool:
 			element_register.quantity += 1
 			slot_changed.emit()
 			return true #? Successful as output
-		else:
+		else: #? Not homogeneous
+			if debug: push_warning('Not homogeneous mix between ', self.name, ' + ', object.name)
 			slot_changed.emit()
 			return false
 	elif is_output and !homogeneous_insert: return false #? Cannot insert element into output of a different element
@@ -95,6 +95,6 @@ func _set_hover(is_hovering : bool) -> void:
 ## Set modulate color if locked, output, or overall blocked based on global drag
 func _drag_toggled(drag_status) -> void:
 	if drag_status:
-		if is_output: set_modulate(LOCKED_COLOR) #? Drag active
-		else: set_modulate(Color.WHITE)  #? Drag inactive
+		if is_output: set_self_modulate(LOCKED_COLOR) #? Drag active
+		else: set_self_modulate(Color.WHITE)  #? Drag inactive
 #endregion

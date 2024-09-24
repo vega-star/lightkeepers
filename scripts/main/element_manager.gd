@@ -3,6 +3,7 @@
 # Can be called anywhere on the game, but mostly used in UI actions and events 
 extends Node
 
+const SPRITES_PATH : String = "res://assets/sprites/elements/"
 const CONTROL_SLOT_SCENE : PackedScene = preload('res://components/interface/control_slot.tscn')
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/draggable_object.tscn")
 const STARTING_ELEMENT_REG : Array[ElementRegister] = [
@@ -10,6 +11,23 @@ const STARTING_ELEMENT_REG : Array[ElementRegister] = [
 	preload("res://scripts/resources/elements/default_registers/WaterRegister.tres"),
 	preload("res://scripts/resources/elements/default_registers/AirRegister.tres"),
 	preload("res://scripts/resources/elements/default_registers/EarthRegister.tres")]
+const ELEMENT_METADATA : Dictionary = {
+	"fire": {
+		"root_color": Color.ORANGE_RED
+	},
+	"water": {
+		"root_color": Color.BLUE
+	},
+	"air": {
+		"root_color": Color.CYAN
+	},
+	"earth": {
+		"root_color": Color.SADDLE_BROWN
+	},
+	"cursed": {
+		"root_color": Color.CRIMSON
+	}
+}
 const COMBINATIONS : Dictionary = {
 	"fire": {
 		"fire": "conflagration",
@@ -47,16 +65,38 @@ const COMBINATIONS : Dictionary = {
 var active_registers : Array[ElementRegister]
 var element_textures : Dictionary = {}
 
+#region Main Functions
 func _ready() -> void:
 	active_registers.append_array(STARTING_ELEMENT_REG)
-	var temp_dos : DraggableObjectSprite = DraggableObjectSprite.new()
-	element_textures = temp_dos.load_all_sprites()
-	temp_dos.queue_free()
+	element_textures = _load_all_sprites()
+
+func _load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of sprites that should have the same file name as the element ID (both strings)
+	var elements_folder = DirAccess.open(SPRITES_PATH)
+	if elements_folder:
+		var elements_dict : Dictionary
+		elements_folder.list_dir_begin()
+		var file_name = elements_folder.get_next()
+		while file_name != "":
+			if elements_folder.current_is_dir(): pass #? Found directory, skip.
+			elif file_name.ends_with(".import"): #? Found an import file
+				var file = file_name.split(".") #? Will result in an array consisting in something similar as this: "['file_name', '[extension]', '.import']"
+				if elements_dict.has(file[0]): pass #? File was already loaded, skipping.
+				else: #? File not found in dict, thus loaded
+					var file_path = str(SPRITES_PATH + file[0] + '.' + file[1])
+					elements_dict[file[0]] = load(file_path)
+			else: pass #? Normal file
+			file_name = elements_folder.get_next()
+		return elements_dict
+	else:
+		push_error("An error occurred when trying to access the sprites path via DraggableObjectSprite class.")
+		return {}
 
 ## Purge all elements, resetting everything! Used when restarting stages and such
 func _purge():
 	active_registers.clear()
 	active_registers.append_array(STARTING_ELEMENT_REG)
+	for r in STARTING_ELEMENT_REG: r.quantity = 2 #? Reset to base quantity
+#endregion
 
 #region Element Manipulation
 ## Returns an element ID from two other IDs by checking the COMBINATIONS dictionary
@@ -101,7 +141,7 @@ func query_element(id : String) -> ElementRegister:
 ## Add to an existing element or a new one to ElementRegister array, as well as creating the required nodes
 func add_element(
 		element : Element, #? Element resource to add
-		element_type : int = 1, #? 0 is Essence, 1 is Element
+		element_type : int = 1, #? 1 is Essence, 2 is Element
 		quantity : int = 1, #? How many charges will be added
 		container : Container = UI.HUD._request_container(element.element_type) #? Defaults to UI containers
 	) -> ElementRegister:
@@ -125,6 +165,7 @@ func add_element(
 		
 		var _object = _set_object(control_slot.slot, element)
 		control_slot.slot.element_register = register
+		control_slot.slot.slot_type = element_type
 		active_registers.append(register)
 		return register
 #endregion
