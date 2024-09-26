@@ -18,13 +18,13 @@ var pause_tween : Tween
 var effects_list : Dictionary = {}
 var music_list : Dictionary = {}
 
-func _ready():
+func _ready() -> void:
 	load_from_dir(music_list, music_dir_path)
 	load_from_dir(effects_list, effects_dir_path)
 
 ## Loads all files from a directory into an dictionary, with the name of the file as key and a loaded resource object as value.
 ## Use this function to load sounds and not bother manually adding new sounds to a constant dict.
-func load_from_dir(target_dict : Dictionary, dir_path):
+func load_from_dir(target_dict : Dictionary, dir_path) -> void:
 	var source_dir = DirAccess.open(dir_path)
 	if source_dir:
 		source_dir.list_dir_begin()
@@ -49,7 +49,7 @@ func load_from_dir(target_dict : Dictionary, dir_path):
 # It's because normal files disappear after export, while .import files maintain their original path!
 # You can also set the export configuration to maintain the files of a certain extension (.mp3, .ogg, etc.) and supposedly it also works, so... there you go!
 
-func set_pause(value):
+func set_pause(value) -> void:
 	if pause_tween: pause_tween.kill()
 	
 	pause_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
@@ -73,7 +73,7 @@ func set_pause(value):
 	await pause_tween.finished
 	music_player.stream_paused = value
 
-func set_music(music_id, fade_if_active : bool = true, random : bool = false, stage_songs : Array = []):
+func set_music(music_id, fade_if_active : bool = true, random : bool = false, stage_songs : Array = []) -> void:
 	randomized_songs_array = stage_songs
 	
 	if random:
@@ -97,16 +97,16 @@ func play_music(
 	music_id : int = 0,
 	fade : bool = true,
 	random : bool = false
-	):
+	) -> void:
 		if random: music_id = randi_range(0, music_array.size() - 1)
 		var selected_music = music_array[music_id]
 		AudioManager.set_music(selected_music, fade, random, music_array)
 
-func emit_random_sound_effect(position : Vector2, r_sfx_array : Array, interrupt : bool = false):
+func emit_random_sound_effect(position : Vector2, r_sfx_array : Array, interrupt : bool = false) -> void:
 	var effect_id = r_sfx_array[randi_range(0, r_sfx_array.size() - 1)]
 	emit_sound_effect(position, effect_id, interrupt)
 
-func emit_sound_effect(position, effect_id, interrupt : bool = false):
+func emit_sound_effect(position : Vector2, effect_id : String, interrupt : bool = false) -> void:
 	if !effect_id: push_warning('EMPTY SOUND REQUEST | No effect_id was given, returning without emission'); return
 	
 	var ephemeral : bool = false
@@ -127,6 +127,6 @@ func emit_sound_effect(position, effect_id, interrupt : bool = false):
 		await player.finished
 		player.queue_free()
 
-func _on_music_finished():
+func _on_music_finished() -> void:
 	if randomized_songs and loop_music: set_music(0, true, true, randomized_songs_array)
 	elif loop_music: music_player.play()

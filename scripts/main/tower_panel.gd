@@ -42,7 +42,7 @@ func load_tower(new_tower : Tower) -> void:
 	
 	focus_container.set_visible(tower.show_targeting_priorities)
 	
-	tower_label.set_text(tower.tower_name.to_upper())
+	tower_label.set_text(TranslationServer.tr(tower.tower_name.to_upper()))
 	focus_label.set_text(tower.TARGET_PRIORITIES.keys()[tower.target_priority])
 	value.set_text(str(roundi(tower.tower_value * stage.CASHBACK_FACTOR)))
 	tower_panel_loaded.emit()

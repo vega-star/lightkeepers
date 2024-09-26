@@ -26,6 +26,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(640, 160)
+skew = 0.261799
 texture = ExtResource("3_3uyyw")
 
 [node name="VersionLabel" type="Label" parent="."]
@@ -47,10 +48,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -193.5
-offset_top = -408.0
-offset_right = 193.5
-offset_bottom = -48.0
+offset_left = -150.5
+offset_top = -392.0
+offset_right = 150.5
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16

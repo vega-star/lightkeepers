@@ -17,18 +17,72 @@
 
 [node name="TowerPanel" type="Panel"]
 offset_top = 56.0
-offset_right = 282.0
+offset_right = 276.0
 offset_bottom = 645.0
 mouse_filter = 2
 theme = ExtResource("1_cy4x5")
 script = ExtResource("2_emv2q")
 focus_button_group = ExtResource("3_ansxj")
 
+[node name="ExtraPanel" type="Panel" parent="."]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -108.0
+offset_right = 6.0
+offset_bottom = 589.0
+grow_horizontal = 0
+
+[node name="ElementSlots" type="VBoxContainer" parent="ExtraPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Slot1" parent="ExtraPanel/ElementSlots" instance=ExtResource("2_i25mg")]
+modulate = Color(1, 1, 1, 0.423529)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Slot" parent="ExtraPanel/ElementSlots/Slot1" index="0"]
+slot_type = 0
+
+[node name="Slot2" parent="ExtraPanel/ElementSlots" instance=ExtResource("2_i25mg")]
+modulate = Color(1, 1, 1, 0.423529)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Slot" parent="ExtraPanel/ElementSlots/Slot2" index="0"]
+slot_type = 0
+
+[node name="Slot3" parent="ExtraPanel/ElementSlots" instance=ExtResource("2_i25mg")]
+modulate = Color(1, 1, 1, 0.423529)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Slot" parent="ExtraPanel/ElementSlots/Slot3" index="0"]
+slot_type = 0
+
+[node name="Slot4" parent="ExtraPanel/ElementSlots" instance=ExtResource("2_i25mg")]
+modulate = Color(1, 1, 1, 0.423529)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Slot" parent="ExtraPanel/ElementSlots/Slot4" index="0"]
+slot_type = 0
+
 [node name="TowerLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 45.0
+offset_top = 2.0
+offset_bottom = 47.0
 grow_horizontal = 2
 text = "TOWER_NAME"
 horizontal_alignment = 1
@@ -51,16 +105,18 @@ texture = ExtResource("4_hls82")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 6.0
-offset_top = 180.0
-offset_right = -6.0
+offset_left = 41.0
+offset_top = 190.0
+offset_right = -41.0
 offset_bottom = 220.0
 grow_horizontal = 2
 
 [node name="PreviousButton" type="TextureButton" parent="FocusContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 button_group = ExtResource("3_ansxj")
 texture_normal = ExtResource("3_7ki8e")
+ignore_texture_size = true
 stretch_mode = 5
 flip_h = true
 
@@ -81,36 +137,41 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NextButton" type="TextureButton" parent="FocusContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 button_group = ExtResource("3_ansxj")
 texture_normal = ExtResource("3_7ki8e")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Upgrades" type="GridContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = 227.0
-offset_right = -11.0
-offset_bottom = -58.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -68.0
+offset_right = 62.0
+offset_bottom = 228.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/h_separation = 0
 columns = 2
 
 [node name="Slot1Progress" type="TextureProgressBar" parent="Upgrades"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 8
 size_flags_vertical = 4
 max_value = 5.0
+fill_mode = 3
 texture_under = ExtResource("2_7carv")
 texture_progress = ExtResource("3_oihrn")
 
 [node name="Slot1Button" type="TextureButton" parent="Upgrades"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-size_flags_horizontal = 8
 texture_normal = ExtResource("5_nk1o0")
 texture_pressed = ExtResource("6_3s7xj")
 texture_hover = ExtResource("7_u4qp0")
@@ -134,10 +195,11 @@ vertical_alignment = 1
 
 [node name="Slot2Progress" type="TextureProgressBar" parent="Upgrades"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 8
 size_flags_vertical = 4
 max_value = 5.0
 rounded = true
+fill_mode = 3
 texture_under = ExtResource("2_7carv")
 texture_progress = ExtResource("3_oihrn")
 
@@ -167,9 +229,10 @@ vertical_alignment = 1
 
 [node name="Slot3Progress" type="TextureProgressBar" parent="Upgrades"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 8
 size_flags_vertical = 4
 max_value = 5.0
+fill_mode = 3
 texture_under = ExtResource("2_7carv")
 texture_progress = ExtResource("3_oihrn")
 
@@ -241,15 +304,18 @@ expand_icon = true
 [node name="Slot1" parent="." instance=ExtResource("2_i25mg")]
 modulate = Color(1, 1, 1, 0.423529)
 layout_mode = 1
-offset_left = 9.5
-offset_top = 75.0
-offset_right = 105.5
-offset_bottom = 171.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 80.0
+offset_right = 48.0
+offset_bottom = 176.0
+grow_horizontal = 2
 size_flags_horizontal = 2
 size_flags_vertical = 3
 
 [node name="Slot" parent="Slot1" index="0"]
-position = Vector2(48, 51)
 slot_type = 0
 
 [node name="ExitButton" type="Button" parent="."]
@@ -272,4 +338,8 @@ flat = true
 [connection signal="pressed" from="TowerValuePanel/Container/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 
+[editable path="ExtraPanel/ElementSlots/Slot1"]
+[editable path="ExtraPanel/ElementSlots/Slot2"]
+[editable path="ExtraPanel/ElementSlots/Slot3"]
+[editable path="ExtraPanel/ElementSlots/Slot4"]
 [editable path="Slot1"]

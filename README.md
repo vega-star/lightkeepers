@@ -1,4 +1,9 @@
-[![Deploy Game 🎮](https://github.com/vega-star/lightkeepers/actions/workflows/deploy.yaml/badge.svg?branch=main)](https://github.com/vega-star/lightkeepers/actions/workflows/deploy.yaml)
+<div align="left">
+  <span>
+  <a href="https://nyeptun.itch.io/lightkeepers" target="_blank"><img alt="Static Badge" src="https://img.shields.io/badge/Play%20now-FA5C5C?style=flat&logo=Itch.io&logoColor=white"></a>
+  <a href="https://github.com/vega-star/lightkeepers/actions/workflows/deploy.yaml" target="_blank"><img alt="Static Badge" src="https://github.com/vega-star/lightkeepers/actions/workflows/deploy.yaml/badge.svg?branch=main"></a>
+  </span>
+</div>
 
 # Lightkeepers
 
