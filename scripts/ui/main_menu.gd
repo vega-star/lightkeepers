@@ -23,7 +23,7 @@ func _ready():
 	UI.fade('IN')
 	UI.HUD.set_visible(false)
 	LoadManager._scene_is_stage = false
-	AudioManager.play_music(menu_songs, 0, true, true)
+	AudioManager.play_music(menu_songs, 0, false, true)
 	$MenuPages/CentralPage.set_focus()
 
 func set_focus(focus_position, direction):

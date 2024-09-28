@@ -31,7 +31,7 @@ func _input(event):
 			self.focus_mode = Control.FOCUS_ALL
 			_emit_sound(sound_when_key_registered)
 
-func _emit_sound(sound_id : String): AudioManager.emit_sound_effect(null, sound_id)
+func _emit_sound(sound_id : String): AudioManager.emit_sound_effect(Vector2.ZERO, sound_id)
 func _on_pressed(): _emit_sound(sound_when_pressed)
 func _on_focus_entered(): _emit_sound(sound_when_focus)
 func _on_mouse_entered(): _emit_sound(sound_when_hovered)

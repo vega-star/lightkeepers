@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://tbta38src6tl"
-path="res://.godot/imported/8bitlim.ttf-5ecbe13c6afc203bd45237ca5bcbd70f.fontdata"
+uid="uid://1xokbte3inc1"
+path="res://.godot/imported/JainiPurva-Regular.ttf-f806fdf268281f668447409218535407.fontdata"
 
 [deps]
 
-source_file="res://assets/theme/fonts/8bitlim.ttf"
-dest_files=["res://.godot/imported/8bitlim.ttf-5ecbe13c6afc203bd45237ca5bcbd70f.fontdata"]
+source_file="res://assets/theme/fonts/JainiPurva-Regular.ttf"
+dest_files=["res://.godot/imported/JainiPurva-Regular.ttf-f806fdf268281f668447409218535407.fontdata"]
 
 [params]
 

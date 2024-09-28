@@ -20,6 +20,6 @@ func _on_settings_button_pressed():
 func _on_quit_button_pressed(): # QuitButton
 	get_tree().quit()
 
-# func _on_git_hub_link_pressed(): OS.shell_open("https://github.com/vega-star/godot-strata")
-# func _on_itch_io_link_pressed(): OS.shell_open("https://nyeptun.itch.io/strata-zero")
+# func _on_git_hub_link_pressed(): OS.shell_open("https://github.com/vega-star/lightkeepers")
+# func _on_itch_io_link_pressed(): OS.shell_open("https://nyeptun.itch.io/lightkeepers")
 # func _on_youtube_link_pressed(): 

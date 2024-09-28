@@ -1,6 +1,7 @@
 class_name Tower extends TileObject
 
 signal tower_updated
+signal tower_defeated_enemy(current_count : int)
 
 enum TARGET_PRIORITIES {
 	FIRST, ## First in place to reach nexus
@@ -31,6 +32,7 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 @export var default_seeking_timeout : float = 0.3
 
 @export_group('Cosmetic Properties')
+@export var destroy_sound_effect_id : String = 'rock 1 low'
 @export var show_targeting_priorities : bool = true
 @export var tower_name : String = 'Tower'
 @export var tower_icon : Texture2D = DEFAULT_TOWER_ICON
@@ -65,12 +67,16 @@ var eligible_targets : Array[Object]
 var tower_value : int
 var target_priority : int
 var bullet_container : Node2D
+var firing_cooldown : float: set = _set_firing_cooldown
 
+var tower_kill_count : int:
+	set(new_count): tower_kill_count = new_count; tower_defeated_enemy.emit(tower_kill_count)
+	
 var light_range : float:
 	set(new_range): light_range = new_range; _load_properties()
+
 var tower_range : float: 
 	set(new_range): tower_range = new_range; _load_properties()
-var firing_cooldown : float: set = _set_firing_cooldown
 
 var visible_range : bool = false #? Defines if the tower area is visible
 var target_on_sight : bool = false #? Simple condition that can help controlling other behaviors
@@ -126,3 +132,8 @@ func _draw() -> void:
 		draw_arc(to_local(global_position), tower_range_shape.shape.radius * set_zoom, 0, TAU, 50, range_draw_color, DRAW_WIDTH)
 		draw_circle(to_local(global_position), light_shape.shape.radius * set_zoom, Color(light_draw_color, CIRCLE_TRANSPARENCY), true)
 		draw_circle(to_local(global_position), tower_range_shape.shape.radius * set_zoom, Color(range_draw_color, CIRCLE_TRANSPARENCY), true)
+
+func remove_object() -> void:
+	AudioManager.emit_sound_effect(self.global_position, destroy_sound_effect_id)
+	light_shape.queue_free()
+	queue_free()

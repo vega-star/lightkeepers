@@ -1,15 +1,15 @@
-[gd_scene load_steps=44 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=45 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
-[ext_resource type="Resource" uid="uid://cxplnjmi337jt" path="res://scripts/resources/elements/default_registers/FireRegister.tres" id="2_ly4ir"]
+[ext_resource type="Resource" uid="uid://cxplnjmi337jt" path="res://components/elements/default_registers/FireRegister.tres" id="2_ly4ir"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
 [ext_resource type="PackedScene" uid="uid://cjwy1y2fo5nc4" path="res://components/interface/demolish_button.tscn" id="3_ckdtt"]
 [ext_resource type="Script" path="res://scripts/ui/draggable_button.gd" id="3_h835t"]
-[ext_resource type="Resource" uid="uid://nojuy8ypf07k" path="res://scripts/resources/elements/default_registers/WaterRegister.tres" id="3_iqwj1"]
-[ext_resource type="Resource" uid="uid://ci7epsk0qe7mk" path="res://scripts/resources/elements/default_registers/AirRegister.tres" id="4_06pcj"]
+[ext_resource type="Resource" uid="uid://nojuy8ypf07k" path="res://components/elements/default_registers/WaterRegister.tres" id="3_iqwj1"]
+[ext_resource type="Resource" uid="uid://ci7epsk0qe7mk" path="res://components/elements/default_registers/AirRegister.tres" id="4_06pcj"]
 [ext_resource type="PackedScene" uid="uid://b8e2jpe7y87cm" path="res://components/interface/tower_button.tscn" id="4_jbcwa"]
-[ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://scripts/resources/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
+[ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://components/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
 [ext_resource type="Texture2D" uid="uid://dql2gj46mbt71" path="res://assets/prototypes/seta.png" id="5_us4v6"]
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="6_eiqqm"]
 [ext_resource type="PackedScene" uid="uid://clmhdu52mt0lt" path="res://components/entities/towers/lamp.tscn" id="7_nkijl"]
@@ -18,22 +18,21 @@
 [ext_resource type="PackedScene" uid="uid://cdgvmycunep3f" path="res://components/entities/towers/cannon_tower.tscn" id="8_l8uqo"]
 [ext_resource type="Texture2D" uid="uid://cibu3vyj1k0ec" path="res://assets/prototypes/heart.png" id="8_qvuwj"]
 [ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="12_5tcgt"]
-[ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://scripts/resources/elements/FireElement.tres" id="13_hlgc1"]
+[ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://components/elements/FireElement.tres" id="13_hlgc1"]
 [ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="14_dyp6q"]
 [ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/prototypes/gear.png" id="14_rjvi7"]
-[ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://scripts/resources/elements/WaterElement.tres" id="15_sqh7q"]
-[ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://scripts/resources/elements/AirElement.tres" id="17_7oxc3"]
+[ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://components/elements/WaterElement.tres" id="15_sqh7q"]
+[ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://components/elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
 [ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://components/interface/draggable_object.tscn" id="17_opm6q"]
 [ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/textures/stylebox_screen_frame.png" id="17_wrifp"]
 [ext_resource type="Texture2D" uid="uid://bcfhqtysyihks" path="res://assets/sprites/elements/air.png" id="18_4h15y"]
 [ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="19_1inae"]
-[ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://scripts/resources/elements/EarthElement.tres" id="19_a637k"]
+[ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://components/elements/EarthElement.tres" id="19_a637k"]
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
 [ext_resource type="Texture2D" uid="uid://dhc5dpc01fp4w" path="res://assets/prototypes/speed.png" id="24_dr5sr"]
 [ext_resource type="PackedScene" uid="uid://b3tvxsgupe3gs" path="res://components/systems/tower_panel.tscn" id="25_lo481"]
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/towers/tower.tscn" id="30_d0kwp"]
-[ext_resource type="FontFile" uid="uid://dk26vsfaimn17" path="res://assets/theme/fonts/dpcomic.ttf" id="31_ulfvl"]
 [ext_resource type="ButtonGroup" uid="uid://cdaiitge3bsbm" path="res://components/interface/shop_buttons.tres" id="33_24gcv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
@@ -58,6 +57,12 @@ shader_parameter/line_thickness = 1.0
 shader = ExtResource("17_nh1qq")
 shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
 shader_parameter/line_thickness = 2.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5c443"]
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c0txy"]
+size = Vector2(64, 64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5qoe"]
 bg_color = Color(1, 0.619608, 0.545098, 1)
@@ -311,6 +316,16 @@ toggle_mode = true
 texture_normal = ExtResource("24_dr5sr")
 stretch_mode = 3
 
+[node name="AutoplayButton" type="TextureButton" parent="Screen/Tools"]
+material = SubResource("ShaderMaterial_cjjh3")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "CONFIG"
+toggle_mode = true
+texture_normal = SubResource("PlaceholderTexture2D_5c443")
+texture_pressed = SubResource("PlaceholderTexture2D_c0txy")
+stretch_mode = 3
+
 [node name="DemolishButton" parent="Screen/Tools" instance=ExtResource("3_ckdtt")]
 visible = false
 layout_mode = 2
@@ -480,7 +495,6 @@ custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("31_ulfvl")
 theme_override_font_sizes/font_size = 32
 text = "100"
 vertical_alignment = 1
@@ -496,7 +510,6 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("31_ulfvl")
 theme_override_font_sizes/font_size = 32
 text = "0
 "
@@ -509,7 +522,7 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -136.0
+offset_left = -155.0
 offset_top = -16.0
 offset_right = -11.0
 offset_bottom = 24.0
@@ -521,7 +534,6 @@ alignment = 2
 [node name="TurnLabel" type="Label" parent="Screen/Status/TurnContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("31_ulfvl")
 theme_override_font_sizes/font_size = 32
 text = "TURN"
 horizontal_alignment = 2
@@ -532,7 +544,6 @@ uppercase = true
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("31_ulfvl")
 theme_override_font_sizes/font_size = 32
 text = "0/30"
 vertical_alignment = 1
@@ -554,39 +565,28 @@ grow_vertical = 0
 [node name="PlayButton" type="TextureButton" parent="Screen/CornerPanel"]
 material = SubResource("ShaderMaterial_5q6f8")
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -108.0
-offset_top = -124.0
-offset_right = -8.0
-offset_bottom = -24.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("19_k7dll")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_h835t")
 
-[node name="AutoplayButton" type="CheckButton" parent="Screen/CornerPanel"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 56.0
-offset_right = 71.0
-offset_bottom = 90.0
-tooltip_text = "AUTOPLAY"
-alignment = 1
-icon_alignment = 1
-expand_icon = true
-
 [connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
 [connection signal="pressed" from="Screen/Elements/HideButton" to="." method="_on_hide_button_pressed"]
 [connection signal="pressed" from="Screen/Tools/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="Screen/Tools/SpeedButton" to="." method="_on_speed_button_pressed"]
+[connection signal="toggled" from="Screen/Tools/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
 [connection signal="pressed" from="Screen/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="toggled" from="Screen/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
 
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer"]
 [editable path="Screen/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot"]

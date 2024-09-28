@@ -12,11 +12,11 @@ const CASHBACK_FACTOR : float = 0.65
 
 @export_group('Stage Tools')
 @export var check_coordinate : bool = false
-@onready var stage_manager = $StageManager
-@onready var stage_path = $StagePath
-
 @export var stage_songs : Array[String] = []
 
+@onready var stage_manager : StageManager = $StageManager
+@onready var turn_manager: TurnManager = $StageManager/TurnManager
+@onready var stage_path : Path2D = $StagePath
 @onready var GROUND_LAYER : TileMapLayer = $GroundLayer
 @onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
 @onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
@@ -57,6 +57,8 @@ func _input(_event) -> void:
 #region Tile management
 ## Converts a Vector2 coordinate into an accurate tile position
 func position_to_tile(position_vector : Vector2) -> Vector2i: return GROUND_LAYER.local_to_map(position_vector)
+
+func snap_to_tile(position_vector : Vector2) -> Vector2: return GROUND_LAYER.map_to_local(position_to_tile(position_vector))
 
 ## Query tile metadata
 func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0):
@@ -151,8 +153,8 @@ func request_removal(tile_position : Vector2i = Vector2i.MIN) -> bool:
 		return true
 	else: return false
 
-func remove_tile_object(tile_position : Vector2i, object : Node) -> void:
-	object.queue_free()
+func remove_tile_object(tile_position : Vector2i, object : TileObject) -> void:
+	object.remove_object()
 	OBJECT_LAYER.erase_cell(tile_position)
 	object_dict.erase(tile_position)
 

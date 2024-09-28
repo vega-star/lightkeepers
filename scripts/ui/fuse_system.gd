@@ -88,3 +88,6 @@ func _remove_prop() -> void:
 		# prop_object.volatile = true
 		# await get_tree().create_timer(0.3).timeout
 		# prop_object._move_to(result_position + MOVEMENT_OFFSET)
+
+func _on_visibility_changed() -> void:
+	if !visible: _remove_prop()

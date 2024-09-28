@@ -49,13 +49,13 @@ func load_from_dir(target_dict : Dictionary, dir_path) -> void:
 # It's because normal files disappear after export, while .import files maintain their original path!
 # You can also set the export configuration to maintain the files of a certain extension (.mp3, .ogg, etc.) and supposedly it also works, so... there you go!
 
-func set_pause(value) -> void:
+func set_pause(pause : bool) -> void:
 	if pause_tween: pause_tween.kill()
 	
 	pause_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var target_value : float
 	
-	if value: # Pause
+	if pause: # Pause
 		music_player.pitch_scale = 1
 		target_value = 0.1
 	else: # Unpause
@@ -71,7 +71,7 @@ func set_pause(value) -> void:
 	)
 	
 	await pause_tween.finished
-	music_player.stream_paused = value
+	music_player.stream_paused = pause
 
 func set_music(music_id, fade_if_active : bool = true, random : bool = false, stage_songs : Array = []) -> void:
 	randomized_songs_array = stage_songs
@@ -102,24 +102,35 @@ func play_music(
 		var selected_music = music_array[music_id]
 		AudioManager.set_music(selected_music, fade, random, music_array)
 
-func emit_random_sound_effect(position : Vector2, r_sfx_array : Array, interrupt : bool = false) -> void:
+func emit_random_sound_effect(
+		position : Vector2,
+		r_sfx_array : Array,
+		bus_id : String = "Effects",
+		pitch_variation : Vector2 = Vector2(0.9, 1.1)
+	) -> void:
 	var effect_id = r_sfx_array[randi_range(0, r_sfx_array.size() - 1)]
-	emit_sound_effect(position, effect_id, interrupt)
+	emit_sound_effect(position, effect_id, bus_id, pitch_variation)
 
-func emit_sound_effect(position : Vector2, effect_id : String, interrupt : bool = false) -> void:
+func emit_sound_effect(
+		position : Vector2,
+		effect_id : String,
+		bus_id : String = "Effects",
+		pitch_variation : Vector2 = Vector2(0.9, 1.1)
+	) -> void:
 	if !effect_id: push_warning('EMPTY SOUND REQUEST | No effect_id was given, returning without emission'); return
 	
 	var ephemeral : bool = false
 	var player # Audio player node
-	if position is Vector2:
+	
+	if position == Vector2.ZERO: player = global_effect_player
+	else: 
 		ephemeral = true
 		player = AudioStreamPlayer2D.new()
+		player.bus = bus_id
 		effects.add_child(player)
 		player.position = position
-	else: player = global_effect_player
 	
-	if player.playing and interrupt: player.stop()
-	
+	player.pitch_scale *= randf_range(pitch_variation.x, pitch_variation.y)
 	player.stream = effects_list[effect_id]
 	player.play()
 	

@@ -4,8 +4,7 @@ class_name UIButton extends Button
 @export var sound_when_focus : String = ""
 @export var sound_when_hovered : String = ""
 
-func _emit_sound(sound_id : String):
-	AudioManager.emit_sound_effect(self.global_position, sound_id)
+func _emit_sound(sound_id : String): AudioManager.emit_sound_effect(self.global_position, sound_id, "Master")
 
 func _on_pressed(): _emit_sound(sound_when_pressed)
 func _on_focus_entered(): _emit_sound(sound_when_focus)

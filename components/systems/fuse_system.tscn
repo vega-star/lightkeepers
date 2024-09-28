@@ -69,6 +69,8 @@ pivot_offset = Vector2(48, 48)
 [node name="QuantityLabel" parent="OutputSlot/OffsetControl" index="1"]
 visible = false
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+
 [editable path="InputSlot1"]
 [editable path="InputSlot2"]
 [editable path="OutputSlot"]

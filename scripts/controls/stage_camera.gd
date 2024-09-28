@@ -74,14 +74,12 @@ func _input(event) -> void:
 
 func toggle_shake(toggle : bool) -> void: enable_camera_shake = toggle
 func start_shake(strength : float = base_shake_strength) -> void: shake_strength = strength
-func get_shake_offset(delta, effect_multiplier = 1) -> Vector2: return Vector2(shake_random.randf_range(-shake_strength,shake_strength) * effect_multiplier,shake_random.randf_range(-shake_strength,shake_strength * effect_multiplier))
+func get_shake_offset(_delta, effect_multiplier = 1) -> Vector2: return Vector2(shake_random.randf_range(-shake_strength,shake_strength) * effect_multiplier,shake_random.randf_range(-shake_strength,shake_strength * effect_multiplier))
 
 func _set_zoom_level(value: float) -> void:
 	_zoom_level = clamp(value, min_zoom, max_zoom)
 	var previous_zoom : Vector2 = zoom
 	var new_zoom : Vector2 = Vector2(_zoom_level, _zoom_level)
-	var mouse_position = get_viewport().get_mouse_position()
-	
 	if new_zoom.x >= max_zoom or new_zoom.x <= min_zoom: return
 	
 	var delta = new_zoom - previous_zoom

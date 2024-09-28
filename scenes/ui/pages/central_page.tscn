@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1exo4vhhmcgf"]
+[gd_scene load_steps=6 format=3 uid="uid://c1exo4vhhmcgf"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
 [ext_resource type="PackedScene" uid="uid://b8ofyl47121r8" path="res://scenes/ui/ui_button.tscn" id="2_c5orx"]
 [ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/misc/lightkeepers_logo.png" id="3_3uyyw"]
+[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="3_k0e0y"]
 
 [node name="CentralPage" type="Control"]
 layout_mode = 3
@@ -15,6 +16,9 @@ grow_vertical = 2
 theme = ExtResource("1_3vsxr")
 script = ExtResource("1_2dyl0")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_k0e0y")
+
 [node name="TextureRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -25,7 +29,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(640, 160)
+position = Vector2(640, 192)
 skew = 0.261799
 texture = ExtResource("3_3uyyw")
 
@@ -48,14 +52,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.5
-offset_top = -392.0
-offset_right = 150.5
-offset_bottom = -32.0
+offset_left = -150.0
+offset_top = -368.0
+offset_right = 151.0
+offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16
-alignment = 2
 
 [node name="LoadButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
 visible = false

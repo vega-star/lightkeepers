@@ -29,6 +29,7 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 @onready var towers_panel : Panel = $Screen/Shop/Towers
 @onready var elements_storage_panel : Panel = $Screen/Shop/Elements
 @onready var element_container : BoxContainer = $Screen/Elements
+@onready var element_container_storage : BoxContainer = $Screen/Elements/ElementContainer
 @onready var elements_grid : GridContainer = $Screen/Shop/Elements/ElementsScrollContainer/ElementsGrid
 @onready var info_container : VBoxContainer = $Screen/Info
 @onready var debug_label : Label = $Screen/Info/DebugLabel
@@ -52,7 +53,7 @@ func update_coins(coins : int): update_label(coin_label, coins, previous_coins);
 
 func update_life(life : int): update_label(life_label, life, previous_life); previous_life = life
 
-func turn_update(turn : int, max_turn : int): wave_counter.set_text(TranslationServer.tr('{0}/{1}'.format({0: turn, 1: max_turn})))
+func turn_update(turn : int, max_turn : int): wave_counter.set_text('{0}/{1}'.format({0: turn, 1: max_turn}))
 
 func _on_screen_mouse_exited() -> void: pass
 
@@ -102,7 +103,8 @@ func _on_hide_button_pressed() -> void:
 		hide_button.flip_h = true
 	
 	hide_tween.tween_property(element_container, "position", Vector2(new_x, element_container.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	# info_tween.tween_property(info_container, "position", Vector2(INFO_DEFAULT_X, info_new_y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	await hide_tween
+	element_container_storage.visible = !element_menu_hidden
 
 func _on_speed_button_pressed() -> void:
 	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true

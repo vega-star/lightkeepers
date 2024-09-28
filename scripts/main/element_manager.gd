@@ -7,10 +7,10 @@ const SPRITES_PATH : String = "res://assets/sprites/elements/"
 const CONTROL_SLOT_SCENE : PackedScene = preload('res://components/interface/control_slot.tscn')
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/draggable_object.tscn")
 const STARTING_ELEMENT_REG : Array[ElementRegister] = [
-	preload("res://scripts/resources/elements/default_registers/FireRegister.tres"),
-	preload("res://scripts/resources/elements/default_registers/WaterRegister.tres"),
-	preload("res://scripts/resources/elements/default_registers/AirRegister.tres"),
-	preload("res://scripts/resources/elements/default_registers/EarthRegister.tres")]
+	preload("res://components/elements/default_registers/FireRegister.tres"),
+	preload("res://components/elements/default_registers/WaterRegister.tres"),
+	preload("res://components/elements/default_registers/AirRegister.tres"),
+	preload("res://components/elements/default_registers/EarthRegister.tres")]
 const ELEMENT_METADATA : Dictionary = {
 	"fire": {
 		"root_color": Color.ORANGE_RED

@@ -35,6 +35,7 @@ const DEFAULT_KEY_DICT : Dictionary = { #? Default keybinds that is loaded when 
 const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded when the game is first loaded
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
 	"window_size": ["MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", DEFAULT_RESOLUTION],
+	"use_dragging": ["MAIN_OPTIONS", "USE_DRAGGING", true],
 	"language": ["MAIN_OPTIONS", "LANGUAGE", "en"],
 	"toggle_photosens": ["MAIN_OPTIONS","PHOTOSENS_MODE", false],
 	"toggle_screen_shake": ["MAIN_OPTIONS","SCREEN_SHAKE", true],
@@ -153,7 +154,12 @@ func _button_group_input(button_index : int) -> void:
 	var index = button_index - 1
 	print(index)
 
-func _on_options_visibility_changed() -> void: 
+func _on_options_visibility_changed() -> void:
+	if get_tree().paused: pass #? Already paused before calling options
+	else:
+		UI.PAUSE_LAYER.pause()
+		UI.PAUSE_LAYER.set_signaled_unpause(self, visibility_changed) #? Will unpause after closing mneu
+	
 	if visible: _update_menu() #? Updates menu if visible
 	else: save_keys() #? Updates keys
 
@@ -322,6 +328,20 @@ func _on_effects_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE
 
 #region Loaders
 func _on_resource_loaded() -> void: pass
-func _on_restart_stage_button_pressed() -> void: _exit(); LoadManager.reload_scene()
-func _on_main_menu_button_pressed() -> void: _exit(); LoadManager.return_to_menu()
+
+func _on_restart_stage_button_pressed() -> void: 
+	var request : bool = await UI.EVENT.request_confirmation(
+		'RESTART_STAGE',
+		TranslationServer.tr('STAGE_PROGRESS_WARNING_TEXT'),
+		'CONFIRM', 'CANCEL'
+	)
+	if request: _exit(); LoadManager.reload_scene()
+
+func _on_main_menu_button_pressed() -> void:
+	var request : bool = await UI.EVENT.request_confirmation(
+		'RETURN_TO_MENU',
+		TranslationServer.tr('STAGE_PROGRESS_WARNING_TEXT'),
+		'CONFIRM', 'CANCEL'
+	)
+	if request: _exit(); LoadManager.return_to_menu()
 #endregion

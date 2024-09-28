@@ -1,11 +1,10 @@
-[gd_scene load_steps=23 format=4 uid="uid://2stxk6mbvwbv"]
+[gd_scene load_steps=14 format=4 uid="uid://2stxk6mbvwbv"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_u513e"]
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="2_2wtx5"]
 [ext_resource type="Script" path="res://scripts/main/stage_manager.gd" id="2_top5x"]
-[ext_resource type="Script" path="res://scripts/resources/wave_manager.gd" id="3_xxwxp"]
-[ext_resource type="Script" path="res://scripts/resources/waves.gd" id="4_3sdrw"]
-[ext_resource type="Script" path="res://scripts/resources/wave.gd" id="5_w4vov"]
+[ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="3_xxwxp"]
+[ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_in44l"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_gjeh3"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="8_txpjo"]
 [ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="9_fgewh"]
@@ -14,59 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="13_ggfcb"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2unhy"]
-
-[sub_resource type="Resource" id="Resource_blwps"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
-quantity = 5
-period = 2.0
-coins_on_finish = 5
-
-[sub_resource type="Resource" id="Resource_03pqi"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
-quantity = 10
-period = 5.0
-coins_on_finish = 5
-
-[sub_resource type="Resource" id="Resource_bu762"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
-quantity = 10
-period = 0.8
-coins_on_finish = 10
-
-[sub_resource type="Resource" id="Resource_mou7n"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
-quantity = 15
-period = 0.8
-coins_on_finish = 10
-
-[sub_resource type="Resource" id="Resource_fm4so"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
-quantity = 18
-period = 0.7
-coins_on_finish = 20
-
-[sub_resource type="Resource" id="Resource_by18y"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
-quantity = 25
-period = 0.5
-coins_on_finish = 50
-
-[sub_resource type="Resource" id="Resource_8s1pe"]
-script = ExtResource("5_w4vov")
-enemy_scene_path = ""
-quantity = 1
-period = 0.8
-coins_on_finish = 20
-
-[sub_resource type="Resource" id="Resource_b46qg"]
-script = ExtResource("4_3sdrw")
-waves = Array[ExtResource("5_w4vov")]([SubResource("Resource_blwps"), SubResource("Resource_03pqi"), SubResource("Resource_bu762"), SubResource("Resource_mou7n"), SubResource("Resource_fm4so"), SubResource("Resource_by18y"), SubResource("Resource_8s1pe")])
 
 [sub_resource type="Curve2D" id="Curve2D_l0ktu"]
 _data = {
@@ -79,7 +25,7 @@ process_mode = 3
 script = ExtResource("1_u513e")
 modulate_layer = NodePath("StageEffects/DarknessLayer")
 check_coordinate = true
-stage_songs = Array[String](["First Stage SL2024-05-08"])
+stage_songs = Array[String](["Active SL2024-08-07"])
 
 [node name="StageEffects" type="Node" parent="."]
 
@@ -110,15 +56,23 @@ color = Color(0.0999862, 0.0999861, 0.0999849, 1)
 script = ExtResource("2_top5x")
 initial_coins = 60000
 
-[node name="WaveManager" type="Node" parent="StageManager" node_paths=PackedStringArray("enemy_spawn_point")]
+[node name="TurnManager" type="Node" parent="StageManager" node_paths=PackedStringArray("enemy_spawn_point")]
 process_mode = 1
 script = ExtResource("3_xxwxp")
-waves_resource = SubResource("Resource_b46qg")
+turn_schedule = ExtResource("5_in44l")
 enemy_spawn_point = NodePath("../../Containers/SpawnPosition")
+infinite = true
+debug = true
 
-[node name="SpawnCooldown" type="Timer" parent="StageManager/WaveManager"]
+[node name="SpawnTimer" type="Timer" parent="StageManager/TurnManager"]
 process_mode = 1
-autostart = true
+process_callback = 0
+one_shot = true
+
+[node name="TurnTimer" type="Timer" parent="StageManager/TurnManager"]
+process_mode = 1
+process_callback = 0
+one_shot = true
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -223,3 +177,4 @@ limit_smoothed = false
 min_zoom = 0.5
 
 [connection signal="health_updated" from="StageManager" to="StageManager" method="_on_health_updated"]
+[connection signal="schedule_finished" from="StageManager/TurnManager" to="StageManager/TurnManager" method="_on_schedule_finished"]

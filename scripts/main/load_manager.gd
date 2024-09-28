@@ -24,6 +24,7 @@ func reload_scene():
 	load_scene(_scene_path) #? Reload active scene
 
 func load_scene(next_scene):
+	AudioManager.set_pause(true)
 	_scene_path = next_scene
 	assert(_scene_path)
 	var loading_screen = LOADING_SCENE.instantiate()

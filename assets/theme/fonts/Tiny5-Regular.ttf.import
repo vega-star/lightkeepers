@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dk26vsfaimn17"
-path="res://.godot/imported/dpcomic.ttf-6123b7d2c617affa3664f42f420b1b4a.fontdata"
+uid="uid://cd262awdhi1md"
+path="res://.godot/imported/Tiny5-Regular.ttf-1a0da19afdd26a38bf635b388a0217db.fontdata"
 
 [deps]
 
-source_file="res://assets/theme/fonts/dpcomic.ttf"
-dest_files=["res://.godot/imported/dpcomic.ttf-6123b7d2c617affa3664f42f420b1b4a.fontdata"]
+source_file="res://assets/theme/fonts/Tiny5-Regular.ttf"
+dest_files=["res://.godot/imported/Tiny5-Regular.ttf-1a0da19afdd26a38bf635b388a0217db.fontdata"]
 
 [params]
 

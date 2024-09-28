@@ -1,9 +1,14 @@
 class_name Projectile extends Node2D
 
-const fade_timer : float = 2
+enum PROJECTILE_MODES {
+	STRAIGHT,
+	SEEKING
+}
+
+const PITCH_VARIATION : Vector2 = Vector2(0.7,1.3)
 
 @export_group('Projectile Properties')
-@export_enum('STRAIGHT', 'SEEKING') var projectile_type : String = 'STRAIGHT' ## Affects processes and movement
+@export var projectile_mode : PROJECTILE_MODES = 0 ## Affects processes and movement
 @export var base_lifetime : float = 3
 @export var base_speed : int = 600
 @export var base_piercing : int = 1
@@ -35,21 +40,22 @@ func _ready():
 
 func _activate():
 	$CPUParticles2D.emitting = true
-	AudioManager.emit_random_sound_effect(global_position, sfx_when_launched)
+	AudioManager.emit_random_sound_effect(global_position, sfx_when_launched, "Effects", PITCH_VARIATION)
 	
 	await get_tree().create_timer(lifetime).timeout
 	_break()
 
 func _physics_process(delta):
-	match projectile_type:
-		'STRAIGHT': 
+	match projectile_mode:
+		0: #| 'STRAIGHT'
 			global_position += Vector2(speed * delta, 0).rotated(rotation)
-		'SEEKING':
+		1: #| 'SEEKING'
 			if is_instance_valid(target): 
 				stored_direction = global_position.direction_to(target.global_position)
 				look_at(target.global_position)
-			else: projectile_type = 'STRAIGHT'; return
+			else: projectile_mode = 0; return
 			global_position += (stored_direction * speed * delta)
+		_: push_error('INVALID PROJECTILE_TYPE')
 
 func _on_body_entered(body):
 	if body is Enemy:

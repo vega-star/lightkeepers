@@ -10,9 +10,9 @@ theme_override_font_sizes/font_size = 32
 text = "
 "
 script = ExtResource("2_xygff")
-sound_when_pressed = "big_distant_thump"
-sound_when_focus = "big_distant_thump"
-sound_when_hovered = "big_distant_thump"
+sound_when_pressed = "Retro7"
+sound_when_focus = "Retro1"
+sound_when_hovered = "Retro1"
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ElementRegister" load_steps=3 format=3 uid="uid://cxplnjmi337jt"]
 
-[ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://scripts/resources/elements/FireElement.tres" id="1_rwxy1"]
-[ext_resource type="Script" path="res://scripts/resources/element_register.gd" id="2_t6kg4"]
+[ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://components/elements/FireElement.tres" id="1_kh52o"]
+[ext_resource type="Script" path="res://scripts/resources/element_register.gd" id="2_q8j1o"]
 
 [resource]
-script = ExtResource("2_t6kg4")
-element = ExtResource("1_rwxy1")
+script = ExtResource("2_q8j1o")
+element = ExtResource("1_kh52o")
 control_slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/FireContainer")
 slot = NodePath("Screen/ObjectContainer/ElementInterface/ElementSlots/FireContainer/Slot")
 quantity = 2

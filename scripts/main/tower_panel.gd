@@ -18,6 +18,7 @@ const MOVEMENT_PERIOD : float = 0.2
 @onready var value: Label = $TowerValuePanel/Container/Value
 @onready var focus_container : HBoxContainer = $FocusContainer
 @onready var focus_label: Label = $FocusContainer/FocusPanel/FocusLabel
+@onready var kill_counter: Label = $TowerLabel/KillCounter
 
 var stage : Stage
 var tower : Tower
@@ -29,11 +30,14 @@ func _ready() -> void:
 
 func load_tower(new_tower : Tower) -> void:
 	if new_tower != tower: #? Executes only if the new tower is different from the one actively stored
-		if is_instance_valid(tower): tower.disconnect('tower_updated', _on_tower_updated)
+		if is_instance_valid(tower):
+			tower.disconnect('tower_updated', _on_tower_updated)
+			tower.disconnect('tower_defeated_enemy', _on_tower_kill_count_updated)
 		_move(false)
 		tower = new_tower
 		upgrade_system = tower.tower_upgrades
 		new_tower.tower_updated.connect(_on_tower_updated)
+		new_tower.tower_defeated_enemy.connect(_on_tower_kill_count_updated)
 		await get_tree().create_timer(MOVEMENT_PERIOD).timeout
 	
 	slot_1_button.disabled = !_set_upgrade_info(slot_1_button, $Upgrades/Slot1Button/UpgradeCost, slot_1_progress, 0)
@@ -42,6 +46,7 @@ func load_tower(new_tower : Tower) -> void:
 	
 	focus_container.set_visible(tower.show_targeting_priorities)
 	
+	_on_tower_kill_count_updated(tower.tower_kill_count)
 	tower_label.set_text(TranslationServer.tr(tower.tower_name.to_upper()))
 	focus_label.set_text(tower.TARGET_PRIORITIES.keys()[tower.target_priority])
 	value.set_text(str(roundi(tower.tower_value * stage.CASHBACK_FACTOR)))
@@ -67,9 +72,12 @@ func _set_upgrade_info(
 	button.set_tooltip_text(upgrade.upgrade_description)
 	return true
 
-func _on_tower_updated(): load_tower(tower)
+func _on_tower_updated() -> void: load_tower(tower)
+
+func _on_tower_kill_count_updated(tower_kill_count : int) -> void: kill_counter.set_text(str(tower_kill_count))
 
 func _on_sell_button_pressed() -> void:
+	if !stage: stage = get_tree().get_first_node_in_group('stage'); assert(stage)
 	assert(tower)
 	var request = await stage.request_removal(tower.tile_position)
 	if !request: pass
