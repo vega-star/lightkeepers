@@ -12,6 +12,7 @@ func unpause() -> void: UI.set_pause(false); hide()
 func set_pause_by_signal(mode : bool) -> void:
 	if mode: pause()
 	else:
+		UI.pause_locked = false
 		unpause()
 		if listening_signal: listening_signal.disconnect(set_pause_by_signal)
 

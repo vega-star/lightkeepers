@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0qlvxgjeqy68"
-path="res://.godot/imported/slot.png-8651b3339aab4cf62d098f531cf06992.ctex"
+uid="uid://dvkv5jgyx6pa0"
+path="res://.godot/imported/orb_upgrades_progress.png-cd7e3bf8a2bdff92c684c6c84e17fa32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/slot.png"
-dest_files=["res://.godot/imported/slot.png-8651b3339aab4cf62d098f531cf06992.ctex"]
+source_file="res://assets/prototypes/orb_upgrades_progress.png"
+dest_files=["res://.godot/imported/orb_upgrades_progress.png-cd7e3bf8a2bdff92c684c6c84e17fa32.ctex"]
 
 [params]
 

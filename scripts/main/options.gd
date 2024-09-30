@@ -80,7 +80,8 @@ var photosens_mode : bool
 @onready var keybind_grid : GridContainer = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid
 @onready var reset_keybinds : Button = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/ResetKeybinds
 @onready var language_button : OptionButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/LanguageButton
-@onready var exit_button : TextureButton = $OptionsControl/ExitButton
+@onready var exit_button_1 : TextureButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ExitButton
+@onready var exit_button_2: TextureButton = $OptionsControl/OptionsMenu/CONTROLS/ExitButton
 @onready var exit_check : ConfirmationDialog = $OptionsControl/ExitCheck
 @onready var reset_keybinds_check : ConfirmationDialog = $OptionsControl/ResetKeybindsCheck
 @onready var stage_container : VBoxContainer = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage
@@ -132,7 +133,8 @@ func _bind_signals() -> void: #? Binds signals from UI nodes by code
 	music_slider.drag_ended.connect(_on_music_slider_drag_ended); music_slider.value_changed.connect(_on_music_slider_value_changed)
 	effects_slider.drag_ended.connect(_on_effects_slider_drag_ended); effects_slider.value_changed.connect(_on_effects_slider_value_changed)
 	language_button.item_selected.connect(_on_language_menu_item_selected)
-	exit_button.pressed.connect(_on_exit_menu_pressed)
+	exit_button_1.pressed.connect(_on_exit_menu_pressed)
+	exit_button_2.pressed.connect(_on_exit_menu_pressed)
 
 func _load_data() -> void: #? Updates all buttons present in the framework accordingly with the loaded configuration
 	#photosens_mode = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE"); $ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed = photosens_mode
@@ -157,6 +159,7 @@ func _button_group_input(button_index : int) -> void:
 func _on_options_visibility_changed() -> void:
 	if get_tree().paused: pass #? Already paused before calling options
 	else:
+		UI.pause_locked = true
 		UI.PAUSE_LAYER.pause()
 		UI.PAUSE_LAYER.set_signaled_unpause(self, visibility_changed) #? Will unpause after closing mneu
 	
@@ -243,7 +246,7 @@ func setup_keys(): ## Registers keys in dict as inputs
 	for i in key_dict: #? Iterates through elements in a dictionary
 		for j in get_tree().get_nodes_in_group("button_keys"): #? Iterates through buttons
 			if(j.action_name == i): #? Stops when the action name is equivalent to key
-				j.text = OS.get_keycode_string(key_dict[i]) #? Sets button text to the string label of a key
+				j.text = OS.get_keycode_string(key_dict[i]).to_upper() #? Sets button text to the string label of a key
 		var newkey = InputEventKey.new() #? Waits for a key press
 		newkey.keycode = int(key_dict[i]) #? Recieves keycode from 
 		InputMap.action_add_event(i,newkey) #? Adds the new key to InputMap

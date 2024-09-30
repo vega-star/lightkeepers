@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://dau23jgucm04a"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dau23jgucm04a"]
 
 [ext_resource type="StyleBox" uid="uid://ourjgpyc2mcq" path="res://assets/theme/styleboxes/flat/hover_nb.tres" id="1_5kh8x"]
 [ext_resource type="StyleBox" uid="uid://osqvn3yc7hqs" path="res://assets/theme/styleboxes/flat/disabled.tres" id="1_7y3md"]
@@ -11,10 +11,13 @@
 [ext_resource type="StyleBox" uid="uid://dgo0fy144cgtl" path="res://assets/theme/styleboxes/flat/normal_b.tres" id="5_j3kkt"]
 [ext_resource type="StyleBox" uid="uid://culmmbb85o4ji" path="res://assets/theme/styleboxes/flat/pressed_b.tres" id="6_4npyw"]
 [ext_resource type="StyleBox" uid="uid://c3mkd26pntgue" path="res://assets/theme/styleboxes/high_contrast_sb.tres" id="11_i8ytd"]
-[ext_resource type="FontFile" uid="uid://cd262awdhi1md" path="res://assets/theme/fonts/Tiny5-Regular.ttf" id="12_cka0h"]
+[ext_resource type="FontFile" uid="uid://cd262awdhi1md" path="res://assets/theme/fonts/Tiny5-Regular.ttf" id="12_vor68"]
+
+[sub_resource type="FontVariation" id="FontVariation_o5mtl"]
+base_font = ExtResource("12_vor68")
 
 [resource]
-default_font = ExtResource("12_cka0h")
+default_font = SubResource("FontVariation_o5mtl")
 default_font_size = 32
 Button/colors/font_hover_color = Color(0.376471, 1, 0.980392, 1)
 Button/colors/font_hover_pressed_color = Color(0.376471, 1, 0.980392, 1)

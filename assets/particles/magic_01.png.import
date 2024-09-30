@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3l70bfuy0vfv"
-path="res://.godot/imported/slot_fire.png-e5ae657c209d9b1c8f5935b940012570.ctex"
+uid="uid://c4xuth83px6ck"
+path="res://.godot/imported/magic_01.png-a25f66c6d4b212ea0705b74d8e4d9d49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/slot_fire.png"
-dest_files=["res://.godot/imported/slot_fire.png-e5ae657c209d9b1c8f5935b940012570.ctex"]
+source_file="res://assets/particles/magic_01.png"
+dest_files=["res://.godot/imported/magic_01.png-a25f66c6d4b212ea0705b74d8e4d9d49.ctex"]
 
 [params]
 

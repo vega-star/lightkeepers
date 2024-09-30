@@ -12,6 +12,7 @@ signal fuse_done(status : bool)
 @onready var input_2 : Slot = $InputSlot2/Slot
 @onready var output_slot : ControlSlot = $OutputSlot
 @onready var confirm_button : TextureButton = $OutputSlot/OffsetControl/ConfirmButton
+@onready var slot_effects : CPUParticles2D = $OutputSlot/Slot/SlotEffects
 
 const MOVEMENT_OFFSET : Vector2 = Vector2(64, 64)
 
@@ -50,6 +51,7 @@ func _check_combination() -> Element:
 			prop_object.locked = true
 			prop_object.force_show_label = true
 			prop_object.element_label.set_visible(true)
+			slot_effects.emitting = true
 		return result_element
 	else: return null
 
@@ -64,17 +66,23 @@ func _fuse() -> bool:
 		invoke_prop = false
 		result_element_reg = ElementManager.add_element(result_element, 2, 1)
 		result_position = get_node(result_element_reg.control_slot).global_position
-		if delete_when_fused:
-			input_1._destroy_active_object()
-			input_2._destroy_active_object()
-		else:
-			input_1.active_object._return_to_slot(true)
-			input_2.active_object._return_to_slot(true)
+		if delete_when_fused: pop(true)
+		else: pop()
 		result_element = null
 		result_element_reg = null
 		invoke_prop = true
 	fuse_done.emit(true)
 	return true
+
+## Remove objects from input slots
+func pop(destroy : bool = false) -> void:
+	if !is_instance_valid(input_1.active_object) or !is_instance_valid(input_2.active_object): return 
+	if destroy:
+		input_1._destroy_active_object()
+		input_2._destroy_active_object()
+		return
+	input_1.active_object._return_to_slot(true)
+	input_2.active_object._return_to_slot(true)
 
 func _remove_prop() -> void:
 	if is_instance_valid(prop_object):
@@ -83,6 +91,7 @@ func _remove_prop() -> void:
 			UI.HUD._on_shop_button_pressed(1) #? Show elements menu
 		prop_object.queue_free()
 		prop_object = null
+		slot_effects.emitting = false
 		
 		## TODO: Prop animation
 		# prop_object.volatile = true

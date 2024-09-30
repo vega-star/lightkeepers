@@ -1,9 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcda8yi81i3or"]
+[gd_scene load_steps=9 format=3 uid="uid://dcda8yi81i3or"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_na57j"]
 [ext_resource type="Script" path="res://scripts/ui/fuse_system.gd" id="2_a2mc2"]
 [ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="3_8m32b"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://components/interface/control_slot.tscn" id="4_bp3h0"]
+[ext_resource type="Texture2D" uid="uid://8i3k8vpy4xng" path="res://assets/particles/star_02.png" id="5_v8xoo"]
+
+[sub_resource type="Curve" id="Curve_ev3ga"]
+max_value = 50.0
+_data = [Vector2(0, 50), 0.0, 0.0, 0, 0, Vector2(0.669811, 37.2093), -66.6247, -66.6247, 0, 0, Vector2(1, -0.174419), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_wrmql"]
+max_value = 0.5
+_data = [Vector2(0, 0), 0.0, 0.503085, 0, 0, Vector2(0.273585, 0.5), 0.0, 0.0, 0, 0, Vector2(0.997642, 0), -0.113774, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_fyrjy"]
+offsets = PackedFloat32Array(0, 0.0909091, 0.356061, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.85, 0.85, 0.85, 1, 0, 0, 0, 0)
 
 [node name="FuseSystem" type="HBoxContainer"]
 anchors_preset = 8
@@ -56,6 +71,36 @@ layout_mode = 2
 slot_type = 0
 slot_locked = true
 
+[node name="SlotEffects" type="CPUParticles2D" parent="OutputSlot/Slot" index="1"]
+visible = false
+z_index = 10
+emitting = false
+amount = 15
+preprocess = 0.1
+speed_scale = 1.5
+draw_order = 1
+texture = ExtResource("5_v8xoo")
+emission_shape = 2
+emission_sphere_radius = 50.0
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 150.0
+angular_velocity_min = 3.0
+angular_velocity_max = 10.0
+angular_velocity_curve = SubResource("Curve_ev3ga")
+orbit_velocity_min = -0.3
+orbit_velocity_max = 0.3
+radial_accel_min = 5.0
+radial_accel_max = 20.0
+angle_max = 360.0
+scale_amount_min = 0.0
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_wrmql")
+color = Color(10, 1.5, 0.8, 1)
+color_ramp = SubResource("Gradient_fyrjy")
+
 [node name="ConfirmButton" type="TextureButton" parent="OutputSlot/OffsetControl" index="0"]
 layout_mode = 2
 offset_left = -48.0
@@ -74,3 +119,4 @@ visible = false
 [editable path="InputSlot1"]
 [editable path="InputSlot2"]
 [editable path="OutputSlot"]
+[editable path="OutputSlot/Slot"]

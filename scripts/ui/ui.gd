@@ -36,6 +36,7 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 @onready var tile_description_label : Label = $Screen/Info/TileDescriptionLabel
 @onready var object_description_label : Label = $Screen/Info/ObjectDescriptionLabel
 @onready var tower_panel : TowerPanel = $Screen/TowerPanel
+@onready var fuse_system : FuseSystem = $Screen/Elements/ElementContainer/FusePanel/FuseSystem
 
 var previous_life : int
 var previous_coins : int
@@ -97,14 +98,18 @@ func _on_hide_button_pressed() -> void:
 		new_x = roundi(get_viewport().get_visible_rect().size.x - corner_panel.size.x - hide_button.size.x)
 		element_menu_hidden = true
 		hide_button.flip_h = false
+		fuse_system.pop()
 	else: #? Element menu invisible
 		new_x = roundi(get_viewport().get_visible_rect().size.x - element_container.size.x)
 		element_menu_hidden = false
+		if !element_container_storage.visible: element_container_storage.visible = true
 		hide_button.flip_h = true
 	
 	hide_tween.tween_property(element_container, "position", Vector2(new_x, element_container.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	await hide_tween
+	await hide_tween.finished
+	
 	element_container_storage.visible = !element_menu_hidden
+	fuse_system._remove_prop()
 
 func _on_speed_button_pressed() -> void:
 	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true

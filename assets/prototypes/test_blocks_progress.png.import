@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cblt4vmfu2ww5"
-path="res://.godot/imported/lighthouse_light_1.png-7cf7c5c669bd33083b82ccba61f5801a.ctex"
+uid="uid://bn86te8nu266v"
+path="res://.godot/imported/test_blocks_progress.png-ce3aea2014b1d3cf490a43685714f0fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/lighthouse_light_1.png"
-dest_files=["res://.godot/imported/lighthouse_light_1.png-7cf7c5c669bd33083b82ccba61f5801a.ctex"]
+source_file="res://assets/prototypes/test_blocks_progress.png"
+dest_files=["res://.godot/imported/test_blocks_progress.png-ce3aea2014b1d3cf490a43685714f0fa.ctex"]
 
 [params]
 

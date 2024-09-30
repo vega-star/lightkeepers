@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://crd6uu2iglh0g"]
+
+[ext_resource type="Shader" path="res://assets/shaders/element_shader.gdshader" id="1_k3o34"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aq2y4"]
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_63r2q"]
+seamless = true
+noise = SubResource("FastNoiseLite_aq2y4")
+
+[sub_resource type="Gradient" id="Gradient_12ln6"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.145329, 0.321799, 0.453287, 0.612457, 0.799308)
+colors = PackedColorArray(0, 0, 0, 0, 0.419, 0.224, 0.062, 0.25, 0.582, 0.427, 0.293, 0.6, 0.88, 0.728, 0, 0.8, 0.88, 0.728, 0, 1, 1, 0.988, 0.784, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cnsej"]
+gradient = SubResource("Gradient_12ln6")
+
+[resource]
+shader = ExtResource("1_k3o34")
+shader_parameter/NOISE_SCALE_1 = Vector2(1, 1)
+shader_parameter/NOISE_SCALE_2 = Vector2(1, 1)
+shader_parameter/SCROLL_1 = Vector2(0.65, 0.1)
+shader_parameter/SCROLL_2 = Vector2(0.2, 0.3)
+shader_parameter/BLUR = 3.0
+shader_parameter/BASE_INTENSITY = 0.05
+shader_parameter/INTENSITY_FACTOR = 0.35
+shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_63r2q")
+shader_parameter/TONE_MAPPING = SubResource("GradientTexture1D_cnsej")

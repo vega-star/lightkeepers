@@ -6,6 +6,7 @@ extends Node
 const SPRITES_PATH : String = "res://assets/sprites/elements/"
 const CONTROL_SLOT_SCENE : PackedScene = preload('res://components/interface/control_slot.tscn')
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/draggable_object.tscn")
+const DEFAULT_ELEMENT_COLOR : Color = Color("ffec83")
 const STARTING_ELEMENT_REG : Array[ElementRegister] = [
 	preload("res://components/elements/default_registers/FireRegister.tres"),
 	preload("res://components/elements/default_registers/WaterRegister.tres"),
@@ -99,6 +100,13 @@ func _purge():
 #endregion
 
 #region Element Manipulation
+## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
+func query_metadata(element_id : String, meta : String) -> Variant:
+	if !is_node_ready(): await ready
+	print('Requested metadata from ', element_id, 'with key ', meta)
+	if !ELEMENT_METADATA.has(element_id): return null
+	return ELEMENT_METADATA[element_id][meta]
+
 ## Returns an element ID from two other IDs by checking the COMBINATIONS dictionary
 func combine(first_element, second_element) -> String: 
 	if !COMBINATIONS.has(first_element) or !COMBINATIONS.has(second_element): return '' #! INVALID ELEMENTS

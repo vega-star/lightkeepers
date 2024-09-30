@@ -4,6 +4,6 @@
 
 [resource]
 shader = ExtResource("1_fl0be")
-shader_parameter/progress = 1.0
+shader_parameter/progress = 0.0
 shader_parameter/diamondPixelSize = 126.0
 shader_parameter/color = Color(0.054902, 0.0392157, 0.180392, 1)

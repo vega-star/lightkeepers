@@ -42,15 +42,13 @@ color = Color(0.0434298, 0.0213921, 0.106189, 0.486275)
 [node name="OptionsMenu" type="TabContainer" parent="OptionsControl"]
 custom_minimum_size = Vector2(350, 500)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -238.0
-offset_top = -309.0
-offset_right = 239.0
-offset_bottom = 302.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 402.0
+offset_top = 51.0
+offset_right = -401.0
+offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
@@ -87,6 +85,7 @@ autowrap_mode = 3
 
 [node name="LanguageButton" type="OptionButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 alignment = 1
 text_overrun_behavior = 3
 clip_text = true
@@ -98,7 +97,7 @@ popup/item_1/text = "Português Brasileiro"
 popup/item_1/id = 1
 
 [node name="VolumeButtons" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -115,6 +114,7 @@ step = 0.001
 value = 0.5
 
 [node name="Master_Toggle" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Master_Slider"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -138,6 +138,7 @@ step = 0.001
 value = 0.5
 
 [node name="Music_Toggle" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Music_Slider"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -161,6 +162,7 @@ step = 0.001
 value = 0.5
 
 [node name="Effect_Toggle" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Effects_Slider"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -189,6 +191,20 @@ text = "RESTART"
 layout_mode = 2
 text = "MAIN_MENU"
 
+[node name="ExitButton" type="TextureButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS"]
+material = SubResource("ShaderMaterial_wpns1")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_bottom = 48.0
+grow_horizontal = 0
+size_flags_horizontal = 10
+size_flags_vertical = 0
+texture_normal = ExtResource("6_no68u")
+
 [node name="CONTROLS" type="Control" parent="OptionsControl/OptionsMenu"]
 visible = false
 layout_mode = 2
@@ -213,6 +229,13 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_constants/separation = 20
 
+[node name="DragToggleButton" type="CheckButton" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container"]
+visible = false
+layout_mode = 2
+tooltip_text = "DRAG_MODE_TOGGLE_DESCRIPTION"
+text = "DRAG_MODE_TOGGLE"
+alignment = 1
+
 [node name="KeybindGrid" type="GridContainer" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container"]
 layout_mode = 2
 size_flags_horizontal = 6
@@ -226,6 +249,8 @@ horizontal_alignment = 2
 
 [node name="UP_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "UP"
 keybind = "move_up"
 
 [node name="LEFT" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
@@ -235,6 +260,8 @@ horizontal_alignment = 2
 
 [node name="LEFT_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "LEFT"
 keybind = "move_left"
 
 [node name="DOWN" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
@@ -244,6 +271,8 @@ horizontal_alignment = 2
 
 [node name="DOWN_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "DOWN"
 keybind = "move_down"
 
 [node name="RIGHT" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
@@ -253,6 +282,8 @@ horizontal_alignment = 2
 
 [node name="RIGHT_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "RIGHT"
 keybind = "move_right"
 
 [node name="ENTER" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
@@ -262,6 +293,8 @@ horizontal_alignment = 2
 
 [node name="ENTER_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "ENTER"
 keybind = "enter"
 
 [node name="ESCAPE" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
@@ -271,6 +304,8 @@ horizontal_alignment = 2
 
 [node name="ESCAPE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "ESCAPE"
 keybind = "escape"
 
 [node name="SPACE" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
@@ -280,6 +315,8 @@ horizontal_alignment = 2
 
 [node name="SPACE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "SPACE"
 keybind = "space"
 
 [node name="ResetKeybinds" type="Button" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container"]
@@ -288,29 +325,27 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "RESET_DEFAULT_KEYBINDS"
 
-[node name="ExitButton" type="TextureButton" parent="OptionsControl"]
+[node name="ExitButton" type="TextureButton" parent="OptionsControl/OptionsMenu/CONTROLS"]
 material = SubResource("ShaderMaterial_wpns1")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 181.0
-offset_top = -248.0
-offset_right = 229.0
-offset_bottom = -200.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_bottom = 48.0
+grow_horizontal = 0
+size_flags_horizontal = 10
+size_flags_vertical = 0
 texture_normal = ExtResource("6_no68u")
 
 [node name="ExitCheck" type="ConfirmationDialog" parent="OptionsControl"]
 title = "EXIT"
 initial_position = 1
-size = Vector2i(329, 100)
+size = Vector2i(419, 126)
 ok_button_text = "SAVE"
 dialog_text = "SAVE_OPTIONS_CONFIRMATION_DIALOG"
+dialog_autowrap = true
 cancel_button_text = "CANCEL"
 
 [node name="ResetKeybindsCheck" type="ConfirmationDialog" parent="OptionsControl"]
@@ -319,6 +354,7 @@ initial_position = 1
 size = Vector2i(267, 100)
 ok_button_text = "CONFIRM"
 dialog_text = "RESET_DEFAULT_KEYBINDS_TEXT"
+dialog_autowrap = true
 cancel_button_text = "CANCEL"
 
 [connection signal="pressed" from="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/RestartStageButton" to="." method="_on_restart_stage_button_pressed"]

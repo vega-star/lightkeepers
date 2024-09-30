@@ -49,8 +49,7 @@ color = Color(0, 0, 0, 1)
 [node name="PlaceholderEffectLayer" parent="StageEffects" instance_placeholder="res://scenes/ui/ui_screen_effect_layer.tscn"]
 
 [node name="DarknessLayer" type="CanvasModulate" parent="StageEffects"]
-visible = false
-color = Color(0.0999862, 0.0999861, 0.0999849, 1)
+color = Color(0.0383973, 0.0383972, 0.0383965, 1)
 
 [node name="StageManager" type="Node" parent="."]
 script = ExtResource("2_top5x")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcce56w5be2ph"
-path="res://.godot/imported/slot_earth.png-5365486c12332ab5ba7856b702bf9b98.ctex"
+uid="uid://bgxlfrm4vbg7m"
+path="res://.godot/imported/magic_03.png-20d19c957ec2d1a52dbc8fbe8e28b843.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prototypes/slot_earth.png"
-dest_files=["res://.godot/imported/slot_earth.png-5365486c12332ab5ba7856b702bf9b98.ctex"]
+source_file="res://assets/particles/magic_03.png"
+dest_files=["res://.godot/imported/magic_03.png-20d19c957ec2d1a52dbc8fbe8e28b843.ctex"]
 
 [params]
 

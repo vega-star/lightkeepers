@@ -3,6 +3,12 @@ class_name DraggableObject extends Node2D
 signal object_picked
 signal object_inserted
 
+const ELEMENT_COLORS : Dictionary = {
+	"fire": Color.ORANGE_RED,
+	"water": Color.BLUE,
+	"air": Color.CYAN,
+	"earth": Color.SADDLE_BROWN,
+	"cursed": Color.CRIMSON }
 const INPUT_COOLDOWN : float = 0.2
 const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png")
 
@@ -10,12 +16,13 @@ const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png"
 @export var active_slot : Slot #? Currently active slot
 @export var home_slot : Slot #? Slot on which it returns if something goes wrong or the screen which it was positioned gets closed
 @export var element : Element: set = _set_element
-@export var debug : bool = true
+@export var debug : bool = false
 
 @onready var object_collision : Area2D = $ObjectCollision
 @onready var object_collision_area : CollisionShape2D = $ObjectCollision/ObjectCollisionArea
 @onready var object_element_sprite : Sprite2D = $ObjectOrb/ObjectElement
 @onready var element_label : Label = $ElementLabel
+@onready var object_orb : Sprite2D = $ObjectOrb
 
 var offset : Vector2
 var initial_position : Vector2
@@ -37,7 +44,12 @@ func _ready() -> void:
 
 func _set_element(new_element : Element) -> void:
 	element = new_element
-	if $ElementLabel: $ElementLabel.set_text(element.element_id.capitalize())
+	object_type = new_element.element_type
+	if !is_node_ready(): await ready
+	element_label.set_text(element.element_id.capitalize())
+	if ELEMENT_COLORS.has(element.element_id):
+		object_orb.material = object_orb.material.duplicate()
+		object_orb.material.set("shader_parameter/line_color", ELEMENT_COLORS[element.element_id])
 
 func _process(_delta) -> void:
 	if draggable and !locked: #? Dragging processes

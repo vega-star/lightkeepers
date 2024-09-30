@@ -82,7 +82,7 @@ func _remove_object(destroy : bool = false) -> void:
 
 func _destroy_active_object() -> void: if is_instance_valid(active_object): active_object._destroy()
 
-func _on_visibility_changed() -> void: if active_object and !is_visible_in_tree() and !is_output: active_object._return_to_slot()
+func _on_visibility_changed() -> void: if is_instance_valid(active_object) and !is_visible_in_tree() and !is_output: active_object._return_to_slot()
 #endregion
 
 #region Cosmetic Features

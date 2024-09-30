@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://n5rw1cpg7sp0"]
+
+[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="1_kce7f"]
+[ext_resource type="Texture2D" uid="uid://dxne2sdnmjk1r" path="res://assets/prototypes/orb_upgrades.png" id="2_na58f"]
+[ext_resource type="Texture2D" uid="uid://dvkv5jgyx6pa0" path="res://assets/prototypes/orb_upgrades_progress.png" id="3_36imp"]
+
+[node name="UpgradeSlot" instance=ExtResource("1_kce7f")]
+
+[node name="OffsetControl" type="Control" parent="." index="1"]
+layout_mode = 2
+
+[node name="InputQuantity" type="TextureProgressBar" parent="OffsetControl" index="0"]
+layout_mode = 1
+offset_left = 81.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 95.0
+max_value = 5.0
+fill_mode = 3
+radial_center_offset = Vector2(-70, 0)
+texture_under = ExtResource("2_na58f")
+texture_progress = ExtResource("3_36imp")
+tint_progress = Color(0.5, 3, 0.5, 1)
+
+[node name="UnderSlot" type="Polygon2D" parent="OffsetControl" index="1"]
+z_index = -1
+color = Color(0.054902, 0.0392157, 0.180392, 1)
+polygon = PackedVector2Array(88, 1, 107, 37, 107, 58, 88, 95, 54, 95, 54, 1)

@@ -18,7 +18,6 @@ func _ready():
 	#	"forward_plus": shader.material.set_shader_parameter("color", bg_forward_color)
 	#	"gl_compatibility": shader.material.set_shader_parameter("color", bg_compatibility_color)
 	#	_: printerr('RENDERER INVALID | Current renderer: {0}'.format({0:renderer}))
-	
 	pass
 
 func _set_speed_scale(new_speed : float):

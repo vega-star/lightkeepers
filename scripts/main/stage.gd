@@ -52,6 +52,9 @@ func _process(_delta) -> void:
 func _input(_event) -> void:
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
 	if Input.is_action_just_pressed('alt'): deselect_tile()
+
+func finish_stage() -> void:
+	UI.end_stage()
 #endregion
 
 #region Tile management
@@ -147,7 +150,7 @@ func request_removal(tile_position : Vector2i = Vector2i.MIN) -> bool:
 		'CONFIRM', 'CANCEL'
 	)
 	
-	if request: 
+	if request:
 		remove_tile_object(tile_position, object)
 		stage_manager.change_coins(tower_value, true)
 		return true

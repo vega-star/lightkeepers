@@ -54,7 +54,9 @@ func _on_gui_input(event) -> void:
 	
 	elif event is InputEventMouseMotion and event.button_mask == 1: # Left mouse hold
 		if !stage: stage = get_tree().get_first_node_in_group('stage'); return
-		if is_instance_valid(tower): tower.global_position = stage.snap_to_tile(event.global_position) # stage.snap_to_tile(get_global_mouse_position())
+		if is_instance_valid(tower): 
+			tower.global_position = get_global_mouse_position()
+			# tower.global_position = stage.snap_to_tile(event.global_position) # stage.snap_to_tile(get_global_mouse_position())
 		else: return
 		
 		var stage_query = stage.query_tile_insertion()
