@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/states/turret_firing.gd" id="1_wejd7"]
 
-[node name="Firing" type="Node"]
+[node name="TurretFiring" type="Node"]
+process_mode = 1
 script = ExtResource("1_wejd7")
 
 [node name="FiringCooldown" type="Timer" parent="."]
 process_callback = 0
-one_shot = true
 autostart = true
 
-[connection signal="timeout" from="FiringCooldown" to="." method="_on_firing_cooldown_available"]
+[connection signal="timeout" from="FiringCooldown" to="." method="_start_firing"]

@@ -2,6 +2,7 @@ class_name Tower extends TileObject
 
 signal tower_updated
 signal tower_defeated_enemy(current_count : int)
+signal tower_detected_enemy
 
 enum TARGET_PRIORITIES {
 	FIRST, ## First in place to reach nexus
@@ -38,7 +39,9 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 @export var tower_icon : Texture2D = DEFAULT_TOWER_ICON
 @export var range_draw_color : Color = Color(0, 0.845, 0.776, 0.5)
 @export var light_draw_color : Color = Color(0.863, 0.342, 0, 0.5)
+#endregion
 
+#region Variables
 @onready var tower_upgrades : TowerUpgrades = $TowerUpgrades
 @onready var tower_gun_muzzle : Marker2D = $TowerGunSprite/TowerGunMuzzle
 @onready var tower_aim : RayCast2D = $TowerGunSprite/TowerGunMuzzle/TowerAim
@@ -47,10 +50,7 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 @onready var tower_range_area : Area2D = $TowerRangeArea
 @onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
 @onready var firing_cooldown_timer : Timer = $StateMachine/Firing/FiringCooldown
-@onready var seeking_reset_timer : Timer = $StateMachine/Seeking/TargetResetTimer
-#endregion
 
-#region Variables
 var damage : int
 var piercing : int
 var burst : int
@@ -99,7 +99,7 @@ func _ready() -> void:
 
 func _adapt_in_tile() -> void: light_shape.position = position
 
-func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body) # ; print('ENEMY DETECTED BY TURRET %s' % self.name)
+func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body); tower_detected_enemy.emit()
 
 func _enemy_exited(body) -> void: eligible_targets.erase(body)
 
@@ -108,6 +108,7 @@ func _set_firing_cooldown(new_cooldown : float): firing_cooldown = new_cooldown;
 func _load_properties() -> void:
 	light_shape.size = light_range
 	tower_range_shape.shape.radius = DEFAULT_RANGE * tower_range
+	tower_aim.target_position.x = DEFAULT_RANGE * tower_range
 	tower_updated.emit()
 
 func _load_default_values() -> void:

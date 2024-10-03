@@ -57,7 +57,7 @@ func load_tower(new_tower : Tower) -> void:
 	
 	for s in slots.size():
 		var slot : UpgradePanel = slots[s]
-		slot.upgrade_button.disabled = !_set_upgrade_info(slot.upgrade_button, slot.cost_label, slot.progress_meter, s)
+		slot.upgrade_button.disabled = !_set_upgrade_info(slot, s)
 	
 	focus_container.set_visible(tower.show_targeting_priorities)
 	
@@ -68,33 +68,28 @@ func load_tower(new_tower : Tower) -> void:
 	tower_panel_loaded.emit()
 	_move(true)
 
-func _set_upgrade_info(
-		button : TextureButton,
-		cost_label : Label,
-		progress_bar : TextureProgressBar,
-		tree_index : int,
-		offset : int = 1
-	) -> bool:
-	if upgrade_system.upgrade_trees_array.is_empty() or tree_index + 1 > upgrade_system.upgrade_trees_array.size(): return false
-	var tree : TowerUpgradeTree = upgrade_system.upgrade_trees_array[tree_index]
-	progress_bar.set_value(tree.tier)
+func _set_upgrade_info( upgrade_panel : UpgradePanel, tree_index : int ) -> bool:
+	var is_valid : bool = !(upgrade_system.upgrade_trees_array.is_empty() or tree_index + 1 > upgrade_system.upgrade_trees_array.size())
+	upgrade_panel.visible = is_valid
+	if !is_valid: return false
 	
-	if tree.tier + offset > tree.upgrades.size(): #? Upgrade tree finished
-		cost_label.set_text('')
+	var tree : TowerUpgradeTree = upgrade_system.upgrade_trees_array[tree_index]
+	upgrade_panel.upgrade_tree = tree
+	upgrade_panel.progress_meter.set_value(tree.tier)
+	if tree.tier + 1 > tree.upgrades.size(): #? Upgrade tree finished
+		upgrade_panel.cost_label.set_text('')
 		return false
 	
 	var upgrade : Upgrade = tree.upgrades[tree.tier]
-	
-	if upgrade.upgrade_icon: button.set_texture_normal(upgrade.upgrade_icon)
-	# else: button.set_texture_normal(DEFAULT_UPGRADE_ICON)
-	
-	cost_label.set_text(str(upgrade.upgrade_cost))
-	button.set_tooltip_text(upgrade.upgrade_description)
+	if upgrade.upgrade_icon: upgrade_panel.upgrade_button.set_texture_normal(upgrade.upgrade_icon)
+	# else: panel.upgrade_button.set_texture_normal(DEFAULT_UPGRADE_ICON)
+	upgrade_panel.cost_label.set_text(str(upgrade.upgrade_cost))
+	upgrade_panel.upgrade_button.set_tooltip_text(upgrade.upgrade_description)
 	return true
 #endregion
 
 #region Signals
-func _on_coin_updated(): pass
+func _on_coin_updated(_previous_coins : int, current_coins : int): for s in slots: if s.visible: s.check_if_available(current_coins)
 
 func _on_tower_updated() -> void: load_tower(tower)
 
@@ -127,14 +122,9 @@ func _on_focus_button_pressed(button_index : int) -> void:
 	tower.target_priority = NEW_TARGET_PRIORITY
 	tower.tower_updated.emit()
 
-func _on_upgrade_button_pressed(button_index : int) -> void:
-	var tree_index : int
-	match button_index:
-		2: tree_index = 0 #! Upgrade Tree 1
-		5: tree_index = 1 #! Upgrade Tree 2
-		8: tree_index = 2 #! Upgrade Tree 3
-		_: push_error('INVALID TREE INDEX')
-	var request = upgrade_system._request_upgrade(upgrade_system.upgrade_trees_array[tree_index])
+func _on_upgrade_button_pressed(u_index : int) -> void:
+	if u_index > 3 or u_index < 0: push_error('INVALID UPGRADE INDEX ', u_index)
+	var request = upgrade_system._request_upgrade(slots[u_index].upgrade_tree)
 	if request: tower.tower_updated.emit()
 	else: pass
 #endregion

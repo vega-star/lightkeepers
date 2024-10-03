@@ -25,7 +25,6 @@ default_color = Color(0.976471, 0.694118, 0.172549, 1)
 [node name="ShapePointLight" type="PointLight2D" parent="."]
 energy = 2.0
 range_item_cull_mask = 7
-shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.486275)
 shadow_item_cull_mask = 6
 texture = ExtResource("1_apdox")

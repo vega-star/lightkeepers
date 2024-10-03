@@ -102,9 +102,8 @@ func _purge():
 #region Element Manipulation
 ## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
 func query_metadata(element_id : String, meta : String) -> Variant:
-	if !is_node_ready(): await ready
-	print('Requested metadata from ', element_id, 'with key ', meta)
-	if !ELEMENT_METADATA.has(element_id): return null
+	print('Requested metadata from ', element_id, ' with key ', meta)
+	if !ELEMENT_METADATA.has(element_id): print('NOT FOUND!'); return null
 	return ELEMENT_METADATA[element_id][meta]
 
 ## Returns an element ID from two other IDs by checking the COMBINATIONS dictionary
@@ -142,8 +141,7 @@ func generate_element(
 
 ## Query an element to see if it already exists on the runtime array
 func query_element(id : String) -> ElementRegister:
-	for reg in active_registers: 
-		if id == reg.element.element_id: return reg
+	for reg in active_registers: if id == reg.element.element_id: return reg
 	return null
 
 ## Add to an existing element or a new one to ElementRegister array, as well as creating the required nodes
@@ -201,7 +199,7 @@ func _set_object(slot : Slot, element : Element, additional : String = '') -> Dr
 
 ## Restock slot
 func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject:
-	assert(slot.is_output)
+	if !slot.is_output: return null
 	if reg.quantity >= 1:
 		var regen_object = _set_object(slot, reg.element)
 		reg.quantity - 1

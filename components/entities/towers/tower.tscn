@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bg8dos7yx10dx"]
+[gd_scene load_steps=36 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_1obre"]
 [ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_tq6vs"]
@@ -154,6 +154,9 @@ animations = [{
 "speed": 11.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sss3a"]
+radius = 16.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
 radius = 160.0
 
@@ -178,7 +181,6 @@ firing_state = NodePath("../Firing")
 
 [node name="Firing" parent="StateMachine" node_paths=PackedStringArray("seeking_state") instance=ExtResource("7_71kul")]
 seeking_state = NodePath("../Seeking")
-burst_cooldown_damping = 1.8
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 visible = false
@@ -213,9 +215,15 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
+[node name="TowerOccupiedArea" type="Area2D" parent="."]
+
+[node name="OccupiedArea" type="CollisionShape2D" parent="TowerOccupiedArea"]
+shape = SubResource("CircleShape2D_sss3a")
+debug_color = Color(8.18223e-07, 0.621302, 0.555439, 0.42)
+
 [node name="TowerRangeArea" type="Area2D" parent="."]
 collision_mask = 64
 
 [node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
 shape = SubResource("CircleShape2D_4qdcu")
-debug_color = Color(0, 0.6, 0.701961, 0.129412)
+debug_color = Color(0.992355, 0, 0.259521, 0.129412)

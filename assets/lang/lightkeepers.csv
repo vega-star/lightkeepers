@@ -31,9 +31,14 @@ LEFT,Left,Esquerda
 RIGHT,Right,Direita
 PAUSE,Pause,Pausar
 ENTER,Enter,Enter
-ESCAPE,Escape,Escape
+ESCAPE,Esc,Esc
+ELEMENTS
+MENU,Menu,Menu
 SPACE,Space,Espaço
 RESET_DEFAULT_KEYBINDS,Reset keybinds,Restaurar controles
+SWITCH_MENU,Switch Menu,Alternar Menu
+ACCELERATE,Accelerate,Acelerar
+OPTIONS,Options,Opções
 MAIN_OPTIONS,Main Options,Opções Principais
 CONTROLS,Controls,Controles
 UI,UI,UI

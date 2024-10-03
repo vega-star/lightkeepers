@@ -86,9 +86,7 @@ func pop(destroy : bool = false) -> void:
 
 func _remove_prop() -> void:
 	if is_instance_valid(prop_object):
-		if !UI.HUD.elements_storage_panel.visible: 
-			$"../../../../Shop/ShopButtons/ShopButtonsContainer/ElementsButton".set_pressed(true)
-			UI.HUD._on_shop_button_pressed(1) #? Show elements menu
+		if !UI.HUD.elements_storage_panel.visible: $"../../../../CornerPanel/CornerContainer/ElementButton".set_pressed(true)
 		prop_object.queue_free()
 		prop_object = null
 		slot_effects.emitting = false

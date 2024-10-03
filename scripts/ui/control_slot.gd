@@ -7,7 +7,7 @@ signal control_slot_changed
 
 const MINIMUM_SIZE : Vector2 = Vector2(96,96)
 
-@onready var slot = $Slot : set = _config_slot
+@onready var slot : Slot = $Slot : set = _config_slot
 
 @export var slot_register : ElementRegister : set = _config_register
 @export var toggle_based_on_quantity : bool = true

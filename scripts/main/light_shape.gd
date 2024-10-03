@@ -3,7 +3,7 @@ class_name LightShape extends CollisionShape2D
 @export var base_energy : float = 2
 @export var noise : NoiseTexture2D
 @export var default_color : Color = Color.WHITE
-@export var test_oscillation : bool = true
+@export var oscillation : bool = false
 
 const BASE_RADIUS : float = 128
 const MIN_SIZE : float = 0.9
@@ -30,6 +30,7 @@ func _size_change(new_size):
 	$ShapePointLight.texture_scale = 1 * size
 
 func _physics_process(delta):
-	time += delta
-	var sampled_noise = abs(noise.noise.get_noise_1d(time))
-	if test_oscillation: $ShapePointLight.energy = base_energy * sampled_noise
+	if oscillation:
+		time += delta
+		var sampled_noise = abs(noise.noise.get_noise_1d(time))
+		$ShapePointLight.energy = base_energy * sampled_noise

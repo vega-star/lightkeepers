@@ -28,7 +28,7 @@ var speed : int
 var damage : int
 var lifetime : float
 var piercing_count : int = 1
-var seeking_weight : float
+var seeking_weight : float = 1
 var stored_direction : Vector2
 
 func _ready():
@@ -52,7 +52,8 @@ func _physics_process(delta):
 		1: #| 'SEEKING'
 			if is_instance_valid(target): 
 				stored_direction = global_position.direction_to(target.global_position)
-				look_at(target.global_position)
+				# look_at(target.global_position)
+				rotate_toward(rotation, get_angle_to(target.global_position), seeking_weight)
 			else: projectile_mode = 0; return
 			global_position += (stored_direction * speed * delta)
 		_: push_error('INVALID PROJECTILE_TYPE')
@@ -65,6 +66,4 @@ func _on_body_entered(body):
 	if piercing_count == 0: 
 		_break()
 
-func _break():
-	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)
-	queue_free()
+func _break(): AudioManager.emit_random_sound_effect(global_position, sfx_when_broken); queue_free()

@@ -1,20 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpomm15ssv0np"]
+[gd_scene load_steps=5 format=3 uid="uid://bpomm15ssv0np"]
 
 [ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_3xlou"]
+[ext_resource type="Texture2D" uid="uid://bhixypxhmte6b" path="res://assets/particles/flare_01.png" id="2_elqe6"]
 [ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="2_xvxdk"]
 
 [sub_resource type="Curve" id="Curve_8pbtj"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 2.06752, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="BallistaProjectile" instance=ExtResource("1_3xlou")]
 base_piercing = 2
+base_seeking_weight = 0.2
 
 [node name="CPUParticles2D" parent="." index="1"]
-emitting = true
+position = Vector2(8, 0)
 lifetime = 2.0
 speed_scale = 2.0
+randomness = 0.5
 local_coords = true
+texture = ExtResource("2_elqe6")
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+direction = Vector2(-350, 0)
+spread = 5.0
+initial_velocity_max = 300.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
 scale_amount_curve = SubResource("Curve_8pbtj")
 
 [node name="ProjectileSprite" parent="." index="3"]

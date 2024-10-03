@@ -17,6 +17,7 @@ const SHAPE_RADIUS : float = 48
 @export var element_register : ElementRegister: set = _set_reg
 @export var active_object : DraggableObject: set = _set_object
 @export var is_output : bool = false
+@export var is_separator : bool = false
 @export var slot_locked : bool = false
 @export var debug : bool = false
 
@@ -36,6 +37,7 @@ func _set_reg(new_reg : ElementRegister) -> void:
 	if element_register: element_register.element_quantity_changed.disconnect(_on_quantity_changed)
 	element_register = new_reg
 	register_changed.emit()
+	if element_register == null: return
 	element_register.element_quantity_changed.connect(_on_quantity_changed)
 
 func _on_quantity_changed(_new_quantity : int): if !active_object: _restock()
@@ -65,9 +67,19 @@ func request_insert(object : DraggableObject) -> bool:
 			return false
 	elif is_output and !homogeneous_insert: return false #? Cannot insert element into output of a different element
 	
+	## SEPARATOR
+	if is_separator:
+		if !homogeneous_insert and element_register: return false
+		else:
+			active_object = object
+			element_register = object_reg
+			slot_changed.emit()
+			return true #? Successful as input
+	
 	## INPUT
 	if !is_instance_valid(active_object): 
 		active_object = object
+		element_register = object_reg
 		slot_changed.emit()
 		return true #? Successful as input
 	else: #? Already filled

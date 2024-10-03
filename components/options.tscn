@@ -20,6 +20,14 @@ script = ExtResource("1_cyq4y")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_gup4m")
 
+[node name="ScreenFilter" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0434298, 0.0213921, 0.106189, 0.486275)
+
 [node name="OptionsControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -30,31 +38,23 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("3_urf2e")
 
-[node name="Shadow" type="ColorRect" parent="OptionsControl"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0434298, 0.0213921, 0.106189, 0.486275)
-
 [node name="OptionsMenu" type="TabContainer" parent="OptionsControl"]
-custom_minimum_size = Vector2(350, 500)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
+anchor_left = 0.43
+anchor_right = 0.577
 anchor_bottom = 1.0
-offset_left = 402.0
+offset_left = -148.4
 offset_top = 51.0
-offset_right = -401.0
+offset_right = 140.44
 offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
 
 [node name="MAIN_OPTIONS" type="Control" parent="OptionsControl/OptionsMenu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -206,7 +206,6 @@ size_flags_vertical = 0
 texture_normal = ExtResource("6_no68u")
 
 [node name="CONTROLS" type="Control" parent="OptionsControl/OptionsMenu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -286,20 +285,31 @@ theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "RIGHT"
 keybind = "move_right"
 
-[node name="ENTER" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+[node name="SPACE" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
 layout_mode = 2
-text = "ENTER"
+text = "PAUSE"
 horizontal_alignment = 2
 
-[node name="ENTER_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
+[node name="SPACE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
-text = "ENTER"
-keybind = "enter"
+text = "SPACE"
+keybind = "space"
+
+[node name="SWITCH_MENU" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+layout_mode = 2
+text = "SWITCH_MENU"
+horizontal_alignment = 2
+
+[node name="SWITCH_MENU_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+text = "SWITCH_MENU"
+keybind = "switch_menu"
 
 [node name="ESCAPE" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
 layout_mode = 2
-text = "ESCAPE"
+text = "OPTIONS"
 horizontal_alignment = 2
 
 [node name="ESCAPE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
@@ -308,16 +318,16 @@ theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "ESCAPE"
 keybind = "escape"
 
-[node name="SPACE" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
+[node name="ENTER" type="Label" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid"]
 layout_mode = 2
-text = "SPACE"
+text = "TURN"
 horizontal_alignment = 2
 
-[node name="SPACE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
+[node name="ENTER_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
-text = "SPACE"
-keybind = "space"
+text = "ENTER"
+keybind = "enter"
 
 [node name="ResetKeybinds" type="Button" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container"]
 layout_mode = 2

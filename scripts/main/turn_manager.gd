@@ -83,6 +83,9 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 	## Schedule finished
 	schedule_finished.emit()
 
+func _on_schedule_finished() -> void:
+	if infinite: run_schedule()
+
 func _process(_delta) -> void:
 	var load_status = ResourceLoader.load_threaded_get_status(entity_scene_path, entity_load_progress)
 	match load_status:
@@ -90,9 +93,7 @@ func _process(_delta) -> void:
 			set_process(false)
 			printerr("ERROR LOADING SCENE | Scene path may be wrong or invalid")
 			return
-		1: #? THREAD_LOAD_IN_PROGRESS
-			pass
-			# emit_signal("progress_changed", entity_load_progress[0])
+		1: pass #? THREAD_LOAD_IN_PROGRESS
 		3: #? THREAD_LOAD_LOADED
 			loaded_entity = ResourceLoader.load_threaded_get(entity_scene_path)
 			entity_scene_loaded.emit()
@@ -143,6 +144,3 @@ func execute_wave(wave : Wave) -> void:
 	wave_completed.emit()
 	return
 #endregion
-
-func _on_schedule_finished() -> void:
-	if infinite: run_schedule()

@@ -23,14 +23,14 @@ const SCREEN_DICT : Array = [ #? Different configurations to screen (Borderless 
 	"EXCLUSIVE FULLSCREEN"
 ]
 const DEFAULT_KEY_DICT : Dictionary = { #? Default keybinds that is loaded when the game is first loaded. This needs to change to each game!
-	"enter": 4194309,
-	"escape": 4194305,
-	"space": 32,
-	"move_up": 4194320,
-	"move_down": 4194322,
-	"move_left": 4194319,
-	"move_right": 4194321
-	
+	"enter": 4194309, #| Enter
+	"escape": 4194305, #| Esc
+	"space": 32, #| Space
+	"move_up": 87, #| W
+	"move_down": 83, #| S
+	"move_left": 65, #| A
+	"move_right": 68, #| D
+	"switch_menu": 81 #| Q
 }
 const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded when the game is first loaded
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
@@ -217,7 +217,6 @@ func _screen_mode_update() -> void:
 # Even so, his tutorial is great and explore more details about registering and updating keybindings, check it out:
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial
-
 func _load_keys(): ## Load keybiding file with player configuration
 	var file = FileAccess.open(KEYBIND_FILE_PATH, FileAccess.READ_WRITE)
 	if (FileAccess.file_exists(KEYBIND_FILE_PATH)):
@@ -229,7 +228,9 @@ func _load_keys(): ## Load keybiding file with player configuration
 		if(typeof(data) == TYPE_DICTIONARY): key_dict = data; setup_keys() #? Valid!
 		elif data == {} or !data: _reset_keys(); push_warning("CAUTION | File is empty. Populating input binds")
 		else: push_error("ERROR | Data from keybind file exists, but it is either corrupted or in another format.")
-	else: push_error("ERROR | Keybind path is invalid! Unable to save keybinds.")
+	else:
+		_reset_keys()
+		push_error("ERROR | Keybind path ", KEYBIND_FILE_PATH, " is invalid! Unable to save keybinds.")
 
 func _reset_keys():
 	key_dict = DEFAULT_KEY_DICT.duplicate() #? If not a duplicate, key_dict would just point to a constant value. Thus, it would render the dict READ_ONLY and block further modifications!

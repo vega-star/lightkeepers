@@ -13,6 +13,7 @@ signal tower_placed
 var num_towers_placed : int = 0
 var stage : Stage
 var tower : TileObject
+var tower_name : String
 var stored_cost : int
 var valid : bool
 var position_valid : bool = true
@@ -22,11 +23,12 @@ func _ready():
 	await _update_button()
 
 func _update_button():
-	var load_tower = target_tower_scene.instantiate()
+	var load_tower : Tower = target_tower_scene.instantiate()
 	stored_cost = load_tower.default_tower_cost
 	cost_label.set_text(str(stored_cost))
 	tower_sprite.set_texture(load_tower.tower_icon)
 	set_tooltip_text(TranslationServer.tr(load_tower.name.to_upper()))
+	tower_name = load_tower.tower_name
 	load_tower.queue_free()
 
 func _on_gui_input(event) -> void:
@@ -45,10 +47,12 @@ func _on_gui_input(event) -> void:
 				tower.queue_free()
 	
 	if event is InputEventMouseButton and event.button_mask == 1 and valid: # Left mouse click. Runs only once
+		tower_selected.emit()
 		tower = target_tower_scene.instantiate()
 		tower.global_position = event.global_position
 		tower.visible_range = true
 		tower.top_level = true
+		tower.prop = true
 		add_child(tower)
 		tower.process_mode = Node.PROCESS_MODE_DISABLED
 	

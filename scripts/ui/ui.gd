@@ -16,27 +16,36 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 @export var shop_button_group : ButtonGroup
 @export var hide_elements_when_start : bool = true
 
-@onready var essence_slots : GridContainer = $Screen/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var element_slots : BoxContainer = $Screen/Elements/ElementContainer/ElementInterface/ElementSlots
-@onready var play_button: TextureButton = $Screen/CornerPanel/PlayButton
-@onready var life_icon: TextureButton = $Screen/Status/DataContainer/LifeIcon
-@onready var life_label: Label = $Screen/Status/DataContainer/LifeLabel
-@onready var wave_counter: Label = $Screen/Status/TurnContainer/WaveCounter
-@onready var coin_label: Label = $Screen/Status/DataContainer/CoinLabel
-@onready var options_button: TextureButton = $Screen/Tools/OptionsButton
-@onready var hide_button : TextureButton = $Screen/Elements/HideButton
-@onready var corner_panel : Panel = $Screen/CornerPanel
-@onready var towers_panel : Panel = $Screen/Shop/Towers
-@onready var elements_storage_panel : Panel = $Screen/Shop/Elements
-@onready var element_container : BoxContainer = $Screen/Elements
-@onready var element_container_storage : BoxContainer = $Screen/Elements/ElementContainer
-@onready var elements_grid : GridContainer = $Screen/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var info_container : VBoxContainer = $Screen/Info
-@onready var debug_label : Label = $Screen/Info/DebugLabel
-@onready var tile_description_label : Label = $Screen/Info/TileDescriptionLabel
-@onready var object_description_label : Label = $Screen/Info/ObjectDescriptionLabel
-@onready var tower_panel : TowerPanel = $Screen/TowerPanel
-@onready var fuse_system : FuseSystem = $Screen/Elements/ElementContainer/FusePanel/FuseSystem
+#region Screen Nodes
+@onready var life_icon : TextureButton = $UILayer/Screen/Status/DataContainer/LifeIcon
+@onready var life_label : Label = $UILayer/Screen/Status/DataContainer/LifeLabel
+@onready var wave_counter : Label = $UILayer/Screen/Status/TurnContainer/WaveCounter
+@onready var coin_label : Label = $UILayer/Screen/Status/DataContainer/CoinLabel
+@onready var info_container : VBoxContainer = $UILayer/Screen/Info
+@onready var debug_label : Label = $UILayer/Screen/Info/DebugLabel
+@onready var tile_description_label : Label = $UILayer/Screen/Info/TileDescriptionLabel
+@onready var object_description_label : Label = $UILayer/Screen/Info/ObjectDescriptionLabel
+@onready var options_button : TextureButton = $UILayer/Screen/Tools/OptionsButton
+#endregion
+
+#region Menu Nodes
+@onready var essence_slots : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
+@onready var element_slots : BoxContainer = $UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots
+@onready var play_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/PlayButton
+@onready var hide_button : TextureButton = $UILayer/Menu/Elements/HideButton
+@onready var corner_panel : Panel = $UILayer/Menu/CornerPanel
+@onready var towers_panel : Panel = $UILayer/Menu/Shop/Towers
+@onready var elements_storage_panel : Panel = $UILayer/Menu/Shop/Elements
+@onready var element_container : BoxContainer = $UILayer/Menu/Elements
+@onready var element_container_storage : BoxContainer = $UILayer/Menu/Elements/ElementContainer
+@onready var elements_grid : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
+@onready var fuse_system : FuseSystem = $UILayer/Menu/Elements/ElementContainer/FusePanel/FuseSystem
+@onready var tower_name_button : Button = $UILayer/Menu/Shop/Towers/TowerName/TowerNameButton
+@onready var tower_grid : GridContainer = $UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid
+@onready var element_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/ElementButton
+#endregion
+
+@onready var tower_panel : TowerPanel = $UILayer/TowerPanel
 
 var previous_life : int
 var previous_coins : int
@@ -48,7 +57,12 @@ var speed_toggled : bool = false
 func _ready():
 	set_visible(false)
 	if hide_elements_when_start: hide_button.pressed.emit()
-	for button in shop_button_group.get_buttons(): button.pressed.connect(func(): _on_shop_button_pressed(button.get_index()))
+	for tower_button in tower_grid.get_children():
+		if !tower_button.is_node_ready(): await tower_button.ready
+		tower_button.tower_selected.connect(_update_tower_name.bind(
+			tower_button.tower,
+			tower_button.tower_name
+		))
 
 func update_coins(coins : int): update_label(coin_label, coins, previous_coins); previous_coins = coins
 
@@ -62,20 +76,16 @@ func _purge_elements() -> void: for c in elements_grid.get_children(): c.queue_f
 #endregion
 
 #region Inputs and buttons
-func _input(_event) -> void: if Input.is_action_just_pressed('enter'): turn_pass_requested.emit()
+func _input(_event) -> void:
+	if Input.is_action_just_pressed('enter'): turn_pass_requested.emit()
+	if Input.is_action_just_pressed('switch_menu'): element_button.set_pressed(!element_button.button_pressed)
 
 func _on_play_button_pressed(): turn_pass_requested.emit()
 
 func _on_autoplay_button_toggled(toggled_on): autoplay_toggled.emit(toggled_on)
 
-func _on_shop_button_pressed(index : int):
-	match index:
-		0: #! Towers buttons pressed
-			elements_storage_panel.set_visible(false)
-			towers_panel.set_visible(true)
-		1: #! Elements buttons pressed
-			towers_panel.set_visible(false)
-			elements_storage_panel.set_visible(true)
+func _update_tower_name(_tower : Tower, tname : String):
+	tower_name_button.set_text(tname)
 
 func update_label(label : Label, new_value : int, previous_value : int, timer : float = DEFAULT_LABEL_MODULATE_TIMER):
 	var modulate_color : Color
@@ -110,6 +120,14 @@ func _on_hide_button_pressed() -> void:
 	
 	element_container_storage.visible = !element_menu_hidden
 	fuse_system._remove_prop()
+
+func _on_element_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		towers_panel.set_visible(false)
+		elements_storage_panel.set_visible(true)
+	else:
+		elements_storage_panel.set_visible(false)
+		towers_panel.set_visible(true)
 
 func _on_speed_button_pressed() -> void:
 	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true

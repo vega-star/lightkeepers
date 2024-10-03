@@ -55,6 +55,7 @@ func change(amount : int, negative : bool = true, source = null):
 	if health <= 0: invoke_death(source)
 
 func invoke_death(source):
+	if !is_instance_valid(source): return
 	if source is Tower: source.tower_kill_count += 1
 	
 	if lives > 1:

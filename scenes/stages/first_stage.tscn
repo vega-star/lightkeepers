@@ -49,6 +49,7 @@ color = Color(0, 0, 0, 1)
 [node name="PlaceholderEffectLayer" parent="StageEffects" instance_placeholder="res://scenes/ui/ui_screen_effect_layer.tscn"]
 
 [node name="DarknessLayer" type="CanvasModulate" parent="StageEffects"]
+visible = false
 color = Color(0.0383973, 0.0383972, 0.0383965, 1)
 
 [node name="StageManager" type="Node" parent="."]
@@ -61,7 +62,6 @@ script = ExtResource("3_xxwxp")
 turn_schedule = ExtResource("5_in44l")
 enemy_spawn_point = NodePath("../../Containers/SpawnPosition")
 infinite = true
-debug = true
 
 [node name="SpawnTimer" type="Timer" parent="StageManager/TurnManager"]
 process_mode = 1
@@ -154,6 +154,7 @@ width = 5.0
 [node name="LightAreaComponent" parent="." instance=ExtResource("11_x4sy4")]
 
 [node name="MouseLight" parent="LightAreaComponent" groups=["mouse_light"] instance=ExtResource("12_oob5i")]
+shadow_enabled = false
 
 [node name="Containers" type="Node2D" parent="."]
 process_mode = 1

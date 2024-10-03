@@ -28,14 +28,14 @@ var tower : Tower
 
 func _ready() -> void:
 	var stage = get_tree().get_first_node_in_group('stage')
-	if upgrade_tree_1: upgrade_tree_1.duplicate(true); upgrade_trees_array.append(upgrade_tree_1)
-	if upgrade_tree_2: upgrade_tree_2.duplicate(true); upgrade_trees_array.append(upgrade_tree_2)
-	if upgrade_tree_3: upgrade_tree_3.duplicate(true); upgrade_trees_array.append(upgrade_tree_3)
+	if upgrade_tree_1: upgrade_tree_1 = upgrade_tree_1.duplicate(true); upgrade_trees_array.append(upgrade_tree_1)
+	if upgrade_tree_2: upgrade_tree_2 = upgrade_tree_2.duplicate(true); upgrade_trees_array.append(upgrade_tree_2)
+	if upgrade_tree_3: upgrade_tree_3 = upgrade_tree_3.duplicate(true); upgrade_trees_array.append(upgrade_tree_3)
 	tower = owner
 	stage_manager = stage.stage_manager
 
 func _request_upgrade(upgrade_tree : TowerUpgradeTree) -> bool:
-	if (upgrade_tree.tier > upgrade_tree.upgrades.size()): return false
+	if (upgrade_tree.tier + 1 > upgrade_tree.upgrades.size()): print('Upgrade overflow'); return false
 	
 	var next_tier : int = upgrade_tree.tier + 1
 	var upgrade : Upgrade = upgrade_tree.upgrades[upgrade_tree.tier]

@@ -13,21 +13,25 @@
 [node name="TowerPanel" type="Panel"]
 offset_top = 56.0
 offset_right = 281.0
-offset_bottom = 645.0
+offset_bottom = 720.0
 mouse_filter = 2
 theme = ExtResource("1_cy4x5")
 script = ExtResource("2_emv2q")
 focus_button_group = ExtResource("3_ansxj")
+metadata/_edit_horizontal_guides_ = [720.0]
+metadata/_edit_vertical_guides_ = [1280.0]
 
 [node name="ExtraPanel" type="Panel" parent="."]
+visible = false
 z_index = -1
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 281.0
 offset_right = 143.0
-offset_bottom = 589.0
-grow_horizontal = 0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ElementSlots" type="VBoxContainer" parent="ExtraPanel"]
 layout_mode = 1
@@ -134,13 +138,21 @@ texture_normal = ExtResource("3_7ki8e")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="UpgradeSlot" parent="." instance=ExtResource("4_v4mjq")]
+layout_mode = 2
+offset_left = 91.0
+offset_top = 229.0
+offset_right = 187.0
+offset_bottom = 325.0
+size_flags_horizontal = 4
+
 [node name="Upgrades" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 11.0
-offset_top = 227.0
+offset_top = 338.0
 offset_right = -13.0
 offset_bottom = -59.0
 grow_horizontal = 2
@@ -219,10 +231,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -27.0
+offset_left = -35.0
 offset_top = 5.0
 offset_right = -5.0
-offset_bottom = 47.0
+offset_bottom = 46.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 24
 text = "X"

@@ -1,11 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://cdgvmycunep3f"]
+[gd_scene load_steps=25 format=3 uid="uid://cdgvmycunep3f"]
 
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/towers/tower.tscn" id="1_wel7w"]
 [ext_resource type="PackedScene" uid="uid://cupxwutf72o83" path="res://components/projectiles/cannon_projectile.tscn" id="2_k2kr6"]
 [ext_resource type="Texture2D" uid="uid://5ip5d0re285c" path="res://assets/sprites/turrets/cannon.png" id="3_dq8sw"]
 [ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="3_w1am6"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="4_74n68"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="4_hs554"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="5_6yeod"]
 
 [sub_resource type="Resource" id="Resource_6iduf"]
@@ -98,57 +97,15 @@ resource_local_to_scene = true
 script = ExtResource("3_w1am6")
 upgrades = Array[ExtResource("4_74n68")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
-atlas = ExtResource("4_hs554")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g3qe0"]
-atlas = ExtResource("4_hs554")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hmkmr"]
-atlas = ExtResource("4_hs554")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1bh70"]
-atlas = ExtResource("4_hs554")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gj80s"]
-atlas = ExtResource("4_hs554")
-region = Rect2(0, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_52wpk"]
-atlas = ExtResource("4_hs554")
-region = Rect2(0, 160, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_yos0f"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_tn4nf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ck6dk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g3qe0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hmkmr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1bh70")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gj80s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_52wpk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ck6dk")
+"texture": ExtResource("3_dq8sw")
 }],
-"loop": false,
-"name": &"firing",
-"speed": 11.0
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
@@ -156,8 +113,6 @@ radius = 160.0
 
 [node name="Cannon_Tower" instance=ExtResource("1_wel7w")]
 default_projectile = ExtResource("2_k2kr6")
-default_burst = 3
-default_firing_cooldown = 2.0
 tower_name = "Cannon"
 
 [node name="TowerUpgrades" parent="." index="0"]
@@ -166,16 +121,21 @@ upgrade_tree_2 = SubResource("Resource_loc58")
 upgrade_tree_3 = SubResource("Resource_loc58")
 
 [node name="TowerSprite" parent="." index="2"]
-visible = true
 z_index = 50
 texture = ExtResource("3_dq8sw")
 flip_h = true
 
 [node name="TowerGunSprite" parent="." index="3"]
-visible = false
-sprite_frames = SubResource("SpriteFrames_yos0f")
+sprite_frames = SubResource("SpriteFrames_tn4nf")
+animation = &"default"
 frame = 0
 frame_progress = 0.0
+
+[node name="TowerGunMuzzle" parent="TowerGunSprite" index="0"]
+position = Vector2(19, -0.500001)
+
+[node name="TowerAim" parent="TowerGunSprite/TowerGunMuzzle" index="0"]
+target_position = Vector2(160, 0)
 
 [node name="TowerRangeShape" parent="TowerRangeArea" index="0"]
 shape = SubResource("CircleShape2D_4qdcu")

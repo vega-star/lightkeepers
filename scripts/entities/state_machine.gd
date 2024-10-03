@@ -35,6 +35,8 @@ func _ready() -> void:
 			states.append(child)
 			child.transition.connect(_on_child_transition)
 	
+	if !entity.is_node_ready(): await entity.ready
+	
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
@@ -42,11 +44,11 @@ func _ready() -> void:
 		states[0].enter()
 		current_state = initial_state
 
-func _process(delta : float) -> void:
-	if current_state: current_state.state_update(delta)
+## Upgrades current state _process
+func _process(delta : float) -> void: if current_state: current_state.state_update(delta)
 
-func _physics_process(delta : float) -> void:
-	if current_state: current_state.state_physics_update(delta)
+## Upgrades current state _physics_process
+func _physics_process(delta : float) -> void: if current_state: current_state.state_physics_update(delta)
 
 func _on_child_transition(previous_state : State, next_state : State) -> void:
 	assert(previous_state); assert(next_state)
@@ -58,3 +60,5 @@ func _on_child_transition(previous_state : State, next_state : State) -> void:
 func change_conditional(key : Variant, value : Variant) -> void:
 	if debug: print('STATE MACHINE | {2} CONDITION CHANGED: {0} | {1}'.format({0: key, 1: value, 2: owner.name}))
 	state_conditions[key] = value
+
+func is_active_state(state : State) -> bool: return (state == current_state) 
