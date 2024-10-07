@@ -102,7 +102,6 @@ func _purge():
 #region Element Manipulation
 ## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
 func query_metadata(element_id : String, meta : String) -> Variant:
-	print('Requested metadata from ', element_id, ' with key ', meta)
 	if !ELEMENT_METADATA.has(element_id): print('NOT FOUND!'); return null
 	return ELEMENT_METADATA[element_id][meta]
 
@@ -172,6 +171,8 @@ func add_element(
 		var _object = _set_object(control_slot.slot, element)
 		control_slot.slot.element_register = register
 		control_slot.slot.slot_type = element_type
+		UI.HUD.bind_element_picked_signal(control_slot.slot.slot_object_picked)
+		
 		active_registers.append(register)
 		return register
 #endregion
@@ -203,9 +204,9 @@ func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject:
 	if reg.quantity >= 1:
 		var regen_object = _set_object(slot, reg.element)
 		reg.quantity - 1
-		print('ElementManager | New object generated on', slot.get_path())
+		# print('ElementManager | New object generated on', slot.get_path())
 		return regen_object
 	else: #! Register empty
-		print('ElementManager | Output cannot generate object because quantity is zero!')
+		push_warning('ElementManager | Output cannot generate object because quantity is zero!')
 		return null
 #endregion

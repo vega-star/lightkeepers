@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3tvxsgupe3gs"]
+[gd_scene load_steps=9 format=3 uid="uid://b3tvxsgupe3gs"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_cy4x5"]
 [ext_resource type="Script" path="res://scripts/main/tower_panel.gd" id="2_emv2q"]
-[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="2_i25mg"]
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="3_5y2yf"]
 [ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/prototypes/next_button.png" id="3_7ki8e"]
 [ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_ansxj"]
@@ -12,7 +11,7 @@
 
 [node name="TowerPanel" type="Panel"]
 offset_top = 56.0
-offset_right = 281.0
+offset_right = 265.0
 offset_bottom = 720.0
 mouse_filter = 2
 theme = ExtResource("1_cy4x5")
@@ -28,8 +27,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 281.0
-offset_right = 143.0
+offset_left = 265.0
+offset_right = 127.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -56,6 +55,19 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_horizontal = 4
 
+[node name="SplashPoint" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 168.0
+offset_bottom = 168.0
+grow_horizontal = 2
+
+[node name="TowerSplash" type="Sprite2D" parent="SplashPoint"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_hls82")
+
 [node name="TowerLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -63,6 +75,8 @@ anchor_right = 1.0
 offset_top = 2.0
 offset_bottom = 47.0
 grow_horizontal = 2
+theme = ExtResource("1_cy4x5")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "TOWER_NAME"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -77,33 +91,24 @@ offset_top = 28.0
 offset_right = 20.0
 offset_bottom = 64.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 18
+theme = ExtResource("1_cy4x5")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SplashPoint" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 128.0
-offset_bottom = 128.0
-grow_horizontal = 2
-
-[node name="TowerSplash" type="Sprite2D" parent="SplashPoint"]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_hls82")
-
 [node name="FocusContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 25.0
-offset_top = 190.0
+offset_top = 294.0
 offset_right = -27.0
-offset_bottom = 220.0
+offset_bottom = -340.0
 grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PreviousButton" type="TextureButton" parent="FocusContainer"]
 custom_minimum_size = Vector2(30, 0)
@@ -140,10 +145,14 @@ stretch_mode = 5
 
 [node name="UpgradeSlot" parent="." instance=ExtResource("4_v4mjq")]
 layout_mode = 2
-offset_left = 91.0
-offset_top = 229.0
-offset_right = 187.0
-offset_bottom = 325.0
+anchor_left = 0.495
+anchor_top = 0.345
+anchor_right = 0.495
+anchor_bottom = 0.345
+offset_left = -48.095
+offset_top = -48.08
+offset_right = 47.905
+offset_bottom = 47.92
 size_flags_horizontal = 4
 
 [node name="Upgrades" type="VBoxContainer" parent="."]
@@ -151,9 +160,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 11.0
+offset_left = 8.0
 offset_top = 338.0
-offset_right = -13.0
+offset_right = -8.0
 offset_bottom = -59.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -180,7 +189,7 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Container" type="HBoxContainer" parent="TowerValuePanel"]
+[node name="ValueContainer" type="HBoxContainer" parent="TowerValuePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -190,41 +199,24 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CoinIcon" type="TextureButton" parent="TowerValuePanel/Container"]
+[node name="CoinIcon" type="TextureButton" parent="TowerValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("3_5y2yf")
 stretch_mode = 6
 
-[node name="Value" type="Label" parent="TowerValuePanel/Container"]
+[node name="Value" type="Label" parent="TowerValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "150"
 
-[node name="SellButton" type="Button" parent="TowerValuePanel/Container"]
+[node name="SellButton" type="Button" parent="TowerValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_cy4x5")
 text = "SELL"
 icon_alignment = 2
 expand_icon = true
-
-[node name="Slot1" parent="." instance=ExtResource("2_i25mg")]
-modulate = Color(1, 1, 1, 0.423529)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -48.0
-offset_top = 80.0
-offset_right = 48.0
-offset_bottom = 176.0
-grow_horizontal = 2
-size_flags_horizontal = 2
-size_flags_vertical = 3
-
-[node name="Slot" parent="Slot1" index="0"]
-slot_type = 0
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 1
@@ -240,7 +232,7 @@ theme_override_font_sizes/font_size = 24
 text = "X"
 flat = true
 
-[connection signal="pressed" from="TowerValuePanel/Container/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="input_quantity_updated" from="UpgradeSlot" to="." method="_on_upgrade_slot_input_quantity_updated"]
+[connection signal="register_updated" from="UpgradeSlot" to="." method="_on_upgrade_slot_register_updated"]
+[connection signal="pressed" from="TowerValuePanel/ValueContainer/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
-
-[editable path="Slot1"]

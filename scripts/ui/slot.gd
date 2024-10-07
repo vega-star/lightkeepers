@@ -5,6 +5,7 @@
 class_name Slot extends StaticBody2D
 
 signal register_changed
+signal slot_object_picked(reg : ElementRegister)
 signal slot_changed
 
 const HOVERED_COLOR : Color = Color(1.5, 1.5, 1.5)
@@ -30,7 +31,9 @@ func _ready() -> void:
 func _set_object(new_object : DraggableObject) -> void:
 	if is_instance_valid(active_object): active_object.object_picked.disconnect(_remove_object)
 	if !new_object: active_object = null; return
+	
 	active_object = new_object
+	active_object.object_picked.connect(_on_object_picked)
 	active_object.object_picked.connect(_remove_object)
 
 func _set_reg(new_reg : ElementRegister) -> void:
@@ -41,6 +44,8 @@ func _set_reg(new_reg : ElementRegister) -> void:
 	element_register.element_quantity_changed.connect(_on_quantity_changed)
 
 func _on_quantity_changed(_new_quantity : int): if !active_object: _restock()
+
+func _on_object_picked() -> void: slot_object_picked.emit(element_register) #? Signal relay and carry register
 
 func _restock() -> void: active_object = ElementManager._restock_output(self, element_register)
 

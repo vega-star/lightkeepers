@@ -10,7 +10,7 @@ signal element_quantity_changed(new_quantity : int)
 @export var slot : NodePath
 @export var quantity : int: set = set_quantity
 
-var debug : bool = true
+var debug : bool = false
 
 func set_quantity(new_quantity : int):
 	quantity = new_quantity

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui/ui_pause_layer.tscn" id="4_wwglg"]
 [ext_resource type="PackedScene" uid="uid://b0umly4sahrnr" path="res://scenes/ui/ui_transition_layer.tscn" id="6_iltc1"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_5653b"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_tsj0g"]
 
 [node name="UIComponent" type="Node"]
 process_mode = 3
@@ -17,7 +17,7 @@ layer = 100
 
 [node name="Interface" parent="." instance=ExtResource("3_4fskw")]
 layer = 25
-shop_button_group = SubResource("ButtonGroup_5653b")
+shop_button_group = SubResource("ButtonGroup_tsj0g")
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
 layer = 20

@@ -51,24 +51,27 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 @onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
 @onready var firing_cooldown_timer : Timer = $StateMachine/Firing/FiringCooldown
 
+## Turret metadata
+var target_priority : int
+var tower_value : int
+
+## Weapon values
 var damage : int
 var piercing : int
 var burst : int
 var projectile_quantity : int
+var firing_cooldown : float: set = _set_firing_cooldown
 
+## Node references
 var stage_camera : StageCamera
 var light_area : LightArea
 var light_shape : LightShape
+var bullet_container : Node2D
 var nexus_position : Vector2
-
 var target : Object
 var eligible_targets : Array[Object]
 
-var tower_value : int
-var target_priority : int
-var bullet_container : Node2D
-var firing_cooldown : float: set = _set_firing_cooldown
-
+## Custom setters
 var tower_kill_count : int:
 	set(new_count): tower_kill_count = new_count; tower_defeated_enemy.emit(tower_kill_count)
 	
@@ -78,6 +81,7 @@ var light_range : float:
 var tower_range : float: 
 	set(new_range): tower_range = new_range; _load_properties()
 
+## Booleans
 var visible_range : bool = false #? Defines if the tower area is visible
 var target_on_sight : bool = false #? Simple condition that can help controlling other behaviors
 var prop : bool = false #? Used when the turret is being dragged on screen and not truly in game

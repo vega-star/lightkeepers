@@ -13,16 +13,18 @@ base_piercing = 2
 base_seeking_weight = 0.2
 
 [node name="CPUParticles2D" parent="." index="1"]
-position = Vector2(8, 0)
+position = Vector2(24, 0)
+emitting = true
 lifetime = 2.0
 speed_scale = 2.0
-randomness = 0.5
+randomness = 0.0
 local_coords = true
 texture = ExtResource("2_elqe6")
 emission_shape = 3
 emission_rect_extents = Vector2(10, 1)
 direction = Vector2(-350, 0)
-spread = 5.0
+spread = 0.0
+initial_velocity_min = 150.0
 initial_velocity_max = 300.0
 scale_amount_min = 0.1
 scale_amount_max = 0.3

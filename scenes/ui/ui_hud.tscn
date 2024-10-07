@@ -550,6 +550,27 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
+[node name="ElementName" type="Panel" parent="UILayer/Menu/Shop/Elements"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="ElementNameButton" type="Button" parent="UILayer/Menu/Shop/Elements/ElementName"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+action_mode = 0
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
+
 [node name="ElementsScrollContainer" type="ScrollContainer" parent="UILayer/Menu/Shop/Elements"]
 clip_contents = false
 layout_mode = 1
@@ -557,7 +578,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = 8.0
+offset_top = 45.0
 offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2

@@ -66,8 +66,8 @@ func _fuse() -> bool:
 		invoke_prop = false
 		result_element_reg = ElementManager.add_element(result_element, 2, 1)
 		result_position = get_node(result_element_reg.control_slot).global_position
-		if delete_when_fused: pop(true)
-		else: pop()
+		if delete_when_fused: pop(true) #? Consume elements, destroying both
+		else: pop() #? Return both without consuming
 		result_element = null
 		result_element_reg = null
 		invoke_prop = true
@@ -75,7 +75,9 @@ func _fuse() -> bool:
 	return true
 
 ## Remove objects from input slots
-func pop(destroy : bool = false) -> void:
+func pop(
+		destroy : bool = false ## Only true when element is fused
+	) -> void:
 	if !is_instance_valid(input_1.active_object) or !is_instance_valid(input_2.active_object): return 
 	if destroy:
 		input_1._destroy_active_object()
@@ -96,5 +98,4 @@ func _remove_prop() -> void:
 		# await get_tree().create_timer(0.3).timeout
 		# prop_object._move_to(result_position + MOVEMENT_OFFSET)
 
-func _on_visibility_changed() -> void:
-	if !visible: _remove_prop()
+func _on_visibility_changed() -> void: if !visible: _remove_prop()

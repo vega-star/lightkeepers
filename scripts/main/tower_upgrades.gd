@@ -1,6 +1,7 @@
 class_name TowerUpgrades
 extends Node
 
+signal element_upgraded
 signal tower_upgraded
 
 const COST_MITIGATION_FACTOR : float = 0.8
@@ -24,7 +25,9 @@ enum UPGRADE_ADDRESSES {
 var upgrade_trees_array : Array[TowerUpgradeTree]
 
 var stage_manager : StageManager
-var tower : Tower
+var tower : Tower = owner
+var tower_element_lvl : int
+var tower_element_reg : ElementRegister
 
 func _ready() -> void:
 	var stage = get_tree().get_first_node_in_group('stage')

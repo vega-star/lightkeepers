@@ -8,12 +8,13 @@ const MOVEMENT_PERIOD : float = 0.2
 
 @export var focus_button_group : ButtonGroup
 
-@onready var tower_label: Label = $TowerLabel
-@onready var value: Label = $TowerValuePanel/Container/Value
+@onready var tower_label : Label = $TowerLabel
+@onready var value : Label = $TowerValuePanel/ValueContainer/Value
 @onready var focus_container : HBoxContainer = $FocusContainer
-@onready var focus_label: Label = $FocusContainer/FocusPanel/FocusLabel
-@onready var kill_counter: Label = $TowerLabel/KillCounter
+@onready var focus_label : Label = $FocusContainer/FocusPanel/FocusLabel
+@onready var kill_counter : Label = $TowerLabel/KillCounter
 @onready var upgrades_container : VBoxContainer = $Upgrades
+@onready var upgrade_slot : UpgradeSlot = $UpgradeSlot
 
 var slots : Array[UpgradePanel]
 var current_stage : Stage
@@ -51,6 +52,10 @@ func load_tower(new_tower : Tower) -> void:
 		_move(false)
 		tower = new_tower
 		upgrade_system = tower.tower_upgrades
+		
+		upgrade_slot.slot_register = tower.tower_upgrades.tower_element_reg
+		upgrade_slot.quantity = tower.tower_upgrades.tower_element_lvl
+		
 		new_tower.tower_updated.connect(_on_tower_updated)
 		new_tower.tower_defeated_enemy.connect(_on_tower_kill_count_updated)
 		await get_tree().create_timer(MOVEMENT_PERIOD).timeout
@@ -77,8 +82,7 @@ func _set_upgrade_info( upgrade_panel : UpgradePanel, tree_index : int ) -> bool
 	upgrade_panel.upgrade_tree = tree
 	upgrade_panel.progress_meter.set_value(tree.tier)
 	if tree.tier + 1 > tree.upgrades.size(): #? Upgrade tree finished
-		upgrade_panel.cost_label.set_text('')
-		return false
+		upgrade_panel.cost_label.set_text(''); return false
 	
 	var upgrade : Upgrade = tree.upgrades[tree.tier]
 	if upgrade.upgrade_icon: upgrade_panel.upgrade_button.set_texture_normal(upgrade.upgrade_icon)
@@ -127,4 +131,11 @@ func _on_upgrade_button_pressed(u_index : int) -> void:
 	var request = upgrade_system._request_upgrade(slots[u_index].upgrade_tree)
 	if request: tower.tower_updated.emit()
 	else: pass
+
+func _on_upgrade_slot_register_updated() -> void:
+	if is_instance_valid(tower): tower.tower_upgrades.tower_element_reg = upgrade_slot.slot_register
+
+func _on_upgrade_slot_input_quantity_updated() -> void:
+	print('Input quantity updated | Value: ', upgrade_slot.quantity)
+	if is_instance_valid(tower): tower.tower_upgrades.tower_element_lvl = upgrade_slot.quantity
 #endregion
