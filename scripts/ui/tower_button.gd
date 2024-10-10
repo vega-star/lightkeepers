@@ -33,18 +33,14 @@ func _update_button():
 
 func _on_gui_input(event) -> void:
 	if Input.is_action_pressed("alt") or Input.is_action_pressed("escape"):
-		if is_instance_valid(tower):
-			tower.light_shape.queue_free()
-			tower.queue_free()
+		if is_instance_valid(tower): tower.remove_object()
 		position_valid = false
 		valid = false
 		release_focus()
 	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			if is_instance_valid(tower):
-				tower.light_shape.queue_free()
-				tower.queue_free()
+			if is_instance_valid(tower): tower.remove_object()
 	
 	if event is InputEventMouseButton and event.button_mask == 1 and valid: # Left mouse click. Runs only once
 		tower_selected.emit()
@@ -80,7 +76,7 @@ func _try_insert() -> bool:
 	tower.visible_range = false
 	tower.top_level = false
 	var insert = stage.insert_tile_object(tower)
-	if !insert: tower.queue_free(); return false #? Couldn't insert object because insertion failed
+	if !insert: tower.remove_object(); return false #? Couldn't insert object because insertion failed
 	
 	tower._adapt_in_tile()
 	tower.process_mode = Node.PROCESS_MODE_INHERIT

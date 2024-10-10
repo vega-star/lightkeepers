@@ -232,7 +232,5 @@ theme_override_font_sizes/font_size = 24
 text = "X"
 flat = true
 
-[connection signal="input_quantity_updated" from="UpgradeSlot" to="." method="_on_upgrade_slot_input_quantity_updated"]
-[connection signal="register_updated" from="UpgradeSlot" to="." method="_on_upgrade_slot_register_updated"]
 [connection signal="pressed" from="TowerValuePanel/ValueContainer/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

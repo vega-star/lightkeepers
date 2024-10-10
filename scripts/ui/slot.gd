@@ -74,7 +74,14 @@ func request_insert(object : DraggableObject) -> bool:
 	
 	## SEPARATOR
 	if is_separator:
-		if !homogeneous_insert and element_register: return false
+		if !homogeneous_insert and element_register:
+			printerr(
+				'Insert failed because the stored object_reg is not equal to the requested element register | Current reg: ',
+				element_register.element.element_id,
+				' | Requested reg: ',
+				object_reg.element.element_id
+			)
+			return false
 		else:
 			active_object = object
 			element_register = object_reg

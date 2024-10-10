@@ -37,3 +37,5 @@ color = Color(0.054902, 0.0392157, 0.180392, 1)
 polygon = PackedVector2Array(88, 1, 107, 37, 107, 58, 88, 95, 54, 95, 54, 1)
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="input_quantity_updated" from="." to="." method="_on_input_quantity_updated"]
+[connection signal="register_updated" from="." to="." method="_on_register_updated"]

@@ -64,8 +64,8 @@ var firing_cooldown : float: set = _set_firing_cooldown
 
 ## Node references
 var stage_camera : StageCamera
-var light_area : LightArea
-var light_shape : LightShape
+var light_area : LightArea #? Global light area in Stage
+var light_shape : LightShape #? Individual light present in light area
 var bullet_container : Node2D
 var nexus_position : Vector2
 var target : Object
@@ -87,6 +87,7 @@ var target_on_sight : bool = false #? Simple condition that can help controlling
 var prop : bool = false #? Used when the turret is being dragged on screen and not truly in game
 #endregion
 
+#region Internal processes
 func _ready() -> void:
 	nexus_position = get_tree().get_first_node_in_group('nexus').global_position
 	light_area = get_tree().get_first_node_in_group('light_area')
@@ -137,8 +138,11 @@ func _draw() -> void:
 		draw_arc(to_local(global_position), tower_range_shape.shape.radius * set_zoom, 0, TAU, 50, range_draw_color, DRAW_WIDTH)
 		draw_circle(to_local(global_position), light_shape.shape.radius * set_zoom, Color(light_draw_color, CIRCLE_TRANSPARENCY), true)
 		draw_circle(to_local(global_position), tower_range_shape.shape.radius * set_zoom, Color(range_draw_color, CIRCLE_TRANSPARENCY), true)
+#endregion
 
+#region Called functions
 func remove_object() -> void:
-	AudioManager.emit_sound_effect(self.global_position, destroy_sound_effect_id)
+	# AudioManager.emit_sound_effect(self.global_position, destroy_sound_effect_id)
 	light_shape.queue_free()
 	queue_free()
+#endregion
