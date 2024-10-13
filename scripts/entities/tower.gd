@@ -145,4 +145,7 @@ func remove_object() -> void:
 	# AudioManager.emit_sound_effect(self.global_position, destroy_sound_effect_id)
 	light_shape.queue_free()
 	queue_free()
+
+func adapt_projectile() -> void:
+	pass
 #endregion

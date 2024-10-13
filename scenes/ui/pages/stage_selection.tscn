@@ -1,14 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://de52ovyt5s046"]
+[gd_scene load_steps=5 format=3 uid="uid://de52ovyt5s046"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_stage_selection.gd" id="1_4ms2o"]
 [ext_resource type="PackedScene" uid="uid://bt42xu4vm08n" path="res://scenes/ui/pages/guidance_button.tscn" id="2_cnkw1"]
 [ext_resource type="Script" path="res://scripts/ui/ui_stage_button.gd" id="3_3yj0j"]
-[ext_resource type="Script" path="res://scripts/resources/stage_info.gd" id="4_0hmxp"]
-
-[sub_resource type="Resource" id="Resource_bsvp5"]
-script = ExtResource("4_0hmxp")
-selected_stage_path = "res://scenes/stages/first_stage.tscn"
-locked = false
+[ext_resource type="Resource" uid="uid://i371oq72kdxm" path="res://scenes/stages/stage_info/stage_001.tres" id="4_qtlx8"]
 
 [node name="StageSelection" type="Control"]
 layout_mode = 3
@@ -49,30 +44,30 @@ columns = 5
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("3_3yj0j")
-stage_selection = SubResource("Resource_bsvp5")
+stage_selection = ExtResource("4_qtlx8")
 
 [node name="TextureButton2" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("3_3yj0j")
-stage_selection = SubResource("Resource_bsvp5")
+stage_selection = ExtResource("4_qtlx8")
 
 [node name="TextureButton3" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("3_3yj0j")
-stage_selection = SubResource("Resource_bsvp5")
+stage_selection = ExtResource("4_qtlx8")
 
 [node name="TextureButton4" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("3_3yj0j")
-stage_selection = SubResource("Resource_bsvp5")
+stage_selection = ExtResource("4_qtlx8")
 
 [node name="TextureButton5" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("3_3yj0j")
-stage_selection = SubResource("Resource_bsvp5")
+stage_selection = ExtResource("4_qtlx8")
 
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

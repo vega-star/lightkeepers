@@ -219,7 +219,7 @@ offset_bottom = 4.0
 
 [node name="OccupiedArea" type="CollisionShape2D" parent="TowerOccupiedArea"]
 shape = SubResource("CircleShape2D_sss3a")
-debug_color = Color(8.18223e-07, 0.621302, 0.555439, 0.42)
+debug_color = Color(0.356052, 0.48176, 1, 0.42)
 
 [node name="TowerRangeArea" type="Area2D" parent="."]
 collision_mask = 64

@@ -98,8 +98,7 @@ func _set_on_sight(toggle : bool):
 	on_sight = toggle
 	set_collision_layer_value(7, toggle)
 
-func _on_navigation_finished():
-	path_ended.emit()
+func _on_navigation_finished(): path_ended.emit()
 
 func _on_path_ended():
 	stage.stage_manager.change_health(damage_on_nexus)
@@ -109,4 +108,4 @@ func die(source):
 	if !source == nexus: stage.stage_manager.change_coins(enemy_value, true)
 	died.emit(source)
 	queue_free()
-	line_agent.queue_free()
+	if !smart_enemy: line_agent.queue_free()

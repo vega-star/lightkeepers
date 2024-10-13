@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=4 uid="uid://bh63bmc5k2mm2"]
+
+[ext_resource type="PackedScene" uid="uid://2stxk6mbvwbv" path="res://scenes/stages/stage.tscn" id="1_pr2rf"]
+
+[node name="StageZero" instance=ExtResource("1_pr2rf")]
+
+[node name="ObjectLayer" parent="." index="3"]
+tile_map_data = PackedByteArray("AAARAAQAAAAGAAAAAAATAAIAAAAGAAAAAAAWAAQAAAAGAAAAAAATAAQAAAAHAAAAAAAVAAYAAAAGAAAAAAD6/wsAAAAAAAAAAAD6/w0AAAAAAAAAAAD6/w4AAAAAAAAAAAD6/w8AAAAAAAAAAAD4/w8AAAAAAAAAAAD4/w4AAAAAAAAAAAD4/wwAAAAAAAAAAAD4/wsAAAAAAAAAAAD8/w8AAAAAAAAAAAD8/w0AAAAAAAAAAAD8/wwAAAAAAAAAAAD8/wsAAAAAAAAAAAA=")

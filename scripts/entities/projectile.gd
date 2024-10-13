@@ -41,7 +41,6 @@ func _ready():
 func _activate():
 	$CPUParticles2D.emitting = true
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_launched, "Effects", PITCH_VARIATION)
-	
 	await get_tree().create_timer(lifetime).timeout
 	_break()
 
