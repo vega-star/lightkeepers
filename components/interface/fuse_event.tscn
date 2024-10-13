@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://xrcvxw3gl6si"]
 
-[ext_resource type="Script" path="res://scripts/ui/fuse_system.gd" id="1_dh21w"]
+[ext_resource type="Script" path="res://scripts/ui/main/fuse_system.gd" id="1_dh21w"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_hb01d"]
 [ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_k2jnm"]
 [ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="2_oi50j"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0umly4sahrnr"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_transition_layer.gd" id="1_ntq45"]
+[ext_resource type="Script" path="res://scripts/ui/main/ui_transition_layer.gd" id="1_ntq45"]
 [ext_resource type="Material" uid="uid://dg5qaehepdne4" path="res://assets/materials/transition_shader.tres" id="2_wdt7s"]
 
 [sub_resource type="Animation" id="Animation_x68bt"]

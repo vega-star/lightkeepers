@@ -1,17 +1,16 @@
 [gd_scene load_steps=2 format=3 uid="uid://duxknnynvh60n"]
 
-[ext_resource type="Script" path="res://scripts/controls/stage_camera.gd" id="1_3p48j"]
+[ext_resource type="Script" path="res://scripts/main/stage_camera.gd" id="1_xtegr"]
 
 [node name="StageCamera" type="Camera2D" groups=["stage_camera"]]
 process_mode = 3
-limit_left = -700
-limit_top = -700
-limit_right = 2100
-limit_bottom = 1600
+limit_left = -20000
+limit_top = -10000
+limit_right = 20000
+limit_bottom = 10000
 limit_smoothed = true
 position_smoothing_speed = 1.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
-script = ExtResource("1_3p48j")
+script = ExtResource("1_xtegr")
 min_zoom = 1.0
-drag_multiplier = 1.0

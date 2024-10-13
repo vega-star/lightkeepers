@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://dabti1py4rn1a"]
 
-[ext_resource type="Script" path="res://scripts/ui/draggable_object.gd" id="1_sw81t"]
+[ext_resource type="Script" path="res://scripts/ui/drag/draggable_object.gd" id="1_sw81t"]
 [ext_resource type="LabelSettings" uid="uid://corgcjje16a0i" path="res://assets/theme/tresfiles/element_label_settings.tres" id="3_lon1o"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_vdtyu"]
 [ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="4_ffuvr"]
-[ext_resource type="Script" path="res://scripts/ui/draggable_object_sprite.gd" id="6_jtics"]
+[ext_resource type="Script" path="res://scripts/ui/drag/draggable_object_sprite.gd" id="6_jtics"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lqkb4"]
 shader = ExtResource("3_vdtyu")

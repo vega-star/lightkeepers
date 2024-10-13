@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://de52ovyt5s046"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_stage_selection.gd" id="1_4ms2o"]
+[ext_resource type="Script" path="res://scripts/ui/pages/pg_stage_selection.gd" id="1_4ms2o"]
 [ext_resource type="PackedScene" uid="uid://bt42xu4vm08n" path="res://scenes/ui/pages/guidance_button.tscn" id="2_cnkw1"]
-[ext_resource type="Script" path="res://scripts/ui/ui_stage_button.gd" id="3_3yj0j"]
+[ext_resource type="Script" path="res://scripts/ui/buttons/stage_button.gd" id="3_ktvd4"]
 [ext_resource type="Resource" uid="uid://i371oq72kdxm" path="res://scenes/stages/stage_info/stage_001.tres" id="4_qtlx8"]
 
 [node name="StageSelection" type="Control"]
@@ -16,58 +16,70 @@ script = ExtResource("1_4ms2o")
 
 [node name="ReturnButton" parent="." instance=ExtResource("2_cnkw1")]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -144.0
-offset_right = 144.0
+offset_top = 576.0
+offset_right = -1136.0
 offset_bottom = -16.0
-grow_vertical = 0
+grow_horizontal = 2
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 206.0
-offset_top = 110.0
-offset_right = -189.0
-offset_bottom = -112.0
+offset_left = 181.0
+offset_top = 89.0
+offset_right = -184.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
 theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
-columns = 5
+columns = 6
 
-[node name="TextureButton" type="Button" parent="GridContainer"]
+[node name="TextureButton" type="Button" parent="ScrollContainer/GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-script = ExtResource("3_3yj0j")
+script = ExtResource("3_ktvd4")
 stage_selection = ExtResource("4_qtlx8")
 
-[node name="TextureButton2" type="Button" parent="GridContainer"]
+[node name="TextureButton2" type="Button" parent="ScrollContainer/GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-script = ExtResource("3_3yj0j")
+script = ExtResource("3_ktvd4")
 stage_selection = ExtResource("4_qtlx8")
 
-[node name="TextureButton3" type="Button" parent="GridContainer"]
+[node name="TextureButton3" type="Button" parent="ScrollContainer/GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-script = ExtResource("3_3yj0j")
+script = ExtResource("3_ktvd4")
 stage_selection = ExtResource("4_qtlx8")
 
-[node name="TextureButton4" type="Button" parent="GridContainer"]
+[node name="TextureButton4" type="Button" parent="ScrollContainer/GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-script = ExtResource("3_3yj0j")
+script = ExtResource("3_ktvd4")
 stage_selection = ExtResource("4_qtlx8")
 
-[node name="TextureButton5" type="Button" parent="GridContainer"]
+[node name="TextureButton5" type="Button" parent="ScrollContainer/GridContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-script = ExtResource("3_3yj0j")
+script = ExtResource("3_ktvd4")
+stage_selection = ExtResource("4_qtlx8")
+
+[node name="TextureButton6" type="Button" parent="ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("3_ktvd4")
 stage_selection = ExtResource("4_qtlx8")
 
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

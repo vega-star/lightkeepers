@@ -21,6 +21,7 @@ const PITCH_VARIATION : Vector2 = Vector2(0.7,1.3)
 @export var sfx_when_broken : Array[String]
 
 @onready var projectile_sound = $ProjectileSound
+@onready var cpu_particles : CPUParticles2D = $CPUParticles2D
 
 var source : Tower
 var target : Object
@@ -30,6 +31,8 @@ var lifetime : float
 var piercing_count : int = 1
 var seeking_weight : float = 1
 var stored_direction : Vector2
+var init_pos : Vector2
+var element_metadata : Dictionary: set = _set_element_metadata #? Stores a series of values useful to effects, changing colors, etc. while not being attatched to the element itself
 
 func _ready():
 	seeking_weight = base_seeking_weight
@@ -39,12 +42,16 @@ func _ready():
 	_activate()
 
 func _activate():
-	$CPUParticles2D.emitting = true
+	# init_pos = global_position
+	cpu_particles.emitting = true
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_launched, "Effects", PITCH_VARIATION)
-	await get_tree().create_timer(lifetime).timeout
+	await get_tree().create_timer(lifetime).timeout # TODO: Personalized timer / distance delta
 	_break()
 
 func _physics_process(delta):
+	# var distance_delta = global_position.distance_squared_to(init_pos)
+	# print(distance_delta)
+	
 	match projectile_mode:
 		0: #| 'STRAIGHT'
 			global_position += Vector2(speed * delta, 0).rotated(rotation)
@@ -62,7 +69,10 @@ func _on_body_entered(body):
 		body.health_component.change(damage, true, source)
 		piercing_count -= 1
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
-	if piercing_count == 0: 
-		_break()
+	if piercing_count == 0: _break()
+
+func _set_element_metadata(new_metadata : Dictionary) -> void:
+	element_metadata = new_metadata
+	# element_metadata[]
 
 func _break(): AudioManager.emit_random_sound_effect(global_position, sfx_when_broken); queue_free()

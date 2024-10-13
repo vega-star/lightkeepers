@@ -3,8 +3,9 @@
 # Can be called anywhere on the game, but mostly used in UI actions and events 
 extends Node
 
+const BASE_QUANTITY : int = 2
 const SPRITES_PATH : String = "res://assets/sprites/elements/"
-const CONTROL_SLOT_SCENE : PackedScene = preload('res://components/interface/control_slot.tscn')
+const CONTROL_SLOT_SCENE : PackedScene = preload("res://components/interface/control_slot.tscn")
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/draggable_object.tscn")
 const DEFAULT_ELEMENT_COLOR : Color = Color("ffec83")
 const STARTING_ELEMENT_REG : Array[ElementRegister] = [
@@ -12,54 +13,85 @@ const STARTING_ELEMENT_REG : Array[ElementRegister] = [
 	preload("res://components/elements/default_registers/WaterRegister.tres"),
 	preload("res://components/elements/default_registers/AirRegister.tres"),
 	preload("res://components/elements/default_registers/EarthRegister.tres")]
+
 const ELEMENT_METADATA : Dictionary = {
 	"fire": {
-		"root_color": Color.ORANGE_RED
+		"type": 0,
+		"root_color": Color.ORANGE_RED,
+		"combinations": {
+			"fire": "conflagration",
+			"water": "steam",
+			"air": "lightning",
+			"earth": "metal",
+			"cursed": "scorch"
+		}
+	},
+	"conflagration": {
+		"type": 1,
+		"root_color": Color.RED,
+		"recipe": ["fire", "fire"],
+		"combinations": {}
 	},
 	"water": {
-		"root_color": Color.BLUE
+		"type": 0,
+		"root_color": Color.BLUE,
+		"effect": {
+			
+		},
+		"combinations": {
+			"water": "ice",
+			"fire": "steam",
+			"earth": "oil",
+			"air":  "rain",
+			"cursed": "abyss"
+		}
+	},
+	"ice": {
+		"type": 1,
+		"root_color": Color.AQUA,
+		"recipe": ["water", "water"],
+		"combinations": {}
 	},
 	"air": {
-		"root_color": Color.CYAN
+		"type": 0,
+		"root_color": Color.LIGHT_GRAY,
+		"combinations": {
+			"air": "turbulence",
+			"water": "rain",
+			"fire": "lightning",
+			"earth": "dust",
+			"cursed": "miasma"
+		}
+	},
+	"turbulence": {
+		"type": 1,
+		"root_color": Color.DARK_GRAY,
+		"recipe": ["turbulence", "turbulence"],
+		"combinations": {}
 	},
 	"earth": {
-		"root_color": Color.SADDLE_BROWN
+		"type": 0,
+		"root_color": Color.SADDLE_BROWN,
+		"combinations": {
+			"earth": "rock",
+			"fire": "metal",
+			"water": "oil",
+			"air": "dust",
+			"cursed": "rot"
+		}
+	},
+	"rock": {
+		"type": 1,
+		"root_color": Color.DARK_SLATE_GRAY,
+		"recipe": ["earth", "earth"],
+		"combinations": {}
 	},
 	"cursed": {
-		"root_color": Color.CRIMSON
-	}
-}
-const COMBINATIONS : Dictionary = {
-	"fire": {
-		"fire": "conflagration",
-		"water": "steam",
-		"air": 'lightning',
-		'earth': 'metal',
-		'cursed': 'scorch'
-	},
-	'water': {
-		'water': 'ice',
-		'fire': 'steam',
-		'earth': 'oil',
-		'air':  'rain',
-		'cursed': 'abyss'
-	},
-	'air': {
-		'air': 'turbulence',
-		'water': 'rain',
-		'fire': 'lightning',
-		'earth': 'dust',
-		'cursed': 'miasma'
-	},
-	'earth': {
-		'earth': 'mountain',
-		'fire': 'metal',
-		'water': 'oil',
-		'air': 'dust',
-		'cursed': 'rot'
-	},
-	'cursed': {
-		'cursed': 'profaned'
+		"type": 0,
+		"root_color": Color.CRIMSON,
+		"combinations": {
+			"cursed": "profaned"
+		}
 	}
 }
 
@@ -80,10 +112,10 @@ func _load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of spr
 		while file_name != "":
 			if elements_folder.current_is_dir(): pass #? Found directory, skip.
 			elif file_name.ends_with(".import"): #? Found an import file
-				var file = file_name.split(".") #? Will result in an array consisting in something similar as this: "['file_name', '[extension]', '.import']"
+				var file = file_name.split(".") #? Will result in an array consisting in something similar as this: "["file_name", "[extension]", ".import"]"
 				if elements_dict.has(file[0]): pass #? File was already loaded, skipping.
 				else: #? File not found in dict, thus loaded
-					var file_path = str(SPRITES_PATH + file[0] + '.' + file[1])
+					var file_path = str(SPRITES_PATH + file[0] + "." + file[1])
 					elements_dict[file[0]] = load(file_path)
 			else: pass #? Normal file
 			file_name = elements_folder.get_next()
@@ -92,37 +124,27 @@ func _load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of spr
 		push_error("An error occurred when trying to access the sprites path via DraggableObjectSprite class.")
 		return {}
 
-## Purge all elements, resetting everything! Used when restarting stages and such
-func _purge():
+func _purge(): ## Purge all elements, resetting everything! Used when restarting stages and such
 	active_registers.clear()
 	active_registers.append_array(STARTING_ELEMENT_REG)
-	for r in STARTING_ELEMENT_REG: r.quantity = 2 #? Reset to base quantity
+	for r in STARTING_ELEMENT_REG: r.quantity = BASE_QUANTITY #? Reset to base quantity
 #endregion
 
 #region Element Manipulation
-## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
-func query_metadata(element_id : String, meta : String) -> Variant:
-	if !ELEMENT_METADATA.has(element_id): print('NOT FOUND!'); return null
-	return ELEMENT_METADATA[element_id][meta]
+func query_metadata(element_id : String, meta : String = "") -> Variant: ## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
+	if !ELEMENT_METADATA.has(element_id): print("NOT FOUND!"); return null #? No key "element_id" found in element_metadata dict
+	if meta == "": return ELEMENT_METADATA[element_id] #? No meta string given, thus will return full metadata
+	else: return ELEMENT_METADATA[element_id][meta] #? Returning specific metadata
 
-## Returns an element ID from two other IDs by checking the COMBINATIONS dictionary
-func combine(first_element, second_element) -> String: 
-	if !COMBINATIONS.has(first_element) or !COMBINATIONS.has(second_element): return '' #! INVALID ELEMENTS
-	if !COMBINATIONS[first_element].has(second_element): return ' '#! No combination found
-	var result = COMBINATIONS[first_element][second_element]
+func combine(first_element, second_element) -> String: ## Returns an element ID from two other IDs by checking the metadata dictionary. Only returns the ID, no element is created!
+	if !ELEMENT_METADATA.has(first_element) or !ELEMENT_METADATA.has(second_element): return "" #! INVALID ELEMENTS
+	var combination_dict : Dictionary = ELEMENT_METADATA[first_element]["combinations"]
+	if !combination_dict.has(second_element): return "" #! INVALID COMBINATION
+	var result = combination_dict[second_element]
 	if result: return result
-	else: return ''
+	else: return ""
 
-## Recieves an ID of an essence generated by the combine function, returns the new_element
-func fuse(combination_id : String, add_directly : bool = false) -> Element: 
-	var combined_essence : Element = Element.new()
-	combined_essence.element_type = 1
-	combined_essence.element_id = combination_id
-	if add_directly: add_element(combined_essence)
-	return combined_essence
-
-## Generates a draggable object which can be located on containers in screen and attached into slots
-func generate_object(element : Element) -> DraggableObject:
+func generate_object(element : Element) -> DraggableObject: ## Generates a draggable object which can be located on containers in screen and attached into slots
 	var object = DRAGGABLE_OBJECT_SCENE.instantiate()
 	object.element = element
 	return object
@@ -130,16 +152,26 @@ func generate_object(element : Element) -> DraggableObject:
 ## Generates an Element resource from an ID and type
 func generate_element( 
 		type : int, ## [0: element, 1: essence]
-		id : String, ## [ex.: 'fire', 'water'] 
+		id : String, ## [ex.: "fire", "water"] 
+		add_directly : bool = true, ## Determines if it gets created as a fresh node or not
 	) -> Element:
 	var new_element = Element.new()
 	new_element.element_type = type
 	new_element.element_id = id
-	add_child(new_element)
+	if add_directly: add_child(new_element)
 	return new_element
 
-## Query an element to see if it already exists on the runtime array
-func query_element(id : String) -> ElementRegister:
+func split(element_id : String) -> void: ## Divide an essence by destroying it and retrieving its igredients
+	var reg = query_element(element_id)
+	var recipe = query_metadata(element_id, "recipe")
+	# reg.quantity -= 1 # Only in case the object is not deleted
+	for e in recipe:
+		var element : Element = Element.new()
+		element.element_type = 1
+		element.element_id = e
+		add_element(element)
+
+func query_element(id : String) -> ElementRegister: ## Query an element to see if it already exists on the runtime array
 	for reg in active_registers: if id == reg.element.element_id: return reg
 	return null
 
@@ -178,35 +210,32 @@ func add_element(
 #endregion
 
 #region Integration
-## Create and define ControlSlot
-func _set_control_slot(reg : ElementRegister) -> ControlSlot:
+func _set_control_slot(reg : ElementRegister) -> ControlSlot: ## Create and define ControlSlot
 	var control_slot : ControlSlot = CONTROL_SLOT_SCENE.instantiate()
-	control_slot.set_name('{0}{1}'.format({0: reg.element.element_id.capitalize(), 1: 'Container'}))
+	control_slot.set_name("{0}{1}".format({0: reg.element.element_id.capitalize(), 1: "Container"}))
 	control_slot.slot_register = reg
 	return control_slot
 
-## Create and define DraggableObject
-func _set_object(slot : Slot, element : Element, additional : String = '') -> DraggableObject:
+func _set_object(slot : Slot, element : Element, additional : String = "") -> DraggableObject: ## Create and define DraggableObject
 	var object : DraggableObject = generate_object(element)
-	object.set_name('{0}{1}{2}'.format({0: element.element_id.capitalize(), 1: 'Object', 2: additional}))
+	object.set_name("{0}{1}{2}".format({0: element.element_id.capitalize(), 1: "Object", 2: additional}))
 	object.active_slot = slot
 	object.home_slot = slot
 	slot.add_child(object)
 	slot.active_object = object
 	
 	if element_textures.has(element.element_id): object.object_element_sprite.set_texture(element_textures[element.element_id])
-	else: printerr(element.element_id, ' | Element sprite not found!')
+	else: printerr(element.element_id, " | Element sprite not found!")
 	return object
 
-## Restock slot
-func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject:
+func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject: ## Restock slot
 	if !slot.is_output: return null
 	if reg.quantity >= 1:
 		var regen_object = _set_object(slot, reg.element)
 		reg.quantity - 1
-		# print('ElementManager | New object generated on', slot.get_path())
+		# print("ElementManager | New object generated on", slot.get_path())
 		return regen_object
 	else: #! Register empty
-		push_warning('ElementManager | Output cannot generate object because quantity is zero!')
+		push_warning("ElementManager | Output cannot generate object because quantity is zero!")
 		return null
 #endregion

@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="9_fgewh"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="11_x4sy4"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="12_oob5i"]
-[ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="13_ggfcb"]
+[ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/ui/stage_camera.tscn" id="13_ggfcb"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2unhy"]
 
@@ -22,7 +22,6 @@ script = ExtResource("1_u513e")
 modulate_layer = NodePath("StageEffects/DarknessLayer")
 check_coordinate = true
 stage_songs = Array[String](["Active SL2024-08-07"])
-metadata/_edit_horizontal_guides_ = [360.0, -192.0, 896.0]
 
 [node name="StageEffects" type="Node" parent="."]
 

@@ -3,6 +3,7 @@ class_name Tower extends TileObject
 signal tower_updated
 signal tower_defeated_enemy(current_count : int)
 signal tower_detected_enemy
+signal tower_element_changed
 
 enum TARGET_PRIORITIES {
 	FIRST, ## First in place to reach nexus
@@ -63,6 +64,8 @@ var projectile_quantity : int
 var firing_cooldown : float: set = _set_firing_cooldown
 
 ## Node references
+var element_register : ElementRegister: set = adapt_register
+var element : Element
 var stage_camera : StageCamera
 var light_area : LightArea #? Global light area in Stage
 var light_shape : LightShape #? Individual light present in light area
@@ -146,6 +149,7 @@ func remove_object() -> void:
 	light_shape.queue_free()
 	queue_free()
 
-func adapt_projectile() -> void:
-	pass
+func adapt_register(new_reg : ElementRegister) -> void:
+	element_register = new_reg
+	tower_element_changed.emit()
 #endregion

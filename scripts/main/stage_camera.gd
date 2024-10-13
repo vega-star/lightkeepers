@@ -15,13 +15,13 @@ const SCREEN_SHAKE_DECAY : float = 3.0
 @export_group('Camera Behavior')
 @export var deadzone : float = 0.25 # Useful for controller compatibility
 @export var drag_enabled : bool = true
-@export var drag_multiplier : float = 5
+@export var keybind_movement_multiplier : float = 7.5
 @export var zoom_enabled : bool = true
 @export var enable_camera_shake : bool = true
 @export var base_shake_strength : float = 2.0
 
 var clicked #? Boolean that determines if drag button is being pressed
-var c_lock : bool #? Prevents multiple resets on offset
+var c_lock : bool #? Prevents drag movement from resetting before click is released
 var current_pos : Vector2 # Current mouse position
 var stored_pos : Vector2 # Stored mouse position
 var _zoom_level : float = 1.0 : set = _set_zoom_level # 
@@ -32,14 +32,15 @@ var shake_strength : float
 #region Main functions
 func _process(delta) -> void:
 	current_pos = get_viewport().get_mouse_position()
-	
-	## Move by keybinds
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down", deadzone)
-	position += direction * (drag_multiplier * 5 * zoom)
+	
+	if direction != Vector2.ZERO: ## Move by keybinds
+		position += (direction * keybind_movement_multiplier) / zoom
+		_clamp_pos_by_limit() #? Clamp position every process run, but only if a direction vector is set
 	
 	if drag_enabled: ## Move by drag
 		if clicked: c_lock = true; _drag()
-		elif !clicked and c_lock: c_lock = false; _clamp_pos_by_limit()
+		elif !clicked and c_lock: c_lock = false; _clamp_pos_by_limit() #? Clamp position after drag is finished
 
 func _physics_process(delta: float) -> void:
 	if enable_camera_shake: ## Camera shake
@@ -50,7 +51,7 @@ func _physics_process(delta: float) -> void:
 func _drag() -> void:
 	var pos_delta : Vector2 = (stored_pos - current_pos)
 	stored_pos = current_pos #? Stores new position
-	global_position += pos_delta #? Move camera based on delta
+	global_position += pos_delta / zoom #? Move camera based on delta while adapting to zoom
 
 func _input(event) -> void:
 	if event.is_action_pressed("drag_zoom"): clicked = true; stored_pos = get_viewport().get_mouse_position()

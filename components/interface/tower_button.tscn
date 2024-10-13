@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8e2jpe7y87cm"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_7ecv1"]
-[ext_resource type="Script" path="res://scripts/ui/tower_button.gd" id="1_txhdy"]
+[ext_resource type="Script" path="res://scripts/ui/buttons/tower_button.gd" id="1_txhdy"]
 [ext_resource type="StyleBox" uid="uid://c3mkd26pntgue" path="res://assets/theme/styleboxes/high_contrast_sb.tres" id="2_0egv2"]
 [ext_resource type="PackedScene" uid="uid://oo6aeu1wjpj1" path="res://components/entities/towers/ballista.tscn" id="3_h43cm"]
 [ext_resource type="Texture2D" uid="uid://baiovqfwrjg4x" path="res://assets/prototypes/turret_sprite_placeholder.png" id="5_i6j65"]

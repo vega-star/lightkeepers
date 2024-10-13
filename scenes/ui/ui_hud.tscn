@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://brbqmcfgkka7f"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_7no1j"]
+[ext_resource type="Script" path="res://scripts/main/interface.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
 [ext_resource type="Resource" uid="uid://cxplnjmi337jt" path="res://components/elements/default_registers/FireRegister.tres" id="2_ly4ir"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
@@ -86,6 +86,16 @@ script = ExtResource("1_7no1j")
 hide_elements_when_start = false
 metadata/_edit_vertical_guides_ = [1280.0]
 metadata/_edit_horizontal_guides_ = [720.0]
+
+[node name="MouseDetector" type="Control" parent="."]
+z_index = -75
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
 [node name="ScreenFrame" type="Panel" parent="."]
 visible = false
@@ -297,18 +307,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Elements" type="HBoxContainer" parent="UILayer/Menu"]
+[node name="ElementBar" type="HBoxContainer" parent="UILayer/Menu"]
 layout_mode = 1
 anchors_preset = -1
+anchor_top = 0.799
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -524.0
-offset_top = 430.0
+offset_top = -145.28
+offset_right = -221.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="HideButton" type="TextureButton" parent="UILayer/Menu/Elements"]
+[node name="HideButton" type="TextureButton" parent="UILayer/Menu/ElementBar"]
 z_index = 1
 material = SubResource("ShaderMaterial_47km4")
 custom_minimum_size = Vector2(64, 0)
@@ -318,7 +330,7 @@ texture_normal = ExtResource("5_us4v6")
 stretch_mode = 3
 flip_h = true
 
-[node name="Panel" type="Panel" parent="UILayer/Menu/Elements/HideButton"]
+[node name="Panel" type="Panel" parent="UILayer/Menu/ElementBar/HideButton"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -328,7 +340,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ElementContainer" type="BoxContainer" parent="UILayer/Menu/Elements"]
+[node name="ElementContainer" type="BoxContainer" parent="UILayer/Menu/ElementBar"]
 custom_minimum_size = Vector2(0, 145)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -336,21 +348,23 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 vertical = true
 
-[node name="FusePanel" type="Panel" parent="UILayer/Menu/Elements/ElementContainer"]
+[node name="FusePanel" type="Panel" parent="UILayer/Menu/ElementBar/ElementContainer"]
 custom_minimum_size = Vector2(0, 145)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="FuseSystem" parent="UILayer/Menu/Elements/ElementContainer/FusePanel" instance=ExtResource("8_kjueb")]
+[node name="FuseSystem" parent="UILayer/Menu/ElementBar/ElementContainer/FusePanel" instance=ExtResource("8_kjueb")]
 layout_mode = 1
 
-[node name="ElementInterface" type="Panel" parent="UILayer/Menu/Elements/ElementContainer"]
+[node name="ElementInterface" type="Panel" parent="UILayer/Menu/ElementBar/ElementContainer"]
 custom_minimum_size = Vector2(460, 145)
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="ElementSlots" type="BoxContainer" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface"]
+[node name="ElementSlots" type="BoxContainer" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -363,84 +377,77 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="FireContainer" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
+[node name="FireContainer" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("2_ly4ir")
 toggle_based_on_quantity = false
 
-[node name="Slot" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer" index="0" node_paths=PackedStringArray("active_object")]
+[node name="Slot" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/FireContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
 element_register = ExtResource("2_ly4ir")
 active_object = NodePath("FireObject")
 
-[node name="FireObject" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+[node name="FireObject" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
 home_slot = NodePath("..")
 element = ExtResource("13_hlgc1")
 
-[node name="ObjectElement" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject/ObjectOrb" index="0"]
+[node name="ObjectElement" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject/ObjectOrb" index="0"]
 texture = ExtResource("12_5tcgt")
 
-[node name="WaterContainer" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
+[node name="WaterContainer" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("3_iqwj1")
 toggle_based_on_quantity = false
 
-[node name="Slot" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer" index="0" node_paths=PackedStringArray("active_object")]
+[node name="Slot" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/WaterContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
 element_register = ExtResource("3_iqwj1")
 active_object = NodePath("WaterObject")
 
-[node name="WaterObject" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+[node name="WaterObject" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
 home_slot = NodePath("..")
 element = ExtResource("15_sqh7q")
 
-[node name="ObjectElement" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject/ObjectOrb" index="0"]
+[node name="ObjectElement" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject/ObjectOrb" index="0"]
 texture = ExtResource("14_dyp6q")
 
-[node name="AirContainer" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
+[node name="AirContainer" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("4_06pcj")
 toggle_based_on_quantity = false
 
-[node name="Slot" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer" index="0" node_paths=PackedStringArray("active_object")]
+[node name="Slot" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/AirContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
 element_register = ExtResource("4_06pcj")
 active_object = NodePath("AirObject")
 
-[node name="AirObject" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+[node name="AirObject" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
 home_slot = NodePath("..")
 element = ExtResource("17_7oxc3")
 
-[node name="ObjectElement" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject/ObjectOrb" index="0"]
+[node name="ObjectElement" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject/ObjectOrb" index="0"]
 texture = ExtResource("18_4h15y")
 
-[node name="EarthContainer" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
+[node name="EarthContainer" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("5_5ri6y")
 toggle_based_on_quantity = false
 
-[node name="Slot" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer" index="0" node_paths=PackedStringArray("active_object")]
+[node name="Slot" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/EarthContainer" index="0" node_paths=PackedStringArray("active_object")]
 slot_type = 1
 element_register = ExtResource("5_5ri6y")
 active_object = NodePath("EarthObject")
 
-[node name="EarthObject" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+[node name="EarthObject" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
 active_slot = NodePath("..")
 home_slot = NodePath("..")
 element = ExtResource("19_a637k")
 
-[node name="ObjectElement" parent="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject/ObjectOrb" index="0"]
+[node name="ObjectElement" parent="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject/ObjectOrb" index="0"]
 texture = ExtResource("19_1inae")
-
-[node name="CornerRect" type="ReferenceRect" parent="UILayer/Menu/Elements"]
-custom_minimum_size = Vector2(221, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-border_width = 0.0
-editor_only = false
 
 [node name="Shop" type="VBoxContainer" parent="UILayer/Menu"]
 layout_mode = 1
@@ -598,10 +605,11 @@ layout_mode = 2
 z_index = 20
 clip_contents = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.799
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 575.0
+offset_top = -0.280029
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -636,23 +644,26 @@ texture_normal = ExtResource("19_k7dll")
 ignore_texture_size = true
 stretch_mode = 5
 
+[connection signal="mouse_on_ui_changed" from="." to="." method="_on_mouse_on_ui_changed"]
+[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]
 [connection signal="mouse_exited" from="UILayer" to="." method="_on_screen_mouse_exited"]
 [connection signal="pressed" from="UILayer/Screen/Tools/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="UILayer/Screen/Tools/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="toggled" from="UILayer/Screen/Tools/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
-[connection signal="pressed" from="UILayer/Menu/Elements/HideButton" to="." method="_on_hide_button_pressed"]
+[connection signal="pressed" from="UILayer/Menu/ElementBar/HideButton" to="." method="_on_hide_button_pressed"]
 [connection signal="toggled" from="UILayer/Menu/CornerPanel/CornerContainer/ElementButton" to="." method="_on_element_button_toggled"]
 [connection signal="pressed" from="UILayer/Menu/CornerPanel/CornerContainer/PlayButton" to="." method="_on_play_button_pressed"]
 
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot"]
-[editable path="UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/FireContainer"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/FireContainer/Slot/FireObject"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/WaterContainer"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/WaterContainer/Slot/WaterObject"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/AirContainer"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/AirContainer/Slot/AirObject"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/EarthContainer"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot"]
+[editable path="UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots/EarthContainer/Slot/EarthObject"]

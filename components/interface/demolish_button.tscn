@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cjwy1y2fo5nc4"]
 
-[ext_resource type="Script" path="res://scripts/ui/demolish_button.gd" id="1_85b61"]
+[ext_resource type="Script" path="res://scripts/ui/buttons/demolish_button.gd" id="1_85b61"]
 [ext_resource type="Texture2D" uid="uid://di140fuq0tu8e" path="res://assets/prototypes/hammer.png" id="2_0xj5j"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="2_emoej"]
 

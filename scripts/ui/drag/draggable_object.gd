@@ -46,7 +46,7 @@ func _set_element(new_element : Element) -> void:
 	element = new_element
 	object_type = new_element.element_type
 	if !is_node_ready(): await ready
-	element_label.set_text(element.element_id.capitalize())
+	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
 	if ELEMENT_COLORS.has(element.element_id):
 		object_orb.material = object_orb.material.duplicate()
 		object_orb.material.set("shader_parameter/line_color", ELEMENT_COLORS[element.element_id])

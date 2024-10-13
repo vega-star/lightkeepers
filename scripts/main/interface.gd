@@ -1,6 +1,7 @@
 class_name Interface
 extends CanvasLayer
 
+signal mouse_on_ui_changed(present : bool)
 signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
@@ -29,26 +30,28 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 #endregion
 
 #region Menu Nodes
+@onready var menu : Control = $UILayer/Menu
 @onready var essence_slots : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var element_slots : BoxContainer = $UILayer/Menu/Elements/ElementContainer/ElementInterface/ElementSlots
+@onready var element_slots : BoxContainer = $UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots
 @onready var play_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/PlayButton
-@onready var hide_button : TextureButton = $UILayer/Menu/Elements/HideButton
+@onready var hide_button : TextureButton = $UILayer/Menu/ElementBar/HideButton
 @onready var corner_panel : Panel = $UILayer/Menu/CornerPanel
 @onready var towers_panel : Panel = $UILayer/Menu/Shop/Towers
 @onready var elements_storage_panel : Panel = $UILayer/Menu/Shop/Elements
-@onready var element_container : BoxContainer = $UILayer/Menu/Elements
-@onready var element_container_storage : BoxContainer = $UILayer/Menu/Elements/ElementContainer
+@onready var element_bar : BoxContainer = $UILayer/Menu/ElementBar
+@onready var element_name_button : Button = $UILayer/Menu/Shop/Elements/ElementName/ElementNameButton
+@onready var element_container : BoxContainer = $UILayer/Menu/ElementBar/ElementContainer
 @onready var elements_grid : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var fuse_system : FuseSystem = $UILayer/Menu/Elements/ElementContainer/FusePanel/FuseSystem
+@onready var fuse_system : FuseSystem = $UILayer/Menu/ElementBar/ElementContainer/FusePanel/FuseSystem
 @onready var tower_name_button : Button = $UILayer/Menu/Shop/Towers/TowerName/TowerNameButton
 @onready var tower_grid : GridContainer = $UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid
 @onready var element_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/ElementButton
-#endregion
-
 @onready var tower_panel : TowerPanel = $UILayer/TowerPanel
+#endregion
 
 var previous_life : int
 var previous_coins : int
+var mouse_on_ui : bool
 var element_menu_hidden : bool = false
 var speed_toggled : bool = false
 #endregion
@@ -72,8 +75,7 @@ func turn_update(turn : int, max_turn : int): wave_counter.set_text('{0}/{1}'.fo
 
 func bind_element_picked_signal(emitting_signal : Signal): emitting_signal.connect(_on_element_picked)
 
-func _on_element_picked(reg : ElementRegister) -> void:
-	$UILayer/Menu/Shop/Elements/ElementName/ElementNameButton.set_text(reg.element.element_id.capitalize())
+func _on_element_picked(reg : ElementRegister) -> void: element_name_button.set_text(reg.element.element_id.capitalize())
 
 func _on_screen_mouse_exited() -> void: pass
 
@@ -90,7 +92,7 @@ func _on_play_button_pressed(): turn_pass_requested.emit()
 func _on_autoplay_button_toggled(toggled_on): autoplay_toggled.emit(toggled_on)
 
 func _update_tower_name(_tower : Tower, tname : String):
-	tower_name_button.set_text(tname)
+	tower_name_button.set_text(TranslationServer.tr(tname.to_upper()).capitalize())
 
 func update_label(label : Label, new_value : int, previous_value : int, timer : float = DEFAULT_LABEL_MODULATE_TIMER):
 	var modulate_color : Color
@@ -109,21 +111,21 @@ func _on_hide_button_pressed() -> void:
 	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
 	
-	if !element_menu_hidden: # Element menu visible
-		new_x = roundi(get_viewport().get_visible_rect().size.x - corner_panel.size.x - hide_button.size.x)
+	if !element_menu_hidden: # ElementBar IS visible, thus HIDE
+		new_x = -(hide_button.size.x)
 		element_menu_hidden = true
 		hide_button.flip_h = false
 		fuse_system.pop()
-	else: #? Element menu invisible
-		new_x = roundi(get_viewport().get_visible_rect().size.x - element_container.size.x)
+	else: #? ElementBar is NOT visible, thus SHOW
+		new_x = -(element_bar.size.x)
 		element_menu_hidden = false
-		if !element_container_storage.visible: element_container_storage.visible = true
+		if !element_container.visible: element_container.visible = true
 		hide_button.flip_h = true
 	
-	hide_tween.tween_property(element_container, "position", Vector2(new_x, element_container.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	hide_tween.tween_property(element_bar, "position", Vector2(new_x, element_bar.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	await hide_tween.finished
 	
-	element_container_storage.visible = !element_menu_hidden
+	element_container.visible = !element_menu_hidden
 	fuse_system._remove_prop()
 
 func _on_element_button_toggled(toggled_on: bool) -> void:
@@ -137,9 +139,13 @@ func _on_element_button_toggled(toggled_on: bool) -> void:
 func _on_speed_button_pressed() -> void:
 	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true
 	else: Engine.time_scale = 1; speed_toggled = false
+
+func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; mouse_on_ui_changed.emit(false)
+
+func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; mouse_on_ui_changed.emit(true)
 #endregion
 
-#region Elements and DraggableObjects
+#region ElementBar and DraggableObjects
 func _request_container(element_type : int) -> Container:
 	var slot_container : Container
 	match element_type: #? Chose container based on type
@@ -148,3 +154,5 @@ func _request_container(element_type : int) -> Container:
 		_: slot_container = essence_slots
 	return slot_container
 #endregion
+
+func _on_mouse_on_ui_changed(present: bool) -> void: pass # print('Mouse on ui: ', mouse_on_ui)

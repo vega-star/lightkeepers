@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bp7bhsg5h41p4"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_pause_layer.gd" id="1_dqc40"]
+[ext_resource type="Script" path="res://scripts/ui/main/ui_pause_layer.gd" id="1_dqc40"]
 
 [node name="PauseLayer" type="CanvasLayer"]
 process_mode = 3

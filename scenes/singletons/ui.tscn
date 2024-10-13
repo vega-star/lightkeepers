@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8ywb7b35x7rr"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_component.gd" id="1_o51w2"]
+[ext_resource type="Script" path="res://scripts/ui/main/ui_component.gd" id="1_o51w2"]
 [ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/ui_screen_effect_layer.tscn" id="2_nmhs7"]
 [ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/ui/ui_hud.tscn" id="3_4fskw"]
 [ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui/ui_pause_layer.tscn" id="4_wwglg"]
 [ext_resource type="PackedScene" uid="uid://b0umly4sahrnr" path="res://scenes/ui/ui_transition_layer.tscn" id="6_iltc1"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_qispa"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_mvlhe"]
 
 [node name="UIComponent" type="Node"]
 process_mode = 3
@@ -17,7 +17,7 @@ layer = 100
 
 [node name="Interface" parent="." instance=ExtResource("3_4fskw")]
 layer = 25
-shop_button_group = SubResource("ButtonGroup_qispa")
+shop_button_group = SubResource("ButtonGroup_mvlhe")
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
 layer = 20

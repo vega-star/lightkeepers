@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="7_t3ol7"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="8_itb6e"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="9_pgeav"]
-[ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/stage_camera.tscn" id="10_pgima"]
+[ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/ui/stage_camera.tscn" id="10_pgima"]
 
 [sub_resource type="Curve2D" id="Curve2D_l0ktu"]
 _data = {

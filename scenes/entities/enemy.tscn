@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://btexoyve5l7pp" path="res://components/systems/health_component.tscn" id="2_ivbjf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_av3hw"]
-radius = 5.0
+radius = 6.0
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_sprite")]
 process_mode = 1
@@ -20,9 +20,11 @@ enemy_sprite = NodePath("EnemySprite")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("root_node") instance=ExtResource("2_ivbjf")]
 root_node = NodePath("..")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 6.0
+
 [node name="EnemySprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_o5a3q")
-flip_h = true
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_av3hw")

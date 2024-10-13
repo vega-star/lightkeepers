@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbjip80jxb5mp"]
 
-[ext_resource type="Script" path="res://scripts/ui/event_layer.gd" id="1_krorn"]
+[ext_resource type="Script" path="res://scripts/ui/main/event_layer.gd" id="1_krorn"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_t7m6o"]
 
 [node name="EventLayer" type="Control"]

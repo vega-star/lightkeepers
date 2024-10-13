@@ -215,6 +215,9 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 16.0
+
 [node name="TowerOccupiedArea" type="Area2D" parent="."]
 
 [node name="OccupiedArea" type="CollisionShape2D" parent="TowerOccupiedArea"]

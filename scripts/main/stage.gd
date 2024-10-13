@@ -18,7 +18,6 @@ const CASHBACK_FACTOR : float = 0.65
 @onready var turn_manager: TurnManager = $StageManager/TurnManager
 @onready var stage_path : Path2D = $StagePath
 @onready var background_parallax : ParallaxBackground = $StageEffects/BackgroundParallax
-
 @onready var GROUND_LAYER : TileMapLayer = $GroundLayer
 @onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
 @onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
@@ -54,7 +53,6 @@ func _process(_delta) -> void:
 
 func _input(_event) -> void:
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
-	if Input.is_action_just_pressed('alt'): deselect_tile()
 
 func finish_stage() -> void:
 	UI.end_stage()
@@ -66,13 +64,16 @@ func position_to_tile(position_vector : Vector2) -> Vector2i: return GROUND_LAYE
 
 func snap_to_tile(position_vector : Vector2) -> Vector2: return GROUND_LAYER.map_to_local(position_to_tile(position_vector))
 
-## Query tile metadata
-func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0):
+func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0): ## Query tile metadata
 	var tile_data = layer.get_cell_tile_data(tile_position)
+	if UI.HUD.mouse_on_ui: return false #? Tile is invalid if the cursor is currently outside visible map (over UI elements)
+	
 	if tile_data: return tile_data.get_custom_data_by_layer_id(custom_data_layer_id)
 	else: return false
 
 func select_tile(tile_position):
+	if UI.HUD.mouse_on_ui: return #? Do not interact if mouse is in interface controls
+	
 	if previous_selected_cell: deselect_tile()
 	INTERACTION_LAYER.set_cell(tile_position, 0, SELECTION_TILE)
 	var data
@@ -89,6 +90,8 @@ func select_tile(tile_position):
 	previous_selected_cell = tile_position
 
 func deselect_tile() -> void:
+	if UI.HUD.mouse_on_ui: return #? Do not interact if mouse is in interface controls
+	
 	INTERACTION_LAYER.erase_cell(previous_selected_cell)
 	UI.HUD.object_description_label.set_text("")
 	if is_instance_valid(selected_object): selected_object.visible_range = false

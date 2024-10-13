@@ -45,7 +45,7 @@ func _check_combination() -> Element:
 	else: return null
 	var combination = ElementManager.combine(first_element, second_element)
 	if combination:
-		result_element = ElementManager.fuse(combination)
+		result_element = ElementManager.generate_element(1, combination, false) #? Stores a newly created element, but not implement it yet
 		if invoke_prop:
 			prop_object = ElementManager._set_object(output_slot.slot, result_element, 'Prop')
 			prop_object.locked = true
@@ -61,10 +61,10 @@ func _fuse() -> bool:
 	_remove_prop()
 	if !result_element:
 		fuse_done.emit(false)
-		return false ## Invalid element
+		return false #! Invalid element
 	else:
 		invoke_prop = false
-		result_element_reg = ElementManager.add_element(result_element, 2, 1)
+		result_element_reg = ElementManager.add_element(result_element, 2, 1) #? Validates element and increase to a certain register (whether it exists or not)
 		result_position = get_node(result_element_reg.control_slot).global_position
 		if delete_when_fused: pop(true) #? Consume elements, destroying both
 		else: pop() #? Return both without consuming
@@ -74,7 +74,7 @@ func _fuse() -> bool:
 	fuse_done.emit(true)
 	return true
 
-## Remove objects from input slots
+## Remove objects from input slots. If 'destroy' boolean is true, the objects are consumed
 func pop(
 		destroy : bool = false ## Only true when element is fused
 	) -> void:
