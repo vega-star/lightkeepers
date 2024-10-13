@@ -24,7 +24,7 @@ const turn_passed_sfxs : Array = [
 	"bug people 14",
 	"bug people 15"]
 
-@onready var stage_manager : StageManager = $".."
+@onready var stage_agent : StageAgent = $".."
 @onready var entity_container : Node2D = $"../../Containers/EntityContainer"
 @onready var spawn_timer : Timer = $SpawnTimer
 @onready var turn_timer : Timer = $TurnTimer
@@ -76,7 +76,7 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 			turn_timer.start(wave.wave_period)
 			await turn_timer.timeout
 		#endregion
-		stage_manager.change_coins(turn.coins_on_turn_completion, true)
+		stage_agent.change_coins(turn.coins_on_turn_completion, true)
 		if debug: print('Wave finished, added ', turn.coins_on_turn_completion, ' coins')
 		if !autoplay: await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
 	#endregion

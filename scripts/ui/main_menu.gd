@@ -22,7 +22,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	UI.fade('IN')
 	UI.HUD.set_visible(false)
-	LoadManager._scene_is_stage = false
+	LoadManager._scene_is_stage = false #? Removes 'Stage' options from Options menu
 	AudioManager.play_music(menu_songs, 0, false, true)
 	$MenuPages/CentralPage.set_focus()
 

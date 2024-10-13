@@ -13,6 +13,5 @@ position_smoothing_speed = 1.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("1_3p48j")
-drag_multiplier = 1.0
 min_zoom = 1.0
-dynamic_zoom = true
+drag_multiplier = 1.0

@@ -24,7 +24,7 @@ enum UPGRADE_ADDRESSES {
 @export var upgrade_tree_3 : TowerUpgradeTree
 var upgrade_trees_array : Array[TowerUpgradeTree]
 
-var stage_manager : StageManager
+var stage_agent : StageAgent
 var tower : Tower = owner
 var tower_element_reg : ElementRegister
 var tower_element_lvl : int
@@ -35,7 +35,7 @@ func _ready() -> void:
 	if upgrade_tree_2: upgrade_tree_2 = upgrade_tree_2.duplicate(true); upgrade_trees_array.append(upgrade_tree_2)
 	if upgrade_tree_3: upgrade_tree_3 = upgrade_tree_3.duplicate(true); upgrade_trees_array.append(upgrade_tree_3)
 	tower = owner
-	stage_manager = stage.stage_manager
+	stage_agent = stage.stage_agent
 
 func _request_upgrade(upgrade_tree : TowerUpgradeTree) -> bool:
 	if (upgrade_tree.tier + 1 > upgrade_tree.upgrades.size()): print('Upgrade overflow'); return false
@@ -44,11 +44,11 @@ func _request_upgrade(upgrade_tree : TowerUpgradeTree) -> bool:
 	var upgrade : Upgrade = upgrade_tree.upgrades[upgrade_tree.tier]
 	var cost : int = upgrade.upgrade_cost
 	
-	if (cost > stage_manager.coins): return false
+	if (cost > stage_agent.coins): return false
 	
 	tower.tower_value += roundi(cost * COST_MITIGATION_FACTOR)
 	upgrade_tree.tier = next_tier
-	stage_manager.change_coins(cost)
+	stage_agent.change_coins(cost)
 	tower_upgraded.emit()
 	
 	print('TIER: ', upgrade_tree.tier)

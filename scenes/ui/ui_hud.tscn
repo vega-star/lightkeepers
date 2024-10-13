@@ -260,7 +260,6 @@ material = SubResource("ShaderMaterial_cjjh3")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 tooltip_text = "CONFIG"
-toggle_mode = true
 texture_normal = ExtResource("14_rjvi7")
 stretch_mode = 3
 

@@ -1,7 +1,7 @@
 ## StageManager
 # MAIN FUNCTION: Manages game events, conditions and such
 # ADDITIONAL: Stores and updates pyrite (coins)
-class_name StageManager extends Node
+class_name StageAgent extends Node
 
 signal stage_won
 signal stage_lost
@@ -12,17 +12,16 @@ signal wave_completed
 signal health_updated()
 signal coins_updated(previous_coins : int, coins : int)
 
-const base_nexus_health : int = 100
+const BASE_N_HEALTH : int = 100 #? Default nexus health
 
 # @export_group('Stage Properties')
 @export var initial_coins : int = 150
-@export var max_turns : int = 30
 
 @onready var turn_manager : TurnManager = $TurnManager
 
 var coins : int
 var nexus : Node
-var nexus_health : int = base_nexus_health
+var nexus_health : int = BASE_N_HEALTH
 
 #region Main functions
 func _ready() -> void:

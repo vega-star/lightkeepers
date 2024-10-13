@@ -52,7 +52,7 @@ func _move(to_visible : bool) -> void:
 func _load_stage() -> Stage:
 	var stage = get_tree().get_first_node_in_group('stage')
 	assert(stage)
-	stage.stage_manager.coins_updated.connect(_on_coin_updated)
+	stage.stage_agent.coins_updated.connect(_on_coin_updated)
 	return stage
 #endregion
 

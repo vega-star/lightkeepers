@@ -14,9 +14,11 @@ const CASHBACK_FACTOR : float = 0.65
 @export var check_coordinate : bool = false
 @export var stage_songs : Array[String] = []
 
-@onready var stage_manager : StageManager = $StageManager
+@onready var stage_agent : StageAgent = $StageAgent
 @onready var turn_manager: TurnManager = $StageManager/TurnManager
 @onready var stage_path : Path2D = $StagePath
+@onready var background_parallax : ParallaxBackground = $StageEffects/BackgroundParallax
+
 @onready var GROUND_LAYER : TileMapLayer = $GroundLayer
 @onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
 @onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
@@ -39,8 +41,9 @@ var previous_queried_cell : Vector2i #? Used for input resetting
 #region Main functions
 func _ready() -> void:
 	if !modulate_layer.visible: modulate_layer.visible = true
-	LoadManager._scene_is_stage = true
+	LoadManager._scene_is_stage = true #? Turns 'Stage' options from Options menu visible
 	AudioManager.play_music(stage_songs, 0, false, true)
+	background_parallax.set_visible(true)
 	UI.start_stage()
 
 func _process(_delta) -> void:
@@ -118,7 +121,7 @@ func insert_tile_object(tile_object : TileObject) -> bool: #? Called from turret
 	
 	#! Returns true if object is successfully placed, and false if not.
 	if (!query_result): return false # Recheck. Only returns negatively if invalidated in a series of checks
-	if (tile_cost > stage_manager.coins): return false # Returns negatively turret is more expensive than current total coins
+	if (tile_cost > stage_agent.coins): return false # Returns negatively turret is more expensive than current total coins
 	
 	## Clear
 	INTERACTION_LAYER.erase_cell(previous_queried_cell)
@@ -133,7 +136,7 @@ func insert_tile_object(tile_object : TileObject) -> bool: #? Called from turret
 	OBJECT_LAYER.set_cell(tile_position, 0, TILE.DEFAULT)
 	tile_object.global_position = coordinates
 	tile_object.reparent($Containers/ObjectContainer)
-	stage_manager.change_coins(tile_object.default_tower_cost)
+	stage_agent.change_coins(tile_object.default_tower_cost)
 	
 	return true ## Return sucessfully
 
@@ -155,7 +158,7 @@ func request_removal(tile_position : Vector2i = Vector2i.MIN) -> bool:
 		if object is Tower:
 			if object.tower_upgrades.tower_element_reg: #? Return elements when tower sold
 				object.tower_upgrades.tower_element_reg.quantity += object.tower_upgrades.tower_element_lvl
-		stage_manager.change_coins(tower_value, true)
+		stage_agent.change_coins(tower_value, true)
 		return true
 	else: return false
 
