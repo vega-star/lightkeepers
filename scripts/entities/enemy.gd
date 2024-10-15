@@ -4,6 +4,9 @@ extends CharacterBody2D
 signal path_ended
 signal died(source : Node)
 
+const HEALTH_CHANGE_MPERIOD : float = 0.25
+const DAMAGE_MODULATE : Color = Color(2, 2, 2)
+const HEAL_MODULATE : Color = Color(1, 3, 1.5)
 enum ENEMY_CLASS {
 	CREEP,
 	BRUTE,
@@ -49,6 +52,9 @@ func _set_enemy_properties():
 	damage_on_nexus = default_damage_on_nexus
 	enemy_value = base_enemy_value
 	
+	health_component.max_health = base_health
+	health_component.reset_health()
+	
 	if smart_enemy:
 		assert(nexus)
 		navigation_agent = NavigationAgent2D.new()
@@ -62,8 +68,6 @@ func _set_enemy_properties():
 
 func _ready():
 	await _set_enemy_properties()
-	health_component.health = base_health
-	set_physics_process(true)
 
 func _physics_process(delta):
 	if !smart_enemy: #? Update Line2D
@@ -101,7 +105,7 @@ func _set_on_sight(toggle : bool):
 func _on_navigation_finished(): path_ended.emit()
 
 func _on_path_ended():
-	stage.stage_manager.change_health(damage_on_nexus)
+	stage.stage_agent.change_health(damage_on_nexus)
 	die(nexus)
 
 func die(source):
@@ -109,3 +113,11 @@ func die(source):
 	died.emit(source)
 	queue_free()
 	if !smart_enemy: line_agent.queue_free()
+
+func _on_health_component_health_change(previous_value: int, new_value: int, type: bool) -> void:
+	var modulate_color : Color
+	var modulate_tween : Tween = get_tree().create_tween()
+	if type: modulate_color = DAMAGE_MODULATE
+	else: modulate_color = HEAL_MODULATE
+	set_modulate(modulate_color)
+	modulate_tween.tween_property(self, "modulate", Color(1,1,1), HEALTH_CHANGE_MPERIOD)

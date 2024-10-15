@@ -60,6 +60,7 @@ var tower_value : int
 var damage : int
 var piercing : int
 var burst : int
+var element_metadata : Dictionary = {}
 var projectile_quantity : int
 var firing_cooldown : float: set = _set_firing_cooldown
 

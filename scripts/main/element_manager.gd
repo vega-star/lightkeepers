@@ -18,6 +18,17 @@ const ELEMENT_METADATA : Dictionary = {
 	"fire": {
 		"type": 0,
 		"root_color": Color.ORANGE_RED,
+		"effect_metadata": {
+			"eid": 001,
+			"etype": 1,
+			"value": 5,
+			"value_multiplier": 1.2,
+			"level": 0,
+			"duration": 4.2,
+			"tick": 0.3,
+			"stackable": true,
+			"max_stacks": 10
+		},
 		"combinations": {
 			"fire": "conflagration",
 			"water": "steam",
@@ -35,8 +46,15 @@ const ELEMENT_METADATA : Dictionary = {
 	"water": {
 		"type": 0,
 		"root_color": Color.BLUE,
-		"effect": {
-			
+		"effect_metadata": {
+			"eid": 003,
+			"etype": 2,
+			"value": 5,
+			"value_multiplier": 1.1,
+			"level": 0,
+			"duration": 4.5,
+			"tick": 1,
+			"stackable": false
 		},
 		"combinations": {
 			"water": "ice",
@@ -95,6 +113,7 @@ const ELEMENT_METADATA : Dictionary = {
 	}
 }
 
+var effects : Array[Effect]
 var active_registers : Array[ElementRegister]
 var element_textures : Dictionary = {}
 
@@ -120,9 +139,7 @@ func _load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of spr
 			else: pass #? Normal file
 			file_name = elements_folder.get_next()
 		return elements_dict
-	else:
-		push_error("An error occurred when trying to access the sprites path via DraggableObjectSprite class.")
-		return {}
+	else: push_error("ElementManager | An error occurred when trying to access the sprites path."); return {}
 
 func _purge(): ## Purge all elements, resetting everything! Used when restarting stages and such
 	active_registers.clear()
@@ -158,6 +175,7 @@ func generate_element(
 	var new_element = Element.new()
 	new_element.element_type = type
 	new_element.element_id = id
+	new_element.element_metadata = query_metadata("id")
 	if add_directly: add_child(new_element)
 	return new_element
 

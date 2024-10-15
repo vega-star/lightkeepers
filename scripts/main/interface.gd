@@ -99,7 +99,7 @@ func update_label(label : Label, new_value : int, previous_value : int, timer : 
 	var modulate_tween : Tween = get_tree().create_tween()
 	label.set_text(str(new_value))
 	if new_value > previous_value: modulate_color = DEFAULT_LABEL_MODULATE_POSITIVE
-	elif new_value < previous_value: modulate_color = DEFAULT_LABEL_MODULATE_NEGATIVE
+	else: modulate_color = DEFAULT_LABEL_MODULATE_NEGATIVE
 	label.set_modulate(modulate_color)
 	modulate_tween.tween_property(label, "modulate", Color(1,1,1), timer)
 

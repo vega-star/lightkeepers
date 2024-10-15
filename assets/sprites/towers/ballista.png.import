@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tdykvrbkn0uc"
-path="res://.godot/imported/lamp.png-9ff552687c8ee18c8de0f96fef837597.ctex"
+uid="uid://n7joi58406ay"
+path="res://.godot/imported/ballista.png-59867b7fd3dc5b9554f97b5f21f94334.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/turrets/lamp.png"
-dest_files=["res://.godot/imported/lamp.png-9ff552687c8ee18c8de0f96fef837597.ctex"]
+source_file="res://assets/sprites/towers/ballista.png"
+dest_files=["res://.godot/imported/ballista.png-59867b7fd3dc5b9554f97b5f21f94334.ctex"]
 
 [params]
 

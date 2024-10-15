@@ -18,6 +18,7 @@ script = ExtResource("1_kxej8")
 enemy_sprite = NodePath("EnemySprite")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("root_node") instance=ExtResource("2_ivbjf")]
+print_change = true
 root_node = NodePath("..")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
@@ -38,3 +39,4 @@ offset_bottom = 16.0
 color = Color(1, 0, 0, 1)
 
 [connection signal="path_ended" from="." to="." method="_on_path_ended"]
+[connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]

@@ -24,6 +24,7 @@ const MOVEMENT_PERIOD : float = 0.15
 @onready var kill_counter : Label = $TowerLabel/KillCounter
 @onready var upgrades_container : VBoxContainer = $Upgrades
 @onready var upgrade_slot : UpgradeSlot = $UpgradeSlot
+@onready var sell_button : Button = $TowerValuePanel/ValueContainer/SellButton
 
 var slots : Array[UpgradePanel]
 var current_stage : Stage
@@ -123,6 +124,7 @@ func _on_sell_button_pressed() -> void:
 		await _move(false)
 		tower_sold.emit()
 		tower_panel_exited.emit()
+	sell_button.release_focus()
 
 func _on_exit_button_pressed() -> void:
 	await _move(false)

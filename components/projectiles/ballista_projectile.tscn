@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_3xlou"]
 [ext_resource type="Texture2D" uid="uid://bhixypxhmte6b" path="res://assets/particles/flare_01.png" id="2_elqe6"]
-[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="2_xvxdk"]
+[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/tower_weapons/ballista_projectile.png" id="2_xvxdk"]
 
 [sub_resource type="Curve" id="Curve_8pbtj"]
 _data = [Vector2(0, 0), 0.0, 2.06752, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

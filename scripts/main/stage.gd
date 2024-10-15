@@ -15,7 +15,7 @@ const CASHBACK_FACTOR : float = 0.65
 @export var stage_songs : Array[String] = []
 
 @onready var stage_agent : StageAgent = $StageAgent
-@onready var turn_manager: TurnManager = $StageManager/TurnManager
+@onready var turn_manager: TurnManager = $StageAgent/TurnManager
 @onready var stage_path : Path2D = $StagePath
 @onready var background_parallax : ParallaxBackground = $StageEffects/BackgroundParallax
 @onready var GROUND_LAYER : TileMapLayer = $GroundLayer

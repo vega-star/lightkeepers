@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=46 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/main/interface.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/ui_event_layer.tscn" id="2_7rfuu"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
 [ext_resource type="Texture2D" uid="uid://dhc5dpc01fp4w" path="res://assets/prototypes/speed.png" id="24_dr5sr"]
 [ext_resource type="PackedScene" uid="uid://b3tvxsgupe3gs" path="res://components/systems/tower_panel.tscn" id="25_lo481"]
+[ext_resource type="PackedScene" uid="uid://cld08hurv0ljg" path="res://components/entities/towers/ballista.tscn" id="30_dfgh1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
 texture = ExtResource("17_wrifp")
@@ -199,9 +200,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -152.0
-offset_top = -20.0
+offset_top = -19.5
 offset_right = -8.0
-offset_bottom = 20.0
+offset_bottom = 20.5
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 8
@@ -545,6 +546,7 @@ target_tower_scene = ExtResource("8_l8uqo")
 
 [node name="BallistaTower" parent="UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
+target_tower_scene = ExtResource("30_dfgh1")
 
 [node name="LampTower" parent="UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2

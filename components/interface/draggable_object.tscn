@@ -55,8 +55,8 @@ script = ExtResource("6_jtics")
 
 [node name="ObjectCollision" type="Area2D" parent="."]
 z_index = 5
-collision_layer = 129
-collision_mask = 129
+collision_layer = 128
+collision_mask = 128
 
 [node name="ObjectCollisionArea" type="CollisionShape2D" parent="ObjectCollision"]
 shape = SubResource("CircleShape2D_7vtow")

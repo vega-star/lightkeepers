@@ -6,3 +6,5 @@ class_name Element extends Resource
 	'ESSENCE:2'
 ) var element_type : int = 0
 @export var element_id : String = 'fire'
+
+var element_metadata : Dictionary

@@ -1,17 +1,10 @@
-[gd_scene load_steps=38 format=3 uid="uid://oo6aeu1wjpj1"]
+[gd_scene load_steps=22 format=3 uid="uid://cld08hurv0ljg"]
 
-[ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_nculw"]
-[ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_xycvt"]
+[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/towers/tower.tscn" id="1_e4sy1"]
 [ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_hw7jf"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_nstgh"]
-[ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="4_grwqf"]
-[ext_resource type="Texture2D" uid="uid://bff060w2csk4o" path="res://assets/sprites/turret_guns/ballista_projectile.png" id="4_v3usb"]
 [ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="5_u84ps"]
-[ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="5_vhjkh"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="6_dbxss"]
-[ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="7_28w67"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="7_swxpc"]
-[ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="8_de5nu"]
 
 [sub_resource type="Resource" id="Resource_6iduf"]
 script = ExtResource("7_swxpc")
@@ -20,8 +13,8 @@ upgrade_value = "5"
 
 [sub_resource type="Resource" id="Resource_rxd5c"]
 script = ExtResource("7_swxpc")
-upgrade_type = 7
-upgrade_value = "1.25"
+upgrade_type = 0
+upgrade_value = ""
 
 [sub_resource type="Resource" id="Resource_2ytgt"]
 script = ExtResource("6_dbxss")
@@ -91,148 +84,28 @@ upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
 upgrade_cost = 950
 upgrade_commands = Array[ExtResource("7_swxpc")]([SubResource("Resource_eyaot"), SubResource("Resource_o4rpp")])
 
-[sub_resource type="Resource" id="Resource_v611d"]
-script = ExtResource("7_swxpc")
-upgrade_type = 6
-upgrade_value = "2"
-
 [sub_resource type="Resource" id="Resource_d8gh4"]
 script = ExtResource("6_dbxss")
 upgrade_title = "ULTIMATE_STOCK"
 upgrade_description = "ULTIMATE_STOCK_DESCRIPTION"
 upgrade_cost = 5000
-upgrade_commands = Array[ExtResource("7_swxpc")]([SubResource("Resource_v611d")])
+upgrade_commands = Array[ExtResource("7_swxpc")]([])
 
-[sub_resource type="Resource" id="Resource_47nhk"]
+[sub_resource type="Resource" id="Resource_loc58"]
 resource_local_to_scene = true
 script = ExtResource("5_u84ps")
 upgrades = Array[ExtResource("6_dbxss")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ck6dk"]
-atlas = ExtResource("3_nstgh")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g3qe0"]
-atlas = ExtResource("3_nstgh")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hmkmr"]
-atlas = ExtResource("3_nstgh")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1bh70"]
-atlas = ExtResource("3_nstgh")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gj80s"]
-atlas = ExtResource("3_nstgh")
-region = Rect2(0, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_52wpk"]
-atlas = ExtResource("3_nstgh")
-region = Rect2(0, 160, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_yos0f"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ck6dk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g3qe0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hmkmr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1bh70")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gj80s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_52wpk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ck6dk")
-}],
-"loop": false,
-"name": &"firing",
-"speed": 11.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
-radius = 160.0
-
-[node name="Ballista" type="Node2D"]
-material = ExtResource("1_xycvt")
-script = ExtResource("1_nculw")
+[node name="Tower" instance=ExtResource("1_e4sy1")]
 default_tower_cost = 75
 default_projectile = ExtResource("2_hw7jf")
 default_light_range = 0.6
 default_tower_range = 1.6
 default_piercing = 2
-tower_name = "Ballista"
+default_firing_cooldown = 1.5
+default_seeking_timeout = 0.3
 
-[node name="TowerUpgrades" parent="." instance=ExtResource("4_grwqf")]
-upgrade_tree_1 = SubResource("Resource_47nhk")
-upgrade_tree_2 = null
-upgrade_tree_3 = null
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
-script = ExtResource("5_vhjkh")
-entity = NodePath("..")
-initial_state = NodePath("Seeking")
-
-[node name="Seeking" parent="StateMachine" node_paths=PackedStringArray("firing_state") instance=ExtResource("7_28w67")]
-firing_state = NodePath("../Firing")
-
-[node name="Firing" parent="StateMachine" node_paths=PackedStringArray("seeking_state", "projectile_prop_sprite") instance=ExtResource("8_de5nu")]
-seeking_state = NodePath("../Seeking")
-projectile_prop = true
-projectile_prop_sprite = NodePath("../../TowerGunSprite/ProjectileProp")
-
-[node name="TowerSprite" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -16)
-texture = ExtResource("3_nstgh")
-region_enabled = true
-region_rect = Rect2(0, 0, 32, 32)
-
-[node name="TowerGunSprite" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(1, 0.470588, 0.470588, 1)
-light_mask = 2
-visibility_layer = 3
-z_index = 50
-position = Vector2(0, -15.5)
-sprite_frames = SubResource("SpriteFrames_yos0f")
-animation = &"firing"
-frame = 6
-frame_progress = 1.0
-flip_h = true
-
-[node name="ProjectileProp" type="Sprite2D" parent="TowerGunSprite"]
-position = Vector2(-2, 0)
-texture = ExtResource("4_v3usb")
-flip_h = true
-
-[node name="TowerGunMuzzle" type="Marker2D" parent="TowerGunSprite"]
-position = Vector2(-13, -0.500001)
-
-[node name="TowerAim" type="RayCast2D" parent="TowerGunSprite/TowerGunMuzzle"]
-target_position = Vector2(360, 0)
-collision_mask = 4
-
-[node name="ColorRect" type="ColorRect" parent="TowerGunSprite/TowerGunMuzzle"]
-visible = false
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-
-[node name="TowerRangeArea" type="Area2D" parent="."]
-collision_mask = 64
-
-[node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
-shape = SubResource("CircleShape2D_4qdcu")
-debug_color = Color(0, 0.6, 0.701961, 0.129412)
+[node name="TowerUpgrades" parent="." index="0"]
+upgrade_tree_1 = SubResource("Resource_loc58")
+upgrade_tree_2 = SubResource("Resource_loc58")
+upgrade_tree_3 = SubResource("Resource_loc58")

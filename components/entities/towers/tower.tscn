@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/entities/tower.gd" id="1_tq6vs"]
 [ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="3_il4xo"]
 [ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="3_pgqqc"]
-[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/turrets/ballista.png" id="3_wyuhk"]
+[ext_resource type="Texture2D" uid="uid://n7joi58406ay" path="res://assets/sprites/towers/ballista.png" id="3_wyuhk"]
 [ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="4_5dkhn"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="5_v3bcl"]
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="6_nn24t"]

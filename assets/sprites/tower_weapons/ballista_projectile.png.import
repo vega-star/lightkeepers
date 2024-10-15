@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwd06hc57w8v6"
-path="res://.godot/imported/cannonball.png-b8c24d24701e85b5544fec46b30cab7f.ctex"
+uid="uid://bff060w2csk4o"
+path="res://.godot/imported/ballista_projectile.png-a67ab2c0162fb0b7c6f1fef057da0f15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/turret_guns/cannonball.png"
-dest_files=["res://.godot/imported/cannonball.png-b8c24d24701e85b5544fec46b30cab7f.ctex"]
+source_file="res://assets/sprites/tower_weapons/ballista_projectile.png"
+dest_files=["res://.godot/imported/ballista_projectile.png-a67ab2c0162fb0b7c6f1fef057da0f15.ctex"]
 
 [params]
 

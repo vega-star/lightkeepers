@@ -8,8 +8,8 @@ radius = 48.0
 
 [node name="Slot" type="StaticBody2D" groups=["dropable"]]
 process_mode = 3
-collision_layer = 129
-collision_mask = 129
+collision_layer = 128
+collision_mask = 128
 collision_priority = 2.0
 input_pickable = true
 script = ExtResource("1_8j22q")

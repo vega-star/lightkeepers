@@ -32,7 +32,7 @@ var piercing_count : int = 1
 var seeking_weight : float = 1
 var stored_direction : Vector2
 var init_pos : Vector2
-var element_metadata : Dictionary: set = _set_element_metadata #? Stores a series of values useful to effects, changing colors, etc. while not being attatched to the element itself
+var projectile_effect_metadata : Dictionary: set = _set_projectile_effect_metadata #? Stores a series of values useful to effects, changing colors, etc. while not being attatched to the element itself
 
 func _ready():
 	seeking_weight = base_seeking_weight
@@ -51,14 +51,12 @@ func _activate():
 func _physics_process(delta):
 	# var distance_delta = global_position.distance_squared_to(init_pos)
 	# print(distance_delta)
-	
 	match projectile_mode:
 		0: #| 'STRAIGHT'
 			global_position += Vector2(speed * delta, 0).rotated(rotation)
 		1: #| 'SEEKING'
 			if is_instance_valid(target): 
 				stored_direction = global_position.direction_to(target.global_position)
-				# look_at(target.global_position)
 				rotate_toward(rotation, get_angle_to(target.global_position), seeking_weight)
 			else: projectile_mode = 0; return
 			global_position += (stored_direction * speed * delta)
@@ -67,12 +65,19 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if body is Enemy:
 		body.health_component.change(damage, true, source)
+		if !projectile_effect_metadata.is_empty(): body.health_component.effect_component.apply_effect(projectile_effect_metadata, source)
 		piercing_count -= 1
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
 	if piercing_count == 0: _break()
 
-func _set_element_metadata(new_metadata : Dictionary) -> void:
-	element_metadata = new_metadata
-	# element_metadata[]
+func _clear_projectile_element_metadata() -> void: projectile_effect_metadata = {}
 
-func _break(): AudioManager.emit_random_sound_effect(global_position, sfx_when_broken); queue_free()
+func _set_projectile_effect_metadata(new_metadata : Dictionary) -> void:
+	projectile_effect_metadata = new_metadata
+	if new_metadata != {}:
+		pass
+		# projectile_element_metadata[]
+
+func _break():
+	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)
+	queue_free()

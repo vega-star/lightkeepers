@@ -13,7 +13,7 @@
 offset_top = 56.0
 offset_right = 265.0
 offset_bottom = 720.0
-mouse_filter = 2
+mouse_filter = 1
 theme = ExtResource("1_cy4x5")
 script = ExtResource("2_emv2q")
 focus_button_group = ExtResource("3_ansxj")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cupxwutf72o83"]
 
 [ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_sm5hu"]
-[ext_resource type="Texture2D" uid="uid://cwd06hc57w8v6" path="res://assets/sprites/turret_guns/cannonball.png" id="2_ndosb"]
+[ext_resource type="Texture2D" uid="uid://cwd06hc57w8v6" path="res://assets/sprites/tower_weapons/cannonball.png" id="2_ndosb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uabhs"]
 radius = 8.06226

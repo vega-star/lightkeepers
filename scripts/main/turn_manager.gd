@@ -6,7 +6,6 @@ signal entity_scene_loaded
 signal entity_load_available
 signal schedule_finished
 
-const entity_scene = preload("res://scenes/entities/enemy.tscn")
 const turn_passed_sfxs : Array = [
 	"bug people 1",
 	"bug people 2",
@@ -133,12 +132,13 @@ func execute_wave(wave : Wave) -> void:
 	#endregion
 	
 	#region Entity spawning
-	if debug: print('Running spawn of ', wave.quantity, ' enemies of type ', entity_scene)
+	if debug: print('Running spawn of ', wave.quantity, ' enemies of type ', loaded_entity)
 	for i in wave.quantity:
-		var entity = entity_scene.instantiate()
+		var entity = loaded_entity.instantiate()
 		entity.position = enemy_spawn_point.position
 		entity_container.add_child(entity)
 		spawn_timer.start(wave.spawn_cooldown)
+		spawn_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
 		await spawn_timer.timeout
 	#endregion
 	wave_completed.emit()

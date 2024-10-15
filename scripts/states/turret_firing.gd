@@ -52,15 +52,14 @@ func _start_firing() -> void:
 			_fire(); firing_cooldown.start()
 			await firing_cooldown.timeout
 		firing_cooldown.set_wait_time(entity.firing_cooldown); firing_cooldown.start()
-	else:
-		_fire(); firing_cooldown.start()
-
+	else: _fire(); firing_cooldown.start()
 
 func _fire() -> void:
 	if projectile_prop_sprite: projectile_prop_sprite.visible = false
 	var projectile : Projectile = entity.default_projectile.instantiate()
 	
 	if is_instance_valid(entity.target): projectile.target = entity.target
+	if entity.element_metadata.has("effect_metadata"): projectile.projectile_effect_metadata = entity.element_metadata["effect_metadata"]
 	projectile.projectile_mode = projectile_mode
 	projectile.damage = entity.damage
 	projectile.source = entity

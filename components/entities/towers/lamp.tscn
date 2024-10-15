@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://clmhdu52mt0lt"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_3au02"]
-[ext_resource type="Texture2D" uid="uid://tdykvrbkn0uc" path="res://assets/sprites/turrets/lamp.png" id="1_pq7s3"]
+[ext_resource type="Texture2D" uid="uid://tdykvrbkn0uc" path="res://assets/sprites/towers/lamp.png" id="1_pq7s3"]
 [ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="2_aaex3"]
 
 [sub_resource type="GDScript" id="GDScript_yjc15"]

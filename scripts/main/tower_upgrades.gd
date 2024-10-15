@@ -26,8 +26,8 @@ var upgrade_trees_array : Array[TowerUpgradeTree]
 
 var stage_agent : StageAgent
 var tower : Tower = owner
-var tower_element_reg : ElementRegister
-var tower_element_lvl : int
+var tower_element_reg : ElementRegister: set = _on_tower_element_reg_updated
+var tower_element_lvl : int: set = _on_tower_element_lvl_updated
 
 func _ready() -> void:
 	var stage = get_tree().get_first_node_in_group('stage')
@@ -73,3 +73,16 @@ func _apply_upgrade(commands : Array[UpgradeCommand]) -> void:
 			8: tower.light_range *= float(u_value)
 
 func _on_tower_upgraded() -> void: tower.tower_updated.emit()
+
+func _on_tower_element_reg_updated(new_reg : ElementRegister) -> void:
+	tower_element_reg = new_reg
+	if !tower_element_reg: return
+	if !tower_element_reg.element.element_metadata: #? Newly generated elements *should* have metadata, but here it is in case elements don't have it
+		tower_element_reg.element.element_metadata = ElementManager.query_metadata(new_reg.element.element_id)
+	tower.element_metadata = tower_element_reg.element.element_metadata.duplicate(true)
+	assert(!tower.element_metadata.is_read_only())
+
+func _on_tower_element_lvl_updated(new_lvl : int) -> void:
+	tower_element_lvl = new_lvl
+	if !tower_element_reg: return
+	tower.element_metadata["effect_metadata"]["level"] = tower_element_lvl

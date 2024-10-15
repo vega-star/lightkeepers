@@ -54,7 +54,7 @@ limit_top = -192
 limit_right = 1600
 limit_bottom = 896
 min_zoom = 1.0
-max_zoom = 10.0
+max_zoom = 2.5
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." index="11"]
 visible = false
