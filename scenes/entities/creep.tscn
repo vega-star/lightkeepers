@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://daq02kt6fiet2"]
+
+[ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemy.tscn" id="1_kede1"]
+
+[node name="Creep" instance=ExtResource("1_kede1")]

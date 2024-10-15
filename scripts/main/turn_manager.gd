@@ -6,7 +6,8 @@ signal entity_scene_loaded
 signal entity_load_available
 signal schedule_finished
 
-const turn_passed_sfxs : Array = [
+const ENEMY_SCENE_FOLDER : String = "res://scenes/entities/"
+const TURN_PASS_SFX : Array = [
 	"bug people 1",
 	"bug people 2",
 	"bug people 3",
@@ -113,10 +114,11 @@ func _set_turn(new_value : int) -> void:
 	turn_passed.emit(current_turn, max_turns)
 
 func execute_wave(wave : Wave) -> void:
-	AudioManager.emit_random_sound_effect(enemy_spawn_point.position, turn_passed_sfxs)
+	AudioManager.emit_random_sound_effect(enemy_spawn_point.position, TURN_PASS_SFX)
 	
 	#region Entity loading
-	var selected_entity_scene = wave.enemy_scene_path
+	if !wave.enemy_id: wave.enemy_id = "enemy"; push_warning("Enemy path was invalid on wave ", wave, ". Overriding to enemy template.")
+	var selected_entity_scene = "{0}/{1}.tscn".format({0: ENEMY_SCENE_FOLDER, 1: wave.enemy_id})
 	if entity_scene_path == selected_entity_scene: pass ## Avoid reloading the same thing repeateadly
 	else:
 		entity_scene_path = selected_entity_scene

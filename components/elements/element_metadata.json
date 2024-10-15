@@ -1,0 +1,98 @@
+{
+	"fire": {
+		"type": 0,
+		"root_color": "ff4500ff",
+		"effect_metadata": {
+			"eid": 001,
+			"etype": 1,
+			"value": 2,
+			"value_multiplier": 1.2,
+			"level": 0,
+			"duration": 4.2,
+			"tick": 0.3,
+			"stackable": true,
+			"max_stacks": 10
+		},
+		"combinations": {
+			"fire": "conflagration",
+			"water": "steam",
+			"air": "lightning",
+			"earth": "metal",
+			"cursed": "scorch"
+		}
+	},
+	"conflagration": {
+		"type": 1,
+		"root_color": "ff0000ff",
+		"recipe": ["fire", "fire"],
+		"combinations": {}
+	},
+	"water": {
+		"type": 0,
+		"root_color": "0000ffff",
+		"effect_metadata": {
+			"eid": 003,
+			"etype": 2,
+			"value": 5,
+			"value_multiplier": 1.1,
+			"level": 0,
+			"duration": 4.5,
+			"tick": 1,
+			"stackable": false
+		},
+		"combinations": {
+			"water": "ice",
+			"fire": "steam",
+			"earth": "oil",
+			"air":  "rain",
+			"cursed": "abyss"
+		}
+	},
+	"ice": {
+		"type": 1,
+		"root_color": "00ffffff",
+		"recipe": ["water", "water"],
+		"combinations": {}
+	},
+	"air": {
+		"type": 0,
+		"root_color": "d3d3d3ff",
+		"combinations": {
+			"air": "turbulence",
+			"water": "rain",
+			"fire": "lightning",
+			"earth": "dust",
+			"cursed": "miasma"
+		}
+	},
+	"turbulence": {
+		"type": 1,
+		"root_color": "a9a9a9ff",
+		"recipe": ["turbulence", "turbulence"],
+		"combinations": {}
+	},
+	"earth": {
+		"type": 0,
+		"root_color": "8b4513ff",
+		"combinations": {
+			"earth": "rock",
+			"fire": "metal",
+			"water": "oil",
+			"air": "dust",
+			"cursed": "rot"
+		}
+	},
+	"rock": {
+		"type": 1,
+		"root_color": "2f4f4fff",
+		"recipe": ["earth", "earth"],
+		"combinations": {}
+	},
+	"cursed": {
+		"type": 0,
+		"root_color": "dc143cff",
+		"combinations": {
+			"cursed": "profaned"
+		}
+	}
+}

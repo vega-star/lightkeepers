@@ -18,8 +18,13 @@ script = ExtResource("1_kxej8")
 enemy_sprite = NodePath("EnemySprite")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("root_node") instance=ExtResource("2_ivbjf")]
-print_change = true
 root_node = NodePath("..")
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+simplify_path = true
+avoidance_enabled = true
+debug_enabled = true
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 radius = 6.0

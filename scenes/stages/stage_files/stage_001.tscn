@@ -9,9 +9,9 @@ _data = {
 point_count = 8
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_hi7lq"]
-vertices = PackedVector2Array(-438, 545.844, -438, 196.617, -244.367, 32.0391, -104.406, 33.8906, -56.3906, 306, -64.6563, 733.977, 567.031, 729.008, 23.5469, 306, 595.992, 27.9766, 1182.16, 140.289, 1188.86, 478.297, 104.523, 21.1016)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 5, 4, 7), PackedInt32Array(8, 9, 10, 6, 7, 11)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-448, 552, -448, 192, -248, 22, -96, 24, -48, 296, 16, 296, 97, 11, 597, 18, 1192, 132, 1199, 485, 569, 739, -67, 744)])
+vertices = PackedVector2Array(749.547, 282.602, 829.844, 138.063, 1177.81, 141.844, 1063.53, 458, 980.703, 525.773, 847.539, 462, -73.7813, 523.992, -81.4297, 654, -205.781, 654, -438, 545.633, -438, 196.617, -244.367, 32.0391, -104.406, 33.8906, -56.3906, 306, -12.5391, 454, 23.5469, 306, 323.773, 25.9063, 443.859, 146, 79.6406, 454, 104.5, 21.1563, 547.453, 146, 659.078, 273.563, 719, 527.359, 711.039, 591.039, 650.211, 598.648, 303, 519.313, 564.172, 728.188, 336.477, 695.117, 863.672, 518.461, 784.461, 462, 199.102, 588.57, 104.422, 544.867, 768.109, 519.18)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 8), PackedInt32Array(8, 9, 10, 11, 12, 13, 6), PackedInt32Array(14, 6, 13, 15), PackedInt32Array(16, 17, 18, 14, 15, 19), PackedInt32Array(17, 20, 21, 22, 23, 24, 25), PackedInt32Array(26, 27, 25, 24), PackedInt32Array(4, 28, 5), PackedInt32Array(0, 5, 29, 21), PackedInt32Array(30, 31, 18, 17, 25), PackedInt32Array(22, 21, 29, 32)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-448, 552, -448, 192, -248, 22, -96, 24, -48, 296, 16, 296, 97, 11, 328, 16, 448, 136, 552, 136, 664, 264, 744, 272, 824, 128, 1192, 132, 1072, 464, 984, 536, 856, 528, 840, 472, 792, 472, 776, 528, 728, 536, 720, 600, 656, 608, 569, 739, 328, 704, 296, 536, 200, 600, 96, 552, 72, 464, -8, 464, -64, 528, -72, 664, -208, 664)])
 
 [node name="StageZero" instance=ExtResource("1_pr2rf")]
 metadata/_edit_vertical_guides_ = [2952.0, -768.0, 1600.0]
@@ -57,6 +57,6 @@ min_zoom = 1.0
 max_zoom = 2.5
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." index="11"]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_hi7lq")
 enabled = false
+travel_cost = 0.0

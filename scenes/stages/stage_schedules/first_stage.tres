@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StageSchedule" load_steps=15 format=3 uid="uid://bhavpgvghw8tl"]
+[gd_resource type="Resource" script_class="StageSchedule" load_steps=16 format=3 uid="uid://bhavpgvghw8tl"]
 
 [ext_resource type="Script" path="res://scripts/resources/turns/turn_schedule.gd" id="1_nsqhq"]
 [ext_resource type="Script" path="res://scripts/resources/turns/turn.gd" id="2_nj5ta"]
@@ -6,21 +6,21 @@
 
 [sub_resource type="Resource" id="Resource_tld5o"]
 script = ExtResource("3_j5h5j")
-enemy_scene_path = "res://scenes/entities/brute.tscn"
+enemy_id = "brute"
 quantity = 5
 spawn_cooldown = 2.0
 override_wave_period = 0.0
 
 [sub_resource type="Resource" id="Resource_ag1g1"]
 script = ExtResource("3_j5h5j")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
+enemy_id = "creep"
 quantity = 3
 spawn_cooldown = 0.8
 override_wave_period = 0.0
 
 [sub_resource type="Resource" id="Resource_1ixrm"]
 script = ExtResource("3_j5h5j")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
+enemy_id = "creep"
 quantity = 3
 spawn_cooldown = 0.8
 override_wave_period = 0.0
@@ -32,14 +32,14 @@ coins_on_turn_completion = 15
 
 [sub_resource type="Resource" id="Resource_axgqi"]
 script = ExtResource("3_j5h5j")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
+enemy_id = "creep"
 quantity = 10
 spawn_cooldown = 0.5
 override_wave_period = 7.0
 
 [sub_resource type="Resource" id="Resource_y1mvv"]
 script = ExtResource("3_j5h5j")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
+enemy_id = "creep"
 quantity = 5
 spawn_cooldown = 0.8
 override_wave_period = 0.0
@@ -49,9 +49,16 @@ script = ExtResource("2_nj5ta")
 turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv")])
 coins_on_turn_completion = 25
 
+[sub_resource type="Resource" id="Resource_eswyu"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 1
+spawn_cooldown = 0.8
+override_wave_period = 0.0
+
 [sub_resource type="Resource" id="Resource_u6vfe"]
 script = ExtResource("2_nj5ta")
-turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv")])
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv"), SubResource("Resource_eswyu")])
 coins_on_turn_completion = 25
 
 [sub_resource type="Resource" id="Resource_oreg3"]
@@ -61,7 +68,7 @@ coins_on_turn_completion = 25
 
 [sub_resource type="Resource" id="Resource_e4qms"]
 script = ExtResource("3_j5h5j")
-enemy_scene_path = "res://scenes/entities/enemy.tscn"
+enemy_id = "creep"
 quantity = 10
 spawn_cooldown = 0.5
 override_wave_period = 7.0

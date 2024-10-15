@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui/ui_pause_layer.tscn" id="4_wwglg"]
 [ext_resource type="PackedScene" uid="uid://b0umly4sahrnr" path="res://scenes/ui/ui_transition_layer.tscn" id="6_iltc1"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_sqsxm"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_0wmhs"]
 
 [node name="UIComponent" type="Node"]
 process_mode = 3
@@ -14,10 +14,11 @@ script = ExtResource("1_o51w2")
 
 [node name="ScreenEffectLayer" parent="." instance=ExtResource("2_nmhs7")]
 layer = 100
+visible = false
 
 [node name="Interface" parent="." instance=ExtResource("3_4fskw")]
 layer = 25
-shop_button_group = SubResource("ButtonGroup_sqsxm")
+shop_button_group = SubResource("ButtonGroup_0wmhs")
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
 layer = 20

@@ -76,13 +76,19 @@ func _on_tower_upgraded() -> void: tower.tower_updated.emit()
 
 func _on_tower_element_reg_updated(new_reg : ElementRegister) -> void:
 	tower_element_reg = new_reg
-	if !tower_element_reg: return
+	if !tower_element_reg:
+		tower.element_metadata = {}
+		if tower.tower_type == 1: tower.tower_gun_sprite.modulate = Color.WHITE
+		return
 	if !tower_element_reg.element.element_metadata: #? Newly generated elements *should* have metadata, but here it is in case elements don't have it
 		tower_element_reg.element.element_metadata = ElementManager.query_metadata(new_reg.element.element_id)
-	tower.element_metadata = tower_element_reg.element.element_metadata.duplicate(true)
+	var metadata : Dictionary = tower_element_reg.element.element_metadata.duplicate(true)
+	tower.element_metadata = metadata
+	if tower.tower_type == 1: tower.tower_gun_sprite.modulate = metadata["root_color"]
 	assert(!tower.element_metadata.is_read_only())
 
 func _on_tower_element_lvl_updated(new_lvl : int) -> void:
 	tower_element_lvl = new_lvl
 	if !tower_element_reg: return
+	tower.element_metadata.get_or_add("effect_metadata")
 	tower.element_metadata["effect_metadata"]["level"] = tower_element_lvl

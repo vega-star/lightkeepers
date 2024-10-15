@@ -21,6 +21,7 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 
 #region Turret Configuration
 @export_group('Default Values')
+@export_flags("Tower", "Lamp", "Building") var tower_type = 1
 @export var default_tower_cost : int = 50
 @export var default_projectile : PackedScene
 @export_range(0, 10) var default_light_range : float = 1
@@ -43,15 +44,6 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 #endregion
 
 #region Variables
-@onready var tower_upgrades : TowerUpgrades = $TowerUpgrades
-@onready var tower_gun_muzzle : Marker2D = $TowerGunSprite/TowerGunMuzzle
-@onready var tower_aim : RayCast2D = $TowerGunSprite/TowerGunMuzzle/TowerAim
-@onready var tower_sprite : Sprite2D = $TowerSprite
-@onready var tower_gun_sprite : AnimatedSprite2D = $TowerGunSprite
-@onready var tower_range_area : Area2D = $TowerRangeArea
-@onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
-@onready var firing_cooldown_timer : Timer = $StateMachine/Firing/FiringCooldown
-
 ## Turret metadata
 var target_priority : int
 var tower_value : int
@@ -62,9 +54,12 @@ var piercing : int
 var burst : int
 var element_metadata : Dictionary = {}
 var projectile_quantity : int
-var firing_cooldown : float: set = _set_firing_cooldown
 
 ## Node references
+@onready var tower_range_area : Area2D = $TowerRangeArea
+@onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
+@onready var tower_upgrades : TowerUpgrades = $TowerUpgrades
+
 var element_register : ElementRegister: set = adapt_register
 var element : Element
 var stage_camera : StageCamera
@@ -106,18 +101,11 @@ func _ready() -> void:
 	tower_range_area.body_entered.connect(_enemy_detected)
 	tower_range_area.body_exited.connect(_enemy_exited)
 
-func _adapt_in_tile() -> void: light_shape.position = position
-
-func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body); tower_detected_enemy.emit()
-
-func _enemy_exited(body) -> void: eligible_targets.erase(body)
-
-func _set_firing_cooldown(new_cooldown : float): firing_cooldown = new_cooldown; firing_cooldown_timer.wait_time = new_cooldown
+func _physics_process(_delta) -> void: queue_redraw()
 
 func _load_properties() -> void:
 	light_shape.size = light_range
 	tower_range_shape.shape.radius = DEFAULT_RANGE * tower_range
-	tower_aim.target_position.x = DEFAULT_RANGE * tower_range
 	tower_updated.emit()
 
 func _load_default_values() -> void:
@@ -126,11 +114,13 @@ func _load_default_values() -> void:
 	piercing = default_piercing
 	burst = default_burst
 	projectile_quantity = default_projectile_quantity
-	firing_cooldown = default_firing_cooldown; firing_cooldown_timer.wait_time = firing_cooldown
-	if tower_gun_sprite.visible: tower_sprite.visible = false
 	tower_updated.emit()
 
-func _physics_process(_delta) -> void: queue_redraw()
+func _adapt_in_tile() -> void: light_shape.position = position
+
+func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body); tower_detected_enemy.emit()
+
+func _enemy_exited(body) -> void: eligible_targets.erase(body)
 
 func _draw() -> void:
 	if visible_range: #? Draw visible cues to tower range based on the shape of the range itself and camera zoom. No adjustment is necessary!
@@ -146,7 +136,7 @@ func _draw() -> void:
 
 #region Called functions
 func remove_object() -> void:
-	# AudioManager.emit_sound_effect(self.global_position, destroy_sound_effect_id)
+	if !prop: AudioManager.emit_sound_effect(self.global_position, destroy_sound_effect_id)
 	light_shape.queue_free()
 	queue_free()
 

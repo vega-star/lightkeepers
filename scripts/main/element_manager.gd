@@ -4,6 +4,7 @@
 extends Node
 
 const BASE_QUANTITY : int = 2
+const element_metadata_PATH : String = "res://components/elements/element_metadata.json"
 const SPRITES_PATH : String = "res://assets/sprites/elements/"
 const CONTROL_SLOT_SCENE : PackedScene = preload("res://components/interface/control_slot.tscn")
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://components/interface/draggable_object.tscn")
@@ -14,113 +15,24 @@ const STARTING_ELEMENT_REG : Array[ElementRegister] = [
 	preload("res://components/elements/default_registers/AirRegister.tres"),
 	preload("res://components/elements/default_registers/EarthRegister.tres")]
 
-const ELEMENT_METADATA : Dictionary = {
-	"fire": {
-		"type": 0,
-		"root_color": Color.ORANGE_RED,
-		"effect_metadata": {
-			"eid": 001,
-			"etype": 1,
-			"value": 5,
-			"value_multiplier": 1.2,
-			"level": 0,
-			"duration": 4.2,
-			"tick": 0.3,
-			"stackable": true,
-			"max_stacks": 10
-		},
-		"combinations": {
-			"fire": "conflagration",
-			"water": "steam",
-			"air": "lightning",
-			"earth": "metal",
-			"cursed": "scorch"
-		}
-	},
-	"conflagration": {
-		"type": 1,
-		"root_color": Color.RED,
-		"recipe": ["fire", "fire"],
-		"combinations": {}
-	},
-	"water": {
-		"type": 0,
-		"root_color": Color.BLUE,
-		"effect_metadata": {
-			"eid": 003,
-			"etype": 2,
-			"value": 5,
-			"value_multiplier": 1.1,
-			"level": 0,
-			"duration": 4.5,
-			"tick": 1,
-			"stackable": false
-		},
-		"combinations": {
-			"water": "ice",
-			"fire": "steam",
-			"earth": "oil",
-			"air":  "rain",
-			"cursed": "abyss"
-		}
-	},
-	"ice": {
-		"type": 1,
-		"root_color": Color.AQUA,
-		"recipe": ["water", "water"],
-		"combinations": {}
-	},
-	"air": {
-		"type": 0,
-		"root_color": Color.LIGHT_GRAY,
-		"combinations": {
-			"air": "turbulence",
-			"water": "rain",
-			"fire": "lightning",
-			"earth": "dust",
-			"cursed": "miasma"
-		}
-	},
-	"turbulence": {
-		"type": 1,
-		"root_color": Color.DARK_GRAY,
-		"recipe": ["turbulence", "turbulence"],
-		"combinations": {}
-	},
-	"earth": {
-		"type": 0,
-		"root_color": Color.SADDLE_BROWN,
-		"combinations": {
-			"earth": "rock",
-			"fire": "metal",
-			"water": "oil",
-			"air": "dust",
-			"cursed": "rot"
-		}
-	},
-	"rock": {
-		"type": 1,
-		"root_color": Color.DARK_SLATE_GRAY,
-		"recipe": ["earth", "earth"],
-		"combinations": {}
-	},
-	"cursed": {
-		"type": 0,
-		"root_color": Color.CRIMSON,
-		"combinations": {
-			"cursed": "profaned"
-		}
-	}
-}
-
 var effects : Array[Effect]
 var active_registers : Array[ElementRegister]
 var element_textures : Dictionary = {}
+var element_metadata : Dictionary = {}
 
 #region Main Functions
 func _ready() -> void:
 	active_registers.append_array(STARTING_ELEMENT_REG)
 	element_textures = _load_all_sprites()
+	element_metadata = _load_element_metadata()
+
+func _load_element_metadata() -> Dictionary: #? Returns a patched dictionary containing all needed metadata
+	var metadata_file : FileAccess = FileAccess.open(element_metadata_PATH, FileAccess.READ)
+	var metadata : Dictionary = JSON.parse_string(metadata_file.get_as_text())
+	metadata_file.close()
+	for e in metadata: # Patch data to Godot friendly format
+		metadata[e]["root_color"] = Color("#"+metadata[e]["root_color"])
+	return metadata
 
 func _load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of sprites that should have the same file name as the element ID (both strings)
 	var elements_folder = DirAccess.open(SPRITES_PATH)
@@ -149,13 +61,13 @@ func _purge(): ## Purge all elements, resetting everything! Used when restarting
 
 #region Element Manipulation
 func query_metadata(element_id : String, meta : String = "") -> Variant: ## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
-	if !ELEMENT_METADATA.has(element_id): print("NOT FOUND!"); return null #? No key "element_id" found in element_metadata dict
-	if meta == "": return ELEMENT_METADATA[element_id] #? No meta string given, thus will return full metadata
-	else: return ELEMENT_METADATA[element_id][meta] #? Returning specific metadata
+	if !element_metadata.has(element_id): print("NOT FOUND!"); return null #? No key "element_id" found in element_metadata dict
+	if meta == "": return element_metadata[element_id] #? No meta string given, thus will return full metadata
+	else: return element_metadata[element_id][meta] #? Returning specific metadata
 
 func combine(first_element, second_element) -> String: ## Returns an element ID from two other IDs by checking the metadata dictionary. Only returns the ID, no element is created!
-	if !ELEMENT_METADATA.has(first_element) or !ELEMENT_METADATA.has(second_element): return "" #! INVALID ELEMENTS
-	var combination_dict : Dictionary = ELEMENT_METADATA[first_element]["combinations"]
+	if !element_metadata.has(first_element) or !element_metadata.has(second_element): return "" #! INVALID ELEMENTS
+	var combination_dict : Dictionary = element_metadata[first_element]["combinations"]
 	if !combination_dict.has(second_element): return "" #! INVALID COMBINATION
 	var result = combination_dict[second_element]
 	if result: return result

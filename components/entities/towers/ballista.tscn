@@ -96,7 +96,7 @@ resource_local_to_scene = true
 script = ExtResource("5_u84ps")
 upgrades = Array[ExtResource("6_dbxss")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
 
-[node name="Tower" instance=ExtResource("1_e4sy1")]
+[node name="Ballista" instance=ExtResource("1_e4sy1")]
 default_tower_cost = 75
 default_projectile = ExtResource("2_hw7jf")
 default_light_range = 0.6
@@ -104,6 +104,7 @@ default_tower_range = 1.6
 default_piercing = 2
 default_firing_cooldown = 1.5
 default_seeking_timeout = 0.3
+tower_name = "Ballista"
 
 [node name="TowerUpgrades" parent="." index="0"]
 upgrade_tree_1 = SubResource("Resource_loc58")

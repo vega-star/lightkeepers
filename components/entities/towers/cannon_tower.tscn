@@ -113,6 +113,9 @@ radius = 160.0
 
 [node name="Cannon_Tower" instance=ExtResource("1_wel7w")]
 default_projectile = ExtResource("2_k2kr6")
+default_burst = 2
+default_firing_cooldown = 1.5
+default_seeking_timeout = 0.3
 tower_name = "Cannon"
 
 [node name="TowerUpgrades" parent="." index="0"]

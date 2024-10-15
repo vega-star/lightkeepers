@@ -4,8 +4,8 @@ extends CharacterBody2D
 signal path_ended
 signal died(source : Node)
 
-const HEALTH_CHANGE_MPERIOD : float = 0.25
-const DAMAGE_MODULATE : Color = Color(2, 2, 2)
+const HEALTH_CHANGE_MPERIOD : float = 0.5
+const DAMAGE_MODULATE : Color = Color(5, 5, 5)
 const HEAL_MODULATE : Color = Color(1, 3, 1.5)
 enum ENEMY_CLASS {
 	CREEP,
@@ -16,6 +16,7 @@ enum ENEMY_CLASS {
 	TIAMAT
 }
 
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent
 @onready var health_component = $HealthComponent
 
 @export_group('Enemy Properties')
@@ -33,7 +34,7 @@ enum ENEMY_CLASS {
 @export var enemy_area : Area2D
 @export var enemy_path : Path2D
 
-var navigation_agent : NavigationAgent2D #? Smart enemy nav agent
+# var navigation_agent : NavigationAgent2D #? Smart enemy nav agent
 var line_agent : PathFollow2D #? Line2D node to follow
 var stage : Stage #? Stage to call upon
 
@@ -57,11 +58,9 @@ func _set_enemy_properties():
 	
 	if smart_enemy:
 		assert(nexus)
-		navigation_agent = NavigationAgent2D.new()
-		navigation_agent.path_postprocessing = NavigationPathQueryParameters2D.PATH_POSTPROCESSING_EDGECENTERED
+		# navigation_agent.path_postprocessing = NavigationPathQueryParameters2D.PATH_POSTPROCESSING_EDGECENTERED
 		navigation_agent.navigation_finished.connect(_on_navigation_finished)
-		if debug_path: navigation_agent.debug_enabled = true
-		add_child(navigation_agent)
+		# if debug_path: navigation_agent.debug_enabled = true
 		_create_path()
 	else:
 		_set_path2d(stage.stage_path)
@@ -115,6 +114,7 @@ func die(source):
 	if !smart_enemy: line_agent.queue_free()
 
 func _on_health_component_health_change(previous_value: int, new_value: int, type: bool) -> void:
+	if is_instance_valid(self) or self.is_queued_for_deletion(): return
 	var modulate_color : Color
 	var modulate_tween : Tween = get_tree().create_tween()
 	if type: modulate_color = DAMAGE_MODULATE

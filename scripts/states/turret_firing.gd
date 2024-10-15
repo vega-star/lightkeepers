@@ -60,6 +60,7 @@ func _fire() -> void:
 	
 	if is_instance_valid(entity.target): projectile.target = entity.target
 	if entity.element_metadata.has("effect_metadata"): projectile.projectile_effect_metadata = entity.element_metadata["effect_metadata"]
+	if entity.element_metadata.has("root_color"): projectile.modulate = entity.element_metadata["root_color"]
 	projectile.projectile_mode = projectile_mode
 	projectile.damage = entity.damage
 	projectile.source = entity

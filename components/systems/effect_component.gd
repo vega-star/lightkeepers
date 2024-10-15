@@ -2,6 +2,8 @@ class_name EffectComponent extends Node
 
 @onready var health_component: HealthComponent = $".."
 
+@export var debug : bool = false
+
 var active_eids : Array[int] #w Quicker to query than individual nodes
 var active_effects : Array[Effect]
 
@@ -9,9 +11,8 @@ func _ready() -> void: assert(health_component)
 
 func apply_effect(metadata : Dictionary, source : Tower) -> bool: ## Create, start, and manage effect
 	var eid : int = metadata["eid"]
-	print(owner.name, '| Effect applied\r', metadata)
+	if debug: print(owner.root_node.name, ' | Effect applied: ', metadata)
 	if active_eids.has(eid):
-		print('Effect is already active! Merging it')
 		var a_effect : Effect
 		for e in active_effects: if e.eid == eid: a_effect = e
 		a_effect.reset_duration()
@@ -49,15 +50,16 @@ func compute_effect(
 	) -> void:
 	var e_dict : Dictionary = e_ref.effect
 	var e_source : Tower = e_ref.source
-	match e_dict["etype"]:
-		000: print("{0} EffectComponent | Apply mode: {1} | EFFECT:\r{2}".format({0:owner, 1: apply, 2: e_dict})) # DEBUG
+	match int(e_dict["etype"]):
+		000: pass # DEBUG
 		001: # DAMAGE | Canceling would cause a healing effect
 			if !apply: return
-			var d_value : int = roundi(e_dict["value"] * (e_dict["value_multiplier"] * e_dict["level"]))
+			var d_value : int = roundi(e_dict["value"] * 1 + (e_dict["value_multiplier"] * e_dict["level"]))
 			if e_dict["stackable"] and e_ref.stacks > 1: d_value *= e_ref.stacks
-			print('Damaing ', owner.name, ' with ', d_value)
+			if debug: print('Damaging ', owner.root_node.name, ' with ', d_value, ' multiplied by ', e_ref.stacks, ' stacks')
 			if is_instance_valid(e_source): health_component.change(d_value, apply, e_ref.source)
 			else: health_component.change(d_value, apply)
 		002: pass # ADD_VULNERABILITY
 		003: pass # MOVEMENT_CHANGE
 		004: pass # PASSIVE_HEAL
+		_: push_error(owner.root_node.name, " EffectComponent | INVALID E_TYPE")

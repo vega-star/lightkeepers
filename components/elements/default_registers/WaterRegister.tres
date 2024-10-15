@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ElementRegister" load_steps=3 format=3 uid="uid://nojuy8ypf07k"]
 
-[ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://components/elements/WaterElement.tres" id="1_sb5au"]
+[ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://components/elements/default_elements/WaterElement.tres" id="1_sb5au"]
 [ext_resource type="Script" path="res://scripts/resources/element_register.gd" id="2_w25er"]
 
 [resource]

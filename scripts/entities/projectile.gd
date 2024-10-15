@@ -45,7 +45,12 @@ func _activate():
 	# init_pos = global_position
 	cpu_particles.emitting = true
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_launched, "Effects", PITCH_VARIATION)
-	await get_tree().create_timer(lifetime).timeout # TODO: Personalized timer / distance delta
+	
+	var lifetime_timer : Timer = Timer.new()
+	lifetime_timer.set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
+	add_child(lifetime_timer)
+	lifetime_timer.start(lifetime)
+	await lifetime_timer.timeout # TODO: Personalized timer / distance delta
 	_break()
 
 func _physics_process(delta):
@@ -64,7 +69,8 @@ func _physics_process(delta):
 
 func _on_body_entered(body):
 	if body is Enemy:
-		body.health_component.change(damage, true, source)
+		if is_instance_valid(source): body.health_component.change(damage, true, source)
+		else: body.health_component.change(damage, true)
 		if !projectile_effect_metadata.is_empty(): body.health_component.effect_component.apply_effect(projectile_effect_metadata, source)
 		piercing_count -= 1
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
@@ -72,11 +78,7 @@ func _on_body_entered(body):
 
 func _clear_projectile_element_metadata() -> void: projectile_effect_metadata = {}
 
-func _set_projectile_effect_metadata(new_metadata : Dictionary) -> void:
-	projectile_effect_metadata = new_metadata
-	if new_metadata != {}:
-		pass
-		# projectile_element_metadata[]
+func _set_projectile_effect_metadata(new_metadata : Dictionary) -> void: projectile_effect_metadata = new_metadata
 
 func _break():
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)

@@ -9,8 +9,9 @@ _data = [Vector2(0, 0), 0.0, 2.06752, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="BallistaProjectile" instance=ExtResource("1_3xlou")]
+projectile_mode = 1
 base_piercing = 2
-base_seeking_weight = 0.2
+base_seeking_weight = 0.1
 
 [node name="CPUParticles2D" parent="." index="1"]
 position = Vector2(24, 0)
@@ -30,10 +31,10 @@ scale_amount_min = 0.1
 scale_amount_max = 0.3
 scale_amount_curve = SubResource("Curve_8pbtj")
 
-[node name="ProjectileSprite" parent="." index="3"]
+[node name="ProjectileSprite" parent="." index="2"]
 position = Vector2(13, 2.98023e-07)
 texture = ExtResource("2_xvxdk")
 flip_h = true
 
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(13, 0)
