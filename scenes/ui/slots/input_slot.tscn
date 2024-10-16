@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cv2uw4v0xn7k7"]
 
-[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="1_31rxe"]
+[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://scenes/ui/slots/slot.tscn" id="1_31rxe"]
 
 [node name="InputSlot1" type="CenterContainer"]
 custom_minimum_size = Vector2(96, 96)

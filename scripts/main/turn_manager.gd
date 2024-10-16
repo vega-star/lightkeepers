@@ -26,12 +26,12 @@ const TURN_PASS_SFX : Array = [
 
 @onready var stage_agent : StageAgent = $".."
 @onready var entity_container : Node2D = $"../../Containers/EntityContainer"
+@onready var spawn_positions : Node2D = $"../../Containers/SpawnPositions"
 @onready var spawn_timer : Timer = $SpawnTimer
 @onready var turn_timer : Timer = $TurnTimer
 
 #? Properties that differentiate each stage
 @export var turn_schedule : StageSchedule : set = _load_schedule
-@export var enemy_spawn_point : Marker2D
 @export var infinite : bool = false
 @export var debug : bool = false
 
@@ -114,7 +114,7 @@ func _set_turn(new_value : int) -> void:
 	turn_passed.emit(current_turn, max_turns)
 
 func execute_wave(wave : Wave) -> void:
-	AudioManager.emit_random_sound_effect(enemy_spawn_point.position, TURN_PASS_SFX)
+	AudioManager.emit_random_sound_effect(spawn_positions.get_child(0).position, TURN_PASS_SFX)
 	
 	#region Entity loading
 	if !wave.enemy_id: wave.enemy_id = "enemy"; push_warning("Enemy path was invalid on wave ", wave, ". Overriding to enemy template.")
@@ -137,7 +137,7 @@ func execute_wave(wave : Wave) -> void:
 	if debug: print('Running spawn of ', wave.quantity, ' enemies of type ', loaded_entity)
 	for i in wave.quantity:
 		var entity = loaded_entity.instantiate()
-		entity.position = enemy_spawn_point.position
+		entity.position = spawn_positions.get_child(0).position
 		entity_container.add_child(entity)
 		spawn_timer.start(wave.spawn_cooldown)
 		spawn_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)

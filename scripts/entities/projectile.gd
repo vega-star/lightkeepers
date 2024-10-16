@@ -62,7 +62,8 @@ func _physics_process(delta):
 		1: #| 'SEEKING'
 			if is_instance_valid(target): 
 				stored_direction = global_position.direction_to(target.global_position)
-				rotate_toward(rotation, get_angle_to(target.global_position), seeking_weight)
+				var angle = transform.x.angle_to(stored_direction)
+				rotate(sign(angle) * min(delta * TAU * 2, abs(angle)))
 			else: projectile_mode = 0; return
 			global_position += (stored_direction * speed * delta)
 		_: push_error('INVALID PROJECTILE_TYPE')
@@ -73,6 +74,7 @@ func _on_body_entered(body):
 		else: body.health_component.change(damage, true)
 		if !projectile_effect_metadata.is_empty(): body.health_component.effect_component.apply_effect(projectile_effect_metadata, source)
 		piercing_count -= 1
+		if projectile_mode == 1: projectile_mode = 0
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
 	if piercing_count == 0: _break()
 
@@ -81,5 +83,6 @@ func _clear_projectile_element_metadata() -> void: projectile_effect_metadata = 
 func _set_projectile_effect_metadata(new_metadata : Dictionary) -> void: projectile_effect_metadata = new_metadata
 
 func _break():
+	set_physics_process(false)
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)
 	queue_free()

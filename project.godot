@@ -27,7 +27,7 @@ buses/default_bus_layout="res://assets/audio/audio_bus.tres"
 
 UI="*res://scenes/singletons/ui.tscn"
 LoadManager="*res://scenes/singletons/load_manager.tscn"
-Options="*res://components/options.tscn"
+Options="*res://scenes/singletons/options.tscn"
 AudioManager="*res://scenes/singletons/audio_manager.tscn"
 ElementManager="*res://scripts/main/element_manager.gd"
 

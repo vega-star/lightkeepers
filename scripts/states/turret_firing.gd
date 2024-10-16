@@ -1,7 +1,5 @@
 extends State
 
-const ROTATION_ADDER : float = 20
-
 @export var seeking_state : State
 @export var burst_cooldown_damping : float = 1.8
 @export var projectile_mode : int = 1 #? Defaults to seeking
@@ -11,6 +9,7 @@ const ROTATION_ADDER : float = 20
 @onready var firing_cooldown : Timer = $FiringCooldown
 
 var active : bool = false
+var direction : Vector2
 var firing_buffered : bool = false
 var bullet_container : Node2D
 var cast_point : Vector2
@@ -26,11 +25,19 @@ func enter() -> void:
 
 func exit() -> void: active = false
 
-func state_physics_update(_delta : float) -> void:
+func state_physics_update(delta : float) -> void:
 	entity.tower_aim.force_raycast_update()
 	if is_instance_valid(entity.target): #? Control firing angle
-		entity.tower_gun_sprite.look_at(entity.target.global_position)
-		entity.tower_sprite.look_at(entity.target.global_position)
+		direction = entity.global_position.direction_to(entity.target.global_position)
+		_rotate_turret(direction, delta)
+
+func _rotate_turret(direction : Vector2, delta : float) -> void:
+	_rotate_to_direction(entity.tower_gun_sprite, direction, delta)
+	_rotate_to_direction(entity.tower_sprite, direction, delta)
+
+func _rotate_to_direction(r_node : Node, r_direction : Vector2, delta : float) -> void:
+	var angle = r_node.transform.x.angle_to(r_direction)
+	r_node.rotate(sign(angle) * min(delta * TAU * 2, abs(angle)))
 #endregion
 
 #region Firing

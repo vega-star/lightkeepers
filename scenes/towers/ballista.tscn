@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://cld08hurv0ljg"]
 
-[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://components/entities/towers/tower.tscn" id="1_e4sy1"]
+[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/tower.tscn" id="1_e4sy1"]
 [ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_hw7jf"]
 [ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="5_u84ps"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="6_dbxss"]

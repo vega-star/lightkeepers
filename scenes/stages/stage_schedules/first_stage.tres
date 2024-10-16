@@ -34,7 +34,7 @@ coins_on_turn_completion = 15
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
 quantity = 10
-spawn_cooldown = 0.5
+spawn_cooldown = 0.05
 override_wave_period = 7.0
 
 [sub_resource type="Resource" id="Resource_y1mvv"]

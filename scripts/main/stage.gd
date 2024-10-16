@@ -1,4 +1,4 @@
-## Stage
+## StageAgent
 # MAIN FUNCTION: Manages interactions with the tilemap, mouse movement/position.
 # ADDITIONAL: Serves as the 2D position reference for all entites and containers of the stage
 class_name Stage
@@ -6,6 +6,8 @@ extends Node2D
 
 #region Variables
 const CASHBACK_FACTOR : float = 0.65
+
+@export var stage_info : StageInfo
 
 @export_group('Node Connections')
 @export var modulate_layer : CanvasModulate
@@ -83,6 +85,7 @@ func select_tile(tile_position):
 	
 	if is_instance_valid(selected_object):
 		if selected_object is Tower: UI.HUD.tower_panel.load_tower(selected_object)
+		else: UI.HUD.tower_panel._move(false)
 		selected_object.visible_range = true
 	
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)

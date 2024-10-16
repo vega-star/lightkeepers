@@ -215,17 +215,21 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 16.0
-
 [node name="TowerOccupiedArea" type="Area2D" parent="."]
+collision_layer = 17
+collision_mask = 5
+input_pickable = false
 
 [node name="OccupiedArea" type="CollisionShape2D" parent="TowerOccupiedArea"]
 shape = SubResource("CircleShape2D_sss3a")
 debug_color = Color(0.356052, 0.48176, 1, 0.42)
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="TowerOccupiedArea"]
+radius = 16.0
+
 [node name="TowerRangeArea" type="Area2D" parent="."]
 collision_mask = 64
+input_pickable = false
 
 [node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
 shape = SubResource("CircleShape2D_4qdcu")

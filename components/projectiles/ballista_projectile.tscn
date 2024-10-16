@@ -15,7 +15,6 @@ base_seeking_weight = 0.1
 
 [node name="CPUParticles2D" parent="." index="1"]
 position = Vector2(24, 0)
-emitting = true
 lifetime = 2.0
 speed_scale = 2.0
 randomness = 0.0

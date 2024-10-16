@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/pages/pg_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
-[ext_resource type="PackedScene" uid="uid://b8ofyl47121r8" path="res://scenes/ui/ui_button.tscn" id="2_c5orx"]
+[ext_resource type="PackedScene" uid="uid://b8ofyl47121r8" path="res://scenes/ui/buttons/ui_button.tscn" id="2_c5orx"]
 [ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/misc/lightkeepers_logo.png" id="3_3uyyw"]
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="3_k0e0y"]
 

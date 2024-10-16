@@ -4,9 +4,13 @@
 
 [node name="Brute" instance=ExtResource("1_v5bso")]
 scale = Vector2(2, 2)
+enemy_name = "Brute"
 enemy_class = 1
 default_damage_on_nexus = 15
 base_enemy_value = 15
 base_health = 30
 base_speed = 30
 base_acceleration = 0.15
+
+[node name="NavigationAgent" parent="." index="1"]
+radius = 25.0

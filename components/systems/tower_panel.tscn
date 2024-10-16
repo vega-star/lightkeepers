@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/prototypes/next_button.png" id="3_7ki8e"]
 [ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_ansxj"]
 [ext_resource type="Texture2D" uid="uid://cgskcr0k8rb7r" path="res://assets/sprites/misc/logo_sage.png" id="4_hls82"]
-[ext_resource type="PackedScene" uid="uid://n5rw1cpg7sp0" path="res://components/interface/upgrade_slot.tscn" id="4_v4mjq"]
+[ext_resource type="PackedScene" uid="uid://n5rw1cpg7sp0" path="res://scenes/ui/slots/upgrade_slot.tscn" id="4_v4mjq"]
 [ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="7_i58fp"]
 
 [node name="TowerPanel" type="Panel"]

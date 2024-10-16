@@ -13,8 +13,9 @@ process_mode = 1
 modulate = Color(3, 3, 3, 1)
 material = ExtResource("1_da87p")
 collision_layer = 5
-collision_mask = 55
+collision_mask = 54
 script = ExtResource("1_kxej8")
+smart_enemy = false
 enemy_sprite = NodePath("EnemySprite")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("root_node") instance=ExtResource("2_ivbjf")]
@@ -22,12 +23,11 @@ root_node = NodePath("..")
 
 [node name="NavigationAgent" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
-simplify_path = true
 avoidance_enabled = true
+radius = 5.0
 debug_enabled = true
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 6.0
+debug_use_custom = true
+debug_path_custom_color = Color(10, 2, 2, 1)
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_o5a3q")
@@ -45,3 +45,4 @@ color = Color(1, 0, 0, 1)
 
 [connection signal="path_ended" from="." to="." method="_on_path_ended"]
 [connection signal="health_change" from="HealthComponent" to="." method="_on_health_component_health_change"]
+[connection signal="velocity_computed" from="NavigationAgent" to="." method="_on_navigation_agent_velocity_computed"]

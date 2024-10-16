@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_u513e"]
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="2_2wtx5"]
-[ext_resource type="Script" path="res://scripts/main/stage_manager.gd" id="2_top5x"]
+[ext_resource type="Script" path="res://scripts/main/stage_agent.gd" id="2_top5x"]
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="3_xxwxp"]
 [ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_in44l"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_gjeh3"]
@@ -16,7 +16,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_v06dm"]
 
-[node name="StageZero" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
+[node name="StageRoot" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
 process_mode = 3
 script = ExtResource("1_u513e")
 modulate_layer = NodePath("StageEffects/DarknessLayer")
@@ -43,21 +43,17 @@ offset_right = 2530.0
 offset_bottom = 1352.0
 color = Color(0, 0, 0, 1)
 
-[node name="PlaceholderEffectLayer" parent="StageEffects" instance_placeholder="res://scenes/ui/ui_screen_effect_layer.tscn"]
-
 [node name="DarknessLayer" type="CanvasModulate" parent="StageEffects"]
 visible = false
 color = Color(0.0885601, 0.08856, 0.0885589, 1)
 
 [node name="StageAgent" type="Node" parent="."]
 script = ExtResource("2_top5x")
-initial_coins = 60000
 
-[node name="TurnManager" type="Node" parent="StageAgent" node_paths=PackedStringArray("enemy_spawn_point")]
+[node name="TurnManager" type="Node" parent="StageAgent"]
 process_mode = 1
 script = ExtResource("3_xxwxp")
 turn_schedule = ExtResource("5_in44l")
-enemy_spawn_point = NodePath("../../Containers/SpawnPosition")
 infinite = true
 
 [node name="SpawnTimer" type="Timer" parent="StageAgent/TurnManager"]
@@ -80,14 +76,14 @@ z_index = 25
 use_parent_material = true
 tile_set = ExtResource("6_gjeh3")
 
-[node name="InteractionLayer" type="TileMapLayer" parent="."]
-z_index = 10
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+z_index = 5
 use_parent_material = true
 tile_set = ExtResource("6_gjeh3")
 navigation_enabled = false
 
-[node name="ForegroundLayer" type="TileMapLayer" parent="."]
-z_index = 5
+[node name="InteractionLayer" type="TileMapLayer" parent="."]
+z_index = 25
 use_parent_material = true
 tile_set = ExtResource("6_gjeh3")
 navigation_enabled = false
@@ -141,10 +137,12 @@ shadow_enabled = false
 [node name="Containers" type="Node2D" parent="."]
 process_mode = 1
 
-[node name="SpawnPosition" type="Marker2D" parent="Containers"]
+[node name="SpawnPositions" type="Node2D" parent="Containers"]
+
+[node name="SpawnPosition" type="Marker2D" parent="Containers/SpawnPositions" groups=["enemy_spawn"]]
 position = Vector2(32, 360)
 
-[node name="SpawnGlow" type="PointLight2D" parent="Containers/SpawnPosition"]
+[node name="SpawnGlow" type="PointLight2D" parent="Containers/SpawnPositions/SpawnPosition"]
 color = Color(0.533483, 1.8049e-07, 0.135244, 1)
 energy = 3.0
 range_item_cull_mask = 7

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/ui/main/fuse_system.gd" id="1_dh21w"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_hb01d"]
-[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://components/interface/slot.tscn" id="2_k2jnm"]
-[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://components/interface/input_slot.tscn" id="2_oi50j"]
+[ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://scenes/ui/slots/slot.tscn" id="2_k2jnm"]
+[ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://scenes/ui/slots/input_slot.tscn" id="2_oi50j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_as80f"]
 

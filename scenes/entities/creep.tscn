@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemy.tscn" id="1_kede1"]
 
 [node name="Creep" instance=ExtResource("1_kede1")]
+enemy_name = "Creep"

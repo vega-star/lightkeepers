@@ -2,12 +2,17 @@
 # Seeks and sorts enemies based on priorities, then return the target and starts firing
 extends State
 
+const SEEKING_ROTATIN_SPEED : float = TAU * 2
+const ROTATING_TIMEOUT : float = 2
 const BASE_SEEKING_TIMEOUT : float = 0.15
 
 @export var firing_state : State
 
 var sight_detection : bool
 var has_sight : bool
+var direction : Vector2
+var seeking_dampening : int = 1
+var randomly_rotating : bool = true
 var active : bool = false ## Current active stage
 
 #region State functions
@@ -20,30 +25,44 @@ func enter() -> void: active = true; seek()
 func exit() -> void: active = false
 
 func state_physics_update(delta : float) -> void:
-	if is_instance_valid(entity.target): #? Control firing angle
-		entity.tower_gun_sprite.look_at(entity.target.global_position)
-		entity.tower_sprite.look_at(entity.target.global_position)
-		
-		sight_detection = (entity.tower_aim.get_collider() == entity.target)
-		if active and sight_detection:
+	if is_instance_valid(entity.target): #? Control firing angle and fire when aiming directly at an enemy
+		direction = entity.global_position.direction_to(entity.target.global_position)
+		seeking_dampening = 1
+		if active and entity.tower_aim.is_colliding():
 			active = false
 			transition.emit(self, firing_state)
+	else:
+		if randomly_rotating:
+			randomly_rotating = false
+			seeking_dampening = 10
+			direction = Vector2(randf_range(-1,1),randf_range(-1,1))
+			await get_tree().create_timer(ROTATING_TIMEOUT).timeout
+			seek()
+			randomly_rotating  = true
+	
+	_rotate_turret(direction, delta)
+
+func _rotate_turret(direction : Vector2, delta : float) -> void:
+	_rotate_to_direction(entity.tower_gun_sprite, direction, delta)
+	_rotate_to_direction(entity.tower_sprite, direction, delta)
+
+func _rotate_to_direction(r_node : Node, r_direction : Vector2, delta : float) -> void:
+	var angle = r_node.transform.x.angle_to(r_direction)
+	r_node.rotate(sign(angle) * min(delta * SEEKING_ROTATIN_SPEED / seeking_dampening, abs(angle)))
 #endregion
 
 #region Seek
 func _on_target_entered() -> void: if active: seek()
 
-func seek() -> void:
+func seek() -> void: ## Sets entity target
 	entity.target = _seek_target()
 	if !is_instance_valid(entity.target) or !entity.eligible_targets.has(entity.target): return #? Invalid. Still listening
 
-## Returns an enemy node that can be targeted by the tower
-func _seek_target() -> Node:
-	var new_target : Node
-	var available_targets : Array = []
+func _seek_target() -> Node: ## Returns an enemy node that can be targeted by the tower
+	if !entity.eligible_targets.size() > 0: return null #? No targets in the pool, cancelling seek
 	
-	if entity.eligible_targets.size() > 0: pass
-	else: return null #? No targets in the pool
+	var new_target : Node #? Target that will be returned
+	var available_targets : Array = [] #? Array of custom sorted targets
 	
 	match entity.target_priority:
 		0: #? FIRST | Selects the the firstmost target that entered turret range
