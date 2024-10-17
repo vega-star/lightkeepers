@@ -154,7 +154,6 @@ offset_top = -48.08
 offset_right = 47.905
 offset_bottom = 47.92
 size_flags_horizontal = 4
-debug = true
 
 [node name="Upgrades" type="VBoxContainer" parent="."]
 layout_mode = 1

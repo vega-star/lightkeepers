@@ -6,7 +6,6 @@ signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
 #region Variables
-const TIME_SCALE_MULTIPLY : int = 4
 const INFO_DEFAULT_X : int = 11
 const INFO_DEFAULT_Y : int = 240
 const DEFAULT_LABEL_MODULATE = Color(10,10,10)
@@ -45,13 +44,13 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 @onready var tower_grid : GridContainer = $UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid
 @onready var element_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/ElementButton
 @onready var tower_panel : TowerPanel = $UILayer/TowerPanel
+@onready var speed_button : TextureButton = $UILayer/Screen/Tools/SpeedButton
 #endregion
 
 var focus_slot : Slot
 var previous_life : int
 var previous_coins : int
 var mouse_on_ui : bool
-var speed_toggled : bool = false
 #endregion
 
 #region Main functions
@@ -89,8 +88,7 @@ func _on_play_button_pressed(): turn_pass_requested.emit()
 
 func _on_autoplay_button_toggled(toggled_on): autoplay_toggled.emit(toggled_on)
 
-func _update_tower_name(_tower : Tower, tname : String):
-	tower_name_button.set_text(TranslationServer.tr(tname.to_upper()).capitalize())
+func _update_tower_name(_tower : Tower, tname : String): tower_name_button.set_text(TranslationServer.tr(tname.to_upper()).capitalize())
 
 func update_label(label : Label, new_value : int, previous_value : int, timer : float = DEFAULT_LABEL_MODULATE_TIMER):
 	var modulate_color : Color
@@ -128,13 +126,11 @@ func _on_element_button_toggled(toggled_on: bool) -> void:
 		elements_storage_panel.set_visible(false)
 		towers_panel.set_visible(true)
 
-func _on_speed_button_pressed() -> void:
-	if !speed_toggled: Engine.time_scale = TIME_SCALE_MULTIPLY; speed_toggled = true
-	else: Engine.time_scale = 1; speed_toggled = false
+func _on_speed_button_pressed() -> void: UI.toggle_speed(speed_button.button_pressed)
 
 func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; mouse_on_ui_changed.emit(false)
 
 func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; mouse_on_ui_changed.emit(true)
-#endregion
 
 func _on_mouse_on_ui_changed(present: bool) -> void: pass # print('Mouse on ui: ', mouse_on_ui)
+#endregion

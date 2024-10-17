@@ -91,14 +91,14 @@
 		"type": 1,
 		"root_color": "00ffffff",
 		"recipe": ["water", "water"],
-		"effect_metadata": 
-		[{
+		"effect_metadata": [{
 			"etype": 1,
 			"ename": "Frostbite",
-			"value": 10,
+			"value": 4,
 			"value_multiplier": 1.1,
 			"stack_multiplier": 1,
 			"duration": 3,
+			"tick": 0.5,
 			"stackable": true,
 			"max_stacks": 5
 		},{
@@ -234,6 +234,7 @@
 	"dust": {
 		"type": 1,
 		"root_color": "8b4513ff",
+		"recipe": ["earth", "air"],
 		"effect_metadata": {
 			"etype": 0,
 			"message": "This is dust"

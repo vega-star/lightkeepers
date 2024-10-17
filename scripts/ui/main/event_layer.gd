@@ -2,7 +2,9 @@ extends Control
 
 signal confirmation(value : bool)
 
-@onready var confirmation_dialog = $ConfirmationDialog
+@onready var confirmation_dialog : ConfirmationDialog = $ConfirmationDialog
+@onready var screen_center : Marker2D = $ScreenCenter
+@onready var finish_panel : Panel = $FinishPanel
 
 func _ready():
 	confirmation_dialog.canceled.connect(_on_confirmation_canceled)

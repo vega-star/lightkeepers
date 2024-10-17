@@ -31,7 +31,6 @@ func _on_gui_input(event):
 	elif event is InputEventMouseButton and event.button_mask == 0 and valid: #? Left mouse released
 		var request = await stage.request_removal()
 		sprite.queue_free()
-		if !request: # Couldn't insert object because insertion failed
-			return
+		if !request: return # Couldn't insert object because insertion failed
 
 func _on_focus_entered(): valid = true #? Simply resets valid when clicked again. Breaks without this line

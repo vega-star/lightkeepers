@@ -110,6 +110,3 @@ tower_name = "Ballista"
 upgrade_tree_1 = SubResource("Resource_loc58")
 upgrade_tree_2 = SubResource("Resource_loc58")
 upgrade_tree_3 = SubResource("Resource_loc58")
-
-[node name="StateMachine" parent="." index="1"]
-debug = true

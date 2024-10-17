@@ -48,6 +48,7 @@ var use_sub_threads : bool = true
 var entity_scene_path : String
 var entity_loading : bool = false
 var entity_load_progress : Array = []
+var wave_enemy_count : int
 
 #region Main functions
 func _ready() -> void:
@@ -59,32 +60,6 @@ func _ready() -> void:
 	UI.HUD.turn_pass_requested.connect(_on_turn_pass)
 	turn_passed.connect(UI.HUD.turn_update)
 	UI.HUD.turn_update(0, max_turns)
-
-func _load_schedule(schedule : StageSchedule) -> void:
-	turn_schedule = schedule
-	max_turns = schedule.turns.size()
-
-func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
-	#region Turns
-	for turn in schedule.turns:
-		current_turn += 1
-		#region Waves
-		for wave in turn.turn_waves:
-			#var turn_thread : Thread = Thread.new()
-			#turn_thread.start(execute_wave.bind(wave))
-			execute_wave(wave)
-			turn_timer.start(wave.wave_period)
-			await turn_timer.timeout
-		#endregion
-		stage_agent.change_coins(turn.coins_on_turn_completion, true)
-		if debug: print('Wave finished, added ', turn.coins_on_turn_completion, ' coins')
-		if !autoplay: await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
-	#endregion
-	## Schedule finished
-	schedule_finished.emit()
-
-func _on_schedule_finished() -> void:
-	if infinite: run_schedule()
 
 func _process(_delta) -> void:
 	var load_status = ResourceLoader.load_threaded_get_status(entity_scene_path, entity_load_progress)
@@ -113,8 +88,38 @@ func _set_turn(new_value : int) -> void:
 	current_turn = new_value
 	turn_passed.emit(current_turn, max_turns)
 
+func _load_schedule(schedule : StageSchedule) -> void:
+	turn_schedule = schedule
+	max_turns = schedule.turns.size()
+
+func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
+	#region Turns
+	for turn in schedule.turns:
+		current_turn += 1
+		#region Waves
+		for wave in turn.turn_waves:
+			#var turn_thread : Thread = Thread.new()
+			#turn_thread.start(execute_wave.bind(wave))
+			execute_wave(wave)
+			turn_timer.start(wave.wave_period)
+			await turn_timer.timeout
+		#endregion
+		stage_agent.change_coins(turn.coins_on_turn_completion, true)
+		if debug: print('Wave finished, added ', turn.coins_on_turn_completion, ' coins')
+		if !autoplay: await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
+	#endregion
+	## Schedule finished
+	await wave_completed
+	schedule_finished.emit()
+
+func _on_schedule_finished() -> void:
+	stage_agent.close_stage(true)
+	await UI.stage_ended
+	if infinite: run_schedule()
+
 func execute_wave(wave : Wave) -> void:
 	AudioManager.emit_random_sound_effect(spawn_positions.get_child(0).position, TURN_PASS_SFX)
+	wave_enemy_count = 0
 	
 	#region Entity loading
 	if !wave.enemy_id: wave.enemy_id = "enemy"; push_warning("Enemy path was invalid on wave ", wave, ". Overriding to enemy template.")
@@ -136,13 +141,19 @@ func execute_wave(wave : Wave) -> void:
 	#region Entity spawning
 	if debug: print('Running spawn of ', wave.quantity, ' enemies of type ', loaded_entity)
 	for i in wave.quantity:
-		var entity = loaded_entity.instantiate()
+		var entity : Enemy = loaded_entity.instantiate()
 		entity.position = spawn_positions.get_child(0).position
 		entity_container.add_child(entity)
 		spawn_timer.start(wave.spawn_cooldown)
 		spawn_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
+		wave_enemy_count += 1
+		entity.died.connect(_remove_from_current_wave)
 		await spawn_timer.timeout
 	#endregion
-	wave_completed.emit()
+	
 	return
+
+func _remove_from_current_wave(_source) -> void:
+	wave_enemy_count -= 1
+	if wave_enemy_count == 0: wave_completed.emit()
 #endregion

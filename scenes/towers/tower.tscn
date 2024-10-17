@@ -190,7 +190,6 @@ region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
 [node name="TowerGunSprite" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(1, 0.470588, 0.470588, 1)
 light_mask = 2
 visibility_layer = 3
 z_index = 50

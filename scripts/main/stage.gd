@@ -55,9 +55,6 @@ func _process(_delta) -> void:
 
 func _input(_event) -> void:
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
-
-func finish_stage() -> void:
-	UI.end_stage()
 #endregion
 
 #region Tile management

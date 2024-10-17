@@ -90,5 +90,3 @@ func _on_tower_element_reg_updated(new_reg : ElementRegister) -> void:
 func _on_tower_element_lvl_updated(new_lvl : int) -> void:
 	tower_element_lvl = new_lvl
 	if !tower_element_reg: return
-	tower.element_metadata.get_or_add("effect_metadata")
-	tower.element_metadata["effect_metadata"]["level"] = tower_element_lvl

@@ -51,10 +51,9 @@ offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 1
+current_tab = 0
 
 [node name="MAIN_OPTIONS" type="Control" parent="OptionsControl/OptionsMenu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -206,6 +205,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("6_no68u")
 
 [node name="CONTROLS" type="Control" parent="OptionsControl/OptionsMenu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

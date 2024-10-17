@@ -8,6 +8,7 @@ signal effect_expired(self_ref : Effect)
 
 ## Activation variables and references
 var eid : int
+var level : int = 0
 var stacks : int = 1 #? Used when an effect is stackable
 var total_duration : float
 var duration_timer : Timer

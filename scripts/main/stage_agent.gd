@@ -3,8 +3,6 @@
 # ADDITIONAL: Stores and updates health and coins
 class_name StageAgent extends Node
 
-signal stage_won
-signal stage_lost
 signal turn_passed(previous_turn, next_turn_metadata)
 
 signal wave_initiated
@@ -17,7 +15,9 @@ const BASE_N_HEALTH : int = 100 #? Default nexus health
 # @export_group('Stage Properties')
 @export var initial_coins : int = 500
 
+@onready var stage : Stage = $".."
 @onready var turn_manager : TurnManager = $TurnManager
+@onready var stage_camera : StageCamera = $"../StageCamera"
 
 var coins : int
 var nexus : Node
@@ -28,16 +28,12 @@ func _ready() -> void:
 	randomize()
 	coins = initial_coins
 	nexus = get_tree().get_first_node_in_group('nexus')
-	turn_manager.schedule_finished.connect(close_stage.bind(true))
 	UI.HUD.update_coins(coins)
 	set_process(false)
 
-## Invoke stage ended screen depending on the boolean given. If false, game over is shown.
+## Invoke stage ended screen
 func close_stage(success : bool = true):
-	if success:
-		print('STAGE ENDED | SUCCESS!')
-	else:
-		print('STAGE ENDED | FAILURE')
+	UI.end_stage(success)
 #endregion
 
 #region Runtime stage functions
@@ -59,6 +55,6 @@ func change_health(quantity : int, addition : bool = false) -> void:
 func _on_threat_manager_wave_completed() -> void: wave_completed.emit()
 
 func _on_health_updated(_previous_health, _nexus_health) -> void:
-	if nexus_health == 0: stage_lost.emit()
-	$"../StageCamera".start_shake()
+	if nexus_health == 0: close_stage(false)
+	stage_camera.start_shake()
 #endregion

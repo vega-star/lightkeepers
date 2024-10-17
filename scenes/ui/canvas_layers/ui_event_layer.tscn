@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbjip80jxb5mp"]
+[gd_scene load_steps=5 format=3 uid="uid://cbjip80jxb5mp"]
 
 [ext_resource type="Script" path="res://scripts/ui/main/event_layer.gd" id="1_krorn"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_t7m6o"]
+[ext_resource type="Script" path="res://scripts/ui/events/finish_panel.gd" id="3_7hurg"]
+[ext_resource type="FontFile" uid="uid://ikmx3cecam4n" path="res://assets/theme/fonts/Jersey10-Regular.ttf" id="4_2g22c"]
 
 [node name="EventLayer" type="Control"]
 process_mode = 3
@@ -14,12 +16,81 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_t7m6o")
 script = ExtResource("1_krorn")
+metadata/_edit_vertical_guides_ = [640.0]
+metadata/_edit_horizontal_guides_ = [320.0]
+
+[node name="ScreenCenter" type="Marker2D" parent="."]
+position = Vector2(640, 320)
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "REMOVE {0}"
 initial_position = 1
-size = Vector2i(389, 100)
+size = Vector2i(696, 112)
 ok_button_text = "CONFIRM"
 dialog_text = "By deleting this object, you will retrieve {1} coins"
 dialog_close_on_escape = false
 cancel_button_text = "CANCEL"
+
+[node name="FinishPanel" type="Panel" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 416.0
+offset_top = 154.0
+offset_right = -415.0
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(224, 166)
+script = ExtResource("3_7hurg")
+
+[node name="StageSuccessLabel" type="Label" parent="FinishPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_2g22c")
+theme_override_font_sizes/font_size = 80
+text = "STAGE_SUCESS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="FinishPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.5
+offset_top = -66.0
+offset_right = -14.5
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
+
+[node name="Restart" type="Button" parent="FinishPanel/ButtonContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 2
+text = "RESTART"
+
+[node name="Continue" type="Button" parent="FinishPanel/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+text = "CONTINUE"
+
+[node name="ReturnToMenu" type="Button" parent="FinishPanel/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "MAIN_MENU"
+
+[connection signal="pressed" from="FinishPanel/ButtonContainer/Restart" to="FinishPanel" method="_on_restart_pressed"]
+[connection signal="pressed" from="FinishPanel/ButtonContainer/Continue" to="FinishPanel" method="_on_continue_pressed"]
+[connection signal="pressed" from="FinishPanel/ButtonContainer/ReturnToMenu" to="FinishPanel" method="_on_return_to_menu_pressed"]
