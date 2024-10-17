@@ -3,11 +3,10 @@
 		"type": 0,
 		"root_color": "ff4500ff",
 		"effect_metadata": {
-			"eid": 001,
 			"etype": 1,
+			"ename": "Burn",
 			"value": 2,
 			"value_multiplier": 1.2,
-			"level": 0,
 			"duration": 4.2,
 			"tick": 0.3,
 			"stackable": true,
@@ -25,21 +24,61 @@
 		"type": 1,
 		"root_color": "ff0000ff",
 		"recipe": ["fire", "fire"],
+		"effect_metadata": {
+			"etype": 1,
+			"ename": "Conflagrate",
+			"value": 5,
+			"value_multiplier": 2.5,
+			"duration": 1.5,
+			"tick": 0.25,
+			"stackable": true,
+			"max_stacks": 10
+		},
+		"combinations": {}
+	},
+	"steam": {
+		"type": 1,
+		"root_color": "ff4500ff",
+		"recipe": ["fire", "water"],
+		"effect_metadata": {
+			"etype": 1,
+			"ename": "Steamed",
+			"value": 2,
+			"value_multiplier": 1.25,
+			"duration": 2.5,
+			"tick": 0.1
+		},
+		"combinations": {}
+	},
+	"lightning": {
+		"type": 1,
+		"root_color": "ff4500ff",
+		"recipe": ["fire", "air"],
+		"effect_metadata": {
+			"etype": 4,
+			"ename": "Charged",
+			"modify": [
+				["speed", 1.5, 1.1],
+				["damage", 2.5, 1.05]
+			]
+		},
 		"combinations": {}
 	},
 	"water": {
 		"type": 0,
 		"root_color": "0000ffff",
-		"effect_metadata": {
-			"eid": 003,
-			"etype": 2,
+		"effect_metadata": [{
+			"etype": 3,
+			"ename": "Wetsteps",
 			"value": 5,
-			"value_multiplier": 1.1,
-			"level": 0,
-			"duration": 4.5,
-			"tick": 1,
-			"stackable": false
-		},
+			"value_multiplier": 1.2,
+			"duration": 0.2,
+			"tolerance": 5
+		},{
+			"etype": 2,
+			"ename": "Wet",
+			"vulnerability": null
+		}],
 		"combinations": {
 			"water": "ice",
 			"fire": "steam",
@@ -52,11 +91,40 @@
 		"type": 1,
 		"root_color": "00ffffff",
 		"recipe": ["water", "water"],
+		"effect_metadata": 
+		[{
+			"etype": 1,
+			"ename": "Frostbite",
+			"value": 10,
+			"value_multiplier": 1.1,
+			"stack_multiplier": 1,
+			"duration": 3,
+			"stackable": true,
+			"max_stacks": 5
+		},{
+			"etype": 6,
+			"ename": "Freeze",
+			"proccondition": [5, 0],
+			"proctype": 3,
+			"value": 100,
+			"value_multiplier": 1,
+			"duration": 0.2,
+			"tolerance": 5
+		}],
 		"combinations": {}
 	},
 	"air": {
 		"type": 0,
 		"root_color": "d3d3d3ff",
+		"effect_metadata": {
+			"etype": 4,
+			"ename": "Windswept",
+			"modify": [
+				["speed", 1.10, 1.2],
+				["damage", 0.85, 1.15],
+				["quantity", 2, 1]
+			]
+		},
 		"combinations": {
 			"air": "turbulence",
 			"water": "rain",
@@ -68,12 +136,40 @@
 	"turbulence": {
 		"type": 1,
 		"root_color": "a9a9a9ff",
-		"recipe": ["turbulence", "turbulence"],
+		"recipe": ["air", "air"],
+		"effect_metadata": {
+			"etype": 4,
+			"ename": "Typhoon",
+			"modify": [
+				["speed", 1.25, 1.3],
+				["damage", 0.7, 1.2],
+				["quantity", 3, 1]
+			]
+		},
+		"combinations": {}
+	},
+	"rain": {
+		"type": 1,
+		"root_color": "8b4513ff",
+		"recipe": ["air", "water"],
+		"effect_metadata": {
+			"etype": 0,
+			"message": "This is rain"
+		},
 		"combinations": {}
 	},
 	"earth": {
 		"type": 0,
 		"root_color": "8b4513ff",
+		"effect_metadata": {
+			"etype": 4,
+			"ename": "Dirtcovered",
+			"modify": [
+				["speed", 0.7, 1.05],
+				["damage", 1.15, 1.2],
+				["knockback", 1.35, 1.05]
+			]
+		},
 		"combinations": {
 			"earth": "rock",
 			"fire": "metal",
@@ -86,11 +182,71 @@
 		"type": 1,
 		"root_color": "2f4f4fff",
 		"recipe": ["earth", "earth"],
+		"effect_metadata": {
+			"etype": 4,
+			"ename": "Stonehead",
+			"modify": [
+				["speed", 0.6, 1.1],
+				["damage", 1.25, 1.2],
+				["knockback", 1.25, 1.15]
+			]
+		},
+		"combinations": {}
+	},
+	"metal": {
+		"type": 1,
+		"root_color": "2f4f4fff",
+		"recipe": ["earth", "fire"],
+		"effect_metadata": {
+			"etype": 4,
+			"ename": "Nailhead",
+			"modify": [
+				["speed", 0.9, 0.95],
+				["damage", 1.35, 1.15],
+				["knockback", 1.1, 1.1]
+			]
+		},
+		"combinations": {
+			"coal": "steel"
+		}
+	},
+	"oil": {
+		"type": 1,
+		"root_color": "2f4f4fff",
+		"recipe": ["earth", "water"],
+		"effect_metadata": [{	
+			"etype": 2,
+			"ename": "Oiled",
+			"vulnerability": null
+		},{
+			"etype": 4,
+			"ename": "Oil Nozzle",
+			"modify": [
+				["speed", 0.6, 1.2],
+				["damage", 0, 1],
+				["knockback", 0.2, 1.15]
+			]
+		}],
+		"combinations": {
+			"coal": "steel"
+		}
+	},
+	"dust": {
+		"type": 1,
+		"root_color": "8b4513ff",
+		"effect_metadata": {
+			"etype": 0,
+			"message": "This is dust"
+		},
 		"combinations": {}
 	},
 	"cursed": {
 		"type": 0,
 		"root_color": "dc143cff",
+		"effect_metadata": {
+			"etype": 0,
+			"message": "This is curse"
+		},
 		"combinations": {
 			"cursed": "profaned"
 		}

@@ -72,7 +72,12 @@ func _on_body_entered(body):
 	if body is Enemy:
 		if is_instance_valid(source): body.health_component.change(damage, true, source)
 		else: body.health_component.change(damage, true)
-		if !projectile_effect_metadata.is_empty(): body.health_component.effect_component.apply_effect(projectile_effect_metadata, source)
+		if !projectile_effect_metadata.is_empty():
+			body.health_component.effect_component.apply_effect(
+				projectile_effect_metadata["eid"],
+				projectile_effect_metadata,
+				source
+			)
 		piercing_count -= 1
 		if projectile_mode == 1: projectile_mode = 0
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)

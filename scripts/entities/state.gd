@@ -13,7 +13,6 @@ signal transition(current_state, new_state_name)
 
 @onready var state_machine : StateMachine = get_parent()
 @onready var entity : Node = state_machine.entity
-@onready var conditions : Dictionary = state_machine.state_conditions
 
 func enter() -> void:
 	pass

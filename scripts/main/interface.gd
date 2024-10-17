@@ -31,8 +31,7 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 
 #region Menu Nodes
 @onready var menu : Control = $UILayer/Menu
-@onready var essence_slots : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var element_slots : BoxContainer = $UILayer/Menu/ElementBar/ElementContainer/ElementInterface/ElementSlots
+@onready var element_menu : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
 @onready var play_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/PlayButton
 @onready var hide_button : TextureButton = $UILayer/Menu/ElementBar/HideButton
 @onready var corner_panel : Panel = $UILayer/Menu/CornerPanel
@@ -40,19 +39,18 @@ const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
 @onready var elements_storage_panel : Panel = $UILayer/Menu/Shop/Elements
 @onready var element_bar : BoxContainer = $UILayer/Menu/ElementBar
 @onready var element_name_button : Button = $UILayer/Menu/Shop/Elements/ElementName/ElementNameButton
-@onready var element_container : BoxContainer = $UILayer/Menu/ElementBar/ElementContainer
 @onready var elements_grid : GridContainer = $UILayer/Menu/Shop/Elements/ElementsScrollContainer/ElementsGrid
-@onready var fuse_system : FuseSystem = $UILayer/Menu/ElementBar/ElementContainer/FusePanel/FuseSystem
+@onready var fuse_system : FuseSystem = $UILayer/Menu/ElementBar/FusePanel/FuseSystem
 @onready var tower_name_button : Button = $UILayer/Menu/Shop/Towers/TowerName/TowerNameButton
 @onready var tower_grid : GridContainer = $UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid
 @onready var element_button : TextureButton = $UILayer/Menu/CornerPanel/CornerContainer/ElementButton
 @onready var tower_panel : TowerPanel = $UILayer/TowerPanel
 #endregion
 
+var focus_slot : Slot
 var previous_life : int
 var previous_coins : int
 var mouse_on_ui : bool
-var element_menu_hidden : bool = false
 var speed_toggled : bool = false
 #endregion
 
@@ -110,23 +108,17 @@ func _on_options_button_pressed() -> void:
 func _on_hide_button_pressed() -> void:
 	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
-	
-	if !element_menu_hidden: # ElementBar IS visible, thus HIDE
+	if fuse_system.visible:
 		new_x = -(hide_button.size.x)
-		element_menu_hidden = true
 		hide_button.flip_h = false
 		fuse_system.pop()
-	else: #? ElementBar is NOT visible, thus SHOW
+	else:
 		new_x = -(element_bar.size.x)
-		element_menu_hidden = false
-		if !element_container.visible: element_container.visible = true
 		hide_button.flip_h = true
 	
 	hide_tween.tween_property(element_bar, "position", Vector2(new_x, element_bar.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	await hide_tween.finished
-	
-	element_container.visible = !element_menu_hidden
-	fuse_system._remove_prop()
+	fuse_system.visible = !fuse_system.visible
 
 func _on_element_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -143,16 +135,6 @@ func _on_speed_button_pressed() -> void:
 func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; mouse_on_ui_changed.emit(false)
 
 func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; mouse_on_ui_changed.emit(true)
-#endregion
-
-#region ElementBar and DraggableObjects
-func _request_container(element_type : int) -> Container:
-	var slot_container : Container
-	match element_type: #? Chose container based on type
-		0: slot_container = element_slots
-		1: slot_container = essence_slots
-		_: slot_container = essence_slots
-	return slot_container
 #endregion
 
 func _on_mouse_on_ui_changed(present: bool) -> void: pass # print('Mouse on ui: ', mouse_on_ui)

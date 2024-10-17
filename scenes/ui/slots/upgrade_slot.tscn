@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dvkv5jgyx6pa0" path="res://assets/prototypes/orb_upgrades_progress.png" id="3_36imp"]
 
 [node name="UpgradeSlot" instance=ExtResource("1_kce7f")]
+process_mode = 3
 script = ExtResource("2_6vrjp")
 
 [node name="Slot" parent="." index="0"]

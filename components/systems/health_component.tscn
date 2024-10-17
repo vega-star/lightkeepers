@@ -8,3 +8,4 @@ script = ExtResource("1_u64om")
 
 [node name="EffectComponent" type="Node" parent="."]
 script = ExtResource("2_d2w85")
+debug = true

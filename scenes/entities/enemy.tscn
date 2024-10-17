@@ -10,7 +10,6 @@ radius = 6.0
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_sprite")]
 process_mode = 1
-modulate = Color(3, 3, 3, 1)
 material = ExtResource("1_da87p")
 collision_layer = 5
 collision_mask = 54

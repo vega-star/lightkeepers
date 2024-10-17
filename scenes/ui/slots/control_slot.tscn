@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cdkcd23fl4s0a" path="res://scenes/ui/slots/slot.tscn" id="2_b1h2b"]
 
 [node name="ControlSlot" type="CenterContainer"]
+process_mode = 3
 custom_minimum_size = Vector2(96, 96)
 size_flags_horizontal = 4
 size_flags_vertical = 4

@@ -121,11 +121,11 @@ func die(source):
 	if !smart_enemy: line_agent.queue_free()
 #endregion
 
-func _on_health_component_health_change(previous_value: int, new_value: int, type: bool) -> void:
+func _on_health_component_health_change(previous_value: int, new_value: int, negative : bool) -> void:
 	if is_instance_valid(self) or self.is_queued_for_deletion(): return
 	var modulate_color : Color
 	var modulate_tween : Tween = get_tree().create_tween()
-	if type: modulate_color = DAMAGE_MODULATE
+	if negative: modulate_color = DAMAGE_MODULATE
 	else: modulate_color = HEAL_MODULATE
 	set_modulate(modulate_color)
 	modulate_tween.tween_property(self, "modulate", Color(1,1,1), HEALTH_CHANGE_MPERIOD)

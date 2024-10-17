@@ -29,9 +29,12 @@ func _ready() -> void:
 func _load_element_metadata() -> Dictionary: #? Returns a patched dictionary containing all needed metadata
 	var metadata_file : FileAccess = FileAccess.open(element_metadata_PATH, FileAccess.READ)
 	var metadata : Dictionary = JSON.parse_string(metadata_file.get_as_text())
+	var eid : int = 0
 	metadata_file.close()
 	for e in metadata: # Patch data to Godot friendly format
+		metadata[e]["eid"] = eid
 		metadata[e]["root_color"] = Color("#"+metadata[e]["root_color"])
+		eid += 1
 	return metadata
 
 func _load_all_sprites() -> Dictionary: #? Returns a indexable dictionary of sprites that should have the same file name as the element ID (both strings)
@@ -60,12 +63,17 @@ func _purge(): ## Purge all elements, resetting everything! Used when restarting
 #endregion
 
 #region Element Manipulation
-func query_metadata(element_id : String, meta : String = "") -> Variant: ## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
-	if !element_metadata.has(element_id): print("NOT FOUND!"); return null #? No key "element_id" found in element_metadata dict
-	if meta == "": return element_metadata[element_id] #? No meta string given, thus will return full metadata
+## Get data from each element metadata. Meta is the string of a key inside the metadata dict of the selected element_id.
+func query_metadata(element_id : String, meta : String = "") -> Variant:
+	if !element_metadata.has(element_id): #? No key "element_id" found in element_metadata dict
+		push_warning(element_id, ' metadata not found in system. Will generate another errors if left unset.')
+		return {}
+	
+	if meta == "": return element_metadata[element_id] #? No meta string given, thus will return full metadata of said element
 	else: return element_metadata[element_id][meta] #? Returning specific metadata
 
-func combine(first_element, second_element) -> String: ## Returns an element ID from two other IDs by checking the metadata dictionary. Only returns the ID, no element is created!
+## Returns an element ID from two other IDs by checking the metadata dictionary. Only returns the ID, no element is created!
+func combine(first_element, second_element) -> String:
 	if !element_metadata.has(first_element) or !element_metadata.has(second_element): return "" #! INVALID ELEMENTS
 	var combination_dict : Dictionary = element_metadata[first_element]["combinations"]
 	if !combination_dict.has(second_element): return "" #! INVALID COMBINATION
@@ -73,7 +81,8 @@ func combine(first_element, second_element) -> String: ## Returns an element ID 
 	if result: return result
 	else: return ""
 
-func generate_object(element : Element) -> DraggableObject: ## Generates a draggable object which can be located on containers in screen and attached into slots
+## Generates a draggable object which can be located on containers in screen and attached into slots
+func generate_object(element : Element) -> DraggableObject:
 	var object = DRAGGABLE_OBJECT_SCENE.instantiate()
 	object.element = element
 	return object
@@ -85,9 +94,10 @@ func generate_element(
 		add_directly : bool = true, ## Determines if it gets created as a fresh node or not
 	) -> Element:
 	var new_element = Element.new()
+	var metadata = query_metadata(id)
 	new_element.element_type = type
 	new_element.element_id = id
-	new_element.element_metadata = query_metadata("id")
+	if !metadata.is_empty(): new_element.element_metadata = metadata
 	if add_directly: add_child(new_element)
 	return new_element
 
@@ -110,7 +120,7 @@ func add_element(
 		element : Element, #? Element resource to add
 		element_type : int = 1, #? 1 is Essence, 2 is Element
 		quantity : int = 1, #? How many charges will be added
-		container : Container = UI.HUD._request_container(element.element_type) #? Defaults to UI containers
+		container : Container = UI.HUD.elements_grid #? Defaults to UI containers
 	) -> ElementRegister:
 	
 	assert(container)

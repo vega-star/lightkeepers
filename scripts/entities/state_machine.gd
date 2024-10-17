@@ -20,12 +20,10 @@ class_name StateMachine
 
 @export var entity : Node
 @export var initial_state : State
-@export var initial_state_conditions : Dictionary
 @export var debug : bool = false
 
 var current_state : State
 var states : Array[State]
-var state_conditions : Dictionary = initial_state_conditions
 
 func _ready() -> void:
 	if !entity: entity = owner
@@ -53,12 +51,8 @@ func _physics_process(delta : float) -> void: if current_state: current_state.st
 func _on_child_transition(previous_state : State, next_state : State) -> void:
 	assert(previous_state); assert(next_state)
 	if debug: print('STATE MACHINE | {0} TRANSITIONING STATE FROM {1} TO {2}'.format({0: owner.name, 1:previous_state.name, 2:next_state.name}))
-	current_state.exit()
+	await current_state.exit()
 	next_state.enter()
 	current_state = next_state
-
-func change_conditional(key : Variant, value : Variant) -> void:
-	if debug: print('STATE MACHINE | {2} CONDITION CHANGED: {0} | {1}'.format({0: key, 1: value, 2: owner.name}))
-	state_conditions[key] = value
 
 func is_active_state(state : State) -> bool: return (state == current_state) 

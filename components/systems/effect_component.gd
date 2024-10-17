@@ -9,29 +9,36 @@ var active_effects : Array[Effect]
 
 func _ready() -> void: assert(health_component)
 
-func apply_effect(metadata : Dictionary, source : Tower) -> bool: ## Create, start, and manage effect
-	var eid : int = metadata["eid"]
+func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## Create, start, and manage effect
+	var effect_metadata : Dictionary = metadata
 	if debug: print(owner.root_node.name, ' | Effect applied: ', metadata)
+	if metadata.keys()[0] is String: effect_metadata = metadata["effect_metadata"] #? Single effect
+	else: for e in metadata["effect_metadata"]: apply_effect(eid, e, source); return true #? Multiple effects nested
+	
 	if active_eids.has(eid):
 		var a_effect : Effect
 		for e in active_effects: if e.eid == eid: a_effect = e
 		a_effect.reset_duration()
-		if metadata["stackable"]: a_effect.stacks += 1; return true #? Add stacks to the same effect, increasing its strength
+		if effect_metadata.has("stackable"):
+			if effect_metadata["stackable"]: #? Add stacks to the same effect, increasing its strength
+				a_effect.stacks += 1
+				return true
 		else: return true #? The effect cannot stack, but is duration will be reset
 	
 	var effect : Effect = Effect.new()
 	var duration_timer : Timer = Timer.new()
 	var tick_timer : Timer = Timer.new()
 	
-	duration_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
-	tick_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
-	duration_timer.set_wait_time(metadata["duration"])
-	tick_timer.set_wait_time(metadata["tick"])
+	if effect_metadata.has("duration"):
+		duration_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
+		duration_timer.set_wait_time(effect_metadata["duration"])
+		add_child(duration_timer); duration_timer.set_name(str(eid) + "_duration")
+	if effect_metadata.has("tick"):
+		tick_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
+		tick_timer.set_wait_time(effect_metadata["tick"])
+		duration_timer.add_child(tick_timer); tick_timer.set_name(str(eid) + "_tick")
 	
-	add_child(duration_timer); duration_timer.set_name(str(eid) + "_duration")
-	duration_timer.add_child(tick_timer); tick_timer.set_name(str(eid) + "_tick")
-	
-	effect.activate(metadata, 1, 1, duration_timer, tick_timer, health_component, source)
+	effect.activate(eid, effect_metadata, 1, 1, duration_timer, tick_timer, health_component, source)
 	active_effects.append(effect)
 	active_eids.append(eid)
 	return true

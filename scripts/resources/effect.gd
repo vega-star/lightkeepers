@@ -19,6 +19,7 @@ var source : Tower
 var effect : Dictionary
 
 func activate(
+		new_eid : int, ## Identifiable number
 		new_effect : Dictionary, ## Effect values
 		duration : int, ## How many seconds the effect will apply
 		tick : float, ## Period on which the effect will process
@@ -27,7 +28,7 @@ func activate(
 		_new_health_ref : HealthComponent, ## HealthComponent node connection on which effect will call
 		new_source : Tower ## tower that caused the effect
 	) -> void:
-	eid = new_effect["eid"]
+	eid = new_eid
 	effect = new_effect
 	source = new_source
 	total_duration = duration
@@ -45,7 +46,7 @@ func activate(
 
 func proc() -> void: health_ref.effect_component.proc_effect(self)
 
-func reset_duration(duration : int = total_duration) -> void: duration_timer.start(duration)
+func reset_duration(duration : int = total_duration) -> void: if duration_timer: duration_timer.start(duration)
 
 func deactivate() -> void:
 	if stacks > 1 and effect["stackable"]: stacks -= 1; reset_duration(); return

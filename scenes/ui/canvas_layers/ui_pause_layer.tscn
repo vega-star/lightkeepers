@@ -4,7 +4,6 @@
 
 [node name="PauseLayer" type="CanvasLayer"]
 process_mode = 3
-layer = 100
 script = ExtResource("1_dqc40")
 
 [node name="ColorRect" type="ColorRect" parent="."]

@@ -102,7 +102,7 @@ default_projectile = ExtResource("2_hw7jf")
 default_light_range = 0.6
 default_tower_range = 1.6
 default_piercing = 2
-default_firing_cooldown = 1.5
+default_firing_cooldown = 1.3
 default_seeking_timeout = 0.3
 tower_name = "Ballista"
 
@@ -110,3 +110,6 @@ tower_name = "Ballista"
 upgrade_tree_1 = SubResource("Resource_loc58")
 upgrade_tree_2 = SubResource("Resource_loc58")
 upgrade_tree_3 = SubResource("Resource_loc58")
+
+[node name="StateMachine" parent="." index="1"]
+debug = true

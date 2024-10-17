@@ -13,6 +13,7 @@ enum TARGET_PRIORITIES {
 	STRONG ## Strongest enemy from array
 }
 
+const SEEKING_ROTATION_SPEED : float = TAU * 2
 const DRAW_WIDTH : float = 2.5
 const DEFAULT_RANGE : float = 160
 const CIRCLE_TRANSPARENCY : float = 0.2
@@ -44,21 +45,24 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 #endregion
 
 #region Variables
+## Node references
+@onready var tower_sprite : Sprite2D = $TowerSprite
+@onready var tower_gun_sprite : AnimatedSprite2D = $TowerGunSprite
+@onready var tower_range_area : Area2D = $TowerRangeArea
+@onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
+@onready var tower_upgrades : TowerUpgrades = $TowerUpgrades
+
 ## Turret metadata
 var target_priority : int
 var tower_value : int
 
 ## Weapon values
+var quantity : int
 var damage : int
 var piercing : int
 var burst : int
 var element_metadata : Dictionary = {}
 var projectile_quantity : int
-
-## Node references
-@onready var tower_range_area : Area2D = $TowerRangeArea
-@onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
-@onready var tower_upgrades : TowerUpgrades = $TowerUpgrades
 
 var element_register : ElementRegister: set = adapt_register
 var element : Element
@@ -100,8 +104,23 @@ func _ready() -> void:
 	light_area.add_child(light_shape)
 	tower_range_area.body_entered.connect(_enemy_detected)
 	tower_range_area.body_exited.connect(_enemy_exited)
+	light_area.set_name(tower_name + '_LightArea')
+	set_name(tower_name)
 
 func _physics_process(_delta) -> void: queue_redraw()
+
+func _rotate_tower(direction : Vector2, delta : float, speed : float = SEEKING_ROTATION_SPEED) -> void:
+	if tower_gun_sprite: _rotate_to_direction(tower_gun_sprite, direction, delta, speed)
+	_rotate_to_direction(tower_sprite, direction, delta, speed)
+
+func _rotate_to_direction(
+		r_node : Node, ## Rotate node
+		r_direction : Vector2, ## Rotation direction
+		delta : float, ## Delta from process
+		r_speed : float ## Optional parameter that defaults to constant seeking rotation speed
+	) -> void:
+	var angle = r_node.transform.x.angle_to(r_direction)
+	r_node.rotate(sign(angle) * min(delta * r_speed, abs(angle)))
 
 func _load_properties() -> void:
 	light_shape.size = light_range
