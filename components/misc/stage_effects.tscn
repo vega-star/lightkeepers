@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://d37tw2m7yrog0"]
+
+[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="1_p6344"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2unhy"]
+
+[node name="StageEffects" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_p6344")
+camera_attributes = SubResource("CameraAttributesPractical_2unhy")
+
+[node name="BackgroundParallax" type="ParallaxBackground" parent="."]
+visible = false
+
+[node name="StaticBG" type="ParallaxLayer" parent="BackgroundParallax"]
+motion_mirroring = Vector2(2560, 1440)
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundParallax/StaticBG"]
+custom_minimum_size = Vector2(2560, 1440)
+offset_left = -30.0
+offset_top = -88.0
+offset_right = 2530.0
+offset_bottom = 1352.0
+color = Color(0, 0, 0, 1)
+
+[node name="DarknessLayer" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.0885601, 0.08856, 0.0885589, 1)

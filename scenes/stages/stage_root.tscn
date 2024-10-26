@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://2stxk6mbvwbv"]
+[gd_scene load_steps=13 format=3 uid="uid://2stxk6mbvwbv"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_u513e"]
-[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="2_2wtx5"]
+[ext_resource type="PackedScene" uid="uid://d37tw2m7yrog0" path="res://components/misc/stage_effects.tscn" id="2_87lxd"]
 [ext_resource type="Script" path="res://scripts/main/stage_agent.gd" id="2_top5x"]
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="3_xxwxp"]
 [ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_in44l"]
@@ -12,40 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="12_oob5i"]
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/ui/stage_camera.tscn" id="13_ggfcb"]
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2unhy"]
-
 [sub_resource type="Curve2D" id="Curve2D_v06dm"]
 
 [node name="StageRoot" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
 process_mode = 3
 script = ExtResource("1_u513e")
-modulate_layer = NodePath("StageEffects/DarknessLayer")
+modulate_layer = NodePath("")
 check_coordinate = true
 stage_songs = Array[String](["Active SL2024-08-07"])
 
-[node name="StageEffects" type="Node" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="StageEffects"]
-environment = ExtResource("2_2wtx5")
-camera_attributes = SubResource("CameraAttributesPractical_2unhy")
-
-[node name="BackgroundParallax" type="ParallaxBackground" parent="StageEffects"]
-visible = false
-
-[node name="StaticBG" type="ParallaxLayer" parent="StageEffects/BackgroundParallax"]
-motion_mirroring = Vector2(2560, 1440)
-
-[node name="ColorRect" type="ColorRect" parent="StageEffects/BackgroundParallax/StaticBG"]
-custom_minimum_size = Vector2(2560, 1440)
-offset_left = -30.0
-offset_top = -88.0
-offset_right = 2530.0
-offset_bottom = 1352.0
-color = Color(0, 0, 0, 1)
-
-[node name="DarknessLayer" type="CanvasModulate" parent="StageEffects"]
-visible = false
-color = Color(0.0885601, 0.08856, 0.0885589, 1)
+[node name="StageEffects" parent="." instance=ExtResource("2_87lxd")]
 
 [node name="StageAgent" type="Node" parent="."]
 script = ExtResource("2_top5x")
@@ -57,11 +33,6 @@ turn_schedule = ExtResource("5_in44l")
 infinite = true
 
 [node name="SpawnTimer" type="Timer" parent="StageAgent/TurnManager"]
-process_mode = 1
-process_callback = 0
-one_shot = true
-
-[node name="TurnTimer" type="Timer" parent="StageAgent/TurnManager"]
 process_mode = 1
 process_callback = 0
 one_shot = true

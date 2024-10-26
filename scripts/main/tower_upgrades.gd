@@ -22,6 +22,7 @@ enum UPGRADE_ADDRESSES {
 @export var upgrade_tree_1 : TowerUpgradeTree
 @export var upgrade_tree_2 : TowerUpgradeTree
 @export var upgrade_tree_3 : TowerUpgradeTree
+@export var debug : bool = false
 var upgrade_trees_array : Array[TowerUpgradeTree]
 
 var stage_agent : StageAgent
@@ -51,7 +52,7 @@ func _request_upgrade(upgrade_tree : TowerUpgradeTree) -> bool:
 	stage_agent.change_coins(cost)
 	tower_upgraded.emit()
 	
-	print('TIER: ', upgrade_tree.tier)
+	if debug: print('TIER: ', upgrade_tree.tier)
 	_apply_upgrade(upgrade.upgrade_commands)
 	return true
 
@@ -60,7 +61,7 @@ func _apply_upgrade(commands : Array[UpgradeCommand]) -> void:
 		var upgrade_type : UPGRADE_ADDRESSES = c.upgrade_type
 		var u_value = c.upgrade_value
 		
-		print('{1} | {2} - {3}'.format({1: c.upgrade_type, 2: UPGRADE_ADDRESSES.find_key(c.upgrade_type), 3: u_value}))
+		if debug: print('{1} | {2} - {3}'.format({1: c.upgrade_type, 2: UPGRADE_ADDRESSES.find_key(c.upgrade_type), 3: u_value}))
 		match c.upgrade_type:
 			0: tower.damage += int(u_value)
 			1: tower.damage = roundi(tower.damage * float(u_value))

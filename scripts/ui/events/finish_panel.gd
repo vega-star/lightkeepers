@@ -5,7 +5,6 @@ signal decison_made()
 const MOVE_TWEEN_PERIOD : float = 0.5
 
 @onready var stage_success_label : Label = $StageSuccessLabel
-@onready var screen_center : Marker2D = $"../ScreenCenter"
 @onready var continue_button : Button = $ButtonContainer/Continue
 @onready var restart_button : Button = $ButtonContainer/Restart
 
@@ -14,13 +13,14 @@ func _ready() -> void: if visible: set_visible(false)
 func _move(to_visibility : bool) -> void:
 	var move_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var target_position : Vector2
+	var screen_center : Vector2 = get_viewport_rect().get_center()
 	if to_visibility:
-		position = Vector2(screen_center.position.x, -size.y) - pivot_offset
+		position = Vector2(screen_center.x, -size.y) - pivot_offset
 		show()
-		target_position = screen_center.position - pivot_offset
+		target_position = screen_center - pivot_offset
 		move_tween.tween_property(self, "position", target_position, MOVE_TWEEN_PERIOD)
 	else:
-		target_position = Vector2(screen_center.position.x, -size.y) - pivot_offset
+		target_position = Vector2(screen_center.x, -size.y) - pivot_offset
 		move_tween.tween_property(self, "position", target_position, MOVE_TWEEN_PERIOD)
 		await move_tween.finished
 		hide()

@@ -626,7 +626,7 @@ stretch_mode = 5
 [connection signal="pressed" from="UILayer/Screen/Tools/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="UILayer/Screen/Tools/SpeedButton" to="." method="_on_speed_button_pressed"]
 [connection signal="toggled" from="UILayer/Screen/Tools/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
-[connection signal="pressed" from="UILayer/Menu/ElementBar/HideButton" to="." method="_on_hide_button_pressed"]
+[connection signal="pressed" from="UILayer/Menu/ElementBar/HideButton" to="." method="_on_hide_fuse_menu_button_pressed"]
 [connection signal="toggled" from="UILayer/Menu/CornerPanel/CornerContainer/ElementButton" to="." method="_on_element_button_toggled"]
 [connection signal="pressed" from="UILayer/Menu/CornerPanel/CornerContainer/PlayButton" to="." method="_on_play_button_pressed"]
 

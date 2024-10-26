@@ -28,7 +28,6 @@ const TURN_PASS_SFX : Array = [
 @onready var entity_container : Node2D = $"../../Containers/EntityContainer"
 @onready var spawn_positions : Node2D = $"../../Containers/SpawnPositions"
 @onready var spawn_timer : Timer = $SpawnTimer
-@onready var turn_timer : Timer = $TurnTimer
 
 #? Properties that differentiate each stage
 @export var turn_schedule : StageSchedule : set = _load_schedule
@@ -98,11 +97,8 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 		current_turn += 1
 		#region Waves
 		for wave in turn.turn_waves:
-			#var turn_thread : Thread = Thread.new()
-			#turn_thread.start(execute_wave.bind(wave))
 			execute_wave(wave)
-			turn_timer.start(wave.wave_period)
-			await turn_timer.timeout
+			await wave_completed
 		#endregion
 		stage_agent.change_coins(turn.coins_on_turn_completion, true)
 		if debug: print('Wave finished, added ', turn.coins_on_turn_completion, ' coins')
@@ -144,13 +140,11 @@ func execute_wave(wave : Wave) -> void:
 		var entity : Enemy = loaded_entity.instantiate()
 		entity.position = spawn_positions.get_child(0).position
 		entity_container.add_child(entity)
-		spawn_timer.start(wave.spawn_cooldown)
-		spawn_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
+		spawn_timer.start(wave.spawn_cooldown) # .set_process_mode(Node.PROCESS_MODE_PAUSABLE)
 		wave_enemy_count += 1
 		entity.died.connect(_remove_from_current_wave)
 		await spawn_timer.timeout
 	#endregion
-	
 	return
 
 func _remove_from_current_wave(_source) -> void:

@@ -103,7 +103,7 @@ func _on_options_button_pressed() -> void:
 	if options_button.button_pressed: Options.show()
 	else: Options._on_exit_menu_pressed()
 
-func _on_hide_button_pressed() -> void:
+func _on_hide_fuse_menu_button_pressed() -> void:
 	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
 	if fuse_system.visible:
@@ -111,6 +111,7 @@ func _on_hide_button_pressed() -> void:
 		hide_button.flip_h = false
 		fuse_system.pop()
 	else:
+		fuse_system.set_visible(true)
 		new_x = -(element_bar.size.x)
 		hide_button.flip_h = true
 	
