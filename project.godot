@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Lightkeepers"
+config/name="Lightkeepers TD"
 config/version="0.4.0"
-config/tags=PackedStringArray("jam", "tower_defense")
+config/tags=PackedStringArray("action", "game", "tower_defense")
 run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.054902, 0.0392157, 0.180392, 1)
@@ -47,6 +47,10 @@ folder_colors={
 "res://scenes/": "teal",
 "res://scripts/": "blue"
 }
+
+[global_group]
+
+nexus="Central piece of the map"
 
 [input]
 

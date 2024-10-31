@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://djbkbg4rjdi12" path="res://assets/prototypes/ballista_projectile.png" id="2_dvld6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xyjd"]
-radius = 5.0
+radius = 0.999993
+height = 1.99999
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 32

@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="3_xxwxp"]
 [ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_in44l"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_gjeh3"]
+[ext_resource type="PackedScene" uid="uid://b44iuk7ixyl1q" path="res://scenes/towers/nexus.tscn" id="7_bewmd"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="8_txpjo"]
-[ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="9_fgewh"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="11_x4sy4"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="12_oob5i"]
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/ui/stage_camera.tscn" id="13_ggfcb"]
@@ -17,7 +17,7 @@
 [node name="StageRoot" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
 process_mode = 3
 script = ExtResource("1_u513e")
-modulate_layer = NodePath("")
+modulate_layer = NodePath("StageEffects/DarknessLayer")
 check_coordinate = true
 stage_songs = Array[String](["Active SL2024-08-07"])
 
@@ -59,46 +59,8 @@ use_parent_material = true
 tile_set = ExtResource("6_gjeh3")
 navigation_enabled = false
 
-[node name="NexusRef" type="Marker2D" parent="." groups=["nexus"]]
+[node name="Nexus" parent="." instance=ExtResource("7_bewmd")]
 position = Vector2(872, 360)
-
-[node name="CenterGlow" type="PointLight2D" parent="NexusRef"]
-color = Color(0.975347, 0.694582, 0.170898, 1)
-energy = 2.0
-range_item_cull_mask = 7
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.486275)
-shadow_item_cull_mask = 6
-texture = ExtResource("8_txpjo")
-height = 100.0
-
-[node name="WideGlow" type="PointLight2D" parent="NexusRef/CenterGlow"]
-color = Color(0.696348, 0.713585, 0.543851, 1)
-energy = 0.5
-texture = ExtResource("8_txpjo")
-texture_scale = 3.0
-
-[node name="CenterSubtract" type="PointLight2D" parent="NexusRef/CenterGlow"]
-scale = Vector2(0.361328, 0.361328)
-color = Color(0.975347, 0.694582, 0.170898, 1)
-blend_mode = 1
-range_item_cull_mask = 7
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.486275)
-shadow_item_cull_mask = 6
-texture = ExtResource("8_txpjo")
-height = 100.0
-
-[node name="NexusRaycast" type="RayCast2D" parent="NexusRef"]
-visible = false
-target_position = Vector2(0, 0)
-collision_mask = 5
-script = ExtResource("9_fgewh")
-
-[node name="NexusRayLine" type="Line2D" parent="NexusRef/NexusRaycast"]
-position = Vector2(-609, -144)
-points = PackedVector2Array(609, 144, 609, 144)
-width = 5.0
 
 [node name="LightAreaComponent" parent="." instance=ExtResource("11_x4sy4")]
 
@@ -140,3 +102,5 @@ min_zoom = 0.5
 
 [connection signal="health_updated" from="StageAgent" to="StageAgent" method="_on_health_updated"]
 [connection signal="schedule_finished" from="StageAgent/TurnManager" to="StageAgent/TurnManager" method="_on_schedule_finished"]
+
+[editable path="StageEffects"]

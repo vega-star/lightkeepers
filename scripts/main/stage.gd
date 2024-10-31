@@ -16,6 +16,7 @@ const CASHBACK_FACTOR : float = 0.65
 @export var check_coordinate : bool = false
 @export var stage_songs : Array[String] = []
 
+@onready var nexus : Nexus = $Nexus
 @onready var stage_agent : StageAgent = $StageAgent
 @onready var turn_manager: TurnManager = $StageAgent/TurnManager
 @onready var stage_path : Path2D = $StagePath
@@ -45,6 +46,7 @@ func _ready() -> void:
 	LoadManager._scene_is_stage = true #? Turns 'Stage' options from Options menu visible
 	AudioManager.play_music(stage_songs, 0, false, true)
 	background_parallax.set_visible(true)
+	insert_tile_object(nexus, nexus.global_position)
 	UI.start_stage()
 
 func _process(_delta) -> void:
@@ -116,8 +118,10 @@ func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool: #? 
 		else: return true # Returns positively
 	else: return false # Returns negatively, for a placeable tile in ground layer wasn't found
 
-func insert_tile_object(tile_object : TileObject) -> bool: #? Called from turret/object button when inserted into a tile
-	var tile_position : Vector2i = position_to_tile(get_global_mouse_position())
+func insert_tile_object( ## Called from turret/object button when inserted into a tile
+		tile_object : TileObject,
+		tile_position : Vector2i = position_to_tile(get_global_mouse_position())
+	) -> bool:
 	var tile_cost : int = tile_object.default_tower_cost
 	var coordinates : Vector2 = GROUND_LAYER.map_to_local(tile_position)
 	var query_result : bool = query_tile_insertion(tile_position)

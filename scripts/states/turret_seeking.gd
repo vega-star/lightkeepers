@@ -3,6 +3,8 @@
 # Continues to call functions and interpret signals even when inactive, due to being a crucial state.
 extends State
 
+signal enemy_detected(enemy : Enemy)
+
 const ROTATING_TIMEOUT : float = 2
 const RANDOM_SEEKING_DAMPENING : int = 5
 const BASE_SEEKING_TIMEOUT : float = 0.15
@@ -54,6 +56,8 @@ func seek() -> void: ## Sets entity target
 	if !is_instance_valid(entity.target) or !entity.eligible_targets.has(entity.target):
 		if debug: print(entity.name, ' is seeking, but current or previous target is not eligible')
 		entity.target = null
+	else:
+		enemy_detected.emit(entity.target)
 
 func _seek_target() -> Node: ## Returns an enemy node that can be targeted by the tower
 	if !entity.eligible_targets.size() > 0: return null #? No targets in the pool, cancelling seek

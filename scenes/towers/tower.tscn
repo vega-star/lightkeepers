@@ -225,6 +225,7 @@ debug_color = Color(0.356052, 0.48176, 1, 0.42)
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="TowerOccupiedArea"]
 radius = 16.0
+vertices = PackedVector2Array(0, 16, -16, 0, 0, -16, 16, 0)
 
 [node name="TowerRangeArea" type="Area2D" parent="."]
 collision_mask = 64

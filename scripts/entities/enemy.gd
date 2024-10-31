@@ -4,6 +4,7 @@ extends CharacterBody2D
 signal path_ended
 signal died(source : Node)
 
+const SCALE_CHANGE_WH : float = 1.15
 const SPEED_MULTIPLIER : int = 100
 const HEALTH_CHANGE_MPERIOD : float = 0.5
 const DAMAGE_MODULATE : Color = Color(5, 5, 5)
@@ -37,6 +38,7 @@ enum ENEMY_CLASS {
 @export var enemy_path : Path2D
 
 # var navigation_agent : NavigationAgent2D #? Smart enemy nav agent
+var stored_scale : Vector2
 var line_agent : PathFollow2D #? Line2D node to follow
 var stage : Stage #? Stage to call upon
 
@@ -56,6 +58,7 @@ func _set_enemy_properties():
 	nexus = get_tree().get_first_node_in_group('nexus')
 	damage_on_nexus = default_damage_on_nexus
 	enemy_value = base_enemy_value
+	stored_scale = scale
 	
 	health_component.max_health = base_health
 	health_component.reset_health()
@@ -122,10 +125,14 @@ func die(source):
 #endregion
 
 func _on_health_component_health_change(previous_value: int, new_value: int, negative : bool) -> void:
-	if is_instance_valid(self) or self.is_queued_for_deletion(): return
 	var modulate_color : Color
-	var modulate_tween : Tween = get_tree().create_tween()
 	if negative: modulate_color = DAMAGE_MODULATE
 	else: modulate_color = HEAL_MODULATE
+	
+	var modulate_tween : Tween = get_tree().create_tween()
+	var size_tween : Tween = get_tree().create_tween()
 	set_modulate(modulate_color)
+	self.scale *= SCALE_CHANGE_WH
+	
 	modulate_tween.tween_property(self, "modulate", Color(1,1,1), HEALTH_CHANGE_MPERIOD)
+	size_tween.tween_property(self, "scale", stored_scale, HEALTH_CHANGE_MPERIOD)

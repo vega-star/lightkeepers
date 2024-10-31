@@ -92,21 +92,15 @@ func _load_schedule(schedule : StageSchedule) -> void:
 	max_turns = schedule.turns.size()
 
 func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
-	#region Turns
-	for turn in schedule.turns:
+	for turn in schedule.turns: ## Turns
 		current_turn += 1
-		#region Waves
-		for wave in turn.turn_waves:
+		for wave in turn.turn_waves: ## Waves
 			execute_wave(wave)
 			await wave_completed
-		#endregion
 		stage_agent.change_coins(turn.coins_on_turn_completion, true)
 		if debug: print('Wave finished, added ', turn.coins_on_turn_completion, ' coins')
 		if !autoplay: await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
-	#endregion
-	## Schedule finished
-	await wave_completed
-	schedule_finished.emit()
+	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:
 	stage_agent.close_stage(true)
@@ -139,7 +133,7 @@ func execute_wave(wave : Wave) -> void:
 	for i in wave.quantity:
 		var entity : Enemy = loaded_entity.instantiate()
 		entity.position = spawn_positions.get_child(0).position
-		entity_container.add_child(entity)
+		entity_container.call_deferred("add_child", entity)
 		spawn_timer.start(wave.spawn_cooldown) # .set_process_mode(Node.PROCESS_MODE_PAUSABLE)
 		wave_enemy_count += 1
 		entity.died.connect(_remove_from_current_wave)

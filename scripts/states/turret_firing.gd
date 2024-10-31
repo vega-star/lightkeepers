@@ -70,7 +70,7 @@ func _start_firing() -> void:
 		
 		# firing_cooldown.start()
 		firing = false
-	else: print(entity.name, ' firing called by already firing')
+	else: if debug: print(entity.name, ' firing called, but it is already firing')
 
 func _fire() -> void:
 	var projectile : Projectile = entity.default_projectile.instantiate()
