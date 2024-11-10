@@ -29,7 +29,3 @@ cancel_button_text = "CANCEL"
 
 [node name="FinishPanel" parent="." instance=ExtResource("3_65a5i")]
 layout_mode = 1
-offset_left = 384.0
-offset_top = 192.0
-offset_right = -384.0
-offset_bottom = -208.0

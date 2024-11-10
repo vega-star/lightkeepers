@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://b44iuk7ixyl1q"]
 
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/tower.tscn" id="1_6ebjq"]
-[ext_resource type="Script" path="res://scenes/towers/nexus.gd" id="2_5ysae"]
+[ext_resource type="Script" path="res://scripts/main/nexus.gd" id="2_5ysae"]
 [ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="2_gu4fx"]
 [ext_resource type="PackedScene" uid="uid://6tencmd50bh2" path="res://components/projectiles/laser_projectile.tscn" id="3_l03vj"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="3_mkfxr"]
@@ -120,7 +120,10 @@ animation = &"default"
 frame = 0
 frame_progress = 0.0
 
-[node name="TowerGunMuzzle" parent="TowerGunSprite" index="0"]
+[node name="Pupil" parent="TowerGunSprite" index="0"]
+visible = false
+
+[node name="TowerGunMuzzle" parent="TowerGunSprite" index="1"]
 position = Vector2(0, 0)
 
 [connection signal="enemy_detected" from="StateMachine/Seeking" to="." method="_on_seeking_enemy_detected"]

@@ -79,7 +79,7 @@ func _on_tower_element_reg_updated(new_reg : ElementRegister) -> void:
 	tower_element_reg = new_reg
 	if !tower_element_reg:
 		tower.element_metadata = {}
-		if tower.tower_type == 1: tower.tower_gun_sprite.modulate = Color.WHITE
+		if tower.tower_type == 0: tower.tower_gun_sprite.modulate = Color.WHITE
 		return
 	if !tower_element_reg.element.element_metadata: #? Newly generated elements *should* have metadata, but here it is in case elements don't have it
 		tower_element_reg.element.element_metadata = ElementManager.query_metadata(new_reg.element.element_id)

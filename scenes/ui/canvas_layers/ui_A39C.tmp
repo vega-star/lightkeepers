@@ -454,6 +454,7 @@ target_tower_scene = ExtResource("30_7bcal")
 
 [node name="LampTower" parent="UILayer/Menu/Shop/Towers/TowerScrollContainer/TowerGrid" instance=ExtResource("4_jbcwa")]
 layout_mode = 2
+object_type = "LIGHT"
 target_tower_scene = ExtResource("7_nkijl")
 
 [node name="Elements" type="Panel" parent="UILayer/Menu/Shop"]

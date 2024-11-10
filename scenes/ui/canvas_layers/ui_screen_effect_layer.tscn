@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/ui/main/ui_screen_effect_layer.gd" id="1_y3dkw"]
 [ext_resource type="Shader" path="res://assets/shaders/ohdude_palette.gdshader" id="2_qig4c"]
-[ext_resource type="Texture2D" uid="uid://0fj5aihiauo7" path="res://assets/shaders/palette/technogarten-1x.png" id="3_jw16y"]
+[ext_resource type="Texture2D" uid="uid://b15wvo0ekdp7" path="res://assets/shaders/palette/resurrect-64-1x.png" id="3_64k2v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_78tvl"]
 shader = ExtResource("2_qig4c")
-shader_parameter/palette = ExtResource("3_jw16y")
+shader_parameter/palette = ExtResource("3_64k2v")
 
 [node name="ScreenEffectLayer" type="CanvasLayer"]
 layer = 50

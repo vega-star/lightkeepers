@@ -5,6 +5,12 @@ signal tower_defeated_enemy(current_count : int)
 signal tower_detected_enemy
 signal tower_element_changed
 
+enum TOWER_TYPES {
+	TOWER,
+	LAMP,
+	BUILDING
+}
+
 enum TARGET_PRIORITIES {
 	FIRST, ## First in place to reach nexus
 	LAST, ## Last in place to reach nexus
@@ -22,7 +28,7 @@ const DEFAULT_TOWER_ICON : Texture2D = preload("res://assets/prototypes/turret_s
 
 #region Turret Configuration
 @export_group('Default Values')
-@export_flags("Tower", "Lamp", "Building") var tower_type = 1
+@export var tower_type : TOWER_TYPES = 0
 @export var default_tower_cost : int = 50
 @export var default_projectile : PackedScene
 @export_range(0, 10) var default_light_range : float = 1
@@ -102,10 +108,11 @@ func _ready() -> void:
 	tower_range = default_tower_range
 	light_shape.position = position
 	light_area.add_child(light_shape)
+	if prop: light_area.set_deferred("disabled", true)
 	tower_range_area.body_entered.connect(_enemy_detected)
 	tower_range_area.body_exited.connect(_enemy_exited)
-	light_area.set_name(tower_name + '_LightArea')
 	set_name(tower_name)
+	light_area.set_name(tower_name + '_LightArea')
 
 func _physics_process(_delta) -> void: queue_redraw()
 

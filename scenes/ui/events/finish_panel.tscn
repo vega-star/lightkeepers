@@ -6,9 +6,14 @@
 
 [node name="FinishPanel" type="Panel"]
 process_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.178
+anchor_right = 0.75
+anchor_bottom = 0.711
+offset_top = -0.160004
+offset_right = -6.10352e-05
+offset_bottom = 0.0799866
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(224, 166)
@@ -17,10 +22,10 @@ script = ExtResource("1_3vl4d")
 
 [node name="StageSuccessLabel" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -87.0
+anchor_bottom = 0.667
+offset_bottom = -0.128021
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_js2na")
@@ -29,19 +34,35 @@ text = "STAGE_SUCESS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="StageSuccessText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.708
+anchor_right = 1.0
+anchor_bottom = 0.797
+offset_top = -0.872009
+offset_bottom = -0.0480347
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_js2na")
+text = "STAGE_SUCESS_TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
+anchor_top = 0.797
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 14.5
-offset_top = -66.0
+offset_top = 11.952
 offset_right = -14.5
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 6
+alignment = 1
 
 [node name="Restart" type="Button" parent="ButtonContainer"]
 visible = false
@@ -52,7 +73,6 @@ text = "RESTART"
 [node name="Continue" type="Button" parent="ButtonContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-size_flags_vertical = 4
 text = "CONTINUE"
 
 [node name="ReturnToMenu" type="Button" parent="ButtonContainer"]

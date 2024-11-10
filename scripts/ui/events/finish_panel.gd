@@ -5,6 +5,7 @@ signal decison_made()
 const MOVE_TWEEN_PERIOD : float = 0.5
 
 @onready var stage_success_label : Label = $StageSuccessLabel
+@onready var stage_success_text : Label = $StageSuccessText
 @onready var continue_button : Button = $ButtonContainer/Continue
 @onready var restart_button : Button = $ButtonContainer/Restart
 
@@ -32,10 +33,12 @@ func conclude(win : bool) -> void:
 	UI.PAUSE_LAYER.set_signaled_unpause(self, decison_made)
 	if win:
 		stage_success_label.set_text(TranslationServer.tr('STAGE_SUCCESS').capitalize())
+		stage_success_text.set_text(TranslationServer.tr('STAGE_SUCCESS_TEXT'))
 		restart_button.set_visible(false)
 		continue_button.set_visible(true)
 	else:
 		stage_success_label.set_text(TranslationServer.tr('STAGE_FAILED').capitalize())
+		stage_success_text.set_text(TranslationServer.tr('STAGE_FAILED_TEXT'))
 		restart_button.set_visible(true)
 		continue_button.set_visible(false)
 

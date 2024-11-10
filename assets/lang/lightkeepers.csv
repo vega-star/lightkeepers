@@ -30,6 +30,7 @@ DOWN,Down,Baixo
 LEFT,Left,Esquerda
 RIGHT,Right,Direita
 PAUSE,Pause,Pausar
+CONTINUE,Continue,Continuar
 ENTER,Enter,Enter
 ESCAPE,Esc,Esc
 ELEMENTS
@@ -60,6 +61,11 @@ DRAG_MODE_TOGGLE,Toggle Drag,Alternar arrastar
 DRAG_MODE_TOGGLE_DESCRIPTION,Switch drag-n-drop to click actions,Alterne entre ações de arrastar para cliques
 TUTORIAL,Tutorial,Tutorial
 ROUTE_FINISHED,Route Finished,Rota Concluída
+STAGE_SUCCESS,Stage Finished,Fase Concluída
+STAGE_SUCCESS_TEXT,A sacred light shines boldly amidst the endless night,Uma luz sagrada brilha corajosamente em meio a noite infindável
+STAGE_FAILED,Stage Failed,Fase Falha
+STAGE_FAILED_TEXT,The darkness overcome the light this time...,A escuridão superou a luz dessa vez...
+CONTINUE,Continue,Continuar
 PRACTICE,Practice,Praticar
 CANNON,Cannon,Canhão
 BALLISTA,Ballista,Balista

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_ad1fn"]
 [ext_resource type="Script" path="res://scripts/entities/laser_projectile.gd" id="2_cx6xs"]
-[ext_resource type="Texture2D" uid="uid://vncosdohaysn" path="res://assets/particles/trace_01.png" id="3_e0234"]
+[ext_resource type="Texture2D" uid="uid://vncosdohaysn" path="res://assets/particles/kenney_pack/trace_01.png" id="3_e0234"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5bwec"]
 blend_mode = 1

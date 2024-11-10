@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8e2jpe7y87cm"]
+
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_7ecv1"]
+[ext_resource type="Script" path="res://scripts/ui/buttons/tower_button.gd" id="1_txhdy"]
+[ext_resource type="StyleBox" uid="uid://c3mkd26pntgue" path="res://assets/theme/styleboxes/high_contrast_sb.tres" id="2_0egv2"]
+[ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="4_jlh1i"]
+[ext_resource type="Texture2D" uid="uid://baiovqfwrjg4x" path="res://assets/prototypes/turret_sprite_placeholder.png" id="5_i6j65"]
+
+[node name="TowerButton" type="Panel"]
+custom_minimum_size = Vector2(96, 112)
+anchors_preset = -1
+anchor_right = 0.075
+anchor_bottom = 0.16
+offset_bottom = -3.2
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_7ecv1")
+theme_override_styles/panel = ExtResource("2_0egv2")
+script = ExtResource("1_txhdy")
+object_type = null
+target_tower_scene = ExtResource("4_jlh1i")
+
+[node name="TowerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("5_i6j65")
+centered = false
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="CostLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="tower_placed" from="." to="." method="_on_tower_placed"]

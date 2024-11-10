@@ -3,7 +3,11 @@ class_name TowerButton extends Panel
 signal tower_selected
 signal tower_placed
 
-@export_enum('TOWER', 'LIGHT', 'DECORATION') var object_type : String = 'TOWER'
+const TOWER_COLOR : Color = Color.WHITE
+const LIGHT_COLOR : Color = Color.LIGHT_GREEN
+const BUILDING_COLOR : Color = Color.LIGHT_CYAN
+
+var object_type : Tower.TOWER_TYPES
 @export var reference_rect : ReferenceRect
 @export var target_tower_scene : PackedScene
 
@@ -18,18 +22,25 @@ var stored_cost : int
 var valid : bool
 var position_valid : bool = true
 
-func _ready():
+func _ready() -> void:
 	stage = get_tree().get_first_node_in_group('stage')
 	await _update_button()
 
-func _update_button():
+func _update_button() -> void:
 	var load_tower : Tower = target_tower_scene.instantiate()
 	stored_cost = load_tower.default_tower_cost
 	cost_label.set_text(str(stored_cost))
 	tower_sprite.set_texture(load_tower.tower_icon)
-	set_tooltip_text(TranslationServer.tr(load_tower.name.to_upper()))
 	tower_name = load_tower.tower_name
+	object_type = load_tower.tower_type
+	
+	set_tooltip_text(TranslationServer.tr(load_tower.name.to_upper()))
 	load_tower.queue_free()
+	
+	match object_type:
+		0: set_self_modulate(TOWER_COLOR) # TOWER
+		1: set_self_modulate(LIGHT_COLOR) # LIGHT
+		2: set_self_modulate(BUILDING_COLOR) # BUILDING
 
 func _on_gui_input(event) -> void:
 	if Input.is_action_pressed("alt") or Input.is_action_pressed("escape"):
@@ -65,9 +76,9 @@ func _on_gui_input(event) -> void:
 	
 	elif event is InputEventMouseButton and event.button_mask == 0 and valid: _try_insert() # Left mouse released
 
-func _on_focus_entered(): valid = true #? Simply resets valid when clicked again. Wouldn't work without this line!
+func _on_focus_entered() -> void: valid = true #? Simply resets valid when clicked again. Wouldn't work without this line!
 
-func _on_tower_placed(): num_towers_placed += 1
+func _on_tower_placed() -> void: num_towers_placed += 1
 
 #region Tower controls
 func _try_insert() -> bool:

@@ -11,7 +11,7 @@ radius = 160.0
 [node name="Lamp" type="Node2D"]
 material = ExtResource("1_1mgal")
 script = ExtResource("2_4fxoa")
-tower_type = 2
+tower_type = 1
 default_tower_cost = 100
 default_light_range = 1.5
 default_tower_range = 0.0

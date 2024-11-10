@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/ui/main/fuse_system.gd" id="2_a2mc2"]
 [ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://scenes/ui/slots/input_slot.tscn" id="3_8m32b"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://scenes/ui/slots/control_slot.tscn" id="4_bp3h0"]
-[ext_resource type="Texture2D" uid="uid://8i3k8vpy4xng" path="res://assets/particles/star_02.png" id="5_v8xoo"]
+[ext_resource type="Texture2D" uid="uid://8i3k8vpy4xng" path="res://assets/particles/kenney_pack/star_02.png" id="5_v8xoo"]
 
 [sub_resource type="Curve" id="Curve_ev3ga"]
 max_value = 50.0

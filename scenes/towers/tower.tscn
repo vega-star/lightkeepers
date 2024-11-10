@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bg8dos7yx10dx"]
+[gd_scene load_steps=37 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_1obre"]
 [ext_resource type="Script" path="res://scripts/entities/tower/offensive_tower.gd" id="2_hykqw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="6_nn24t"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="6_pf6mm"]
 [ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="7_71kul"]
+[ext_resource type="Texture2D" uid="uid://3f731o05rojo" path="res://assets/prototypes/pupil.png" id="11_0dk12"]
 
 [sub_resource type="Resource" id="Resource_6iduf"]
 script = ExtResource("6_pf6mm")
@@ -198,7 +199,15 @@ sprite_frames = SubResource("SpriteFrames_yos0f")
 animation = &"firing"
 frame = 6
 frame_progress = 1.0
+offset = Vector2(10, 0)
 flip_h = true
+
+[node name="Pupil" type="Sprite2D" parent="TowerGunSprite"]
+z_index = -2
+position = Vector2(-10, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("11_0dk12")
 
 [node name="TowerGunMuzzle" type="Marker2D" parent="TowerGunSprite"]
 position = Vector2(-13, -0.500001)

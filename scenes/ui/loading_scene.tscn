@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b17mn8gvdp0uv"]
+[gd_scene load_steps=11 format=3 uid="uid://b17mn8gvdp0uv"]
 
 [ext_resource type="Script" path="res://scripts/ui/loading_scene.gd" id="1_cuefo"]
+[ext_resource type="Texture2D" uid="uid://lv46fxug65jp" path="res://assets/particles/glow_particle.png" id="2_i40r7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw3mu"]
 bg_color = Color(0.054902, 0.0392157, 0.180392, 1)
@@ -111,6 +112,12 @@ _data = {
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ut0vv"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujrwx"]
+bg_color = Color(10, 10, 10, 1)
+
+[sub_resource type="Gradient" id="Gradient_fy3w3"]
+colors = PackedColorArray(5, 5, 5, 1, 1, 1, 1, 0)
+
 [node name="LoadingScene" type="CanvasLayer"]
 process_mode = 3
 layer = 100
@@ -153,5 +160,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_ujrwx")
 value = 50.0
 show_percentage = false
+
+[node name="ProgressShimmer" type="CPUParticles2D" parent="."]
+position = Vector2(720, 682)
+amount = 4
+speed_scale = 1.5
+local_coords = true
+texture = ExtResource("2_i40r7")
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = 1.0
+angle_min = -90.0
+angle_max = 90.0
+color_ramp = SubResource("Gradient_fy3w3")
