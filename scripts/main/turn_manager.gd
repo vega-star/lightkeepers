@@ -37,7 +37,6 @@ const TURN_PASS_SFX : Array = [
 ## Stage controls
 var current_turn : int = 0 : set = _set_turn
 var cached_turns : int = 0 #? Used in the future with infinite mode
-var autoplay : bool = false
 var stage_initiated : bool = false
 var max_turns : int
 
@@ -51,11 +50,8 @@ var wave_enemy_count : int
 
 #region Main functions
 func _ready() -> void:
-	# randomize()
 	set_process(false)
-	
 	_load_schedule(turn_schedule)
-	UI.HUD.autoplay_toggled.connect(_on_autoplay_toggled)
 	UI.HUD.turn_pass_requested.connect(_on_turn_pass)
 	turn_passed.connect(UI.HUD.turn_update)
 	UI.HUD.turn_update(0, max_turns)
@@ -76,20 +72,18 @@ func _process(_delta) -> void:
 #endregion
 
 #region Execution functions
-func _on_autoplay_toggled(toggle : bool) -> void: autoplay = toggle
-
-func _on_turn_pass() -> void:
-	if !stage_initiated:
-		stage_initiated = true
-		run_schedule()
+func _load_schedule(schedule : StageSchedule) -> void:
+	turn_schedule = schedule
+	max_turns = schedule.turns.size()
 
 func _set_turn(new_value : int) -> void:
 	current_turn = new_value
 	turn_passed.emit(current_turn, max_turns)
 
-func _load_schedule(schedule : StageSchedule) -> void:
-	turn_schedule = schedule
-	max_turns = schedule.turns.size()
+func _on_turn_pass() -> void:
+	if !stage_initiated:
+		stage_initiated = true
+		run_schedule()
 
 func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 	for turn in schedule.turns: ## Turns
@@ -98,8 +92,10 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 			execute_wave(wave)
 			await wave_completed
 		stage_agent.change_coins(turn.coins_on_turn_completion, true)
-		if debug: print('Wave finished, added ', turn.coins_on_turn_completion, ' coins')
-		if !autoplay: await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
+		UI.wave_is_active = false
+		
+		if !UI.autoplay_turn:
+			await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
 	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:
@@ -109,6 +105,7 @@ func _on_schedule_finished() -> void:
 
 func execute_wave(wave : Wave) -> void:
 	AudioManager.emit_random_sound_effect(spawn_positions.get_child(0).position, TURN_PASS_SFX)
+	UI.wave_is_active = true
 	wave_enemy_count = 0
 	
 	#region Entity loading

@@ -40,9 +40,9 @@ func _set_health(new_health : int) -> void:
 #region Active callables
 func reset_health() -> void: health = max_health
 
-func change(amount : int, negative : bool = true, source : Tower = null) -> void:
+func change(amount : int, negative : bool = true, source : Pupil = null) -> void:
 	var _previous_value : int = health
-	var _change_source : Tower = null
+	var _change_source : Pupil = null
 	if is_instance_valid(source): _change_source = source
 	if amount == 0 or lock_health: return #? No change is made or is allowed
 	if negative: health -= amount * damage_multiplier
@@ -53,7 +53,7 @@ func change(amount : int, negative : bool = true, source : Tower = null) -> void
 
 func invoke_death(source : Node) -> void:
 	if !is_instance_valid(source): return
-	if source is Tower: source.tower_kill_count += 1
+	if source is Pupil: source.pupil_kill_count += 1
 	
 	if lives > 1:
 		lives -= 1

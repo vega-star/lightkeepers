@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdkqr7hs6hiaw"
-path="res://.godot/imported/quirky-11-1x.png-c801732903cba58eb344460b478db3e4.ctex"
+uid="uid://c1xrdahx5g2j2"
+path="res://.godot/imported/pyrite.png-c59edae092cbf9ac7dadd26eb7a3692a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shaders/palette/quirky-11-1x.png"
-dest_files=["res://.godot/imported/quirky-11-1x.png-c801732903cba58eb344460b478db3e4.ctex"]
+source_file="res://assets/sprites/ui/pyrite.png"
+dest_files=["res://.godot/imported/pyrite.png-c59edae092cbf9ac7dadd26eb7a3692a.ctex"]
 
 [params]
 

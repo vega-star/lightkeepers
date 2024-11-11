@@ -1,8 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://cld08hurv0ljg"]
+[gd_scene load_steps=21 format=3 uid="uid://cld08hurv0ljg"]
 
-[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/tower.tscn" id="1_e4sy1"]
-[ext_resource type="PackedScene" uid="uid://bpomm15ssv0np" path="res://components/projectiles/ballista_projectile.tscn" id="2_hw7jf"]
-[ext_resource type="Script" path="res://scripts/resources/tower_upgrade_tree.gd" id="5_u84ps"]
+[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/pupil.tscn" id="1_e4sy1"]
+[ext_resource type="Script" path="res://scripts/resources/pupil_upgrade_tree.gd" id="5_u84ps"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="6_dbxss"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="7_swxpc"]
 
@@ -97,16 +96,9 @@ script = ExtResource("5_u84ps")
 upgrades = Array[ExtResource("6_dbxss")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
 
 [node name="Ballista" instance=ExtResource("1_e4sy1")]
-default_tower_cost = 75
-default_projectile = ExtResource("2_hw7jf")
-default_light_range = 0.6
-default_tower_range = 1.6
-default_piercing = 2
-default_firing_cooldown = 1.3
-default_seeking_timeout = 0.3
-tower_name = "Ballista"
 
-[node name="TowerUpgrades" parent="." index="0"]
+[node name="PupilUpgrades" parent="." index="0"]
 upgrade_tree_1 = SubResource("Resource_loc58")
 upgrade_tree_2 = SubResource("Resource_loc58")
 upgrade_tree_3 = SubResource("Resource_loc58")
+debug = false

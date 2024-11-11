@@ -1,59 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://b3tvxsgupe3gs"]
+[gd_scene load_steps=8 format=3 uid="uid://b3tvxsgupe3gs"]
 
-[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_cy4x5"]
-[ext_resource type="Script" path="res://scripts/main/tower_panel.gd" id="2_emv2q"]
-[ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="3_5y2yf"]
-[ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/prototypes/next_button.png" id="3_7ki8e"]
-[ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_ansxj"]
-[ext_resource type="Texture2D" uid="uid://cgskcr0k8rb7r" path="res://assets/sprites/misc/logo_sage.png" id="4_hls82"]
-[ext_resource type="PackedScene" uid="uid://n5rw1cpg7sp0" path="res://scenes/ui/slots/upgrade_slot.tscn" id="4_v4mjq"]
-[ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="7_i58fp"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_jnlpy"]
+[ext_resource type="Script" path="res://scripts/main/pupil_panel.gd" id="2_t7fna"]
+[ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_howsy"]
+[ext_resource type="Texture2D" uid="uid://cgskcr0k8rb7r" path="res://assets/sprites/misc/logo_sage.png" id="5_qgpe8"]
+[ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/prototypes/next_button.png" id="6_3nfkb"]
+[ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="7_pyghb"]
+[ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="8_h1wfd"]
 
-[node name="TowerPanel" type="Panel"]
+[node name="PupilPanel" type="Panel"]
 offset_top = 56.0
 offset_right = 265.0
 offset_bottom = 720.0
 mouse_filter = 1
-theme = ExtResource("1_cy4x5")
-script = ExtResource("2_emv2q")
-focus_button_group = ExtResource("3_ansxj")
+theme = ExtResource("1_jnlpy")
+script = ExtResource("2_t7fna")
+focus_button_group = ExtResource("3_howsy")
 metadata/_edit_horizontal_guides_ = [720.0]
 metadata/_edit_vertical_guides_ = [1280.0]
-
-[node name="ExtraPanel" type="Panel" parent="."]
-visible = false
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 265.0
-offset_right = 127.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ElementSlots" type="VBoxContainer" parent="ExtraPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -5.0
-offset_right = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="UpgradeSlot" parent="ExtraPanel/ElementSlots" instance=ExtResource("4_v4mjq")]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="UpgradeSlot2" parent="ExtraPanel/ElementSlots" instance=ExtResource("4_v4mjq")]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="UpgradeSlot3" parent="ExtraPanel/ElementSlots" instance=ExtResource("4_v4mjq")]
-layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="SplashPoint" type="Control" parent="."]
 layout_mode = 1
@@ -65,23 +29,24 @@ offset_bottom = 168.0
 grow_horizontal = 2
 
 [node name="TowerSplash" type="Sprite2D" parent="SplashPoint"]
+position = Vector2(0, 24)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_hls82")
+texture = ExtResource("5_qgpe8")
 
-[node name="TowerLabel" type="Label" parent="."]
+[node name="NameLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 2.0
 offset_bottom = 47.0
 grow_horizontal = 2
-theme = ExtResource("1_cy4x5")
+theme = ExtResource("1_jnlpy")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "TOWER_NAME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="KillCounter" type="Label" parent="TowerLabel"]
+[node name="KillCounter" type="Label" parent="NameLabel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -91,7 +56,7 @@ offset_top = 28.0
 offset_right = 20.0
 offset_bottom = 64.0
 grow_horizontal = 2
-theme = ExtResource("1_cy4x5")
+theme = ExtResource("1_jnlpy")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "0"
@@ -104,17 +69,17 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 25.0
-offset_top = 294.0
+offset_top = 301.0
 offset_right = -27.0
-offset_bottom = -340.0
+offset_bottom = -333.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PreviousButton" type="TextureButton" parent="FocusContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-button_group = ExtResource("3_ansxj")
-texture_normal = ExtResource("3_7ki8e")
+button_group = ExtResource("3_howsy")
+texture_normal = ExtResource("6_3nfkb")
 ignore_texture_size = true
 stretch_mode = 5
 flip_h = true
@@ -138,22 +103,10 @@ vertical_alignment = 1
 [node name="NextButton" type="TextureButton" parent="FocusContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-button_group = ExtResource("3_ansxj")
-texture_normal = ExtResource("3_7ki8e")
+button_group = ExtResource("3_howsy")
+texture_normal = ExtResource("6_3nfkb")
 ignore_texture_size = true
 stretch_mode = 5
-
-[node name="UpgradeSlot" parent="." instance=ExtResource("4_v4mjq")]
-layout_mode = 2
-anchor_left = 0.495
-anchor_top = 0.345
-anchor_right = 0.495
-anchor_bottom = 0.345
-offset_left = -48.095
-offset_top = -48.08
-offset_right = 47.905
-offset_bottom = 47.92
-size_flags_horizontal = 4
 
 [node name="Upgrades" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -167,13 +120,13 @@ offset_bottom = -59.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UpgradePanel" parent="Upgrades" instance=ExtResource("7_i58fp")]
+[node name="UpgradePanel" parent="Upgrades" instance=ExtResource("7_pyghb")]
 layout_mode = 2
 
-[node name="UpgradePanel2" parent="Upgrades" instance=ExtResource("7_i58fp")]
+[node name="UpgradePanel2" parent="Upgrades" instance=ExtResource("7_pyghb")]
 layout_mode = 2
 
-[node name="UpgradePanel3" parent="Upgrades" instance=ExtResource("7_i58fp")]
+[node name="UpgradePanel3" parent="Upgrades" instance=ExtResource("7_pyghb")]
 layout_mode = 2
 
 [node name="TowerValuePanel" type="Panel" parent="."]
@@ -202,7 +155,7 @@ grow_vertical = 2
 [node name="CoinIcon" type="TextureButton" parent="TowerValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-texture_normal = ExtResource("3_5y2yf")
+texture_normal = ExtResource("8_h1wfd")
 stretch_mode = 6
 
 [node name="Value" type="Label" parent="TowerValuePanel/ValueContainer"]
@@ -213,7 +166,7 @@ text = "150"
 [node name="SellButton" type="Button" parent="TowerValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme = ExtResource("1_cy4x5")
+theme = ExtResource("1_jnlpy")
 text = "SELL"
 icon_alignment = 2
 expand_icon = true

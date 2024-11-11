@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_1mgal"]
 [ext_resource type="Script" path="res://scripts/entities/tower/lamp.gd" id="2_4fxoa"]
-[ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="3_rncvn"]
+[ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/pupil_upgrades.tscn" id="3_rncvn"]
 [ext_resource type="Texture2D" uid="uid://tdykvrbkn0uc" path="res://assets/sprites/towers/lamp.png" id="4_fi4wg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
@@ -15,17 +15,25 @@ tower_type = 1
 default_tower_cost = 100
 default_light_range = 1.5
 default_tower_range = 0.0
+default_target_priority = null
+default_projectile_quantity = null
 default_damage = 0
 default_piercing = 0
 default_burst = 0
 default_firing_cooldown = 0.0
 default_seeking_timeout = 0.0
+destroy_sound_effect_id = null
+show_targeting_priorities = null
 tower_name = "Lamp"
+tower_icon = null
+range_draw_color = null
+light_draw_color = null
 
 [node name="TowerUpgrades" parent="." instance=ExtResource("3_rncvn")]
 upgrade_tree_1 = null
 upgrade_tree_2 = null
 upgrade_tree_3 = null
+debug = null
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 z_index = 50

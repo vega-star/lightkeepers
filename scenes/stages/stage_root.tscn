@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://2stxk6mbvwbv"]
+[gd_scene load_steps=12 format=3 uid="uid://2stxk6mbvwbv"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_u513e"]
 [ext_resource type="PackedScene" uid="uid://d37tw2m7yrog0" path="res://components/misc/stage_effects.tscn" id="2_87lxd"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="3_xxwxp"]
 [ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_in44l"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_gjeh3"]
-[ext_resource type="PackedScene" uid="uid://b44iuk7ixyl1q" path="res://scenes/towers/nexus.tscn" id="7_bewmd"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="8_txpjo"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="11_x4sy4"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="12_oob5i"]
@@ -58,9 +57,6 @@ z_index = 25
 use_parent_material = true
 tile_set = ExtResource("6_gjeh3")
 navigation_enabled = false
-
-[node name="Nexus" parent="." instance=ExtResource("7_bewmd")]
-position = Vector2(872, 360)
 
 [node name="LightAreaComponent" parent="." instance=ExtResource("11_x4sy4")]
 

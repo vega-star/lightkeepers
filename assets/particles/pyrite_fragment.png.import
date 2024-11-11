@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct10xuwkeag74"
-path="res://.godot/imported/oil-6-1x.png-e80202b7d8f1617757c6dc066540f116.ctex"
+uid="uid://jvgswgkjq2c6"
+path="res://.godot/imported/pyrite_fragment.png-0303aabb0d4f54c42e3c80a1a490310d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shaders/palette/oil-6-1x.png"
-dest_files=["res://.godot/imported/oil-6-1x.png-e80202b7d8f1617757c6dc066540f116.ctex"]
+source_file="res://assets/particles/pyrite_fragment.png"
+dest_files=["res://.godot/imported/pyrite_fragment.png-0303aabb0d4f54c42e3c80a1a490310d.ctex"]
 
 [params]
 

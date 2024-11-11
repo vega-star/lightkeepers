@@ -1,6 +1,6 @@
 class_name UpgradePanel extends Control
 
-var upgrade_tree : TowerUpgradeTree
+var upgrade_tree : PupilUpgradeTree
 var finished : bool: set = _on_finished
 var locked : bool: set = _on_locked
 

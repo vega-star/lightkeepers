@@ -28,4 +28,5 @@ dialog_close_on_escape = false
 cancel_button_text = "CANCEL"
 
 [node name="FinishPanel" parent="." instance=ExtResource("3_65a5i")]
+visible = false
 layout_mode = 1

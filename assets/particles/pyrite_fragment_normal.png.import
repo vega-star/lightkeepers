@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bylafy2dx4wp0"
-path="res://.godot/imported/better16-1x.png-892e7ed4d06d78babec9b57955bffe4c.ctex"
+uid="uid://cv5bgvs5a13rm"
+path="res://.godot/imported/pyrite_fragment_normal.png-f9a8f682c4ba1fc17c4028e81dbd739c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/shaders/palette/better16-1x.png"
-dest_files=["res://.godot/imported/better16-1x.png-892e7ed4d06d78babec9b57955bffe4c.ctex"]
+source_file="res://assets/particles/pyrite_fragment_normal.png"
+dest_files=["res://.godot/imported/pyrite_fragment_normal.png-f9a8f682c4ba1fc17c4028e81dbd739c.ctex"]
 
 [params]
 

@@ -1,0 +1,83 @@
+[gd_scene load_steps=13 format=3 uid="uid://bg8dos7yx10dx"]
+
+[ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_njf3q"]
+[ext_resource type="Script" path="res://scripts/entities/tower/pupil.gd" id="2_qsw3h"]
+[ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/pupil_upgrades.tscn" id="3_q1x5e"]
+[ext_resource type="Script" path="res://scripts/main/pupil_upgrades.gd" id="4_ovv5n"]
+[ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="7_qrgbf"]
+[ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="8_0iauu"]
+[ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="9_yykcr"]
+
+[sub_resource type="Animation" id="Animation_jcw4k"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_sy07b"]
+resource_name = "attacking"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hktup"]
+_data = {
+"attacking": SubResource("Animation_sy07b"),
+"idle": SubResource("Animation_jcw4k")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sss3a"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
+radius = 160.0
+
+[node name="Pupil" type="Node2D"]
+material = ExtResource("1_njf3q")
+script = ExtResource("2_qsw3h")
+
+[node name="PupilUpgrades" parent="." instance=ExtResource("3_q1x5e")]
+script = ExtResource("4_ovv5n")
+upgrade_tree_1 = null
+upgrade_tree_2 = null
+upgrade_tree_3 = null
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
+script = ExtResource("7_qrgbf")
+entity = NodePath("..")
+initial_state = NodePath("Seeking")
+
+[node name="Seeking" parent="StateMachine" node_paths=PackedStringArray("firing_state") instance=ExtResource("8_0iauu")]
+firing_state = NodePath("../Firing")
+
+[node name="Firing" parent="StateMachine" node_paths=PackedStringArray("seeking_state") instance=ExtResource("9_yykcr")]
+seeking_state = NodePath("../Seeking")
+
+[node name="PupilAnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hktup")
+}
+
+[node name="PupilSprite" type="AnimatedSprite2D" parent="PupilAnimationTree"]
+
+[node name="PupilAim" type="RayCast2D" parent="."]
+target_position = Vector2(320, 2.38419e-06)
+collision_mask = 4
+
+[node name="PupilAttackPos" type="Marker2D" parent="PupilAim"]
+position = Vector2(16, 0)
+
+[node name="PupilOccupiedArea" type="Area2D" parent="."]
+collision_layer = 17
+collision_mask = 5
+input_pickable = false
+
+[node name="OccupiedArea" type="CollisionShape2D" parent="PupilOccupiedArea"]
+shape = SubResource("CircleShape2D_sss3a")
+debug_color = Color(0.356052, 0.48176, 1, 0.42)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="PupilOccupiedArea"]
+radius = 16.0
+vertices = PackedVector2Array(0, 16, -16, 0, 0, -16, 16, 0)
+
+[node name="PupilRangeArea" type="Area2D" parent="."]
+collision_mask = 64
+input_pickable = false
+
+[node name="PupilRangeShape" type="CollisionShape2D" parent="PupilRangeArea"]
+shape = SubResource("CircleShape2D_4qdcu")
+debug_color = Color(0.992355, 0, 0.259521, 0.129412)

@@ -24,7 +24,7 @@ const PITCH_VARIATION : Vector2 = Vector2(0.7,1.3)
 @onready var cpu_particles : CPUParticles2D = $CPUParticles2D
 
 var active : bool = true
-var source : Tower
+var source : Object
 var target : Object
 var speed : int
 var damage : int
