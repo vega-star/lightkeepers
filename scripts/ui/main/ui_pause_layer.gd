@@ -18,8 +18,8 @@ func set_pause_by_signal(mode : bool) -> void:
 
 func _unhandled_input(_event) -> void:
 	if UI.pause_locked: return
-	if Input.is_action_just_pressed("space") and !UI.pause_state: pause()
-	elif Input.is_action_just_pressed("space") and UI.pause_state: unpause()
+	if Input.is_action_just_pressed("enter") and !UI.pause_state: pause()
+	elif Input.is_action_just_pressed("enter") and UI.pause_state: unpause()
 
 func _on_options_button_pressed() -> void:
 	Options.show()

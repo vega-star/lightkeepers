@@ -1,7 +1,7 @@
 class_name Menu extends Control
 
 @export var menu_songs : Array[String] = []
-@export var start_button : UIButton
+@export var start_button : Button
 
 @onready var project_version = ProjectSettings.get_setting("application/config/version")
 @onready var version_label = $MenuPages/CentralPage/VersionLabel
@@ -21,8 +21,8 @@ func _ready():
 	version_label.text = "v%s" % project_version
 	screen_size = get_viewport_rect().size
 	UI.fade('IN')
-	UI.HUD.set_visible(false)
-	LoadManager._scene_is_stage = false #? Removes 'Stage' options from Options menu
+	UI.interface.set_visible(false)
+	assert(StageManager.on_stage == false)
 	AudioManager.play_music(menu_songs, 0, false, true)
 	$MenuPages/CentralPage.set_focus()
 

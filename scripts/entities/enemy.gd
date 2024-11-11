@@ -42,10 +42,10 @@ var stored_scale : Vector2
 var line_agent : PathFollow2D #? Line2D node to follow
 var stage : Stage #? Stage to call upon
 
+var nexus : Node2D
 var damage_on_nexus : int
 var enemy_value : int
 var on_sight : bool = false : set = _set_on_sight
-var nexus : Node2D : set = _set_target
 var target_position : Vector2
 var next_position
 var direction
@@ -63,6 +63,7 @@ func _set_enemy_properties():
 	health_component.max_health = base_health
 	health_component.reset_health()
 	set_name(enemy_name)
+	set_target(nexus)
 	
 	if smart_enemy:
 		assert(nexus)
@@ -103,8 +104,8 @@ func _set_path2d(line_node : Path2D):
 
 func _create_path(): navigation_agent.target_position = target_position
 
-func _set_target(node : Node2D): 
-	nexus = node
+func set_target(node : Node2D):
+	if !node: return
 	target_position = node.global_position
 
 func _set_on_sight(toggle : bool):

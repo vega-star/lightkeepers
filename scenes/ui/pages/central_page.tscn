@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1exo4vhhmcgf"]
+[gd_scene load_steps=11 format=3 uid="uid://c1exo4vhhmcgf"]
 
 [ext_resource type="Script" path="res://scripts/ui/pages/pg_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
-[ext_resource type="PackedScene" uid="uid://b8ofyl47121r8" path="res://scenes/ui/buttons/ui_button.tscn" id="2_c5orx"]
 [ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/misc/lightkeepers_logo.png" id="3_3uyyw"]
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="3_k0e0y"]
+[ext_resource type="Texture2D" uid="uid://xq6u5btf74sp" path="res://assets/sprites/misc/github_icon/github_icon.png" id="5_h0be6"]
+[ext_resource type="Texture2D" uid="uid://u1y5p3hmbb6i" path="res://assets/sprites/misc/github_icon/github_icon_pressed.png" id="6_403fq"]
+[ext_resource type="Texture2D" uid="uid://d2s84fwr7i2nu" path="res://assets/sprites/misc/github_icon/github_icon_hovered.png" id="7_5ivjt"]
+[ext_resource type="Texture2D" uid="uid://j2c5jng3drea" path="res://assets/sprites/misc/github_icon/github_icon_disabled.png" id="8_i7v0j"]
+[ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/misc/github_icon/github_icon_focused.png" id="9_s7u8m"]
+[ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/misc/github_icon/github_icon.bmp" id="10_tt3vd"]
 
 [node name="CentralPage" type="Control"]
 layout_mode = 3
@@ -19,14 +24,18 @@ script = ExtResource("1_2dyl0")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_k0e0y")
 
-[node name="TextureRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="MenuParallax" type="ParallaxBackground" parent="."]
+visible = false
+
+[node name="BG" type="ColorRect" parent="MenuParallax"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.0923971, 0.0923971, 0.0923971, 1)
+
+[node name="Foreground" type="ParallaxLayer" parent="MenuParallax"]
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(640, 192)
@@ -34,49 +43,92 @@ skew = 0.261799
 texture = ExtResource("3_3uyyw")
 
 [node name="VersionLabel" type="Label" parent="."]
+modulate = Color(0.661781, 0.56482, 0.268005, 1)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -26.0
-offset_right = 49.0
+offset_left = 10.0
+offset_top = -42.0
+offset_right = 77.0
 offset_bottom = -3.0
 grow_vertical = 0
 text = "v0.0.0"
+horizontal_alignment = 1
+
+[node name="LinksContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -90.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="GithubButton" type="TextureButton" parent="LinksContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_h0be6")
+texture_pressed = ExtResource("6_403fq")
+texture_hover = ExtResource("7_5ivjt")
+texture_disabled = ExtResource("8_i7v0j")
+texture_focused = ExtResource("9_s7u8m")
+texture_click_mask = ExtResource("10_tt3vd")
+stretch_mode = 5
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -368.0
-offset_right = 151.0
-offset_bottom = -18.0
+anchors_preset = -1
+anchor_left = 0.425
+anchor_top = 0.444
+anchor_right = 0.575
+anchor_bottom = 0.889
+offset_left = -64.0
+offset_top = -31.68
+offset_right = 63.9999
+offset_bottom = 31.92
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 16
+alignment = 2
 
-[node name="LoadButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+[node name="LoadButton" type="Button" parent="ButtonsContainer"]
 visible = false
 layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_3vsxr")
 text = "LOAD"
 
-[node name="StartButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+[node name="StartButton" type="Button" parent="ButtonsContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_3vsxr")
 text = "START"
 
-[node name="SettingsButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+[node name="SettingsButton" type="Button" parent="ButtonsContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_3vsxr")
 text = "SETTINGS"
 
-[node name="QuitButton" parent="ButtonsContainer" instance=ExtResource("2_c5orx")]
+[node name="Credits" type="Button" parent="ButtonsContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_3vsxr")
+text = "CREDITS"
+
+[node name="QuitButton" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_3vsxr")
 text = "QUIT"
 
+[connection signal="pressed" from="LinksContainer/GithubButton" to="." method="_on_github_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/LoadButton" to="ButtonsContainer/LoadButton" method="_on_pressed"]
 [connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/Credits" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]

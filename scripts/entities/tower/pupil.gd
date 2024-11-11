@@ -89,7 +89,7 @@ var pupil_kill_count : int: #? Updates kill count and emits signal for the value
 #region Internal processes
 func _ready() -> void:
 	light_area = get_tree().get_first_node_in_group('light_area')
-	stage_camera = get_tree().get_first_node_in_group('stage_camera')
+	stage_camera = StageManager.active_stage.stage_camera
 	_configure()
 
 func _configure() -> void:

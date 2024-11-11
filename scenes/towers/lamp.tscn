@@ -11,29 +11,8 @@ radius = 160.0
 [node name="Lamp" type="Node2D"]
 material = ExtResource("1_1mgal")
 script = ExtResource("2_4fxoa")
-tower_type = 1
-default_tower_cost = 100
-default_light_range = 1.5
-default_tower_range = 0.0
-default_target_priority = null
-default_projectile_quantity = null
-default_damage = 0
-default_piercing = 0
-default_burst = 0
-default_firing_cooldown = 0.0
-default_seeking_timeout = 0.0
-destroy_sound_effect_id = null
-show_targeting_priorities = null
-tower_name = "Lamp"
-tower_icon = null
-range_draw_color = null
-light_draw_color = null
 
 [node name="TowerUpgrades" parent="." instance=ExtResource("3_rncvn")]
-upgrade_tree_1 = null
-upgrade_tree_2 = null
-upgrade_tree_3 = null
-debug = null
 
 [node name="TowerSprite" type="Sprite2D" parent="."]
 z_index = 50

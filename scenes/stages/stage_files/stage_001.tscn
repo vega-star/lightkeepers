@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://bh63bmc5k2mm2"]
 
-[ext_resource type="PackedScene" uid="uid://2stxk6mbvwbv" path="res://scenes/stages/stage_root.tscn" id="1_lnf2w"]
+[ext_resource type="PackedScene" uid="uid://2stxk6mbvwbv" path="res://scenes/stages/stage.tscn" id="1_lnf2w"]
 [ext_resource type="Resource" uid="uid://i371oq72kdxm" path="res://scenes/stages/stage_info/stage_001.tres" id="2_l04u5"]
 
 [sub_resource type="Curve2D" id="Curve2D_73g0c"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b1nc1qmngc6lr"]
 
-[ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemy.tscn" id="1_h5mgo"]
+[ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemies/enemy.tscn" id="1_h5mgo"]
 
 [node name="Bulwark" instance=ExtResource("1_h5mgo")]
 scale = Vector2(2, 2)

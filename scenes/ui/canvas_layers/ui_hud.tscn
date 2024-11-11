@@ -57,6 +57,7 @@ size = Vector2(64, 64)
 process_mode = 3
 layer = 50
 script = ExtResource("1_7no1j")
+hide_elements_when_start = false
 metadata/_edit_vertical_guides_ = [1280.0, 640.0]
 metadata/_edit_horizontal_guides_ = [720.0]
 
@@ -160,6 +161,7 @@ size_flags_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+step = 0.0
 value = 25.0
 fill_mode = 5
 radial_initial_angle = 270.0

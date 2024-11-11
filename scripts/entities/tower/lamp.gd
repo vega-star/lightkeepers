@@ -1,1 +1,1 @@
-class_name Lamp extends Tower
+class_name Lamp extends TileObject

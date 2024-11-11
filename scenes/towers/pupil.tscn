@@ -1,18 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://bg8dos7yx10dx"]
+[gd_scene load_steps=12 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_njf3q"]
 [ext_resource type="Script" path="res://scripts/entities/tower/pupil.gd" id="2_qsw3h"]
 [ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/pupil_upgrades.tscn" id="3_q1x5e"]
-[ext_resource type="Script" path="res://scripts/main/pupil_upgrades.gd" id="4_ovv5n"]
 [ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="7_qrgbf"]
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="8_0iauu"]
 [ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="9_yykcr"]
 
-[sub_resource type="Animation" id="Animation_jcw4k"]
-resource_name = "idle"
-
 [sub_resource type="Animation" id="Animation_sy07b"]
 resource_name = "attacking"
+
+[sub_resource type="Animation" id="Animation_jcw4k"]
+resource_name = "idle"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hktup"]
 _data = {
@@ -31,10 +30,6 @@ material = ExtResource("1_njf3q")
 script = ExtResource("2_qsw3h")
 
 [node name="PupilUpgrades" parent="." instance=ExtResource("3_q1x5e")]
-script = ExtResource("4_ovv5n")
-upgrade_tree_1 = null
-upgrade_tree_2 = null
-upgrade_tree_3 = null
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
 script = ExtResource("7_qrgbf")

@@ -30,6 +30,7 @@ LoadManager="*res://scenes/singletons/load_manager.tscn"
 Options="*res://scenes/singletons/options.tscn"
 AudioManager="*res://scenes/singletons/audio_manager.tscn"
 ElementManager="*res://scripts/main/element_manager.gd"
+StageManager="*res://scenes/singletons/stage_manager.tscn"
 
 [display]
 
@@ -137,9 +138,8 @@ locale/translations=PackedStringArray("res://assets/lang/lightkeepers.en.transla
 
 occlusion_culling/bvh_build_quality=1
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
+viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

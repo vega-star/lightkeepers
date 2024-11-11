@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://dau23jgucm04a"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://dau23jgucm04a"]
 
 [ext_resource type="StyleBox" uid="uid://ourjgpyc2mcq" path="res://assets/theme/styleboxes/flat/hover_nb.tres" id="1_5kh8x"]
 [ext_resource type="StyleBox" uid="uid://osqvn3yc7hqs" path="res://assets/theme/styleboxes/flat/disabled.tres" id="1_7y3md"]
@@ -10,12 +10,35 @@
 [ext_resource type="StyleBox" uid="uid://doqexvy4ytqfh" path="res://assets/theme/styleboxes/flat/pressed_nb.tres" id="4_yct6x"]
 [ext_resource type="StyleBox" uid="uid://dgo0fy144cgtl" path="res://assets/theme/styleboxes/flat/normal_b.tres" id="5_j3kkt"]
 [ext_resource type="StyleBox" uid="uid://culmmbb85o4ji" path="res://assets/theme/styleboxes/flat/pressed_b.tres" id="6_4npyw"]
+[ext_resource type="Texture2D" uid="uid://bgtt5a04pv5bk" path="res://assets/sprites/ui/grabber.png" id="11_frxur"]
 [ext_resource type="StyleBox" uid="uid://c3mkd26pntgue" path="res://assets/theme/styleboxes/high_contrast_sb.tres" id="11_i8ytd"]
+[ext_resource type="Texture2D" uid="uid://b63ae582mkmjx" path="res://assets/sprites/ui/grabber_disabled.png" id="12_bj0wn"]
 [ext_resource type="FontFile" uid="uid://ikmx3cecam4n" path="res://assets/theme/fonts/Jersey10-Regular.ttf" id="12_ehx15"]
+[ext_resource type="Texture2D" uid="uid://bjhk13pv26ahk" path="res://assets/sprites/ui/grabber_focused.png" id="13_6jips"]
+[ext_resource type="Texture2D" uid="uid://c8o6eqfewejyf" path="res://assets/sprites/ui/tick.png" id="14_umdfg"]
+[ext_resource type="Texture2D" uid="uid://ujwrtyi2qgmg" path="res://assets/sprites/ui/grabber_h_focused.png" id="16_j30l1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhk11"]
+bg_color = Color(0.230315, 0.230315, 0.230315, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb2lf"]
+bg_color = Color(0.984314, 1, 0.52549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hbce"]
+bg_color = Color(0.984314, 1, 0.52549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [resource]
 default_font = ExtResource("12_ehx15")
 default_font_size = 36
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_uhk11")
 Button/colors/font_hover_color = Color(0.376471, 1, 0.980392, 1)
 Button/colors/font_hover_pressed_color = Color(0.376471, 1, 0.980392, 1)
 Button/styles/disabled = ExtResource("1_7y3md")
@@ -32,6 +55,11 @@ CheckButton/styles/hover = ExtResource("1_5kh8x")
 CheckButton/styles/hover_pressed = ExtResource("2_t0vdp")
 CheckButton/styles/normal = ExtResource("3_ni53j")
 CheckButton/styles/pressed = ExtResource("4_yct6x")
+HSlider/icons/grabber = ExtResource("11_frxur")
+HSlider/icons/grabber_disabled = ExtResource("12_bj0wn")
+HSlider/icons/grabber_highlight = ExtResource("13_6jips")
+HSlider/icons/tick = ExtResource("14_umdfg")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_rb2lf")
 MenuButton/styles/normal = ExtResource("5_j3kkt")
 MenuButton/styles/pressed = ExtResource("6_4npyw")
 Panel/styles/panel = ExtResource("11_i8ytd")
@@ -41,3 +69,6 @@ TabContainer/styles/tab_focus = ExtResource("6_4npyw")
 TabContainer/styles/tab_hovered = ExtResource("3_dg3xj")
 TabContainer/styles/tab_selected = ExtResource("6_4npyw")
 TabContainer/styles/tab_unselected = ExtResource("5_j3kkt")
+VSlider/icons/grabber = null
+VSlider/icons/grabber_highlight = ExtResource("16_j30l1")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_7hbce")

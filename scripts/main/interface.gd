@@ -12,6 +12,7 @@ const DEFAULT_LABEL_MODULATE = Color(10,10,10)
 const DEFAULT_LABEL_MODULATE_POSITIVE = Color(0.2,20,1)
 const DEFAULT_LABEL_MODULATE_NEGATIVE = Color(20,0.2,0.2)
 const DEFAULT_LABEL_MODULATE_TIMER : float = 0.5
+const TURN_UPDATE_PERIOD : float = 0.75
 
 @export var shop_button_group : ButtonGroup
 @export var hide_elements_when_start : bool = true
@@ -35,30 +36,40 @@ func _ready():
 	set_visible(false)
 	# if hide_elements_when_start: hide_button.pressed.emit()
 
-func update_coins(coins : int): update_label(coin_label, coins, previous_coins); previous_coins = coins
+func update_coins(coins : int): update_status(coin_label, coins, previous_coins); previous_coins = coins
 
-func update_life(life : int): update_label(life_label, life, previous_life); previous_life = life
+func update_life(life : int): update_status(life_label, life, previous_life); previous_life = life
 
 func turn_update(turn : int, max_turn : int):
 	stage_meter_bar.set_max(max_turn)
-	stage_meter_bar.set_value(turn)
+	var stage_meter_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	stage_meter_tween.tween_property(stage_meter_bar, "value", turn, TURN_UPDATE_PERIOD)
 
 # func bind_element_picked_signal(emitting_signal : Signal): emitting_signal.connect(_on_element_picked)
 
 func _on_screen_mouse_exited() -> void: pass
+
+func collect_coin(fragment : Node, value : int) -> void:
+	var collector_tween : Tween = get_tree().create_tween()
+	pass #var 
 #endregion
 
 #region Inputs and buttons
 func _input(_event) -> void:
-	if Input.is_action_just_pressed('enter'): turn_pass_requested.emit()
+	if Input.is_action_just_pressed("space"): turn_pass_requested.emit()
 
 func _on_play_button_pressed():
 	turn_pass_requested.emit()
-	if UI.wave_is_active: UI.toggle_speed(!UI.speed_toggled)
+	$UILayer/CornerPanel/PlayButton.release_focus()
 
 func _on_autoplay_button_toggled(toggled_on): autoplay_toggled.emit(toggled_on)
 
-func update_label(label : Label, new_value : int, previous_value : int, timer : float = DEFAULT_LABEL_MODULATE_TIMER):
+func update_status( #? Only updates label. The values are modified by StageAgent only
+		label : Label,
+		new_value : int,
+		previous_value : int,
+		timer : float = DEFAULT_LABEL_MODULATE_TIMER
+	):
 	var modulate_color : Color
 	var modulate_tween : Tween = get_tree().create_tween()
 	label.set_text(str(new_value))

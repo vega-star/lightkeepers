@@ -12,6 +12,11 @@ const music_dir_path = "res://assets/audio/music/"
 @export var loop_music : bool = true
 @export var debug : bool = false
 
+@export_group("Global Button Sounds")
+@export var button_pressed_sound_id : String = "Retro7"
+@export var button_focused_sound_id : String = "Retro1"
+@export var button_hovered_sound_id : String = "Retro1"
+
 var randomized_songs : bool = false
 var randomized_songs_array : Array = []
 var pause_tween : Tween
@@ -21,6 +26,10 @@ var music_list : Dictionary = {}
 func _ready() -> void:
 	load_from_dir(music_list, music_dir_path)
 	load_from_dir(effects_list, effects_dir_path)
+	
+	## Procedural button sounds
+	connect_buttons(get_tree().root)
+	get_tree().node_added.connect(_on_scenetree_node_added)
 
 ## Loads all files from a directory into an dictionary, with the name of the file as key and a loaded resource object as value.
 ## Use this function to load sounds and not bother manually adding new sounds to a constant dict.
@@ -109,11 +118,11 @@ func emit_random_sound_effect(
 		pitch_variation : Vector2 = Vector2(0.9, 1.1)
 	) -> void:
 	var effect_id = r_sfx_array[randi_range(0, r_sfx_array.size() - 1)]
-	emit_sound_effect(position, effect_id, bus_id, pitch_variation)
+	emit_sound_effect(effect_id, position, bus_id, pitch_variation)
 
 func emit_sound_effect(
-		position : Vector2,
 		effect_id : String,
+		position : Vector2 = Vector2.ZERO,
 		bus_id : String = "Effects",
 		pitch_variation : Vector2 = Vector2(0.9, 1.1)
 	) -> void:
@@ -141,3 +150,23 @@ func emit_sound_effect(
 func _on_music_finished() -> void:
 	if randomized_songs and loop_music: set_music(0, true, true, randomized_songs_array)
 	elif loop_music: music_player.play()
+
+func _on_scenetree_node_added(node) -> void:
+	if node is Button:
+		connect_to_button(node)
+
+## Global button sounds
+func connect_buttons(root) -> void: ## Recursively connect all buttons
+	for child in root.get_children():
+		if child is Button:
+			connect_to_button(child)
+		connect_buttons(child)
+
+func connect_to_button(button : Button)  -> void:
+	button.pressed.connect(_on_button_pressed)
+	button.focus_entered.connect(_on_button_focused)
+	button.mouse_entered.connect(_on_button_hovered)
+
+func _on_button_pressed() -> void: emit_sound_effect(button_pressed_sound_id)
+func _on_button_focused() -> void: emit_sound_effect(button_focused_sound_id)
+func _on_button_hovered() -> void: emit_sound_effect(button_hovered_sound_id)

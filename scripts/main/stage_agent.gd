@@ -28,21 +28,20 @@ func _ready() -> void:
 	randomize()
 	coins = initial_coins
 	nexus = get_tree().get_first_node_in_group('nexus')
-	UI.HUD.update_coins(coins)
+	UI.interface.update_coins(coins)
 	set_process(false)
-
-## Invoke stage ended screen
-func close_stage(success : bool = true):
-	UI.end_stage(success)
 #endregion
 
 #region Runtime stage functions
 func change_coins(quantity : int, addition : bool = false) -> void:
 	var previous_coins : int = coins
-	if addition: coins += quantity
-	else: coins -= quantity
+	for i in quantity:
+		var abs : int = clampi(quantity / 10, 1, 100)
+		if addition: coins += abs
+		else: coins -= abs
+		quantity -= abs
+		UI.interface.update_coins(coins)
 	coins_updated.emit(previous_coins, coins)
-	UI.HUD.update_coins(coins)
 
 func change_health(quantity : int, addition : bool = false) -> void:
 	var previous_health : int = nexus_health
@@ -50,11 +49,11 @@ func change_health(quantity : int, addition : bool = false) -> void:
 	else: nexus_health -= quantity
 	nexus_health = clamp(nexus_health, 0, 9999)
 	health_updated.emit(previous_health, nexus_health)
-	UI.HUD.update_life(nexus_health)
+	UI.interface.update_life(nexus_health)
 
 func _on_threat_manager_wave_completed() -> void: wave_completed.emit()
 
 func _on_health_updated(_previous_health, _nexus_health) -> void:
-	if nexus_health == 0: close_stage(false)
+	if nexus_health == 0: StageManager.close_stage(false)
 	stage_camera.start_shake()
 #endregion

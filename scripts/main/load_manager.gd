@@ -12,7 +12,6 @@ const MAIN_MENU_PATH : String = "res://scenes/ui/main_menu.tscn"
 var _loaded_resource : PackedScene
 var _scene_path : String
 var _progress : Array = []
-var _scene_is_stage : bool #! Leave this here.
 
 func _ready(): set_process(false)
 

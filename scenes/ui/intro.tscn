@@ -100,7 +100,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_k8e1i")
 script = ExtResource("1_gv81k")
-skip_intro_on_debug = false
 
 [node name="IntroAnimation" type="AnimationPlayer" parent="."]
 libraries = {

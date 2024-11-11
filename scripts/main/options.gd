@@ -6,6 +6,7 @@
 @icon("res://assets/sprites/ui/config_menu_icon.png")
 extends CanvasLayer
 
+signal focus_freed
 signal config_file_loaded #? Used to wait until the file is correctly loaded
 signal options_changed #? Useful to reset triggers and player behavior
 signal language_changed #? Emits for certain nodes that needs TranslationServer to run again after a language is changed
@@ -35,7 +36,7 @@ const DEFAULT_KEY_DICT : Dictionary = { #? Default keybinds that is loaded when 
 const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded when the game is first loaded
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
 	"window_size": ["MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", DEFAULT_RESOLUTION],
-	"use_dragging": ["MAIN_OPTIONS", "USE_DRAGGING", true],
+	"drag_activated": ["MAIN_OPTIONS", "DRAG_MODE", true],
 	"language": ["MAIN_OPTIONS", "LANGUAGE", "en"],
 	"toggle_photosens": ["MAIN_OPTIONS","PHOTOSENS_MODE", false],
 	"toggle_screen_shake": ["MAIN_OPTIONS","SCREEN_SHAKE", true],
@@ -65,12 +66,14 @@ var setting_key : bool = false
 var settings_changed : bool = false
 var language_changed_detect : bool = false
 var photosens_mode : bool
+var drag_mode : bool = true
 
 ## Internal node references
 # These are subject to change as you modify the UI by creating new buttons or changing node orders.
-# Luckily, no button is strictly bound/controlled by its path directly. Change these accordingly:
+# Change these accordingly:
 @onready var options_control : Control = $OptionsControl
 @onready var options_menu : TabContainer = $OptionsControl/OptionsMenu
+@onready var drag_toggle_button : CheckButton = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/DragToggleButton
 @onready var master_slider : HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Master_Slider
 @onready var effects_slider: HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Effects_Slider
 @onready var music_slider : HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Music_Slider
@@ -115,6 +118,10 @@ func _ready() -> void:
 			pass
 		_: pass
 	
+	exit_check.get_child(1, true).set_horizontal_alignment(1)
+	exit_check.get_child(1, true).set_vertical_alignment(1)
+	reset_keybinds_check.get_child(1, true).set_horizontal_alignment(1)
+	reset_keybinds_check.get_child(1, true).set_vertical_alignment(1)
 	if !UI.is_node_ready(): await UI.ready
 
 func _input(event) -> void: # Able the player to exit options screen using actions, needed for when using controllers
@@ -129,6 +136,7 @@ func _bind_signals() -> void: #? Binds signals from UI nodes by code
 	reset_keybinds_check.confirmed.connect(_on_reset_default_keybinds)
 	exit_check.confirmed.connect(_on_exit_check_confirmed)
 	exit_check.canceled.connect(_on_exit_check_canceled)
+	drag_toggle_button.pressed.connect(_on_drag_toggle_pressed)
 	master_slider.drag_ended.connect(_on_master_slider_drag_ended); master_slider.value_changed.connect(_on_master_slider_value_changed)
 	music_slider.drag_ended.connect(_on_music_slider_drag_ended); music_slider.value_changed.connect(_on_music_slider_value_changed)
 	effects_slider.drag_ended.connect(_on_effects_slider_drag_ended); effects_slider.value_changed.connect(_on_effects_slider_value_changed)
@@ -139,6 +147,9 @@ func _bind_signals() -> void: #? Binds signals from UI nodes by code
 func _load_data() -> void: #? Updates all buttons present in the framework accordingly with the loaded configuration
 	#photosens_mode = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE"); $ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed = photosens_mode
 	#$ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
+	drag_mode = config_file.get_value("MAIN_OPTIONS","DRAG_MODE")
+	drag_toggle_button.button_pressed = drag_mode
+	
 	if master_slider:
 		master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")
 		_toggle_channel(CHANNELS.MASTER, config_file.get_value("MAIN_OPTIONS","MASTER_TOGGLED"))
@@ -157,11 +168,12 @@ func _button_group_input(button_index : int) -> void:
 	print(index)
 
 func _on_options_visibility_changed() -> void:
-	if get_tree().paused: pass #? Already paused before calling options
-	else:
-		UI.pause_locked = true
-		UI.PAUSE_LAYER.pause()
-		UI.PAUSE_LAYER.set_signaled_unpause(self, visibility_changed) #? Will unpause after closing mneu
+	if StageManager.on_stage:
+		if get_tree().paused: pass #? Already paused before calling options
+		else:
+			UI.pause_locked = true
+			UI.pause_layer.pause()
+			UI.pause_layer.set_signaled_unpause(self, visibility_changed) #? Will unpause after closing menu
 	
 	if visible: _update_menu() #? Updates menu if visible
 	else: save_keys() #? Updates keys
@@ -170,7 +182,7 @@ func _update_menu() -> void: #? Updates menu labels, buttons and temporary files
 	options_menu.get_tab_bar().grab_focus()
 	_screen_mode_update()
 	
-	stage_container.set_visible(LoadManager._scene_is_stage)
+	stage_container.set_visible(StageManager.on_stage)
 	
 	var _temporary_label : Label
 	for c in keybind_grid.get_children(): #? Resets each keybind button label to its default option. Fully scalable!
@@ -204,6 +216,7 @@ func _exit() -> void: # Clean temporary data and reset signal
 	settings_changed = false
 	language_changed_detect = false
 	Options.visible = false
+	focus_freed.emit()
 
 func _screen_mode_update() -> void:
 	var new_mode = DisplayServer.window_get_mode()
@@ -217,7 +230,7 @@ func _screen_mode_update() -> void:
 # Even so, his tutorial is great and explore more details about registering and updating keybindings, check it out:
 # Source: https://www.youtube.com/watch?v=WHGHevwhXCQ
 # Github: https://github.com/trolog/godotKeybindingTutorial
-func _load_keys(): ## Load keybiding file with player configuration
+func _load_keys() -> void: ## Load keybiding file with player configuration
 	var file = FileAccess.open(KEYBIND_FILE_PATH, FileAccess.READ_WRITE)
 	if (FileAccess.file_exists(KEYBIND_FILE_PATH)):
 		delete_old_keys()
@@ -232,18 +245,18 @@ func _load_keys(): ## Load keybiding file with player configuration
 		_reset_keys()
 		push_error("ERROR | Keybind path ", KEYBIND_FILE_PATH, " is invalid! Unable to save keybinds.")
 
-func _reset_keys():
+func _reset_keys() -> void:
 	key_dict = DEFAULT_KEY_DICT.duplicate() #? If not a duplicate, key_dict would just point to a constant value. Thus, it would render the dict READ_ONLY and block further modifications!
 	await setup_keys()
 	save_keys()
 
-func delete_old_keys(): #? Clear the old keys from input when inputting new ones
+func delete_old_keys() -> void: #? Clear the old keys from input when inputting new ones
 	for i in key_dict:
 		var oldkey = InputEventKey.new()
 		oldkey.keycode = int(Options.key_dict[i])
 		InputMap.action_erase_event(i, oldkey)
 
-func setup_keys(): ## Registers keys in dict as inputs
+func setup_keys() -> void: ## Registers keys in dict as inputs
 	for i in key_dict: #? Iterates through elements in a dictionary
 		for j in get_tree().get_nodes_in_group("button_keys"): #? Iterates through buttons
 			if(j.action_name == i): #? Stops when the action name is equivalent to key
@@ -252,15 +265,15 @@ func setup_keys(): ## Registers keys in dict as inputs
 		newkey.keycode = int(key_dict[i]) #? Recieves keycode from 
 		InputMap.action_add_event(i,newkey) #? Adds the new key to InputMap
 	
-func save_keys(): #? Save the new keybindings to file
+func save_keys() -> void: #? Save the new keybindings to file
 	var file = FileAccess.open(KEYBIND_FILE_PATH, FileAccess.WRITE)
 	var result = JSON.stringify(key_dict, "\t")
 	file.store_string(result)
 	file.close()
 
-func _on_reset_default_keybinds_button(): reset_keybinds_check.visible = true ## Calls prompt to reset keybindings, preventing players from resetting accidentally
+func _on_reset_default_keybinds_button() -> void: reset_keybinds_check.visible = true ## Calls prompt to reset keybindings, preventing players from resetting accidentally
 
-func _on_reset_default_keybinds(): ## Reloads keys after redefining key_dict. Also prompts labels update to show the default keys in place
+func _on_reset_default_keybinds() -> void: ## Reloads keys after redefining key_dict. Also prompts labels update to show the default keys in place
 	await delete_old_keys()
 	await _reset_keys()
 	_update_menu() 
@@ -268,24 +281,28 @@ func _on_reset_default_keybinds(): ## Reloads keys after redefining key_dict. Al
 #endregion
 
 #region | Advanced Buttons
-func _on_language_menu_item_selected(index):
+func _on_language_menu_item_selected(index) -> void:
 	settings_changed = true
 	var lang : String
 	lang = LANG_ORDER[index]
 	config_file.set_value("MAIN_OPTIONS","LANGUAGE", lang)
 	TranslationServer.set_locale(lang)
 
-func button_toggle(button, config, section : String = "MAIN_OPTIONS"):
+func button_toggle(button, config, section : String = "MAIN_OPTIONS") -> void:
 	var button_status = bool(button.button_pressed)
 	config_file.set_value(section, config, button_status)
 	settings_changed = true
 
-func _on_photosens_mode_pressed():
+func _on_photosens_mode_pressed() -> void:
 	# button_toggle($ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode, "PHOTOSENS_MODE")
 	# photosens_mode = $ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed
 	pass
 
-func _on_screen_mode_selected(index):
+func _on_drag_toggle_pressed() -> void:
+	config_file.set_value("MAIN_OPTIONS","DRAG_MODE", drag_toggle_button.button_pressed)
+	settings_changed = true
+
+func _on_screen_mode_selected(index) -> void:
 	## Window mode translator
 	# The real reason behind this weird dict is that I didn't like the default numbers
 	# Source: https://docs.godotengine.org/en/stable/classes/class_displayserver.html#enum-displayserver-windowmode
@@ -307,7 +324,7 @@ func _on_screen_mode_selected(index):
 #region Audio Controls
 enum CHANNELS {MASTER, MUSIC, EFFECTS}
 
-func _toggle_channel(channel : CHANNELS, toggle : bool, skip_master : bool = false):
+func _toggle_channel(channel : CHANNELS, toggle : bool, skip_master : bool = false) -> void:
 	if channel == CHANNELS.MASTER and !skip_master: for c in CHANNELS: _toggle_channel(CHANNELS[c], toggle, true); return #? If master, do for every channel
 	var channel_id : String = CHANNELS.keys()[channel]
 	var slider : Slider
@@ -321,20 +338,20 @@ func _toggle_channel(channel : CHANNELS, toggle : bool, skip_master : bool = fal
 	if toggle: slider.modulate.a = 1; set_volume(channel, linear_to_db(config_file.get_value("MAIN_OPTIONS","{0}_VOLUME".format({0:channel_id}))))
 	else: slider.modulate.a = 0.5; set_volume(channel, linear_to_db(0))
 
-func set_volume(bus_id, new_db): AudioServer.set_bus_volume_db(bus_id, new_db)
-func _on_master_slider_value_changed(value): config_file.set_value("MAIN_OPTIONS","MASTER_VOLUME", value); set_volume(0, linear_to_db(master_slider.value))
-func _on_music_slider_value_changed(value): config_file.set_value("MAIN_OPTIONS","MUSIC_VOLUME", value); set_volume(1, linear_to_db(music_slider.value))
-func _on_effects_slider_value_changed(value): config_file.set_value("MAIN_OPTIONS","EFFECTS_VOLUME", value); set_volume(2, linear_to_db(effects_slider.value))
-func _on_master_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE_PATH)
-func _on_music_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE_PATH)
-func _on_effects_slider_drag_ended(_value_changed): config_file.save(CONFIG_FILE_PATH)
+func set_volume(bus_id, new_db) -> void: AudioServer.set_bus_volume_db(bus_id, new_db)
+func _on_master_slider_value_changed(value) -> void: config_file.set_value("MAIN_OPTIONS","MASTER_VOLUME", value); set_volume(0, linear_to_db(master_slider.value))
+func _on_music_slider_value_changed(value) -> void: config_file.set_value("MAIN_OPTIONS","MUSIC_VOLUME", value); set_volume(1, linear_to_db(music_slider.value))
+func _on_effects_slider_value_changed(value) -> void: config_file.set_value("MAIN_OPTIONS","EFFECTS_VOLUME", value); set_volume(2, linear_to_db(effects_slider.value))
+func _on_master_slider_drag_ended(_value_changed) -> void: config_file.save(CONFIG_FILE_PATH)
+func _on_music_slider_drag_ended(_value_changed) -> void: config_file.save(CONFIG_FILE_PATH)
+func _on_effects_slider_drag_ended(_value_changed) -> void: config_file.save(CONFIG_FILE_PATH)
 #endregion
 
 #region Loaders
 func _on_resource_loaded() -> void: pass
 
 func _on_restart_stage_button_pressed() -> void: 
-	var request : bool = await UI.EVENT.request_confirmation(
+	var request : bool = await UI.event_layer.request_confirmation(
 		'RESTART_STAGE',
 		TranslationServer.tr('STAGE_PROGRESS_WARNING_TEXT'),
 		'CONFIRM', 'CANCEL'
@@ -342,7 +359,7 @@ func _on_restart_stage_button_pressed() -> void:
 	if request: _exit(); LoadManager.reload_scene()
 
 func _on_main_menu_button_pressed() -> void:
-	var request : bool = await UI.EVENT.request_confirmation(
+	var request : bool = await UI.event_layer.request_confirmation(
 		'RETURN_TO_MENU',
 		TranslationServer.tr('STAGE_PROGRESS_WARNING_TEXT'),
 		'CONFIRM', 'CANCEL'

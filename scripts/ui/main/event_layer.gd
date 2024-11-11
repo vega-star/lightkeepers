@@ -8,6 +8,8 @@ signal confirmation(value : bool)
 func _ready():
 	confirmation_dialog.canceled.connect(_on_confirmation_canceled)
 	confirmation_dialog.confirmed.connect(_on_confirmation_confirmed)
+	confirmation_dialog.get_child(1, true).set_horizontal_alignment(1)
+	confirmation_dialog.get_child(1, true).set_vertical_alignment(1)
 
 func request_confirmation(title : String, text : String, _ok_text : String = 'Confirm', _cancel_text : String = 'Cancel') -> bool:
 	UI.set_pause(true)

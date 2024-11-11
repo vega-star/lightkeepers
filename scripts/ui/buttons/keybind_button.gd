@@ -1,9 +1,6 @@
 class_name KeybindButton extends Button
 
-@export var sound_when_pressed : String = "clicky button 4"
-@export var sound_when_focus : String = "sci fi click 3"
-@export var sound_when_hovered : String = ""
-@export var sound_when_key_registered : String = ""
+@export var sound_when_key_registered : String = "sci fi click 3"
 @export var keybind : String = ""
 
 var do_set = false
@@ -29,9 +26,4 @@ func _input(event):
 			Options.key_dict[keybind] = int(event.keycode) #? Update the key_dict with the keycode function. Needs to be string, as dicts don't store value types
 			do_set = false #? Stop keybind process
 			self.focus_mode = Control.FOCUS_ALL
-			_emit_sound(sound_when_key_registered)
-
-func _emit_sound(sound_id : String): AudioManager.emit_sound_effect(Vector2.ZERO, sound_id)
-func _on_pressed(): _emit_sound(sound_when_pressed)
-func _on_focus_entered(): _emit_sound(sound_when_focus)
-func _on_mouse_entered(): _emit_sound(sound_when_hovered)
+			AudioManager.emit_sound_effect(sound_when_key_registered)

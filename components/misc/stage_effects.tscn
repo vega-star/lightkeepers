@@ -1,14 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d37tw2m7yrog0"]
-
-[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="1_p6344"]
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2unhy"]
+[gd_scene format=3 uid="uid://d37tw2m7yrog0"]
 
 [node name="StageEffects" type="Node"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_p6344")
-camera_attributes = SubResource("CameraAttributesPractical_2unhy")
 
 [node name="BackgroundParallax" type="ParallaxBackground" parent="."]
 visible = false

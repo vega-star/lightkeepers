@@ -18,6 +18,7 @@ const CASHBACK_FACTOR : float = 0.65
 
 # @onready var nexus : Nexus = $Nexus
 @onready var stage_agent : StageAgent = $StageAgent
+@onready var stage_camera : StageCamera = $StageCamera
 @onready var turn_manager: TurnManager = $StageAgent/TurnManager
 @onready var stage_path : Path2D = $StagePath
 @onready var background_parallax : ParallaxBackground = $StageEffects/BackgroundParallax
@@ -43,16 +44,15 @@ var previous_queried_cell : Vector2i #? Used for input resetting
 #region Main functions
 func _ready() -> void:
 	if !modulate_layer.visible: modulate_layer.visible = true
-	LoadManager._scene_is_stage = true #? Turns 'Stage' options from Options menu visible
+	StageManager.start_stage(self, stage_agent)
 	AudioManager.play_music(stage_songs, 0, false, true)
 	background_parallax.set_visible(true)
-	UI.start_stage()
 
 func _process(_delta) -> void:
 	if check_coordinate: #? Output tile coordinate on screen
 		var current_mouse_pos = get_global_mouse_position()
 		var tile_position = position_to_tile(current_mouse_pos)
-		UI.HUD.debug_label.set_text(str(tile_position))
+		# UI.interface.debug_label.set_text(str(tile_position))
 
 func _input(_event) -> void:
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
@@ -66,13 +66,13 @@ func snap_to_tile(position_vector : Vector2) -> Vector2: return GROUND_LAYER.map
 
 func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0): ## Query tile metadata
 	var tile_data = layer.get_cell_tile_data(tile_position)
-	if UI.HUD.mouse_on_ui: return false #? Tile is invalid if the cursor is currently outside visible map (over UI elements)
+	if UI.interface.mouse_on_ui: return false #? Tile is invalid if the cursor is currently outside visible map (over UI elements)
 	
 	if tile_data: return tile_data.get_custom_data_by_layer_id(custom_data_layer_id)
 	else: return false
 
 func select_tile(tile_position):
-	if UI.HUD.mouse_on_ui: return #? Do not interact if mouse is in interface controls
+	if UI.interface.mouse_on_ui: return #? Do not interact if mouse is in interface controls
 	
 	if previous_selected_cell: deselect_tile()
 	INTERACTION_LAYER.set_cell(tile_position, 0, SELECTION_TILE)
@@ -82,19 +82,19 @@ func select_tile(tile_position):
 	if object_dict.has(tile_position): selected_object = object_dict[tile_position]['node']
 	
 	if is_instance_valid(selected_object):
-		if selected_object is Pupil: UI.HUD.pupil_panel.load_pupil(selected_object)
-		else: UI.HUD.pupil_panel._move(false)
+		if selected_object is Pupil: UI.interface.pupil_panel.load_pupil(selected_object)
+		else: UI.interface.pupil_panel._move(false)
 		selected_object.visible_range = true
 	
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)
-	UI.HUD.tile_description_label.set_text(str(data))
+	#TODO: UI.interface.tile_description_label.set_text(str(data))
 	previous_selected_cell = tile_position
 
 func deselect_tile() -> void:
-	if UI.HUD.mouse_on_ui: return #? Do not interact if mouse is in interface controls
+	if UI.interface.mouse_on_ui: return #? Do not interact if mouse is in interface controls
 	
 	INTERACTION_LAYER.erase_cell(previous_selected_cell)
-	UI.HUD.object_description_label.set_text("")
+	#TODO: UI.interface.object_description_label.set_text("")
 	if is_instance_valid(selected_object): selected_object.visible_range = false
 	selected_object = null
 

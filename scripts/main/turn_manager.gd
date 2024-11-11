@@ -6,7 +6,7 @@ signal entity_scene_loaded
 signal entity_load_available
 signal schedule_finished
 
-const ENEMY_SCENE_FOLDER : String = "res://scenes/entities/"
+const ENEMY_SCENE_FOLDER : String = "res://scenes/entities/enemies/"
 const TURN_PASS_SFX : Array = [
 	"bug people 1",
 	"bug people 2",
@@ -52,9 +52,9 @@ var wave_enemy_count : int
 func _ready() -> void:
 	set_process(false)
 	_load_schedule(turn_schedule)
-	UI.HUD.turn_pass_requested.connect(_on_turn_pass)
-	turn_passed.connect(UI.HUD.turn_update)
-	UI.HUD.turn_update(0, max_turns)
+	UI.interface.turn_pass_requested.connect(_on_turn_pass)
+	turn_passed.connect(UI.interface.turn_update)
+	UI.interface.turn_update(0, max_turns)
 
 func _process(_delta) -> void:
 	var load_status = ResourceLoader.load_threaded_get_status(entity_scene_path, entity_load_progress)
@@ -95,7 +95,7 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 		UI.wave_is_active = false
 		
 		if !UI.autoplay_turn:
-			await UI.HUD.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
+			await UI.interface.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
 	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:

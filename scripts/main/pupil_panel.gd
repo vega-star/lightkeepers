@@ -50,7 +50,8 @@ func _move(to_visible : bool) -> void:
 	return
 
 func _load_stage() -> Stage:
-	var stage = get_tree().get_first_node_in_group('stage')
+	var stage = StageManager.active_stage
+	assert(StageManager.on_stage)
 	assert(stage)
 	stage.stage_agent.coins_updated.connect(_on_coin_updated)
 	return stage

@@ -129,7 +129,7 @@ layout_mode = 2
 [node name="UpgradePanel3" parent="Upgrades" instance=ExtResource("7_pyghb")]
 layout_mode = 2
 
-[node name="TowerValuePanel" type="Panel" parent="."]
+[node name="PupilValuePanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -142,7 +142,7 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ValueContainer" type="HBoxContainer" parent="TowerValuePanel"]
+[node name="ValueContainer" type="HBoxContainer" parent="PupilValuePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,18 +152,18 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CoinIcon" type="TextureButton" parent="TowerValuePanel/ValueContainer"]
+[node name="CoinIcon" type="TextureButton" parent="PupilValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("8_h1wfd")
 stretch_mode = 6
 
-[node name="Value" type="Label" parent="TowerValuePanel/ValueContainer"]
+[node name="Value" type="Label" parent="PupilValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "150"
 
-[node name="SellButton" type="Button" parent="TowerValuePanel/ValueContainer"]
+[node name="SellButton" type="Button" parent="PupilValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_jnlpy")
@@ -185,5 +185,5 @@ theme_override_font_sizes/font_size = 24
 text = "X"
 flat = true
 
-[connection signal="pressed" from="TowerValuePanel/ValueContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="PupilValuePanel/ValueContainer/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

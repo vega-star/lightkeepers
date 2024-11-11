@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://n6gskejc1y8x"]
 
-[ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemy.tscn" id="1_v5bso"]
+[ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemies/enemy.tscn" id="1_v5bso"]
 
 [node name="Brute" instance=ExtResource("1_v5bso")]
 scale = Vector2(2, 2)
