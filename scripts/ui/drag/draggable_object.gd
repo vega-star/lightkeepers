@@ -20,7 +20,7 @@ const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png"
 
 @onready var object_collision : Area2D = $ObjectCollision
 @onready var object_collision_area : CollisionShape2D = $ObjectCollision/ObjectCollisionArea
-@onready var object_element_sprite : Sprite2D = $ObjectOrb/ObjectElement
+@onready var object_element_sprite : Sprite2D = $ObjectElement
 @onready var element_label : Label = $ElementLabel
 @onready var object_orb : Sprite2D = $ObjectOrb
 
@@ -38,6 +38,7 @@ var is_inside_dropable : bool = false
 
 #region Main processes
 func _ready() -> void:
+	assert(object_collision.input_pickable)
 	if !active_slot: active_slot = home_slot
 	object_type = element.element_type
 	if !force_show_label: $ElementLabel.visible = false

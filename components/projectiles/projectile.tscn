@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj1k1hebjni7c"]
+[gd_scene load_steps=4 format=3 uid="uid://bj1k1hebjni7c"]
 
 [ext_resource type="Script" path="res://scripts/entities/projectile.gd" id="1_5ijgk"]
-[ext_resource type="AudioStream" uid="uid://cpum8jx44m2h7" path="res://assets/audio/effects/gun hit 18.wav" id="2_8bdvd"]
 [ext_resource type="Texture2D" uid="uid://djbkbg4rjdi12" path="res://assets/prototypes/ballista_projectile.png" id="2_dvld6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xyjd"]
@@ -16,11 +15,6 @@ script = ExtResource("1_5ijgk")
 sfx_when_launched = Array[String](["gun hit 18", "gun hit 24"])
 sfx_when_hit = Array[String](["stab 1", "stab 2", "stab 3", "stab 4", "knife 8"])
 sfx_when_broken = Array[String](["switch blade 1", "switch blade 2", "switch blade 3"])
-
-[node name="ProjectileSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_8bdvd")
-attenuation = 2.21914
-bus = &"Effects"
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(6, 0)

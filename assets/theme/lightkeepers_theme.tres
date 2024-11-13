@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://dau23jgucm04a"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://dau23jgucm04a"]
 
 [ext_resource type="StyleBox" uid="uid://ourjgpyc2mcq" path="res://assets/theme/styleboxes/flat/hover_nb.tres" id="1_5kh8x"]
 [ext_resource type="StyleBox" uid="uid://osqvn3yc7hqs" path="res://assets/theme/styleboxes/flat/disabled.tres" id="1_7y3md"]
@@ -16,20 +16,29 @@
 [ext_resource type="FontFile" uid="uid://ikmx3cecam4n" path="res://assets/theme/fonts/Jersey10-Regular.ttf" id="12_ehx15"]
 [ext_resource type="Texture2D" uid="uid://bjhk13pv26ahk" path="res://assets/sprites/ui/grabber_focused.png" id="13_6jips"]
 [ext_resource type="Texture2D" uid="uid://c8o6eqfewejyf" path="res://assets/sprites/ui/tick.png" id="14_umdfg"]
-[ext_resource type="Texture2D" uid="uid://ujwrtyi2qgmg" path="res://assets/sprites/ui/grabber_h_focused.png" id="16_j30l1"]
+[ext_resource type="Texture2D" uid="uid://0bgwo6qitgin" path="res://assets/sprites/ui/grabber_h.png" id="16_j30l1"]
+[ext_resource type="Texture2D" uid="uid://b7mhyt6gqycpo" path="res://assets/sprites/ui/grabber_h_disabled.png" id="17_qhan7"]
+[ext_resource type="Texture2D" uid="uid://ujwrtyi2qgmg" path="res://assets/sprites/ui/grabber_h_focused.png" id="18_w5j8s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhk11"]
 bg_color = Color(0.230315, 0.230315, 0.230315, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdn2r"]
+bg_color = Color(0.560784, 0.972549, 0.886275, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb2lf"]
-bg_color = Color(0.984314, 1, 0.52549, 1)
+bg_color = Color(0.560784, 0.972549, 0.886275, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hbce"]
-bg_color = Color(0.984314, 1, 0.52549, 1)
+bg_color = Color(0.560784, 0.972549, 0.886275, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -55,6 +64,7 @@ CheckButton/styles/hover = ExtResource("1_5kh8x")
 CheckButton/styles/hover_pressed = ExtResource("2_t0vdp")
 CheckButton/styles/normal = ExtResource("3_ni53j")
 CheckButton/styles/pressed = ExtResource("4_yct6x")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_pdn2r")
 HSlider/icons/grabber = ExtResource("11_frxur")
 HSlider/icons/grabber_disabled = ExtResource("12_bj0wn")
 HSlider/icons/grabber_highlight = ExtResource("13_6jips")
@@ -69,6 +79,7 @@ TabContainer/styles/tab_focus = ExtResource("6_4npyw")
 TabContainer/styles/tab_hovered = ExtResource("3_dg3xj")
 TabContainer/styles/tab_selected = ExtResource("6_4npyw")
 TabContainer/styles/tab_unselected = ExtResource("5_j3kkt")
-VSlider/icons/grabber = null
-VSlider/icons/grabber_highlight = ExtResource("16_j30l1")
+VSlider/icons/grabber = ExtResource("16_j30l1")
+VSlider/icons/grabber_disabled = ExtResource("17_qhan7")
+VSlider/icons/grabber_highlight = ExtResource("18_w5j8s")
 VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_7hbce")

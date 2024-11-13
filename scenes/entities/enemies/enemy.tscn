@@ -10,7 +10,7 @@ radius = 6.0
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_sprite")]
 process_mode = 1
 collision_layer = 5
-collision_mask = 54
+collision_mask = 50
 script = ExtResource("1_kxej8")
 smart_enemy = false
 enemy_sprite = NodePath("EnemySprite")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b17mn8gvdp0uv"]
+[gd_scene load_steps=11 format=3 uid="uid://b17mn8gvdp0uv"]
 
 [ext_resource type="Script" path="res://scripts/ui/loading_scene.gd" id="1_cuefo"]
+[ext_resource type="Texture2D" uid="uid://ds3idvqed5ara" path="res://assets/sprites/ui/loading_bar_frame.png" id="2_yi6q7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw3mu"]
-bg_color = Color(0.054902, 0.0392157, 0.180392, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_0nsgg"]
 resource_name = "END_LOAD"
@@ -111,6 +112,22 @@ _data = {
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ut0vv"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aep4b"]
+texture = ExtResource("2_yi6q7")
+texture_margin_left = 11.0
+texture_margin_top = 5.0
+texture_margin_right = 11.0
+texture_margin_bottom = 5.0
+expand_margin_left = 12.0
+expand_margin_top = 6.0
+expand_margin_right = 12.0
+expand_margin_bottom = 6.0
+axis_stretch_vertical = 2
+region_rect = Rect2(0, 0, 38, 26)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42hkw"]
+bg_color = Color(0.984314, 1, 0.52549, 1)
+
 [node name="LoadingScene" type="CanvasLayer"]
 process_mode = 3
 layer = 100
@@ -130,6 +147,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sw3mu")
 libraries = {
 "": SubResource("AnimationLibrary_y0v5b")
 }
+
+[node name="Pupil" type="AnimatedSprite2D" parent="LoadingPanel"]
+visible = false
 
 [node name="ProgressBarFrame" type="Panel" parent="LoadingPanel"]
 layout_mode = 1
@@ -151,7 +171,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -17.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_aep4b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42hkw")
 value = 50.0
 show_percentage = false

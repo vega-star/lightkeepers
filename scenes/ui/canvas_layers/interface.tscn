@@ -1,0 +1,367 @@
+[gd_scene load_steps=35 format=3 uid="uid://brbqmcfgkka7f"]
+
+[ext_resource type="Script" path="res://scripts/main/interface.gd" id="1_7no1j"]
+[ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/canvas_layers/ui_event_layer.tscn" id="2_7rfuu"]
+[ext_resource type="Resource" uid="uid://cxplnjmi337jt" path="res://components/elements/default_registers/FireRegister.tres" id="2_ly4ir"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
+[ext_resource type="Resource" uid="uid://nojuy8ypf07k" path="res://components/elements/default_registers/WaterRegister.tres" id="3_iqwj1"]
+[ext_resource type="Resource" uid="uid://ci7epsk0qe7mk" path="res://components/elements/default_registers/AirRegister.tres" id="4_06pcj"]
+[ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://components/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
+[ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://scenes/ui/slots/control_slot.tscn" id="8_am10k"]
+[ext_resource type="Texture2D" uid="uid://dg6qjr6jhe7gc" path="res://assets/sprites/ui/heart.png" id="8_p5hmd"]
+[ext_resource type="Texture2D" uid="uid://cg1ukv3bt57ya" path="res://assets/sprites/misc/stage_progress.png" id="9_mfelc"]
+[ext_resource type="Texture2D" uid="uid://dwosvdhg2ooxc" path="res://assets/sprites/misc/stage_progress_normal.png" id="10_b8yux"]
+[ext_resource type="Texture2D" uid="uid://c1xrdahx5g2j2" path="res://assets/sprites/ui/pyrite.png" id="10_e1p4o"]
+[ext_resource type="Script" path="res://scripts/ui/element_container.gd" id="11_vob4m"]
+[ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="12_5tcgt"]
+[ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://components/elements/default_elements/FireElement.tres" id="13_hlgc1"]
+[ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="14_dyp6q"]
+[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/prototypes/gear.png" id="14_rjvi7"]
+[ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://components/elements/default_elements/WaterElement.tres" id="15_sqh7q"]
+[ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://components/elements/default_elements/AirElement.tres" id="17_7oxc3"]
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
+[ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://scenes/ui/drag/draggable_object.tscn" id="17_opm6q"]
+[ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/textures/stylebox_screen_frame.png" id="17_wrifp"]
+[ext_resource type="Texture2D" uid="uid://bcfhqtysyihks" path="res://assets/sprites/elements/air.png" id="18_4h15y"]
+[ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="19_1inae"]
+[ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://components/elements/default_elements/EarthElement.tres" id="19_a637k"]
+[ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
+[ext_resource type="PackedScene" uid="uid://b3tvxsgupe3gs" path="res://components/systems/pupil_panel.tscn" id="25_lo481"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
+texture = ExtResource("17_wrifp")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+draw_center = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjjh3"]
+shader = ExtResource("17_nh1qq")
+shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
+shader_parameter/line_thickness = 2.0
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_6gsry"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2dubv"]
+diffuse_texture = ExtResource("9_mfelc")
+normal_texture = ExtResource("10_b8yux")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5q6f8"]
+shader = ExtResource("17_nh1qq")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5c443"]
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c0txy"]
+size = Vector2(64, 64)
+
+[node name="Interface" type="CanvasLayer"]
+process_mode = 3
+layer = 50
+script = ExtResource("1_7no1j")
+hide_elements_when_start = false
+metadata/_edit_vertical_guides_ = [1280.0, 640.0]
+metadata/_edit_horizontal_guides_ = [720.0]
+
+[node name="MouseDetector" type="Control" parent="."]
+z_index = -75
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ScreenFrame" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
+
+[node name="EventLayer" parent="." instance=ExtResource("2_7rfuu")]
+
+[node name="UILayer" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_x8juj")
+
+[node name="OptionsButton" type="TextureButton" parent="UILayer"]
+material = SubResource("ShaderMaterial_cjjh3")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+anchor_left = 0.937
+anchor_top = 0.011
+anchor_right = 0.994
+anchor_bottom = 0.111
+offset_left = 0.639893
+offset_top = 0.0799994
+offset_right = -0.320068
+offset_bottom = 0.0799942
+tooltip_text = "CONFIG"
+focus_mode = 1
+texture_normal = ExtResource("14_rjvi7")
+stretch_mode = 3
+
+[node name="PupilPanel" parent="UILayer" instance=ExtResource("25_lo481")]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -298.0
+offset_top = 47.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+focus_button_group = SubResource("ButtonGroup_6gsry")
+
+[node name="TopBar" type="HBoxContainer" parent="UILayer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.344
+anchor_right = 0.656
+anchor_bottom = 0.2
+offset_left = -0.320007
+offset_right = 0.319946
+grow_horizontal = 2
+alignment = 1
+
+[node name="LifeCounter" type="HBoxContainer" parent="UILayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="LifeLabel" type="Label" parent="UILayer/TopBar/LifeCounter"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LifeIcon" type="TextureButton" parent="UILayer/TopBar/LifeCounter"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("8_p5hmd")
+stretch_mode = 5
+
+[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+
+[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/StageMeter"]
+light_mask = 3
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.0
+value = 100.0
+fill_mode = 5
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_progress = SubResource("CanvasTexture_2dubv")
+texture_progress_offset = Vector2(0, -64)
+
+[node name="CoinCounter" type="HBoxContainer" parent="UILayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="CoinIcon" type="TextureButton" parent="UILayer/TopBar/CoinCounter"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("10_e1p4o")
+stretch_mode = 5
+
+[node name="CoinLabel" type="Label" parent="UILayer/TopBar/CoinCounter"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0
+"
+vertical_alignment = 1
+
+[node name="ElementBar" type="HBoxContainer" parent="UILayer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.487
+anchor_top = 0.8
+anchor_right = 0.831
+anchor_bottom = 1.0
+offset_left = 0.639954
+offset_right = 0.319946
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/ElementBar"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Elements" type="HBoxContainer" parent="UILayer/ElementBar/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("11_vob4m")
+
+[node name="FireContainer" parent="UILayer/ElementBar/ScrollContainer/Elements" instance=ExtResource("8_am10k")]
+layout_mode = 2
+slot_register = ExtResource("2_ly4ir")
+toggle_based_on_quantity = false
+
+[node name="Slot" parent="UILayer/ElementBar/ScrollContainer/Elements/FireContainer" index="0" node_paths=PackedStringArray("active_object")]
+slot_type = 1
+element_register = ExtResource("2_ly4ir")
+active_object = NodePath("FireObject")
+
+[node name="FireObject" parent="UILayer/ElementBar/ScrollContainer/Elements/FireContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
+element = ExtResource("13_hlgc1")
+
+[node name="ObjectElement" parent="UILayer/ElementBar/ScrollContainer/Elements/FireContainer/Slot/FireObject/ObjectOrb" index="0"]
+texture = ExtResource("12_5tcgt")
+
+[node name="WaterContainer" parent="UILayer/ElementBar/ScrollContainer/Elements" instance=ExtResource("8_am10k")]
+layout_mode = 2
+slot_register = ExtResource("3_iqwj1")
+toggle_based_on_quantity = false
+
+[node name="Slot" parent="UILayer/ElementBar/ScrollContainer/Elements/WaterContainer" index="0" node_paths=PackedStringArray("active_object")]
+slot_type = 1
+element_register = ExtResource("3_iqwj1")
+active_object = NodePath("WaterObject")
+
+[node name="WaterObject" parent="UILayer/ElementBar/ScrollContainer/Elements/WaterContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
+element = ExtResource("15_sqh7q")
+
+[node name="ObjectElement" parent="UILayer/ElementBar/ScrollContainer/Elements/WaterContainer/Slot/WaterObject/ObjectOrb" index="0"]
+texture = ExtResource("14_dyp6q")
+
+[node name="AirContainer" parent="UILayer/ElementBar/ScrollContainer/Elements" instance=ExtResource("8_am10k")]
+layout_mode = 2
+slot_register = ExtResource("4_06pcj")
+toggle_based_on_quantity = false
+
+[node name="Slot" parent="UILayer/ElementBar/ScrollContainer/Elements/AirContainer" index="0" node_paths=PackedStringArray("active_object")]
+slot_type = 1
+element_register = ExtResource("4_06pcj")
+active_object = NodePath("AirObject")
+
+[node name="AirObject" parent="UILayer/ElementBar/ScrollContainer/Elements/AirContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
+element = ExtResource("17_7oxc3")
+
+[node name="ObjectElement" parent="UILayer/ElementBar/ScrollContainer/Elements/AirContainer/Slot/AirObject/ObjectOrb" index="0"]
+texture = ExtResource("18_4h15y")
+
+[node name="EarthContainer" parent="UILayer/ElementBar/ScrollContainer/Elements" instance=ExtResource("8_am10k")]
+layout_mode = 2
+slot_register = ExtResource("5_5ri6y")
+toggle_based_on_quantity = false
+
+[node name="Slot" parent="UILayer/ElementBar/ScrollContainer/Elements/EarthContainer" index="0" node_paths=PackedStringArray("active_object")]
+slot_type = 1
+element_register = ExtResource("5_5ri6y")
+active_object = NodePath("EarthObject")
+
+[node name="EarthObject" parent="UILayer/ElementBar/ScrollContainer/Elements/EarthContainer/Slot" index="2" node_paths=PackedStringArray("active_slot", "home_slot") instance=ExtResource("17_opm6q")]
+active_slot = NodePath("..")
+home_slot = NodePath("..")
+element = ExtResource("19_a637k")
+
+[node name="ObjectElement" parent="UILayer/ElementBar/ScrollContainer/Elements/EarthContainer/Slot/EarthObject/ObjectOrb" index="0"]
+texture = ExtResource("19_1inae")
+
+[node name="CornerPanel" type="TextureRect" parent="UILayer"]
+z_index = 20
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.831
+anchor_top = 0.711
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.319946
+offset_top = 0.0799866
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="TextureButton" parent="UILayer/CornerPanel"]
+material = SubResource("ShaderMaterial_5q6f8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+focus_mode = 0
+texture_normal = ExtResource("19_k7dll")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="AutoplayButton" type="TextureButton" parent="UILayer/CornerPanel"]
+material = SubResource("ShaderMaterial_cjjh3")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -56.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "CONFIG"
+focus_mode = 0
+toggle_mode = true
+texture_normal = SubResource("PlaceholderTexture2D_5c443")
+texture_pressed = SubResource("PlaceholderTexture2D_c0txy")
+stretch_mode = 3
+
+[connection signal="mouse_on_ui_changed" from="." to="." method="_on_mouse_on_ui_changed"]
+[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]
+[connection signal="mouse_exited" from="UILayer" to="." method="_on_screen_mouse_exited"]
+[connection signal="pressed" from="UILayer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="UILayer/CornerPanel/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="toggled" from="UILayer/CornerPanel/AutoplayButton" to="." method="_on_autoplay_button_toggled"]
+
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/FireContainer"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/FireContainer/Slot"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/FireContainer/Slot/FireObject"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/WaterContainer"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/WaterContainer/Slot"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/WaterContainer/Slot/WaterObject"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/AirContainer"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/AirContainer/Slot"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/AirContainer/Slot/AirObject"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/EarthContainer"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/EarthContainer/Slot"]
+[editable path="UILayer/ElementBar/ScrollContainer/Elements/EarthContainer/Slot/EarthObject"]

@@ -7,6 +7,7 @@ extends Node2D
 #region Variables
 const CASHBACK_FACTOR : float = 0.65
 
+## Stage configuration
 @export var stage_info : StageInfo
 
 @export_group('Node Connections')
@@ -16,12 +17,21 @@ const CASHBACK_FACTOR : float = 0.65
 @export var check_coordinate : bool = false
 @export var stage_songs : Array[String] = []
 
-# @onready var nexus : Nexus = $Nexus
+## Main node references
+@onready var nexus : Nexus = $Nexus
 @onready var stage_agent : StageAgent = $StageAgent
 @onready var stage_camera : StageCamera = $StageCamera
 @onready var turn_manager: TurnManager = $StageAgent/TurnManager
 @onready var stage_path : Path2D = $StagePath
 @onready var background_parallax : ParallaxBackground = $StageEffects/BackgroundParallax
+
+## Containers
+@onready var entity_container: Node2D = $Containers/EntityContainer
+@onready var object_container: Node2D = $Containers/ObjectContainer
+@onready var projectile_container: Node2D = $Containers/ProjectileContainer
+@onready var coin_container: Node2D = $Containers/CoinContainer
+
+## TileMapLayers
 @onready var GROUND_LAYER : TileMapLayer = $GroundLayer
 @onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
 @onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
@@ -35,6 +45,7 @@ const TILE : Dictionary = {
 	'TARGET' = Vector2i(2,3)
 }
 
+var stage_buildings : Array[Node2D]: set = _set_state_buildings
 var selected_object : TileObject #? Selected object node storage
 var object_dict : Dictionary #? Arranged by tile_position
 var previous_selected_cell : Vector2i #? draw_width
@@ -56,6 +67,17 @@ func _process(_delta) -> void:
 
 func _input(_event) -> void:
 	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
+
+func _set_state_buildings(input_array : Array) -> Array[Node2D]: ## Reorder based on distance to nexus, so that enemies always focus based on a clear order
+	var order : Array[Array]
+	var new_array : Array[Node2D]
+	for n in input_array:
+		order.append([n, n.building_order])
+	order.sort_custom(func(a, b): return a[1] < b[1])
+	for b in order:
+		new_array.append(b[0])
+	stage_buildings = new_array
+	return new_array
 #endregion
 
 #region Tile management

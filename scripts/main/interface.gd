@@ -21,6 +21,7 @@ const TURN_UPDATE_PERIOD : float = 0.75
 @onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/StageMeter/StageMeterBar
 @onready var life_label : Label = $UILayer/TopBar/LifeCounter/LifeLabel
 @onready var coin_label : Label = $UILayer/TopBar/CoinCounter/CoinLabel
+@onready var coin_icon : TextureButton = $UILayer/TopBar/CoinCounter/CoinIcon
 @onready var options_button : TextureButton = $UILayer/OptionsButton
 @onready var elements : HBoxContainer = $UILayer/ElementBar/ScrollContainer/Elements
 #endregion
@@ -50,8 +51,10 @@ func turn_update(turn : int, max_turn : int):
 func _on_screen_mouse_exited() -> void: pass
 
 func collect_coin(fragment : Node, value : int) -> void:
-	var collector_tween : Tween = get_tree().create_tween()
-	pass #var 
+	var collector_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	collector_tween.tween_property(fragment, "global_position", coin_icon.global_position, 1.2)
+	await collector_tween.finished
+	StageManager.active_stage_agent.change_coins(value, true)
 #endregion
 
 #region Inputs and buttons

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2stxk6mbvwbv"]
+[gd_scene load_steps=13 format=3 uid="uid://2stxk6mbvwbv"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_omf30"]
 [ext_resource type="PackedScene" uid="uid://d37tw2m7yrog0" path="res://components/misc/stage_effects.tscn" id="2_82lgj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="4_prveq"]
 [ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_olc4u"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_eds4h"]
+[ext_resource type="Script" path="res://scripts/main/nexus.gd" id="7_boe6g"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="7_ent1l"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="8_583ix"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="9_jysst"]
@@ -13,7 +14,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_v06dm"]
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("modulate_layer") groups=["stage"]]
+[node name="StageRoot" type="Node2D" node_paths=PackedStringArray("modulate_layer")]
 process_mode = 3
 script = ExtResource("1_omf30")
 modulate_layer = NodePath("StageEffects/DarknessLayer")
@@ -58,6 +59,10 @@ use_parent_material = true
 tile_set = ExtResource("6_eds4h")
 navigation_enabled = false
 
+[node name="Nexus" type="Node2D" parent="." groups=["nexus"]]
+position = Vector2(768, 360)
+script = ExtResource("7_boe6g")
+
 [node name="LightAreaComponent" parent="." instance=ExtResource("7_ent1l")]
 
 [node name="MouseLight" parent="LightAreaComponent" groups=["mouse_light"] instance=ExtResource("8_583ix")]
@@ -68,7 +73,7 @@ process_mode = 1
 
 [node name="SpawnPositions" type="Node2D" parent="Containers"]
 
-[node name="SpawnPosition" type="Marker2D" parent="Containers/SpawnPositions" groups=["enemy_spawn"]]
+[node name="SpawnPosition" type="Marker2D" parent="Containers/SpawnPositions"]
 position = Vector2(32, 360)
 
 [node name="SpawnGlow" type="PointLight2D" parent="Containers/SpawnPositions/SpawnPosition"]
@@ -82,11 +87,13 @@ texture = ExtResource("9_jysst")
 texture_scale = 0.5
 height = 100.0
 
-[node name="EntityContainer" type="Node2D" parent="Containers" groups=["entity_container"]]
+[node name="EntityContainer" type="Node2D" parent="Containers"]
 
-[node name="ObjectContainer" type="Node2D" parent="Containers" groups=["tower_container"]]
+[node name="ObjectContainer" type="Node2D" parent="Containers"]
 
-[node name="ProjectileContainer" type="Node2D" parent="Containers" groups=["projectile_container"]]
+[node name="ProjectileContainer" type="Node2D" parent="Containers"]
+
+[node name="CoinContainer" type="Node2D" parent="Containers"]
 
 [node name="StagePath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_v06dm")

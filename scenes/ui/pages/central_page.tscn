@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1exo4vhhmcgf"]
+[gd_scene load_steps=10 format=3 uid="uid://c1exo4vhhmcgf"]
 
 [ext_resource type="Script" path="res://scripts/ui/pages/pg_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
 [ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/misc/lightkeepers_logo.png" id="3_3uyyw"]
-[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="3_k0e0y"]
 [ext_resource type="Texture2D" uid="uid://xq6u5btf74sp" path="res://assets/sprites/misc/github_icon/github_icon.png" id="5_h0be6"]
 [ext_resource type="Texture2D" uid="uid://u1y5p3hmbb6i" path="res://assets/sprites/misc/github_icon/github_icon_pressed.png" id="6_403fq"]
 [ext_resource type="Texture2D" uid="uid://d2s84fwr7i2nu" path="res://assets/sprites/misc/github_icon/github_icon_hovered.png" id="7_5ivjt"]
@@ -11,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/misc/github_icon/github_icon_focused.png" id="9_s7u8m"]
 [ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/misc/github_icon/github_icon.bmp" id="10_tt3vd"]
 
-[node name="CentralPage" type="Control"]
+[node name="CentralPage" type="Control" node_paths=PackedStringArray("default_focus_node")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,9 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_3vsxr")
 script = ExtResource("1_2dyl0")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_k0e0y")
+default_focus_node = NodePath("ButtonsContainer/StartButton")
 
 [node name="MenuParallax" type="ParallaxBackground" parent="."]
 visible = false
@@ -38,6 +35,7 @@ color = Color(0.0923971, 0.0923971, 0.0923971, 1)
 [node name="Foreground" type="ParallaxLayer" parent="MenuParallax"]
 
 [node name="Logo" type="Sprite2D" parent="."]
+self_modulate = Color(1.32, 1.15, 1, 1)
 position = Vector2(640, 192)
 skew = 0.261799
 texture = ExtResource("3_3uyyw")
@@ -130,5 +128,4 @@ text = "QUIT"
 [connection signal="pressed" from="ButtonsContainer/LoadButton" to="ButtonsContainer/LoadButton" method="_on_pressed"]
 [connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="ButtonsContainer/Credits" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]

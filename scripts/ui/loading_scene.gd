@@ -1,3 +1,6 @@
+## LoadingScene
+## Plays in-between scenes when called by LoadManager.
+## Its color is defined by the Boot Splash from ProjectSettings
 extends CanvasLayer
 
 signal loading_screen_has_full_coverage
@@ -8,6 +11,9 @@ signal loading_screen_has_full_coverage
 
 func _ready():
 	_start_intro_animation()
+	var boot_splash_style_box : StyleBoxFlat = StyleBoxFlat.new()
+	boot_splash_style_box.set_bg_color(ProjectSettings.get_setting("application/boot_splash/bg_color"))
+	loading_panel.add_theme_stylebox_override("panel", boot_splash_style_box)
 
 func _update_progress_bar(new_value : float) -> void:
 	progress_bar.set_value_no_signal(new_value * 100)

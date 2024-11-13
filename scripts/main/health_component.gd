@@ -40,14 +40,14 @@ func _set_health(new_health : int) -> void:
 #region Active callables
 func reset_health() -> void: health = max_health
 
-func change(amount : int, negative : bool = true, source : Pupil = null) -> void:
+func change(amount : int, negative : bool = true, source : Node = null) -> void:
 	var _previous_value : int = health
-	var _change_source : Pupil = null
-	if is_instance_valid(source): _change_source = source
+	
 	if amount == 0 or lock_health: return #? No change is made or is allowed
 	if negative: health -= amount * damage_multiplier
 	else: health += amount
-	if health <= 0: invoke_death(_change_source)
+	if health <= 0: invoke_death(source)
+	
 	if print_change: print(owner.name, ' health changed from ', _previous_value, ' to ', health)
 	health_change.emit(_previous_value, health, negative)
 

@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://scripts/ui/main/ui_component.gd" id="1_o51w2"]
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="2_1yj8j"]
 [ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/canvas_layers/ui_screen_effect_layer.tscn" id="2_nmhs7"]
-[ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/ui/canvas_layers/ui_hud.tscn" id="3_4fskw"]
+[ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/ui/canvas_layers/interface.tscn" id="3_4fskw"]
 [ext_resource type="CameraAttributesPractical" uid="uid://dwi4x38dr76wn" path="res://components/lightkeepers_camera.tres" id="3_6ubrw"]
 [ext_resource type="Compositor" uid="uid://dw4wpy8cygcme" path="res://components/lightkeepers_compositor.tres" id="4_f3t2k"]
 [ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui/canvas_layers/ui_pause_layer.tscn" id="4_wwglg"]
 [ext_resource type="PackedScene" uid="uid://b0umly4sahrnr" path="res://scenes/ui/canvas_layers/ui_transition_layer.tscn" id="6_iltc1"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_6bufu"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_sn5ad"]
 
 [node name="UIComponent" type="Node"]
 process_mode = 3
@@ -25,7 +25,7 @@ layer = 64
 
 [node name="Interface" parent="." instance=ExtResource("3_4fskw")]
 layer = 25
-shop_button_group = SubResource("ButtonGroup_6bufu")
+shop_button_group = SubResource("ButtonGroup_sn5ad")
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
 layer = 5

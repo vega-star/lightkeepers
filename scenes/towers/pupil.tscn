@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_njf3q"]
-[ext_resource type="Script" path="res://scripts/entities/tower/pupil.gd" id="2_qsw3h"]
+[ext_resource type="Script" path="res://scripts/entities/pupil.gd" id="2_qsw3h"]
 [ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/pupil_upgrades.tscn" id="3_q1x5e"]
 [ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="7_qrgbf"]
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="8_0iauu"]

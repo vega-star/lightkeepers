@@ -100,13 +100,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_k8e1i")
 script = ExtResource("1_gv81k")
+skip_intro_on_debug = false
 
 [node name="IntroAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_284x7")
 }
 
-[node name="BG" type="ColorRect" parent="."]
+[node name="BGRect" type="ColorRect" parent="."]
 material = ExtResource("3_eirej")
 layout_mode = 1
 anchors_preset = 15

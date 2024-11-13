@@ -126,26 +126,23 @@ func emit_sound_effect(
 		bus_id : String = "Effects",
 		pitch_variation : Vector2 = Vector2(0.9, 1.1)
 	) -> void:
-	if !effect_id: push_warning('EMPTY SOUND REQUEST | No effect_id was given, returning without emission'); return
+	if !effects_list.has(effect_id) or !effect_id: printerr('EMPTY SOUND REQUEST | effect_id %s is invalid, returning without emission' % effect_id); return
 	
-	var ephemeral : bool = false
 	var player # Audio player node
 	
-	if position == Vector2.ZERO: player = global_effect_player
-	else: 
-		ephemeral = true
+	if position == Vector2.ZERO: player = AudioStreamPlayer.new()
+	else:
 		player = AudioStreamPlayer2D.new()
-		player.bus = bus_id
-		effects.add_child(player)
-		player.position = position
+		player.global_position = position
 	
-	player.pitch_scale *= randf_range(pitch_variation.x, pitch_variation.y)
+	player.bus = bus_id
+	effects.add_child(player)
+	
 	player.stream = effects_list[effect_id]
+	player.pitch_scale *= randf_range(pitch_variation.x, pitch_variation.y)
 	player.play()
-	
-	if ephemeral: 
-		await player.finished
-		player.queue_free()
+	await player.finished
+	player.queue_free()
 
 func _on_music_finished() -> void:
 	if randomized_songs and loop_music: set_music(0, true, true, randomized_songs_array)

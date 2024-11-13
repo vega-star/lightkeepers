@@ -4,6 +4,8 @@ extends CharacterBody2D
 signal path_ended
 signal died(source : Node)
 
+const COIN_OFFSET_MAX : Vector2 = Vector2(50,50)
+const COIN_SCENE : PackedScene = preload("res://scenes/entities/other/pyrite_fragment.tscn")
 const SCALE_CHANGE_WH : float = 1.15
 const SPEED_MULTIPLIER : int = 100
 const HEALTH_CHANGE_MPERIOD : float = 0.5
@@ -24,7 +26,7 @@ enum ENEMY_CLASS {
 @export_group('Enemy Properties')
 @export var enemy_name : String = "Enemy"
 @export var enemy_class : ENEMY_CLASS = 0
-@export var default_damage_on_nexus : int = 5
+@export var base_damage : int = 5
 @export var base_enemy_value : int = 3
 @export var base_health : int = 10
 @export var base_speed : int = 60
@@ -42,11 +44,13 @@ var stored_scale : Vector2
 var line_agent : PathFollow2D #? Line2D node to follow
 var stage : Stage #? Stage to call upon
 
-var nexus : Node2D
-var damage_on_nexus : int
+var target : Node2D: set = _set_target
+var target_position : Vector2
+var nexus : Nexus
+var attacked_nexus : bool = false
+var damage : int
 var enemy_value : int
 var on_sight : bool = false : set = _set_on_sight
-var target_position : Vector2
 var next_position
 var direction
 
@@ -54,20 +58,21 @@ var direction
 func _ready(): await _set_enemy_properties()
 
 func _set_enemy_properties():
-	stage = get_tree().get_first_node_in_group('stage')
-	nexus = get_tree().get_first_node_in_group('nexus')
-	damage_on_nexus = default_damage_on_nexus
+	stage = StageManager.active_stage
+	nexus = StageManager.active_stage.nexus
+	assert(nexus)
+	target = nexus
+	damage = base_damage
 	enemy_value = base_enemy_value
-	stored_scale = scale
+	stored_scale = scale #? Conserves the original size of the entity
 	
 	health_component.max_health = base_health
 	health_component.reset_health()
 	set_name(enemy_name)
-	set_target(nexus)
 	
 	if smart_enemy:
-		assert(nexus)
 		navigation_agent.navigation_finished.connect(_on_navigation_finished)
+		navigation_agent.target_reached.connect(_on_navigation_target_reached)
 		_create_path()
 	else:
 		set_collision_mask_value(3, false) #? Deactivate enemy collision
@@ -88,6 +93,10 @@ func _rotate_to_direction(r_node : Node, r_direction : Vector2, delta : float) -
 	var angle = r_node.transform.x.angle_to(r_direction)
 	r_node.rotate(sign(angle) * min(delta * TAU * 2, abs(angle)))
 
+func _on_navigation_finished(): path_ended.emit()
+
+func _on_navigation_target_reached() -> void: attack(target)
+
 func _on_navigation_agent_velocity_computed(safe_velocity : Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
@@ -102,9 +111,14 @@ func _set_path2d(line_node : Path2D):
 	line_agent.set_name(enemy_name)
 	reparent(line_agent)
 
-func _create_path(): navigation_agent.target_position = target_position
+func _create_path(): navigation_agent.target_position = target.global_position
 
-func set_target(node : Node2D):
+func _on_path_ended():
+	attack(target)
+	if attacked_nexus: die(nexus)
+
+func _set_target(node : Node2D):
+	target = node
 	if !node: return
 	target_position = node.global_position
 
@@ -112,14 +126,26 @@ func _set_on_sight(toggle : bool):
 	on_sight = toggle
 	set_collision_layer_value(7, toggle)
 
-func _on_navigation_finished(): path_ended.emit()
-
-func _on_path_ended():
-	stage.stage_agent.change_health(damage_on_nexus)
-	die(nexus)
+func attack(object : Node2D):
+	if object.has_node("HealthComponent"): 
+		var object_health_component : HealthComponent = object.health_component
+		object_health_component.change(damage)
+	
+	if object is Nexus:
+		stage.stage_agent.change_health(damage)
+		attacked_nexus = true
 
 func die(source):
-	if !source == nexus: stage.stage_agent.change_coins(enemy_value, true)
+	if !source == nexus:
+		# stage.stage_agent.change_coins(enemy_value, true)
+		var coin = COIN_SCENE.instantiate()
+		coin.value = enemy_value
+		coin.rotation = randf_range(-PI,PI)
+		coin.global_position = global_position + Vector2(
+			randf_range(0, COIN_OFFSET_MAX.x),
+			randf_range(0, COIN_OFFSET_MAX.y)
+		)
+		stage.coin_container.add_child(coin)
 	died.emit(source)
 	queue_free()
 	if !smart_enemy: line_agent.queue_free()

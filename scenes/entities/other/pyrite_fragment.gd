@@ -16,5 +16,4 @@ func infer_value(new_value : int) -> void:
 	var size_factor = pow(value, 1/3) #? The size of the fragment is the cube root of the value!
 	set_scale(Vector2.ONE * size_factor)
 
-func collect() -> void:
-	UI.interface.collect_coin(self)
+func collect() -> void: UI.interface.collect_coin(self, value)

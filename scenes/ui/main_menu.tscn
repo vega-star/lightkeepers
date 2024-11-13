@@ -14,6 +14,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i2qnv")
 menu_songs = Array[String](["Transcendence SL2024-06-26"])
+metadata/_edit_vertical_guides_ = [1728.0]
+
+[node name="MenuCamera" type="Camera2D" parent="."]
+anchor_mode = 0
 
 [node name="MenuPages" type="Control" parent="."]
 layout_mode = 1
@@ -23,11 +27,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CentralPage" parent="MenuPages" instance=ExtResource("2_us0w7")]
+[node name="CentralPage" parent="MenuPages" node_paths=PackedStringArray("stage_selection_page") instance=ExtResource("2_us0w7")]
 layout_mode = 1
+stage_selection_page = NodePath("../StageSelection")
 
 [node name="StageSelection" parent="MenuPages" instance=ExtResource("3_pmb1n")]
 layout_mode = 1
-offset_left = 1280.0
-offset_right = 1280.0
+offset_left = 1728.0
+offset_right = 1728.0
 hide_when_initiated = true
