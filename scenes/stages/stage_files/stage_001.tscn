@@ -18,6 +18,10 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-448, 552, -448, 192, -
 stage_info = ExtResource("2_l04u5")
 metadata/_edit_vertical_guides_ = [2952.0, -768.0, 1600.0]
 
+[node name="DarknessLayer" parent="StageEffects" index="1"]
+visible = true
+color = Color(0.219314, 0.219411, 0.387455, 1)
+
 [node name="StageAgent" parent="." index="1"]
 initial_coins = 10000
 

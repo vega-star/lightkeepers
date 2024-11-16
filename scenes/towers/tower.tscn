@@ -1,0 +1,149 @@
+[gd_scene load_steps=21 format=3 uid="uid://bg8dos7yx10dx"]
+
+[ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_ph1d3"]
+[ext_resource type="Script" path="res://scripts/entities/tower.gd" id="2_fqx6q"]
+[ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="3_kgmhe"]
+[ext_resource type="Resource" uid="uid://jhkdgy5l0lgk" path="res://components/upgrade_trees/default.tres" id="4_bcjrb"]
+[ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="4_bwa4k"]
+[ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="5_jeyg0"]
+[ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="6_bxyej"]
+[ext_resource type="Texture2D" uid="uid://dnjj640nvv3gk" path="res://assets/prototypes/pupil_area.png" id="8_n13nq"]
+[ext_resource type="Texture2D" uid="uid://du4bmxe2x665m" path="res://assets/prototypes/pupil_hands.png" id="8_uga7s"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ifgyb"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_6w7sn"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cns8b"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7t536"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bjkbf"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5uuj7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_4bul2"]
+states/End/position = Vector2(290, 32)
+states/Firing/node = SubResource("AnimationNodeBlendSpace2D_ifgyb")
+states/Firing/position = Vector2(554, 32)
+states/Seeking/node = SubResource("AnimationNodeBlendSpace2D_6w7sn")
+states/Seeking/position = Vector2(554, 211)
+states/Start/position = Vector2(290, 211)
+transitions = ["Firing", "End", SubResource("AnimationNodeStateMachineTransition_cns8b"), "Seeking", "Firing", SubResource("AnimationNodeStateMachineTransition_7t536"), "Firing", "Seeking", SubResource("AnimationNodeStateMachineTransition_bjkbf"), "Start", "Seeking", SubResource("AnimationNodeStateMachineTransition_5uuj7")]
+graph_offset = Vector2(-265, -26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48ewv"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle_diag_down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle_diag_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_n13nq")
+}],
+"loop": true,
+"name": &"idle_front",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle_side",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle_up",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqyj4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_uga7s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sss3a"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
+radius = 128.0
+
+[node name="Tower" type="Node2D"]
+material = ExtResource("1_ph1d3")
+rotation = -1.5708
+script = ExtResource("2_fqx6q")
+
+[node name="TowerAnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_4bul2")
+parameters/Firing/blend_position = Vector2(0, 0)
+parameters/Seeking/blend_position = Vector2(-0.970323, 0.0123457)
+
+[node name="TowerUpgrades" parent="." instance=ExtResource("3_kgmhe")]
+upgrade_tree_1 = ExtResource("4_bcjrb")
+upgrade_tree_2 = ExtResource("4_bcjrb")
+upgrade_tree_3 = ExtResource("4_bcjrb")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
+script = ExtResource("4_bwa4k")
+entity = NodePath("..")
+initial_state = NodePath("Seeking")
+
+[node name="Seeking" parent="StateMachine" node_paths=PackedStringArray("firing_state") instance=ExtResource("5_jeyg0")]
+firing_state = NodePath("../Firing")
+
+[node name="Firing" parent="StateMachine" node_paths=PackedStringArray("seeking_state") instance=ExtResource("6_bxyej")]
+seeking_state = NodePath("../Seeking")
+debug = true
+
+[node name="TowerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4.76837e-07)
+sprite_frames = SubResource("SpriteFrames_48ewv")
+animation = &"idle_front"
+autoplay = "idle_front"
+
+[node name="TowerHands" type="AnimatedSprite2D" parent="TowerSprite"]
+visible = false
+position = Vector2(0, 3.8147e-06)
+sprite_frames = SubResource("SpriteFrames_tqyj4")
+animation = &"idle"
+
+[node name="TowerAim" type="RayCast2D" parent="TowerSprite"]
+target_position = Vector2(-1.39876e-05, 320)
+collision_mask = 4
+
+[node name="TowerProjectilePoint" type="Marker2D" parent="TowerSprite"]
+position = Vector2(0.000118256, 16)
+
+[node name="TowerOccupiedArea" type="Area2D" parent="."]
+collision_layer = 17
+collision_mask = 5
+input_pickable = false
+
+[node name="OccupiedArea" type="CollisionShape2D" parent="TowerOccupiedArea"]
+shape = SubResource("CircleShape2D_sss3a")
+debug_color = Color(0.356052, 0.48176, 1, 0.42)
+
+[node name="TowerRangeArea" type="Area2D" parent="."]
+collision_mask = 64
+input_pickable = false
+
+[node name="TowerRangeShape" type="CollisionShape2D" parent="TowerRangeArea"]
+shape = SubResource("CircleShape2D_4qdcu")
+debug_color = Color(0.992355, 0, 0.259521, 0.129412)

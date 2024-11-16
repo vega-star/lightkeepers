@@ -6,3 +6,4 @@ class_name Upgrade extends Resource
 @export var upgrade_description : String = 'UPGRADE_TITLE_DESCRIPTION'
 @export var upgrade_cost : int = 0
 @export var upgrade_commands : Array[UpgradeCommand]
+@export_multiline var upgrade_metadata : String

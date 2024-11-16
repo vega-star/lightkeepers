@@ -1,20 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj1k1hebjni7c"]
+[gd_scene load_steps=6 format=3 uid="uid://bj1k1hebjni7c"]
 
 [ext_resource type="Script" path="res://scripts/entities/projectile.gd" id="1_5ijgk"]
-[ext_resource type="Texture2D" uid="uid://djbkbg4rjdi12" path="res://assets/prototypes/ballista_projectile.png" id="2_dvld6"]
+[ext_resource type="Texture2D" uid="uid://bft0dral3qenl" path="res://assets/prototypes/magicball.png" id="2_q0dl6"]
+
+[sub_resource type="Curve" id="Curve_a1gkp"]
+_data = [Vector2(0, 0), 0.0, -0.393981, 0, 0, Vector2(0.877232, 1), -0.132273, 0.0, 0, 0, Vector2(1, 0), -23.0398, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_wmi4g"]
+offsets = PackedFloat32Array(0, 0.338384, 0.550505, 0.853535, 1)
+colors = PackedColorArray(0.864545, 0.393264, 0.156729, 0, 0.698108, 0.515423, 0.319566, 0.76467, 0.863963, 0.659786, 0.512388, 1, 10, 2, 1.5, 1, 25, 5, 2, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xyjd"]
-radius = 0.999993
-height = 1.99999
+custom_solver_bias = 0.2
+radius = 4.0
+height = 12.0
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 32
 collision_mask = 12
 input_pickable = false
 script = ExtResource("1_5ijgk")
-sfx_when_launched = Array[String](["gun hit 18", "gun hit 24"])
-sfx_when_hit = Array[String](["stab 1", "stab 2", "stab 3", "stab 4", "knife 8"])
-sfx_when_broken = Array[String](["switch blade 1", "switch blade 2", "switch blade 3"])
+
+[node name="Separator" type="Node" parent="."]
+
+[node name="ProjectileTrace" type="Line2D" parent="Separator"]
+width_curve = SubResource("Curve_a1gkp")
+gradient = SubResource("Gradient_wmi4g")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(6, 0)
@@ -29,9 +41,10 @@ initial_velocity_min = 50.0
 initial_velocity_max = 200.0
 
 [node name="ProjectileSprite" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(3, 3, 3, 1)
 position = Vector2(0, 2.98023e-07)
-texture = ExtResource("2_dvld6")
+texture = ExtResource("2_q0dl6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708

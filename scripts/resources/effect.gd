@@ -14,7 +14,7 @@ var total_duration : float
 var duration_timer : Timer
 var tick_timer : Timer
 var health_ref : HealthComponent
-var source : Pupil
+var source : Tower
 
 ## Instantiated variables
 var effect : Dictionary
@@ -27,7 +27,7 @@ func activate(
 		_new_duration_timer : Timer, ## Duration timer node connection
 		_new_tick_timer : Timer, ## Tick timer node connection
 		_new_health_ref : HealthComponent, ## HealthComponent node connection on which effect will call
-		new_source : Pupil ## tower that caused the effect
+		new_source : Tower ## tower that caused the effect
 	) -> void:
 	eid = new_eid
 	effect = new_effect

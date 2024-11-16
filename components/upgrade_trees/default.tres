@@ -1,100 +1,124 @@
-[gd_resource type="Resource" script_class="PupilUpgradeTree" load_steps=20 format=3 uid="uid://jhkdgy5l0lgk"]
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=24 format=3 uid="uid://jhkdgy5l0lgk"]
 
-[ext_resource type="Script" path="res://scripts/resources/pupil_upgrade_tree.gd" id="1_xheal"]
-[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_tgd8b"]
-[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_dps05"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_80cqm"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_rfcpx"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_xq26r"]
 
-[sub_resource type="Resource" id="Resource_6iduf"]
-script = ExtResource("3_dps05")
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_xq26r")
 upgrade_type = 0
 upgrade_value = "5"
 
-[sub_resource type="Resource" id="Resource_rxd5c"]
-script = ExtResource("3_dps05")
-upgrade_type = 7
-upgrade_value = "1.25"
+[sub_resource type="Resource" id="Resource_a1ie7"]
+script = ExtResource("3_xq26r")
+upgrade_type = 4
+upgrade_value = "1"
 
-[sub_resource type="Resource" id="Resource_2ytgt"]
-script = ExtResource("2_tgd8b")
-upgrade_title = "UPGRADE_TITLE"
-upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
-upgrade_cost = 75
-upgrade_commands = Array[ExtResource("3_dps05")]([SubResource("Resource_6iduf"), SubResource("Resource_rxd5c")])
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_1"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_34xdb"), SubResource("Resource_a1ie7")])
+upgrade_metadata = ""
 
-[sub_resource type="Resource" id="Resource_5wwqu"]
-script = ExtResource("3_dps05")
-upgrade_type = 1
-upgrade_value = "2"
-
-[sub_resource type="Resource" id="Resource_qpcvs"]
-script = ExtResource("3_dps05")
-upgrade_type = 6
-upgrade_value = "1.2"
-
-[sub_resource type="Resource" id="Resource_i6ccn"]
-script = ExtResource("3_dps05")
-upgrade_type = 8
-upgrade_value = "2"
-
-[sub_resource type="Resource" id="Resource_jg6d7"]
-script = ExtResource("3_dps05")
-upgrade_type = 7
-upgrade_value = "1.2"
-
-[sub_resource type="Resource" id="Resource_4whvn"]
-script = ExtResource("2_tgd8b")
-upgrade_title = "UPGRADE_TITLE"
-upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
-upgrade_cost = 155
-upgrade_commands = Array[ExtResource("3_dps05")]([SubResource("Resource_5wwqu"), SubResource("Resource_qpcvs"), SubResource("Resource_i6ccn"), SubResource("Resource_jg6d7")])
-
-[sub_resource type="Resource" id="Resource_ou1bg"]
-script = ExtResource("3_dps05")
+[sub_resource type="Resource" id="Resource_p8gnx"]
+script = ExtResource("3_xq26r")
 upgrade_type = 3
 upgrade_value = "2"
 
-[sub_resource type="Resource" id="Resource_qa0eg"]
-script = ExtResource("3_dps05")
+[sub_resource type="Resource" id="Resource_8kxfn"]
+script = ExtResource("3_xq26r")
+upgrade_type = 0
+upgrade_value = "10"
+
+[sub_resource type="Resource" id="Resource_hd7or"]
+script = ExtResource("3_xq26r")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_2"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_p8gnx"), SubResource("Resource_8kxfn"), SubResource("Resource_hd7or")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_srwmb"]
+script = ExtResource("3_xq26r")
+upgrade_type = 7
+upgrade_value = "1.5"
+
+[sub_resource type="Resource" id="Resource_pq4tt"]
+script = ExtResource("3_xq26r")
+upgrade_type = 8
+upgrade_value = "1.1"
+
+[sub_resource type="Resource" id="Resource_r2wq4"]
+script = ExtResource("3_xq26r")
 upgrade_type = 6
 upgrade_value = "1.5"
 
-[sub_resource type="Resource" id="Resource_0cwvg"]
-script = ExtResource("2_tgd8b")
-upgrade_title = "UPGRADE_TITLE"
-upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
-upgrade_cost = 460
-upgrade_commands = Array[ExtResource("3_dps05")]([SubResource("Resource_ou1bg"), SubResource("Resource_qa0eg")])
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_3"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 250
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_srwmb"), SubResource("Resource_pq4tt"), SubResource("Resource_r2wq4")])
+upgrade_metadata = ""
 
-[sub_resource type="Resource" id="Resource_eyaot"]
-script = ExtResource("3_dps05")
-upgrade_type = 6
-upgrade_value = "1.75"
+[sub_resource type="Resource" id="Resource_y3kst"]
+script = ExtResource("3_xq26r")
+upgrade_type = 0
+upgrade_value = "25"
 
-[sub_resource type="Resource" id="Resource_o4rpp"]
-script = ExtResource("3_dps05")
-upgrade_type = 4
-upgrade_value = "5"
-
-[sub_resource type="Resource" id="Resource_8fwva"]
-script = ExtResource("2_tgd8b")
-upgrade_title = "UPGRADE_TITLE"
-upgrade_description = "UPGRADE_TITLE_DESCRIPTION"
-upgrade_cost = 950
-upgrade_commands = Array[ExtResource("3_dps05")]([SubResource("Resource_eyaot"), SubResource("Resource_o4rpp")])
-
-[sub_resource type="Resource" id="Resource_v611d"]
-script = ExtResource("3_dps05")
-upgrade_type = 6
+[sub_resource type="Resource" id="Resource_2y8ou"]
+script = ExtResource("3_xq26r")
+upgrade_type = 3
 upgrade_value = "2"
 
-[sub_resource type="Resource" id="Resource_d8gh4"]
-script = ExtResource("2_tgd8b")
-upgrade_title = "ULTIMATE_STOCK"
-upgrade_description = "ULTIMATE_STOCK_DESCRIPTION"
-upgrade_cost = 5000
-upgrade_commands = Array[ExtResource("3_dps05")]([SubResource("Resource_v611d")])
+[sub_resource type="Resource" id="Resource_jsr58"]
+script = ExtResource("3_xq26r")
+upgrade_type = 6
+upgrade_value = "0.7"
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_4"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 550
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_y3kst"), SubResource("Resource_2y8ou"), SubResource("Resource_jsr58")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_ajnr7"]
+script = ExtResource("3_xq26r")
+upgrade_type = 7
+upgrade_value = "1.2"
+
+[sub_resource type="Resource" id="Resource_l3726"]
+script = ExtResource("3_xq26r")
+upgrade_type = 8
+upgrade_value = "0.7"
+
+[sub_resource type="Resource" id="Resource_5rwka"]
+script = ExtResource("3_xq26r")
+upgrade_type = 0
+upgrade_value = "50"
+
+[sub_resource type="Resource" id="Resource_2yyfn"]
+script = ExtResource("3_xq26r")
+upgrade_type = 6
+upgrade_value = "1.2"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_5"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 1000
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_ajnr7"), SubResource("Resource_l3726"), SubResource("Resource_5rwka"), SubResource("Resource_2yyfn")])
+upgrade_metadata = ""
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_xheal")
-upgrades = Array[ExtResource("2_tgd8b")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
+script = ExtResource("1_80cqm")
+upgrades = Array[ExtResource("2_rfcpx")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

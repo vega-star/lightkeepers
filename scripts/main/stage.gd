@@ -39,10 +39,10 @@ const CASHBACK_FACTOR : float = 0.65
 
 const SELECTION_TILE : Vector2i = Vector2i(0,4)
 const TILE : Dictionary = {
-	'DEFAULT' = Vector2i(7,0),
-	'BLOCKED' = Vector2i(0,3),
-	'SELECT' = Vector2i(0,4),
-	'TARGET' = Vector2i(2,3)
+	DEFAULT = Vector2i(7,0),
+	BLOCKED = Vector2i(0,3),
+	SELECT = Vector2i(0,4),
+	TARGET = Vector2i(2,3)
 }
 
 var stage_buildings : Array[Node2D]: set = _set_state_buildings
@@ -104,8 +104,8 @@ func select_tile(tile_position):
 	if object_dict.has(tile_position): selected_object = object_dict[tile_position]['node']
 	
 	if is_instance_valid(selected_object):
-		if selected_object is Pupil: UI.interface.pupil_panel.load_pupil(selected_object)
-		else: UI.interface.pupil_panel._move(false)
+		if selected_object is Tower: UI.interface.tower_panel.load_tower(selected_object)
+		else: UI.interface.tower_panel._move(false)
 		selected_object.visible_range = true
 	
 	if tile_data: data = tile_data.get_custom_data_by_layer_id(0)
@@ -121,6 +121,8 @@ func deselect_tile() -> void:
 	selected_object = null
 
 func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool: #? Returns true if tile is valid
+	if UI.interface.mouse_on_ui: return false #? Mouse is off limits on top of a control node
+	
 	if tile_position == Vector2i.ZERO: tile_position = position_to_tile(get_global_mouse_position())
 	 
 	INTERACTION_LAYER.set_cell(tile_position, 0, TILE.TARGET)
@@ -143,7 +145,7 @@ func insert_tile_object( ## Called from turret/object button when inserted into 
 		tile_object : TileObject,
 		tile_position : Vector2i = position_to_tile(get_global_mouse_position())
 	) -> bool:
-	var tile_cost : int = tile_object.default_pupil_cost
+	var tile_cost : int = tile_object.tower_value
 	var coordinates : Vector2 = GROUND_LAYER.map_to_local(tile_position)
 	var query_result : bool = query_tile_insertion(tile_position)
 	
@@ -156,15 +158,13 @@ func insert_tile_object( ## Called from turret/object button when inserted into 
 	
 	## Register
 	tile_object.tile_position = tile_position
-	object_dict[tile_position] = {
-		'node': tile_object
-	}
+	object_dict[tile_position] = {'node': tile_object}
 	
 	## Insert
-	OBJECT_LAYER.set_cell(tile_position, 0, TILE.DEFAULT)
+	# OBJECT_LAYER.set_cell(tile_position, 0, TILE.DEFAULT)
 	tile_object.global_position = coordinates
 	tile_object.reparent($Containers/ObjectContainer)
-	stage_agent.change_coins(tile_object.default_pupil_cost)
+	stage_agent.change_coins(tile_object.tower_value)
 	
 	return true ## Return sucessfully
 
@@ -174,19 +174,19 @@ func request_removal(tile_position : Vector2i = Vector2i.MIN) -> bool:
 	if object_dict.has(tile_position): object = object_dict[tile_position]['node']
 	if !object: return false
 	
-	var pupil_value : int = roundi(object.pupil_value * CASHBACK_FACTOR)
-	var request : bool = await UI.EVENT.request_confirmation(
+	var tower_value : int = roundi(object.tower_value * CASHBACK_FACTOR)
+	var request : bool = await UI.event_layer.request_confirmation(
 		'CONFIRM',
-		'{0} {1} {2}'.format({0: TranslationServer.tr('DEMOLISH_REQUEST_TEXT'), 1: pupil_value, 2: TranslationServer.tr('COINS').to_lower()}),
+		'{0} {1} {2}'.format({0: TranslationServer.tr('DEMOLISH_REQUEST_TEXT'), 1: tower_value, 2: TranslationServer.tr('COINS').to_lower()}),
 		'CONFIRM', 'CANCEL'
 	)
 	
 	if request:
 		remove_tile_object(tile_position, object)
-		if object is Pupil:
-			if object.pupil_upgrades.pupil_element_reg: #? Return elements when pupil sold
-				object.pupil_upgrades.pupil_element_reg.quantity += object.pupil_upgrades.pupil_element_lvl
-		stage_agent.change_coins(pupil_value, true)
+		if object is Tower:
+			if object.tower_upgrades.tower_element_reg: #? Return elements when tower sold
+				object.tower_upgrades.tower_element_reg.quantity += object.tower_upgrades.tower_element_lvl
+		stage_agent.change_coins(tower_value, true)
 		return true
 	else: return false
 

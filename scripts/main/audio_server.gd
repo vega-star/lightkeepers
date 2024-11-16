@@ -5,7 +5,6 @@ const pitch_bend_delay = 0.5
 const effects_dir_path = "res://assets/audio/effects/"
 const music_dir_path = "res://assets/audio/music/"
 
-@onready var global_effect_player = $GlobalEffectPlayer
 @onready var music_player = $MusicPlayer
 @onready var effects = $Effects
 
@@ -117,6 +116,7 @@ func emit_random_sound_effect(
 		bus_id : String = "Effects",
 		pitch_variation : Vector2 = Vector2(0.9, 1.1)
 	) -> void:
+	if r_sfx_array.is_empty(): return
 	var effect_id = r_sfx_array[randi_range(0, r_sfx_array.size() - 1)]
 	emit_sound_effect(effect_id, position, bus_id, pitch_variation)
 

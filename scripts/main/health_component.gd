@@ -53,7 +53,7 @@ func change(amount : int, negative : bool = true, source : Node = null) -> void:
 
 func invoke_death(source : Node) -> void:
 	if !is_instance_valid(source): return
-	if source is Pupil: source.pupil_kill_count += 1
+	if source is Tower: source.tower_kill_count += 1
 	
 	if lives > 1:
 		lives -= 1

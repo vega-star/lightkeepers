@@ -5,7 +5,6 @@
 
 [node name="ScreenEffectLayer" type="CanvasLayer"]
 layer = 50
-visible = false
 script = ExtResource("1_pj16q")
 
 [node name="EffectRect" type="ColorRect" parent="."]

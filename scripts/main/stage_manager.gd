@@ -5,9 +5,18 @@ extends Node
 
 signal stage_ended
 
+const RUN_DATA_STRUCTURE : Dictionary = {
+	"status": {},
+	"objects": {
+		"towers": {}
+	},
+	"metadata": {}
+}
+
 var active_stage : Stage
 var active_stage_agent : StageAgent
 var on_stage : bool = false #? Queryable boolean that signals if the current active scene is considered a stage or not
+var run_data : Dictionary
 
 func _ready() -> void:
 	UI.event_layer.finish_panel.decison_made.connect(_on_stage_closing_decision_made)
@@ -21,6 +30,8 @@ func start_stage(
 	) -> void:
 	active_stage = new_stage
 	active_stage_agent = new_stage_agent
+	run_data.clear()
+	run_data = RUN_DATA_STRUCTURE.duplicate(true)
 	on_stage = true
 	UI.interface.set_visible(true)
 	UI.pause_locked = false

@@ -3,6 +3,7 @@ extends Control
 const MAIN_MENU_PATH = preload('res://scenes/ui/main_menu.tscn')
 const INTRO_TIMER : float = 3
 
+var is_ending : bool = false
 @export var skip_intro_on_debug : bool = true
 @onready var intro_animation : AnimationPlayer = $IntroAnimation
 @onready var bg_rect : ColorRect = $BGRect
@@ -15,7 +16,8 @@ func _ready():
 	_start()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("space"): _end()
+	# if Input.is_action_just_pressed("space") and not is_ending: _end()
+	pass
 
 func _start() -> void:
 	UI.fade('IN')
@@ -25,6 +27,7 @@ func _start() -> void:
 	_end()
 
 func _end() -> void:
+	is_ending = true
 	intro_animation.speed_scale = 2
 	intro_animation.play_backwards('LOGO_FADE_IN')
 	await UI.fade('OUT')

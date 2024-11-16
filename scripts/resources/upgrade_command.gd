@@ -1,4 +1,16 @@
 class_name UpgradeCommand extends Resource
 
-@export var upgrade_type : int = 0
-@export var upgrade_value = ''
+enum UPGRADE_TYPE {
+	DAMAGE_INCREASE,
+	DAMAGE_MULTIPLY,
+	PROJECTILE_QUANTITY_INCREASE,
+	PROJECTILE_BURST_INCREASE,
+	PIERCING_INCREASE,
+	FIRING_COOLDOWN_FLAT_DECREASE,
+	FIRING_COOLDOWN_DIVIDE,
+	ATTACK_RANGE_MULTIPLY,
+	LIGHT_RANGE_MULTIPLY
+}
+
+@export var upgrade_type : UPGRADE_TYPE = 0
+@export var upgrade_value : Variant = ''

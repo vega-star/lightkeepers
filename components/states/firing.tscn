@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bk78tk8l5xuod"]
 
-[ext_resource type="Script" path="res://scripts/states/pupil_firing.gd" id="1_wejd7"]
+[ext_resource type="Script" path="res://scripts/states/firing.gd" id="1_wejd7"]
 
 [node name="TurretFiring" type="Node"]
 process_mode = 1

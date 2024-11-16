@@ -23,7 +23,7 @@ var active : bool = false ## Current active stage
 func _ready() -> void:
 	assert(firing_state)
 	debug = state_machine.debug
-	if entity is Pupil: entity.pupil_detected_enemy.connect(_on_target_entered)
+	if entity is Tower: entity.tower_detected_enemy.connect(_on_target_entered)
 
 func enter() -> void: active = true; seek()
 
@@ -31,9 +31,9 @@ func exit() -> void: active = false
 
 func state_physics_update(delta : float) -> void:
 	if is_instance_valid(entity.target): #? Control firing angle and fire when aiming directly at an enemy
-		direction = entity.pupil_gun_sprite.global_position.direction_to(entity.target.global_position)
+		direction = entity.tower_sprite.global_position.direction_to(entity.target.global_position)
 		seeking_dampening = 1
-		if active and entity.pupil_aim.is_colliding():
+		if active and entity.tower_aim.is_colliding():
 			active = false
 			transition.emit(self, firing_state)
 	else:
@@ -44,7 +44,12 @@ func state_physics_update(delta : float) -> void:
 			await get_tree().create_timer(ROTATING_TIMEOUT).timeout
 			seek()
 			randomly_rotating  = true
-	entity._rotate_pupil(direction, delta, entity.SEEKING_ROTATION_SPEED / seeking_dampening)
+	
+	entity._rotate_tower(
+		direction,
+		delta,
+		entity.SEEKING_ROTATION_SPEED / seeking_dampening
+	)
 #endregion
 
 #region Seek
@@ -59,7 +64,7 @@ func seek() -> void: ## Sets entity target
 	else:
 		enemy_detected.emit(entity.target)
 
-func _seek_target() -> Node: ## Returns an enemy node that can be targeted by the pupil
+func _seek_target() -> Node: ## Returns an enemy node that can be targeted by the tower
 	if !entity.eligible_targets.size() > 0: return null #? No targets in the pool, cancelling seek
 	
 	var new_target : Node #? Target that will be returned
@@ -70,7 +75,7 @@ func _seek_target() -> Node: ## Returns an enemy node that can be targeted by th
 			new_target = entity.eligible_targets.front()
 		1: #? LAST | Selects the last target that entered turret range
 			new_target = entity.eligible_targets.back()
-		2: #? CLOSE | Sorts from the closest to the farthest in relation to pupil
+		2: #? CLOSE | Sorts from the closest to the farthest in relation to tower
 			for t in entity.eligible_targets.size():
 				available_targets.append([
 					entity.eligible_targets[t],

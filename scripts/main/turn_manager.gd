@@ -99,8 +99,8 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:
-	stage_agent.close_stage(true)
-	await UI.stage_ended
+	StageManager.close_stage()
+	await StageManager.stage_ended
 	if infinite: run_schedule()
 
 func execute_wave(wave : Wave) -> void:

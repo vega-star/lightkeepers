@@ -20,7 +20,7 @@ const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png"
 
 @onready var object_collision : Area2D = $ObjectCollision
 @onready var object_collision_area : CollisionShape2D = $ObjectCollision/ObjectCollisionArea
-@onready var object_element_sprite : Sprite2D = $ObjectElement
+@onready var object_element_sprite : Sprite2D = $ObjectOrb/ObjectElement
 @onready var element_label : Label = $ElementLabel
 @onready var object_orb : Sprite2D = $ObjectOrb
 
@@ -28,7 +28,7 @@ var offset : Vector2
 var initial_position : Vector2
 var object_type : int
 var target_slot : Slot #? Slot selected between overlapping bodies 
-
+var valid_tower : bool: set = _on_tower_validation
 var force_show_label : bool = false
 var locked : bool = false
 var volatile : bool = false
@@ -41,16 +41,16 @@ func _ready() -> void:
 	assert(object_collision.input_pickable)
 	if !active_slot: active_slot = home_slot
 	object_type = element.element_type
-	if !force_show_label: $ElementLabel.visible = false
+	if !force_show_label: element_label.visible = false
 
 func _set_element(new_element : Element) -> void:
 	element = new_element
 	object_type = new_element.element_type
 	if !is_node_ready(): await ready
 	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
-	if ELEMENT_COLORS.has(element.element_id):
-		object_orb.material = object_orb.material.duplicate()
-		object_orb.material.set("shader_parameter/line_color", ELEMENT_COLORS[element.element_id])
+	# if ELEMENT_COLORS.has(element.element_id):
+		# object_orb.material = object_orb.material.duplicate()
+		# object_orb.material.set("shader_parameter/line_color", ELEMENT_COLORS[element.element_id])
 
 func _process(_delta) -> void:
 	if draggable and !locked: #? Dragging processes
@@ -75,57 +75,31 @@ func _process(_delta) -> void:
 			UI.is_dragging = false
 			_return_to_slot(true)
 		
-		if Input.is_action_pressed('click'): global_position = get_global_mouse_position() - offset #? Drag
+		if Input.is_action_pressed('click'): # Hold / Drag
+			global_position = get_global_mouse_position() - offset
+			valid_tower = StageManager.active_stage.query_tile_insertion()
 		
 		elif Input.is_action_just_released('click'): #? Release
 			UI.is_dragging = false
-			if target_slot: _insert(target_slot)
+			if valid_tower: _invoke_tower()
+			elif target_slot: _insert(target_slot)
 			else: _return_to_slot()
 #endregion
 
-#region Collision Controls
-## Body detection
-#? Uses a series of conditions to detect if is_inside_dropable is true. In case there are multiple bodies, there's a solution for that below
-func _on_object_collision_body_entered(body) -> void: 
-	if body is Slot or body.is_in_group('dropable'): 
-		body.hovered = true; is_inside_dropable = true
-		target_slot = body
-
-func _on_object_collision_body_exited(body) -> void: 
-	if body is Slot or body.is_in_group('dropable'): 
-		body.hovered = false; is_inside_dropable = false
-
-## Internal drag switch
-#? Defines if object follows mouse and enables all object behaviors
-func _set_draggable(drag : bool) -> void:
-	draggable = drag
-	if drag:
-		$ElementLabel.visible = true
-		scale = Vector2(1.05, 1.05)
-	else:
-		if !force_show_label: $ElementLabel.visible = false
-		scale = Vector2(1, 1)
-
-## External drag switch
-#? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
-func _on_object_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate object when mouse enters it collision shape
-func _on_object_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate object
-#endregion
-
 #region Slot controls
-func _move_to(position : Vector2) -> void:
+func _move_to(new_position : Vector2) -> void: ## Smooth movement to a specific position
 	var move_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	move_tween.tween_property(self, "global_position", position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	move_tween.tween_property(self, "global_position", new_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	if volatile: #? Delete this object after returning
 		await move_tween.finished
 		queue_free()
 
-func _return_to_slot(return_home : bool = false) -> void:
+func _return_to_slot(return_home : bool = false) -> void: ## Return object to home slot
 	UI.is_dragging = false
 	if !is_instance_valid(target_slot) or return_home: active_slot = home_slot
 	_insert(active_slot)
 
-func _insert(slot : Slot) -> bool:
+func _insert(slot : Slot) -> bool: ##? Insert object into a new slot
 	_set_draggable(false)
 	if is_instance_valid(slot):
 		var request = slot.request_insert(self)
@@ -173,7 +147,66 @@ func _on_object_inserted() -> void:
 	await get_tree().create_timer(INPUT_COOLDOWN).timeout
 	object_collision_area.set_disabled(false)
 
-func _destroy() -> void:
+func destroy() -> void:
 	object_picked.emit()
 	queue_free()
+#endregion
+
+#region Collision Controls
+## Body detection
+#? Uses a series of conditions to detect if is_inside_dropable is true. In case there are multiple bodies, there's a solution for that below
+func _on_object_collision_body_entered(body) -> void: 
+	if body is Slot or body.is_in_group('dropable'): 
+		body.hovered = true; is_inside_dropable = true
+		target_slot = body
+
+func _on_object_collision_body_exited(body) -> void: 
+	if body is Slot or body.is_in_group('dropable'): 
+		body.hovered = false; is_inside_dropable = false
+
+## Internal drag switch
+#? Defines if object follows mouse and enables all object behaviors
+func _set_draggable(drag : bool) -> void:
+	draggable = drag
+	if drag:
+		element_label.visible = true
+		scale = Vector2(1.05, 1.05)
+	else:
+		if !force_show_label: element_label.visible = false
+		scale = Vector2(1, 1)
+
+## External drag switch
+#? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
+func _on_object_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate object when mouse enters it collision shape
+func _on_object_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate object
+#endregion
+
+#region Object controls
+func _on_tower_validation(is_tower_valid : bool) -> void:
+	valid_tower = is_tower_valid
+	_toggle_orb(!valid_tower)
+
+func _invoke_tower() -> bool:
+	assert(StageManager.active_stage)
+	var tower : Tower = ElementManager.TOWER_ROOT_SCENE.instantiate()
+	tower.element = element
+	add_child(tower)
+	var insert = StageManager.active_stage.insert_tile_object(tower)
+	if !insert:
+		tower.remove_object()
+		_return_to_slot(true)
+		printerr('Tower insertion failed'); return false #? Couldn't insert object because insertion failed
+	else: destroy()
+	
+	tower._adapt_in_tile()
+	tower.process_mode = Node.PROCESS_MODE_INHERIT
+	tower.tower_placed.emit()
+	return true
+
+func _toggle_orb(toggle : bool) -> void:
+	var toggle_tween : Tween = get_tree().create_tween()
+	var modulation : Color
+	if toggle: modulation = Color.WHITE
+	else: modulation = Color(1,1,1,0.2)
+	toggle_tween.tween_property(self, "modulate", modulation, 0.3)
 #endregion

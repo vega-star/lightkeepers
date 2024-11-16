@@ -1,15 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dabti1py4rn1a"]
+[gd_scene load_steps=6 format=3 uid="uid://dabti1py4rn1a"]
 
 [ext_resource type="Script" path="res://scripts/ui/drag/draggable_object.gd" id="1_sw81t"]
 [ext_resource type="LabelSettings" uid="uid://corgcjje16a0i" path="res://assets/theme/tresfiles/element_label_settings.tres" id="3_lon1o"]
-[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_vdtyu"]
 [ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="4_ffuvr"]
 [ext_resource type="Script" path="res://scripts/ui/drag/draggable_object_sprite.gd" id="6_jtics"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqkb4"]
-shader = ExtResource("3_vdtyu")
-shader_parameter/line_color = Color(0.835294, 0.235294, 0.415686, 1)
-shader_parameter/line_thickness = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
 radius = 48.0
@@ -47,7 +41,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ObjectOrb" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_lqkb4")
 texture = ExtResource("4_ffuvr")
 
 [node name="ObjectElement" type="Sprite2D" parent="ObjectOrb"]

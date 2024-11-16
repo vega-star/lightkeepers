@@ -25,11 +25,12 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.667
-offset_bottom = -0.128021
+offset_right = 6.10352e-05
+offset_bottom = -168.128
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_js2na")
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 84
 text = "STAGE_SUCESS"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -37,17 +38,20 @@ vertical_alignment = 1
 [node name="StageSuccessText" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.708
+anchor_top = 0.687
 anchor_right = 1.0
-anchor_bottom = 0.797
-offset_top = -0.872009
-offset_bottom = -0.0480347
+anchor_bottom = 0.812
+offset_left = 15.0
+offset_top = 0.191986
+offset_right = -15.9999
+offset_bottom = 0.191986
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_js2na")
 text = "STAGE_SUCESS_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -61,23 +65,23 @@ offset_right = -14.5
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 6
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Restart" type="Button" parent="ButtonContainer"]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 text = "RESTART"
 
 [node name="Continue" type="Button" parent="ButtonContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 text = "CONTINUE"
 
 [node name="ReturnToMenu" type="Button" parent="ButtonContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 text = "MAIN_MENU"
 
 [connection signal="pressed" from="ButtonContainer/Restart" to="." method="_on_restart_pressed"]

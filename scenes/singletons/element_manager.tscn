@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/main/element_manager.gd" id="1_t5j04"]
 
-[node name="EventManager" type="Node"]
+[node name="ElementManager" type="Node"]
 script = ExtResource("1_t5j04")

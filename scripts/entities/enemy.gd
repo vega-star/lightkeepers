@@ -5,12 +5,12 @@ signal path_ended
 signal died(source : Node)
 
 const COIN_OFFSET_MAX : Vector2 = Vector2(50,50)
-const COIN_SCENE : PackedScene = preload("res://scenes/entities/other/pyrite_fragment.tscn")
+const COIN_SCENE : PackedScene = preload("res://scenes/entities/other/coin.tscn")
 const SCALE_CHANGE_WH : float = 1.15
 const SPEED_MULTIPLIER : int = 100
 const HEALTH_CHANGE_MPERIOD : float = 0.5
-const DAMAGE_MODULATE : Color = Color(5, 5, 5)
-const HEAL_MODULATE : Color = Color(1, 3, 1.5)
+const DAMAGE_MODULATE : Color = Color(1.5, 1.2, 1.2)
+const HEAL_MODULATE : Color = Color(1.2, 1.2, 1.5)
 enum ENEMY_CLASS {
 	CREEP,
 	BRUTE,
@@ -43,7 +43,6 @@ enum ENEMY_CLASS {
 var stored_scale : Vector2
 var line_agent : PathFollow2D #? Line2D node to follow
 var stage : Stage #? Stage to call upon
-
 var target : Node2D: set = _set_target
 var target_position : Vector2
 var nexus : Nexus

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c58pssyaml0sf"]
 
-[ext_resource type="Script" path="res://scripts/states/pupil_seeking.gd" id="1_gy5cp"]
+[ext_resource type="Script" path="res://scripts/states/seeking.gd" id="1_gy5cp"]
 
 [node name="TurretSeeking" type="Node"]
 process_mode = 1

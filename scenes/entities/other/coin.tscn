@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://ts6eel7hes36"]
+
+[ext_resource type="Texture2D" uid="uid://jvgswgkjq2c6" path="res://assets/particles/pyrite_fragment.png" id="1_8tlcy"]
+[ext_resource type="Texture2D" uid="uid://cv5bgvs5a13rm" path="res://assets/particles/pyrite_fragment_normal.png" id="2_1edw3"]
+[ext_resource type="Script" path="res://scenes/entities/other/coin.gd" id="3_gw2vy"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_h46xn"]
+diffuse_texture = ExtResource("1_8tlcy")
+normal_texture = ExtResource("2_1edw3")
+
+[sub_resource type="Curve" id="Curve_4iyd5"]
+_data = [Vector2(0, 0), 0.0, -0.393981, 0, 0, Vector2(0.877232, 1), -0.132273, 0.0, 0, 0, Vector2(1, 0), -23.0398, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ga18n"]
+offsets = PackedFloat32Array(0, 0.338384, 0.550505, 0.830808, 1)
+colors = PackedColorArray(0.968828, 0.254525, 0, 0, 0.912136, 0.350286, 0.11183, 0.76467, 0.943495, 0.615875, 0.473595, 1, 10, 1, 1, 1, 10, 1.5, 1.5, 1)
+
+[node name="Coin" type="Sprite2D"]
+self_modulate = Color(1.5, 1.14, 0.9, 1)
+scale = Vector2(2, 2)
+texture = SubResource("CanvasTexture_h46xn")
+script = ExtResource("3_gw2vy")
+
+[node name="Separator" type="Node" parent="."]
+
+[node name="CoinTrace" type="Line2D" parent="Separator"]
+visible = false
+scale = Vector2(2, 2)
+points = PackedVector2Array(0, 0)
+width = 4.0
+width_curve = SubResource("Curve_4iyd5")
+gradient = SubResource("Gradient_ga18n")

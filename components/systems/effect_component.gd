@@ -10,9 +10,9 @@ var active_effects : Array[Effect]
 
 func _ready() -> void: assert(health_component)
 
-func apply_effect(eid : int, metadata : Dictionary, source : Pupil) -> bool: ## Create, start, and manage effect
+func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## Create, start, and manage effect
 	var e_metadata : Dictionary = metadata
-	var source_lvl : int = source.pupil_upgrades.pupil_element_lvl
+	var source_lvl : int = source.tower_upgrades.tower_element_lvl
 	
 	if metadata.has("effect_metadata"):
 		if metadata["effect_metadata"] is Dictionary: e_metadata = metadata["effect_metadata"] #? Single effect
@@ -63,7 +63,7 @@ func compute_effect(
 		apply : bool = true ## If false, will cancel out the effect. Used to remove multipliers and such
 	) -> void:
 	var e_dict : Dictionary = e_ref.effect
-	var e_source : Pupil = e_ref.source
+	var e_source : Tower = e_ref.source
 	match int(e_dict["etype"]):
 		000: # DEBUG
 			print(e_dict["message"])

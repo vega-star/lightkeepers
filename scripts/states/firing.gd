@@ -1,12 +1,13 @@
-## Firing state
+## Firing state for Towers
 # Instantiate projectiles and fire at enemies
 # Continues to call functions and update firing status even when inactive, due to being a crucial state.
 extends State
 
 const SEEKING_ROTATION_SPEED : float = TAU * 2
 
+@export var firing_animation : Tower.FIRING_ANIMATIONS
 @export var seeking_state : State
-@export var burst_cooldown_damping : float = 2.5
+@export var burst_cooldown_damping : float = 5
 @export var projectile_mode : int = 1 #? Defaults to seeking
 @export var projectile_prop : bool = false
 @export var projectile_prop_sprite : Sprite2D
@@ -18,12 +19,13 @@ var active : bool = false
 var firing : bool = false
 var direction : Vector2
 var firing_buffered : bool = false
-var bullet_container : Node2D
+var projectile_container : Node2D
 
 #region State Functions
 func _ready() -> void:
+	assert(entity is Tower)
 	debug = state_machine.debug
-	bullet_container = get_tree().get_first_node_in_group('projectile_container')
+	projectile_container = StageManager.active_stage.projectile_container
 
 func enter() -> void:
 	active = true
@@ -37,13 +39,13 @@ func exit() -> void: active = false
 func state_physics_update(delta : float) -> void:
 	entity.tower_aim.force_raycast_update()
 	if is_instance_valid(entity.target): #? Control firing angle
-		direction = entity.tower_gun_sprite.global_position.direction_to(entity.target.global_position)
+		direction = entity.tower_attack_sprite.global_position.direction_to(entity.target.global_position)
 		entity._rotate_tower(direction, delta)
 #endregion
 
 #region Firing
 func _check_target() -> bool:
-	var valid : bool = (is_instance_valid(entity.target))
+	var valid : bool = is_instance_valid(entity.target) and !entity.eligible_targets.is_empty()
 	if !valid:
 		if debug: print(entity.name, ' stopped firing due to state change or target changed')
 		transition.emit(self, seeking_state)
@@ -63,31 +65,26 @@ func _start_firing() -> void:
 			firing_cooldown.set_wait_time(entity.firing_cooldown / burst_cooldown_damping)
 			for i in entity.burst:
 				_fire()
-				# firing_cooldown.start()
+				if !active: break
 				await firing_cooldown.timeout
 			firing_cooldown.set_wait_time(entity.firing_cooldown)
 		else: _fire()
-		
-		# firing_cooldown.start()
 		firing = false
 	else: if debug: print(entity.name, ' firing called, but it is already firing')
 
 func _fire() -> void:
-	var projectile : Projectile = entity.default_projectile.instantiate()
-	
-	if is_instance_valid(entity.target): 
-		projectile.target = entity.target
-		if debug: print(entity.name, ' firing at ', entity.target.get_path())
-	
+	var projectile : Projectile = entity.projectile_scene.instantiate()
+	if _check_target(): projectile.target = entity.target
 	if entity.element_metadata: projectile.projectile_effect_metadata = entity.element_metadata
 	if entity.element_metadata.has("root_color"): projectile.modulate = entity.element_metadata["root_color"]
 	projectile.projectile_mode = projectile_mode
 	projectile.damage = entity.damage
 	projectile.source = entity
-	projectile.global_position = entity.tower_gun_muzzle.global_position
-	projectile.global_rotation = entity.tower_gun_muzzle.global_rotation
+	projectile.global_position = entity.tower_projectile_point.global_position
+	projectile.global_rotation = entity.tower_sprite.global_rotation - entity.global_rotation
 	projectile.piercing_count = entity.piercing
-	
-	bullet_container.call_deferred("add_child", projectile) # add_child(projectile)
-	entity.tower_gun_sprite.play()
+	projectile.max_distance = entity.tower_range_shape.shape.radius
+	projectile_container.call_deferred("add_child", projectile)
+	entity.tower_attack_sprite.play()
+	print('Projectile spawned')
 #endregion

@@ -6,6 +6,7 @@ extends Node
 const BASE_QUANTITY : int = 2
 const element_metadata_PATH : String = "res://components/elements/element_metadata.json"
 const SPRITES_PATH : String = "res://assets/sprites/elements/"
+const TOWER_ROOT_SCENE : PackedScene = preload("res://scenes/towers/tower.tscn")
 const CONTROL_SLOT_SCENE : PackedScene = preload("res://scenes/ui/slots/control_slot.tscn")
 const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://scenes/ui/drag/draggable_object.tscn")
 const DEFAULT_ELEMENT_COLOR : Color = Color("ffec83")

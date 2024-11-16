@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://cld08hurv0ljg"]
 
-[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/pupil.tscn" id="1_e4sy1"]
-[ext_resource type="Script" path="res://scripts/resources/pupil_upgrade_tree.gd" id="5_u84ps"]
+[ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/tower.tscn" id="1_e4sy1"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="5_u84ps"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="6_dbxss"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="7_swxpc"]
 

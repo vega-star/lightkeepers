@@ -20,7 +20,8 @@ shape = SubResource("CircleShape2D_c2ngf")
 debug_color = Color(0.788235, 0.509804, 0.313726, 0.0431373)
 script = ExtResource("1_e5unc")
 noise = SubResource("NoiseTexture2D_wyliy")
-default_color = Color(0.976471, 0.694118, 0.172549, 1)
+default_color = Color(0.991214, 0.766173, 0.410715, 1)
+oscillation = true
 
 [node name="ShapePointLight" type="PointLight2D" parent="."]
 energy = 2.0

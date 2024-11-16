@@ -18,7 +18,9 @@ const TURN_UPDATE_PERIOD : float = 0.75
 @export var hide_elements_when_start : bool = true
 
 #region Node references
+@onready var tower_panel : TowerPanel = $UILayer/TowerPanel
 @onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/StageMeter/StageMeterBar
+@onready var play_button : TextureButton = $UILayer/CornerPanel/PlayButton
 @onready var life_label : Label = $UILayer/TopBar/LifeCounter/LifeLabel
 @onready var coin_label : Label = $UILayer/TopBar/CoinCounter/CoinLabel
 @onready var coin_icon : TextureButton = $UILayer/TopBar/CoinCounter/CoinIcon
@@ -49,12 +51,6 @@ func turn_update(turn : int, max_turn : int):
 # func bind_element_picked_signal(emitting_signal : Signal): emitting_signal.connect(_on_element_picked)
 
 func _on_screen_mouse_exited() -> void: pass
-
-func collect_coin(fragment : Node, value : int) -> void:
-	var collector_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-	collector_tween.tween_property(fragment, "global_position", coin_icon.global_position, 1.2)
-	await collector_tween.finished
-	StageManager.active_stage_agent.change_coins(value, true)
 #endregion
 
 #region Inputs and buttons
@@ -63,9 +59,11 @@ func _input(_event) -> void:
 
 func _on_play_button_pressed():
 	turn_pass_requested.emit()
-	$UILayer/CornerPanel/PlayButton.release_focus()
+	play_button.release_focus()
 
-func _on_autoplay_button_toggled(toggled_on): autoplay_toggled.emit(toggled_on)
+func _on_autoplay_button_toggled(toggled_on) -> void:
+	UI.autoplay_turn = toggled_on
+	autoplay_toggled.emit(toggled_on)
 
 func update_status( #? Only updates label. The values are modified by StageAgent only
 		label : Label,
@@ -88,20 +86,6 @@ func _on_options_button_pressed() -> void:
 func _on_hide_fuse_menu_button_pressed() -> void:
 	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var new_x : int = 0
-	'''
-	if fuse_system.visible:
-		new_x = -(hide_button.size.x)
-		hide_button.flip_h = false
-		fuse_system.pop()
-	else:
-		fuse_system.set_visible(true)
-		new_x = -(element_bar.size.x)
-		hide_button.flip_h = true
-	
-	hide_tween.tween_property(element_bar, "position", Vector2(new_x, element_bar.position.y), 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	await hide_tween.finished
-	fuse_system.visible = !fuse_system.visible
-	'''
 
 ## Mouse detector - Useful to prevent positioning/interacting with objects behind UI buttons
 func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; mouse_on_ui_changed.emit(false)

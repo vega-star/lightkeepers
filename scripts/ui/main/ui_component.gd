@@ -48,7 +48,6 @@ func toggle_speed(toggle : bool) -> void:
 	speed_toggled = toggle
 	if toggle: Engine.time_scale = TIME_SCALE_MULTIPLY
 	else: Engine.time_scale = 1
-	speed_cached = toggle
 	speed_changed.emit(toggle)
 
 func fade(mode) -> void:
@@ -62,9 +61,12 @@ func fade(mode) -> void:
 	transition_layer.set_visible(visibility)
 
 func _on_wave_activity_changed(active: bool) -> void:
-	if !autoplay_turn: toggle_speed(false)
-	if speed_cached: toggle_speed(true)
+	if active:
+		if speed_cached: toggle_speed(true)
+	else:
+		if !autoplay_turn: toggle_speed(false)
 
 func _on_turn_pass_requested() -> void:
 	if UI.wave_is_active: #? Makes the game go faster with the same action that passes the turn
 		UI.toggle_speed(!UI.speed_toggled)
+		speed_cached = !speed_cached
