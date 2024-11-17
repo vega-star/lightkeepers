@@ -23,7 +23,8 @@ func _smooth_button_load() -> void:
 		await get_tree().create_timer(NEXT_BUTTON_TIMEOUT).timeout
 
 func _on_start_button_pressed() -> void:
-	owner.set_page(stage_selection_page) # Stage Selection
+	# owner.set_page(stage_selection_page) # Stage Selection
+	LoadManager.load_scene("res://scenes/stages/stage_files/stage_001.tscn") #MAKESHIFT!
 
 func _on_settings_button_pressed() -> void:
 	if !Options.visible: Options.show()
