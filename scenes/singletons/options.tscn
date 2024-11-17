@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_urf2e"]
 [ext_resource type="PackedScene" uid="uid://dxc05c2onoqru" path="res://scenes/ui/buttons/keybind_button.tscn" id="4_v5h0o"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="5_qcqxc"]
-[ext_resource type="Texture2D" uid="uid://ekrnron0ftim" path="res://assets/prototypes/x.png" id="6_no68u"]
+[ext_resource type="Texture2D" uid="uid://ekrnron0ftim" path="res://assets/temp/x.png" id="6_no68u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shlta"]
 atlas = ExtResource("3_ocn82")

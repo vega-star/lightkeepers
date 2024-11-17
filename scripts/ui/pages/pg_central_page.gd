@@ -4,7 +4,7 @@ const BUTTON_SHOW_TIMEOUT : float = 0.12
 const NEXT_BUTTON_TIMEOUT : float = 0.2
 
 @export var stage_selection_page : MenuPage
-
+@onready var page_player : AnimationPlayer = $PagePlayer
 @onready var buttons_container : VBoxContainer = $ButtonsContainer
 @onready var quit_button : Button = $ButtonsContainer/QuitButton
 
@@ -13,6 +13,7 @@ func _ready() -> void:
 		quit_button.visible = false #! Cannot quit on web. Will simply crash
 	for b in buttons_container.get_children(): b.self_modulate = Color.TRANSPARENT
 	_page_ready()
+	# page_player.play("page_loaded")
 
 func _smooth_button_load() -> void:
 	for b in buttons_container.get_children():
@@ -32,3 +33,6 @@ func _on_quit_button_pressed() -> void: # QuitButton
 	get_tree().quit()
 
 func _on_github_button_pressed() -> void: OS.shell_open("https://github.com/vega-star/lightkeepers")
+
+func _on_credits_pressed() -> void:
+	pass # Replace with function body.

@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/main/nexus.gd" id="7_boe6g"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="7_ent1l"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="8_583ix"]
-[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="9_jysst"]
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/temp/neutral_point_2d.webp" id="9_jysst"]
 [ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://scenes/ui/stage_camera.tscn" id="10_eexex"]
 
 [sub_resource type="Curve2D" id="Curve2D_v06dm"]

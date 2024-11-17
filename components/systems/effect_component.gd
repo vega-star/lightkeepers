@@ -2,8 +2,6 @@ class_name EffectComponent extends Node
 
 @onready var health_component: HealthComponent = $".."
 
-@export var debug : bool = false
-
 var cached_effect : Effect
 var active_eids : Array[int] #w Quicker to query than individual nodes
 var active_effects : Array[Effect]
@@ -18,7 +16,7 @@ func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## 
 		if metadata["effect_metadata"] is Dictionary: e_metadata = metadata["effect_metadata"] #? Single effect
 		elif metadata["effect_metadata"] is Array: for e in metadata["effect_metadata"]: apply_effect(eid, e, source); return true #? Multiple effects nested
 	
-	if debug: print(owner.root_node.name, ' | Effect applied: ', metadata)
+	if health_component.debug: print(owner.root_node.name, ' | Effect applied: ', metadata)
 	if active_eids.has(eid):
 		var a_effect : Effect
 		for e in active_effects: if e.eid == eid: a_effect = e
@@ -71,7 +69,7 @@ func compute_effect(
 			if !apply: return
 			var d_value : int = roundi(e_dict["value"] * e_ref.level)
 			if e_dict["stackable"] and e_ref.stacks > 1: d_value *= e_ref.stacks
-			if debug: print(e_dict["ename"], '| Damaging ', owner.root_node.name, ' with ', d_value, ' multiplied by ', e_ref.stacks, ' stacks')
+			if health_component.debug: print(e_dict["ename"], '| Damaging ', owner.root_node.name, ' with ', d_value, ' multiplied by ', e_ref.stacks, ' stacks')
 			
 			if is_instance_valid(e_source): health_component.change(d_value, apply, e_ref.source)
 			else: health_component.change(d_value, apply)

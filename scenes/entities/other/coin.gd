@@ -8,7 +8,7 @@ const SHINE_MODULATION_MULTIPLY : float = 5.0
 const VALUE_THRESHOLD : int = 5
 const COLLECTION_TIMEOUT : float = 3
 
-@onready var pyrite_trace: Line2D = $Separator/PyriteTrace
+@onready var pyrite_trace: Line2D = $Separator/CoinTrace
 
 var automatic_collect : bool = true
 var go_to_collect : bool

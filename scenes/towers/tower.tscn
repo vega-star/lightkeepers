@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="4_bwa4k"]
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="5_jeyg0"]
 [ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="6_bxyej"]
-[ext_resource type="Texture2D" uid="uid://dnjj640nvv3gk" path="res://assets/prototypes/pupil_area.png" id="8_n13nq"]
-[ext_resource type="Texture2D" uid="uid://du4bmxe2x665m" path="res://assets/prototypes/pupil_hands.png" id="8_uga7s"]
+[ext_resource type="Texture2D" uid="uid://dnjj640nvv3gk" path="res://assets/temp/pupil_area.png" id="8_n13nq"]
+[ext_resource type="Texture2D" uid="uid://du4bmxe2x665m" path="res://assets/temp/pupil_hands.png" id="8_uga7s"]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ifgyb"]
 

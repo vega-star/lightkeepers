@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://brbqmcfgkka7f"]
+[gd_scene load_steps=44 format=3 uid="uid://brbqmcfgkka7f"]
 
 [ext_resource type="Script" path="res://scripts/main/interface.gd" id="1_7no1j"]
 [ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://scenes/ui/canvas_layers/ui_event_layer.tscn" id="2_7rfuu"]
@@ -10,20 +10,25 @@
 [ext_resource type="Texture2D" uid="uid://bgv4ohxpnu7ph" path="res://assets/sprites/misc/gears_capped.png" id="7_4ri6c"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://scenes/ui/slots/control_slot.tscn" id="8_am10k"]
 [ext_resource type="Texture2D" uid="uid://dg6qjr6jhe7gc" path="res://assets/sprites/ui/heart.png" id="8_p5hmd"]
+[ext_resource type="Texture2D" uid="uid://bubwsukcf1thd" path="res://assets/temp/topbar_test.png" id="9_7udt7"]
 [ext_resource type="Texture2D" uid="uid://cg1ukv3bt57ya" path="res://assets/sprites/misc/stage_progress.png" id="9_mfelc"]
 [ext_resource type="Texture2D" uid="uid://dwosvdhg2ooxc" path="res://assets/sprites/misc/stage_progress_normal.png" id="10_b8yux"]
 [ext_resource type="Texture2D" uid="uid://c1xrdahx5g2j2" path="res://assets/sprites/ui/pyrite.png" id="10_e1p4o"]
 [ext_resource type="Script" path="res://scripts/ui/element_container.gd" id="11_vob4m"]
 [ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://components/elements/default_elements/FireElement.tres" id="13_hlgc1"]
-[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/prototypes/gear.png" id="14_rjvi7"]
+[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/temp/gear.png" id="14_rjvi7"]
 [ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://components/elements/default_elements/WaterElement.tres" id="15_sqh7q"]
 [ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://components/elements/default_elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
 [ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://scenes/ui/drag/draggable_orb.tscn" id="17_opm6q"]
 [ext_resource type="Texture2D" uid="uid://c8hmt5e5vmgt4" path="res://assets/theme/textures/stylebox_screen_frame.png" id="17_wrifp"]
+[ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="18_fs2ya"]
 [ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://components/elements/default_elements/EarthElement.tres" id="19_a637k"]
-[ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/prototypes/play_button.png" id="19_k7dll"]
+[ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/temp/play_button.png" id="19_k7dll"]
+[ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="21_mr8h5"]
+[ext_resource type="Texture2D" uid="uid://bcfhqtysyihks" path="res://assets/sprites/elements/air.png" id="24_hfjhk"]
 [ext_resource type="PackedScene" uid="uid://b3tvxsgupe3gs" path="res://components/systems/tower_panel.tscn" id="25_lo481"]
+[ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="27_gvis4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
 texture = ExtResource("17_wrifp")
@@ -185,6 +190,18 @@ offset_bottom = 0.0
 grow_vertical = 2
 focus_button_group = SubResource("ButtonGroup_6gsry")
 
+[node name="TopbarTest" type="TextureRect" parent="UILayer"]
+z_index = -10
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.306
+anchor_right = 0.694
+anchor_bottom = 0.132
+offset_left = 0.319977
+offset_right = -0.320007
+offset_bottom = -0.0400009
+texture = ExtResource("9_7udt7")
+
 [node name="TopBar" type="HBoxContainer" parent="UILayer"]
 layout_mode = 1
 anchors_preset = -1
@@ -299,6 +316,9 @@ home_slot = NodePath("..")
 element_register = ExtResource("2_ly4ir")
 element = ExtResource("13_hlgc1")
 
+[node name="OrbElement" parent="UILayer/Elements/ScrollContainer/ElementsContainer/FireContainer/Slot/FireOrb/Orb" index="0"]
+texture = ExtResource("18_fs2ya")
+
 [node name="WaterContainer" parent="UILayer/Elements/ScrollContainer/ElementsContainer" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("3_iqwj1")
@@ -314,6 +334,9 @@ active_slot = NodePath("..")
 home_slot = NodePath("..")
 element_register = ExtResource("3_iqwj1")
 element = ExtResource("15_sqh7q")
+
+[node name="OrbElement" parent="UILayer/Elements/ScrollContainer/ElementsContainer/WaterContainer/Slot/WaterOrb/Orb" index="0"]
+texture = ExtResource("21_mr8h5")
 
 [node name="AirContainer" parent="UILayer/Elements/ScrollContainer/ElementsContainer" instance=ExtResource("8_am10k")]
 layout_mode = 2
@@ -331,6 +354,9 @@ home_slot = NodePath("..")
 element_register = ExtResource("4_06pcj")
 element = ExtResource("17_7oxc3")
 
+[node name="OrbElement" parent="UILayer/Elements/ScrollContainer/ElementsContainer/AirContainer/Slot/AirOrb/Orb" index="0"]
+texture = ExtResource("24_hfjhk")
+
 [node name="EarthContainer" parent="UILayer/Elements/ScrollContainer/ElementsContainer" instance=ExtResource("8_am10k")]
 layout_mode = 2
 slot_register = ExtResource("5_5ri6y")
@@ -346,6 +372,9 @@ active_slot = NodePath("..")
 home_slot = NodePath("..")
 element_register = ExtResource("5_5ri6y")
 element = ExtResource("19_a637k")
+
+[node name="OrbElement" parent="UILayer/Elements/ScrollContainer/ElementsContainer/EarthContainer/Slot/EarthOrb/Orb" index="0"]
+texture = ExtResource("27_gvis4")
 
 [node name="SlotPlaceholder0" parent="UILayer/Elements/ScrollContainer/ElementsContainer" instance_placeholder="res://scenes/ui/slots/control_slot.tscn"]
 layout_mode = 2

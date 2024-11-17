@@ -12,7 +12,6 @@ radius = 48.0
 process_mode = 3
 z_index = 5
 script = ExtResource("1_5pd6g")
-debug = true
 metadata/_edit_vertical_guides_ = [50.0]
 
 [node name="ElementLabel" type="Label" parent="."]
@@ -33,9 +32,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Orb" type="Sprite2D" parent="."]
+z_index = 10
 texture = ExtResource("3_r4jiq")
 
 [node name="OrbElement" type="Sprite2D" parent="Orb"]
+z_index = 15
 script = ExtResource("4_grtmq")
 
 [node name="OrbCollision" type="Area2D" parent="."]
@@ -51,4 +52,3 @@ debug_color = Color(0.703217, 0.292634, 0.549932, 0.065)
 [connection signal="body_exited" from="OrbCollision" to="." method="_on_orb_collision_body_exited"]
 [connection signal="mouse_entered" from="OrbCollision" to="." method="_on_orb_collision_mouse_entered"]
 [connection signal="mouse_exited" from="OrbCollision" to="." method="_on_orb_collision_mouse_exited"]
-[connection signal="mouse_shape_entered" from="OrbCollision" to="." method="_on_orb_collision_mouse_shape_entered"]

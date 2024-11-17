@@ -1,3 +1,5 @@
+## StageCamera class
+## Navigation made easy with cursor-anchored controls
 class_name StageCamera
 extends Camera2D
 
@@ -36,11 +38,10 @@ func _process(delta) -> void:
 	
 	if direction != Vector2.ZERO: ## Move by keybinds
 		position += (direction * keybind_movement_multiplier) / zoom
-		_clamp_pos_by_limit() #? Clamp position every process run, but only if a direction vector is set
 	
 	if drag_enabled: ## Move by drag
 		if clicked: c_lock = true; _drag()
-		elif !clicked and c_lock: c_lock = false; _clamp_pos_by_limit() #? Clamp position after drag is finished
+		elif !clicked and c_lock: c_lock = false #? Clamp position after drag is finished
 
 func _physics_process(delta: float) -> void:
 	if enable_camera_shake: ## Camera shake
@@ -72,13 +73,6 @@ func _set_zoom_level(value: float) -> void:
 	zoom += delta
 	var new_mouse_pos : Vector2 = get_global_mouse_position()
 	position += mouse_pos - new_mouse_pos
-
-func _clamp_pos_by_limit() -> void:
-	var limit_offset : Vector2 = get_viewport().size / 2 #? Gets half of the screen size
-	set_global_position(global_position.clamp( #? Convert and prevent clipping through limits
-		Vector2(get_limit(SIDE_LEFT) + limit_offset.x / zoom.x, get_limit(SIDE_TOP) + limit_offset.y / zoom.x),
-		Vector2(get_limit(SIDE_RIGHT) - limit_offset.x / zoom.x, get_limit(SIDE_BOTTOM) - limit_offset.y / zoom.x)
-	))
 #endregion
 
 #region Additional functions

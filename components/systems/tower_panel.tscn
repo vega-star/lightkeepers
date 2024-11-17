@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://scripts/main/tower_panel.gd" id="2_t7fna"]
 [ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_howsy"]
 [ext_resource type="Texture2D" uid="uid://cgskcr0k8rb7r" path="res://assets/sprites/misc/logo_sage.png" id="5_qgpe8"]
-[ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/prototypes/next_button.png" id="6_3nfkb"]
+[ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/temp/next_button.png" id="6_3nfkb"]
 [ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="7_pyghb"]
-[ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/prototypes/pyrite.png" id="8_h1wfd"]
+[ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/temp/pyrite.png" id="8_h1wfd"]
 
 [node name="TowerPanel" type="Panel"]
 offset_top = 56.0

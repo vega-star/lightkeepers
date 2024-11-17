@@ -1,12 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1exo4vhhmcgf"]
+[gd_scene load_steps=18 format=3 uid="uid://c1exo4vhhmcgf"]
 
 [ext_resource type="Script" path="res://scripts/ui/pages/pg_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
 [ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/misc/lightkeepers_logo.png" id="3_3uyyw"]
+[ext_resource type="Texture2D" uid="uid://cr13gsku30rfr" path="res://assets/temp/menu_tests/bg_prototype_5.png" id="3_kpego"]
+[ext_resource type="Texture2D" uid="uid://dwm2jneomlt5c" path="res://assets/temp/menu_tests/bg_prototype_4.png" id="4_3jow6"]
 [ext_resource type="Texture2D" uid="uid://xq6u5btf74sp" path="res://assets/sprites/misc/github_icon/github_icon.png" id="5_h0be6"]
+[ext_resource type="Texture2D" uid="uid://cygyy1klx14tt" path="res://assets/temp/menu_tests/bg_prototype_3.png" id="5_sq4dg"]
 [ext_resource type="Texture2D" uid="uid://u1y5p3hmbb6i" path="res://assets/sprites/misc/github_icon/github_icon_pressed.png" id="6_403fq"]
+[ext_resource type="Texture2D" uid="uid://chkheq7cxyt64" path="res://assets/temp/menu_tests/bg_prototype_2.png" id="6_h3dmq"]
 [ext_resource type="Texture2D" uid="uid://d2s84fwr7i2nu" path="res://assets/sprites/misc/github_icon/github_icon_hovered.png" id="7_5ivjt"]
+[ext_resource type="Texture2D" uid="uid://ciugglxlxtk4x" path="res://assets/temp/menu_tests/bg_prototype_1.png" id="7_k3gbm"]
 [ext_resource type="Texture2D" uid="uid://j2c5jng3drea" path="res://assets/sprites/misc/github_icon/github_icon_disabled.png" id="8_i7v0j"]
+[ext_resource type="Texture2D" uid="uid://d08vwr3rgqdrm" path="res://assets/temp/menu_tests/bg_prototype_0.png" id="8_m12r8"]
 [ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/misc/github_icon/github_icon_focused.png" id="9_s7u8m"]
 [ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/misc/github_icon/github_icon.bmp" id="10_tt3vd"]
 
@@ -61,47 +67,75 @@ tracks/3/keys = {
 "method": &"_smooth_button_load"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_mrjo1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Logo:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1.32, 1.15, 1, 1)]
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MenuParallax/Foreground1:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(80, -0.25, 0, 0.25, 0, 315.5, -1.1, 1.5, 0.25, 0),
+"times": PackedFloat32Array(0, 2.7)
 }
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Logo:position:x")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(640, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MenuParallax/Foreground2:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(256, -0.25, 0, 0.25, 0, 408.5, -1.06667, -2, 0.25, 0),
+"times": PackedFloat32Array(0, 2.7)
 }
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Logo:position:y")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(192, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MenuParallax/Foreground3:position:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(376, -0.25, 0, 0.25, 0, 419.5, -0.9, 3, 0.25, 0),
+"times": PackedFloat32Array(0, 2.7)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("MenuParallax/City:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(464, -0.25, 0, 0.25, 0, 427.5, -0.466667, -5, 0.25, 0),
+"times": PackedFloat32Array(0, 2.73333)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("MenuParallax/Beacon:position:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(480, -0.25, 0, 0.25, 0, 466.5, -0.966667, -5.5, 0.25, 0),
+"times": PackedFloat32Array(0, 2.66667)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("MenuParallax/Sky1:position:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0, 364.5, -2.23333, 2.5, 0.25, 0),
+"times": PackedFloat32Array(0, 2.66667)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xst4h"]
 _data = {
-"RESET": SubResource("Animation_mrjo1"),
 "page_loaded": SubResource("Animation_xw6pm")
 }
 
@@ -132,7 +166,47 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0602301, 0.0619733, 0.120673, 1)
 
-[node name="Foreground" type="ParallaxLayer" parent="MenuParallax"]
+[node name="Foreground1" type="ParallaxLayer" parent="MenuParallax"]
+position = Vector2(640, 315.5)
+motion_scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground1"]
+texture = ExtResource("3_kpego")
+
+[node name="Foreground2" type="ParallaxLayer" parent="MenuParallax"]
+position = Vector2(640, 408.5)
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground2"]
+texture = ExtResource("4_3jow6")
+
+[node name="Foreground3" type="ParallaxLayer" parent="MenuParallax"]
+position = Vector2(640, 419.5)
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground3"]
+texture = ExtResource("5_sq4dg")
+
+[node name="City" type="ParallaxLayer" parent="MenuParallax"]
+position = Vector2(640, 427.5)
+motion_scale = Vector2(0.15, 0.15)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/City"]
+texture = ExtResource("6_h3dmq")
+
+[node name="Beacon" type="ParallaxLayer" parent="MenuParallax"]
+position = Vector2(640, 466.5)
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Beacon"]
+texture = ExtResource("7_k3gbm")
+
+[node name="Sky1" type="ParallaxLayer" parent="MenuParallax"]
+position = Vector2(640, 364.5)
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Sky1"]
+texture = ExtResource("8_m12r8")
 
 [node name="Logo" type="Sprite2D" parent="."]
 self_modulate = Color(1.32, 1.15, 1, 1)
@@ -213,6 +287,7 @@ theme = ExtResource("1_3vsxr")
 text = "SETTINGS"
 
 [node name="Credits" type="Button" parent="ButtonsContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("1_3vsxr")
@@ -228,4 +303,5 @@ text = "QUIT"
 [connection signal="pressed" from="ButtonsContainer/LoadButton" to="ButtonsContainer/LoadButton" method="_on_pressed"]
 [connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]

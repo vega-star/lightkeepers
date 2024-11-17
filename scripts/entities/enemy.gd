@@ -6,10 +6,10 @@ signal died(source : Node)
 
 const COIN_OFFSET_MAX : Vector2 = Vector2(50,50)
 const COIN_SCENE : PackedScene = preload("res://scenes/entities/other/coin.tscn")
-const SCALE_CHANGE_WH : float = 1.15
+const SCALE_CHANGE_WH : float = 1.1
 const SPEED_MULTIPLIER : int = 100
 const HEALTH_CHANGE_MPERIOD : float = 0.5
-const DAMAGE_MODULATE : Color = Color(1.5, 1.2, 1.2)
+const DAMAGE_MODULATE : Color = Color(1.35, 1.2, 1.2)
 const HEAL_MODULATE : Color = Color(1.2, 1.2, 1.5)
 enum ENEMY_CLASS {
 	CREEP,

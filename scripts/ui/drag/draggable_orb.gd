@@ -96,6 +96,13 @@ func _process(_delta) -> void:
 			if valid_tower: _invoke_tower()
 			elif target_slot: _insert(target_slot)
 			else: _return_to_slot()
+
+func _toggle_orb(toggle : bool) -> void:
+	var toggle_tween : Tween = get_tree().create_tween()
+	var modulation : Color
+	if toggle: modulation = Color.WHITE
+	else: modulation = Color(1,1,1,0.1)
+	toggle_tween.tween_property(self, "modulate", modulation, 0.3)
 #endregion
 
 #region Slot controls
@@ -217,15 +224,4 @@ func _invoke_tower() -> bool:
 	prop_tower.process_mode = Node.PROCESS_MODE_INHERIT
 	prop_tower.tower_placed.emit()
 	return true
-
-func _toggle_orb(toggle : bool) -> void:
-	var toggle_tween : Tween = get_tree().create_tween()
-	var modulation : Color
-	if toggle: modulation = Color.WHITE
-	else: modulation = Color(1,1,1,0.2)
-	toggle_tween.tween_property(self, "modulate", modulation, 0.3)
 #endregion
-
-
-func _on_orb_collision_mouse_shape_entered(shape_idx: int) -> void:
-	pass # Replace with function body.

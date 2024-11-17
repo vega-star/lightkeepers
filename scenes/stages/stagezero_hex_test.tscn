@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="3_3x4su"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="4_4v3u3"]
 [ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/canvas_layers/ui_screen_effect_layer.tscn" id="5_l45vk"]
-[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/prototypes/neutral_point_2d.webp" id="6_wt6sx"]
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/temp/neutral_point_2d.webp" id="6_wt6sx"]
 [ext_resource type="Script" path="res://scripts/controls/detection_ray.gd" id="7_t3ol7"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="8_itb6e"]
 [ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://components/systems/mouse_light.tscn" id="9_pgeav"]

@@ -106,6 +106,7 @@ func _ready() -> void:
 func adapt_register(new_reg : ElementRegister) -> void:
 	element_register = new_reg
 	set_name(element_register.element.element_id.to_upper() + "_MAGE")
+	element_metadata = ElementManager.query_metadata(element_register.element.element_id)
 	tower_name = name
 
 func _configure() -> void:

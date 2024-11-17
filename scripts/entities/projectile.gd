@@ -10,10 +10,6 @@ const PITCH_VARIATION : Vector2 = Vector2(0.7,1.3)
 
 @export_group('Projectile Properties')
 @export var projectile_mode : PROJECTILE_MODES = 0 ## Affects processes and movement
-@export var base_speed : int = 350
-@export var base_piercing : int = 1
-@export var base_damage : int = 5
-@export var base_seeking_weight : float = 0.5
 
 @export_group('Cosmetic Properties')
 @export var sfx_when_launched : Array[String]
@@ -32,21 +28,17 @@ var trail_points : Array
 var active : bool = true
 var source : Object
 var target : Object
-var speed : int
-var damage : int
+var speed : int = 300
+var damage : int = 1
 var piercing_count : int = 1
-var seeking_weight : float = 1
+var seeking_weight : float = 0.5
 var stored_direction : Vector2
 var init_pos : Vector2
 var projectile_effect_metadata : Dictionary: set = _set_projectile_effect_metadata #? Stores a series of values useful to effects, changing colors, etc. while not being attatched to the element itself
 
-func _ready() -> void:
-	seeking_weight = base_seeking_weight
-	speed = base_speed
-	damage = base_damage
-	_activate()
+func _ready() -> void: _activate()
 
-func _charge() -> void:
+func _charge() -> void: #TODO
 	pass
 
 func _activate() -> void:

@@ -24,14 +24,12 @@ const SHAPE_RADIUS : float = 48
 
 var hovered : bool = false: set = _set_hover
 
-func _ready() -> void: 
-	UI.drag_changed.connect(_drag_toggled)
+func _ready() -> void: UI.drag_changed.connect(_drag_toggled)
 
 #region Object Controls
 func _set_orb(new_orb : DraggableOrb) -> void:
 	if is_instance_valid(active_orb): active_orb.orb_picked.disconnect(_remove_orb)
 	if !new_orb: active_orb = null; return
-	
 	active_orb = new_orb
 	active_orb.orb_picked.connect(_on_orb_picked)
 	active_orb.orb_picked.connect(_remove_orb)

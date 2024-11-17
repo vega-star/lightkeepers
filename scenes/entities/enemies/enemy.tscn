@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://o5mky6r70x32"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_kxej8"]
-[ext_resource type="Texture2D" uid="uid://dibbrd1kbippn" path="res://assets/prototypes/bug.png" id="1_o5a3q"]
+[ext_resource type="Texture2D" uid="uid://dibbrd1kbippn" path="res://assets/temp/bug.png" id="1_o5a3q"]
 [ext_resource type="PackedScene" uid="uid://btexoyve5l7pp" path="res://components/systems/health_component.tscn" id="2_ivbjf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_av3hw"]
@@ -16,6 +16,7 @@ smart_enemy = false
 enemy_sprite = NodePath("EnemySprite")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_ivbjf")]
+debug = true
 
 [node name="NavigationAgent" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1

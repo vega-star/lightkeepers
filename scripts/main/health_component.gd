@@ -14,7 +14,7 @@ signal life_consumed
 @export_category("Health Properties")
 @export var lives : int = 1
 @export var max_health : int = 5
-@export var print_change : bool = false
+@export var debug : bool = false
 
 @export_group('Node Connections')
 @export var root_node : Node # Optional. Attaches to scene owner by default.
@@ -48,7 +48,7 @@ func change(amount : int, negative : bool = true, source : Node = null) -> void:
 	else: health += amount
 	if health <= 0: invoke_death(source)
 	
-	if print_change: print(owner.name, ' health changed from ', _previous_value, ' to ', health)
+	if debug: print(owner.name, ' health changed from ', _previous_value, ' to ', health)
 	health_change.emit(_previous_value, health, negative)
 
 func invoke_death(source : Node) -> void:
