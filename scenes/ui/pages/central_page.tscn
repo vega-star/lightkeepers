@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1exo4vhhmcgf"]
+[gd_scene load_steps=13 format=3 uid="uid://c1exo4vhhmcgf"]
 
 [ext_resource type="Script" path="res://scripts/ui/pages/pg_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
@@ -9,6 +9,101 @@
 [ext_resource type="Texture2D" uid="uid://j2c5jng3drea" path="res://assets/sprites/misc/github_icon/github_icon_disabled.png" id="8_i7v0j"]
 [ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/misc/github_icon/github_icon_focused.png" id="9_s7u8m"]
 [ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/misc/github_icon/github_icon.bmp" id="10_tt3vd"]
+
+[sub_resource type="Animation" id="Animation_xw6pm"]
+resource_name = "page_loaded"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333334, 0.566667, 1.93333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1.32, 1.15, 1, 0), Color(1.32, 1.15, 1, 0.2), Color(1.32, 1.15, 1, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(640, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.566667, 2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Logo:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(152, -0.25, 0, 0.333333, -20.5, 192, -1.36667, 9.5, 0.25, 0),
+"times": PackedFloat32Array(0, 2.06667)
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_smooth_button_load"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_mrjo1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.32, 1.15, 1, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(640, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Logo:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(192, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xst4h"]
+_data = {
+"RESET": SubResource("Animation_mrjo1"),
+"page_loaded": SubResource("Animation_xw6pm")
+}
 
 [node name="CentralPage" type="Control" node_paths=PackedStringArray("default_focus_node")]
 layout_mode = 3
@@ -21,8 +116,13 @@ theme = ExtResource("1_3vsxr")
 script = ExtResource("1_2dyl0")
 default_focus_node = NodePath("ButtonsContainer/StartButton")
 
+[node name="PagePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xst4h")
+}
+autoplay = "page_loaded"
+
 [node name="MenuParallax" type="ParallaxBackground" parent="."]
-visible = false
 
 [node name="BG" type="ColorRect" parent="MenuParallax"]
 anchors_preset = 15
@@ -30,7 +130,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0923971, 0.0923971, 0.0923971, 1)
+color = Color(0.0602301, 0.0619733, 0.120673, 1)
 
 [node name="Foreground" type="ParallaxLayer" parent="MenuParallax"]
 

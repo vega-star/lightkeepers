@@ -1,8 +1,8 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c04o6erl0d576"]
 
 [ext_resource type="Shader" path="res://assets/shaders/ohdude_palette.gdshader" id="1_vgf1c"]
-[ext_resource type="Texture2D" uid="uid://b15wvo0ekdp7" path="res://assets/materials/resurrect-64-1x.png" id="2_paqdv"]
+[ext_resource type="Texture2D" uid="uid://b15wvo0ekdp7" path="res://assets/palettes/resurrect-64-1x.png" id="2_nbf8j"]
 
 [resource]
 shader = ExtResource("1_vgf1c")
-shader_parameter/palette = ExtResource("2_paqdv")
+shader_parameter/palette = ExtResource("2_nbf8j")

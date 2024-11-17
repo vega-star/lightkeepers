@@ -1,7 +1,10 @@
-class_name DraggableObject extends Node2D
+## DraggableOrb
+## Complex drag-n-drop class with multiple functions to fit in slots, create towers, all the fun things
+## Tried my best to not clusterize these functions
+class_name DraggableOrb extends Node2D
 
-signal object_picked
-signal object_inserted
+signal orb_picked
+signal orb_inserted
 
 const ELEMENT_COLORS : Dictionary = {
 	"fire": Color.ORANGE_RED,
@@ -14,64 +17,73 @@ const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png"
 
 #region Variables
 @export var active_slot : Slot #? Currently active slot
-@export var home_slot : Slot #? Slot on which it returns if something goes wrong or the screen which it was positioned gets closed
+@export var home_slot : Slot #? Slot on which it returns if requested or something goes wrong
+@export var element_register : ElementRegister: set = _set_element_reg
 @export var element : Element: set = _set_element
 @export var debug : bool = false
 
-@onready var object_collision : Area2D = $ObjectCollision
-@onready var object_collision_area : CollisionShape2D = $ObjectCollision/ObjectCollisionArea
-@onready var object_element_sprite : Sprite2D = $ObjectOrb/ObjectElement
+@onready var orb_sprite : Sprite2D = $Orb
+@onready var orb_element_sprite : DraggableOrbSprite = $Orb/OrbElement
+@onready var orb_collision : Area2D = $OrbCollision
+@onready var orb_collision_area : CollisionShape2D = $OrbCollision/OrbCollisionArea
 @onready var element_label : Label = $ElementLabel
-@onready var object_orb : Sprite2D = $ObjectOrb
 
+var target_slot : Slot #? Slot selected between overlapping bodies 
+
+var orb_type : int
 var offset : Vector2
 var initial_position : Vector2
-var object_type : int
-var target_slot : Slot #? Slot selected between overlapping bodies 
-var valid_tower : bool: set = _on_tower_validation
-var force_show_label : bool = false
+
 var locked : bool = false
 var volatile : bool = false
 var draggable : bool = false
 var is_inside_dropable : bool = false
+var force_show_label : bool = false
+
+var prop_tower : Tower
+var valid_tower : bool: set = _on_tower_validation
 #endregion 
 
 #region Main processes
 func _ready() -> void:
-	assert(object_collision.input_pickable)
+	assert(orb_collision.input_pickable)
 	if !active_slot: active_slot = home_slot
-	object_type = element.element_type
+	orb_type = element.element_type
 	if !force_show_label: element_label.visible = false
 
-func _set_element(new_element : Element) -> void:
+func _set_element_reg(new_reg : ElementRegister) -> void: ## Runs first
+	element_register = new_reg
+	element = element_register.element
+
+func _set_element(new_element : Element) -> void: ## Runs in sequence after register is updated
 	element = new_element
-	object_type = new_element.element_type
+	orb_type = new_element.element_type
 	if !is_node_ready(): await ready
 	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
-	# if ELEMENT_COLORS.has(element.element_id):
-		# object_orb.material = object_orb.material.duplicate()
-		# object_orb.material.set("shader_parameter/line_color", ELEMENT_COLORS[element.element_id])
+	set_name(new_element.element_id.capitalize() + "Orb")
 
 func _process(_delta) -> void:
 	if draggable and !locked: #? Dragging processes
-		if object_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
+		if orb_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
 			var distance_array : Array = []
 			is_inside_dropable = true
-			for o in object_collision.get_overlapping_bodies(): distance_array.append([o, global_position.distance_to(o.global_position)])
+			for o in orb_collision.get_overlapping_bodies(): distance_array.append([o, global_position.distance_to(o.global_position)])
 			distance_array.sort()
 			target_slot = distance_array[0][0] #? Closest target slot
 		
 		if Input.is_action_just_pressed('click'): #? Click action
 			if locked: return
-			if UI.is_dragging: _set_draggable(false) #? Already dragging a object. Can only pick one per time
+			if UI.is_dragging: _set_draggable(false) #? Already dragging a orb. Can only pick one per time
 			UI.is_dragging = true
-			object_picked.emit()
+			
+			_instantiate_tower()
+			orb_picked.emit()
 			initial_position = global_position
 			offset = get_global_mouse_position() - global_position
 		
 		if Input.is_action_just_pressed('alt'): #? Cancel with alt (Right mouse button)
 			if active_slot == home_slot: return
-			object_picked.emit()
+			orb_picked.emit()
 			UI.is_dragging = false
 			_return_to_slot(true)
 		
@@ -90,83 +102,84 @@ func _process(_delta) -> void:
 func _move_to(new_position : Vector2) -> void: ## Smooth movement to a specific position
 	var move_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	move_tween.tween_property(self, "global_position", new_position, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	if volatile: #? Delete this object after returning
+	if volatile: #? Delete this orb after returning
 		await move_tween.finished
 		queue_free()
 
-func _return_to_slot(return_home : bool = false) -> void: ## Return object to home slot
+func _return_to_slot(return_home : bool = false) -> void: ## Return orb to home slot
 	UI.is_dragging = false
 	if !is_instance_valid(target_slot) or return_home: active_slot = home_slot
 	_insert(active_slot)
 
-func _insert(slot : Slot) -> bool: ##? Insert object into a new slot
+func _insert(slot : Slot) -> bool: ##? Insert orb into a new slot
 	_set_draggable(false)
 	if is_instance_valid(slot):
 		var request = slot.request_insert(self)
-		if request: #? Slot available and inserting object
+		if request: #? Slot available and inserting orb
 			active_slot = slot
-			object_inserted.emit()
+			orb_inserted.emit()
 			_move_to(slot.global_position)
 			reparent(active_slot)
 		else: #? Failed to insert
-			if is_instance_valid(slot.active_object): return _replace_slot(active_slot, slot) #? Failed because slot is occupied. Will replace such object.
+			if is_instance_valid(slot.active_orb): return _replace_slot(active_slot, slot) #? Failed because slot is occupied. Will replace such orb.
 			else: #! Failed in every check
-				push_warning('Object failed to insert in every instance. If force is true, then the target slot will be fully cleansed!')
+				push_warning('Orb failed to insert in every instance. If force is true, then the target slot will be fully cleansed!')
 				assert(home_slot)
 				var forced_request = home_slot.request_insert(self)
-				if !forced_request: push_error('Home slot ', home_slot.get_path() ,' is not receiving such object with element ', self.element.element_id)
+				if !forced_request: push_error('Home slot ', home_slot.get_path() ,' is not receiving such orb with element ', self.element.element_id)
 				active_slot = home_slot
-				object_inserted.emit()
+				orb_inserted.emit()
 				_move_to(home_slot.global_position)
 				reparent(home_slot)
 				return true
-		return true #? Object successfully inserted and returning positively
+		return true #? Orb successfully inserted and returning positively
 	else: return false
 
-func _replace_slot(_previous_slot : Slot, next_slot : Slot) -> bool: #? Switch objects position
-	if _previous_slot.is_output and !next_slot.is_output: #? Target object is ocuppying an input slot but cannot be switched.
-		next_slot.active_object._return_to_slot(true)
-		next_slot._remove_object()
+func _replace_slot(_previous_slot : Slot, next_slot : Slot) -> bool: #? Switch orbs position
+	if _previous_slot.is_output and !next_slot.is_output: #? Target orb is ocuppying an input slot but cannot be switched.
+		next_slot.active_orb._return_to_slot(true)
+		next_slot._remove_orb()
 		_insert(next_slot)
 		return true
 	
 	if next_slot.is_output: _return_to_slot(true); return false
 	if active_slot == next_slot: _return_to_slot(true); return false
 	
-	var target_object = next_slot.active_object
+	var target_orb = next_slot.active_orb
 	
-	active_slot._remove_object()
-	next_slot._remove_object()
-	target_object._insert(active_slot)
+	active_slot._remove_orb()
+	next_slot._remove_orb()
+	target_orb._insert(active_slot)
 	_insert(next_slot)
 	return true
 
-func _on_object_inserted() -> void:
+func _on_orb_inserted() -> void:
 	UI.is_dragging = false
-	object_collision_area.set_disabled(true)
+	orb_collision_area.set_disabled(true)
 	await get_tree().create_timer(INPUT_COOLDOWN).timeout
-	object_collision_area.set_disabled(false)
+	orb_collision_area.set_disabled(false)
 
 func destroy() -> void:
-	object_picked.emit()
+	orb_picked.emit()
 	queue_free()
 #endregion
 
 #region Collision Controls
 ## Body detection
 #? Uses a series of conditions to detect if is_inside_dropable is true. In case there are multiple bodies, there's a solution for that below
-func _on_object_collision_body_entered(body) -> void: 
+func _on_orb_collision_body_entered(body) -> void: 
 	if body is Slot or body.is_in_group('dropable'): 
 		body.hovered = true; is_inside_dropable = true
 		target_slot = body
 
-func _on_object_collision_body_exited(body) -> void: 
+func _on_orb_collision_body_exited(body) -> void: 
 	if body is Slot or body.is_in_group('dropable'): 
 		body.hovered = false; is_inside_dropable = false
 
 ## Internal drag switch
-#? Defines if object follows mouse and enables all object behaviors
+#? Defines if orb follows mouse and enables all orb behaviors
 func _set_draggable(drag : bool) -> void:
+	if debug: print(self.name, ' is draggable? - ', str(draggable))
 	draggable = drag
 	if drag:
 		element_label.visible = true
@@ -177,30 +190,32 @@ func _set_draggable(drag : bool) -> void:
 
 ## External drag switch
 #? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
-func _on_object_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate object when mouse enters it collision shape
-func _on_object_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate object
+func _on_orb_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate orb when mouse enters it collision shape
+func _on_orb_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate orb
 #endregion
 
-#region Object controls
+#region Tower functions
+func _instantiate_tower() -> void:
+	prop_tower = ElementManager.TOWER_ROOT_SCENE.instantiate()
+	prop_tower.element_register = element_register
+	add_child(prop_tower)
+
 func _on_tower_validation(is_tower_valid : bool) -> void:
 	valid_tower = is_tower_valid
 	_toggle_orb(!valid_tower)
 
 func _invoke_tower() -> bool:
 	assert(StageManager.active_stage)
-	var tower : Tower = ElementManager.TOWER_ROOT_SCENE.instantiate()
-	tower.element = element
-	add_child(tower)
-	var insert = StageManager.active_stage.insert_tile_object(tower)
+	assert(prop_tower)
+	var insert = StageManager.active_stage.insert_tile_object(prop_tower)
 	if !insert:
-		tower.remove_object()
+		prop_tower.remove_object()
 		_return_to_slot(true)
-		printerr('Tower insertion failed'); return false #? Couldn't insert object because insertion failed
+		printerr('Tower insertion failed'); return false #? Couldn't insert orb because insertion failed
 	else: destroy()
-	
-	tower._adapt_in_tile()
-	tower.process_mode = Node.PROCESS_MODE_INHERIT
-	tower.tower_placed.emit()
+	prop_tower._adapt_in_tile()
+	prop_tower.process_mode = Node.PROCESS_MODE_INHERIT
+	prop_tower.tower_placed.emit()
 	return true
 
 func _toggle_orb(toggle : bool) -> void:
@@ -210,3 +225,7 @@ func _toggle_orb(toggle : bool) -> void:
 	else: modulation = Color(1,1,1,0.2)
 	toggle_tween.tween_property(self, "modulate", modulation, 0.3)
 #endregion
+
+
+func _on_orb_collision_mouse_shape_entered(shape_idx: int) -> void:
+	pass # Replace with function body.

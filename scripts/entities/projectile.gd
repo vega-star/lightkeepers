@@ -46,6 +46,9 @@ func _ready() -> void:
 	damage = base_damage
 	_activate()
 
+func _charge() -> void:
+	pass
+
 func _activate() -> void:
 	init_pos = global_position
 	cpu_particles.emitting = true
@@ -75,10 +78,7 @@ func _physics_process(delta) -> void:
 	for point in trail_points:
 		projectile_trace.add_point(point)
 	
-	# if print_debug: print(distance_delta)
-	if distance_delta > max_distance:
-		_break()
-		# if print_debug: print('Projectile reached max distance of ', max_distance)
+	if distance_delta > max_distance: _break()
 
 func _on_body_entered(body) -> void:
 	if !active: return

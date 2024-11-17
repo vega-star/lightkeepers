@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://c04o6erl0d576" path="res://components/palette_enforcer_shader_material.tres" id="2_10pgp"]
 
 [node name="ScreenEffectLayer" type="CanvasLayer"]
-layer = 50
+layer = 128
 script = ExtResource("1_pj16q")
 
 [node name="EffectRect" type="ColorRect" parent="."]

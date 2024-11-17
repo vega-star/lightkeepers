@@ -12,6 +12,9 @@ signal fade_output(mode)
 var speed_scale : float: set = _set_speed_scale
 
 func _ready():
+	var bg_color : Color = ProjectSettings.get_setting("application/boot_splash/bg_color")
+	shader.material.set_shader_parameter("color", bg_color)
+	
 	## Renderer check
 	# var renderer = ProjectSettings.get_setting("rendering/renderer/rendering_method")
 	# match renderer:

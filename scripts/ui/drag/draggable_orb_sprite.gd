@@ -1,4 +1,4 @@
-class_name DraggableObjectSprite extends Sprite2D
+class_name DraggableOrbSprite extends Sprite2D
 
 const DEFAULT_ORB_TEXTURE = preload("res://assets/sprites/misc/orb.png")
 

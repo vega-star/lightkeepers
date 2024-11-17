@@ -86,5 +86,4 @@ func _fire() -> void:
 	projectile.max_distance = entity.tower_range_shape.shape.radius
 	projectile_container.call_deferred("add_child", projectile)
 	entity.tower_attack_sprite.play()
-	print('Projectile spawned')
 #endregion

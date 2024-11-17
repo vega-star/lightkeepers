@@ -1,5 +1,4 @@
 shader_type canvas_item;
-render_mode unshaded;
 
 // Ranges from 0 to 1 over the course of the transition.
 // We use this to actually animate the shader.

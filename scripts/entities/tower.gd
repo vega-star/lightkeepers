@@ -103,6 +103,11 @@ func _ready() -> void:
 	stage_camera = StageManager.active_stage.stage_camera
 	await _configure()
 
+func adapt_register(new_reg : ElementRegister) -> void:
+	element_register = new_reg
+	set_name(element_register.element.element_id.to_upper() + "_MAGE")
+	tower_name = name
+
 func _configure() -> void:
 	light_range = DEFAULT_LIGHT_RANGE
 	tower_range = DEFAULT_RANGE
@@ -111,7 +116,6 @@ func _configure() -> void:
 	if prop: light_area.set_deferred("disabled", true)
 	tower_range_area.body_entered.connect(_enemy_detected)
 	tower_range_area.body_exited.connect(_enemy_exited)
-	set_name(tower_name)
 	light_area.set_name(tower_name + '_LightArea')
 
 func _physics_process(_delta) -> void: queue_redraw()
@@ -153,7 +157,4 @@ func remove_object() -> void:
 	if !prop: AudioManager.emit_sound_effect(destroy_sound_effect_id, self.global_position)
 	light_shape.queue_free()
 	queue_free()
-
-func adapt_register(new_reg : ElementRegister) -> void:
-	element_register = new_reg
 #endregion

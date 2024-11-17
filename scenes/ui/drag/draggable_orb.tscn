@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dabti1py4rn1a"]
+
+[ext_resource type="Script" path="res://scripts/ui/drag/draggable_orb.gd" id="1_5pd6g"]
+[ext_resource type="LabelSettings" uid="uid://corgcjje16a0i" path="res://assets/theme/tresfiles/element_label_settings.tres" id="2_njyy7"]
+[ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="3_r4jiq"]
+[ext_resource type="Script" path="res://scripts/ui/drag/draggable_orb_sprite.gd" id="4_grtmq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
+radius = 48.0
+
+[node name="DraggableOrb" type="Node2D"]
+process_mode = 3
+z_index = 5
+script = ExtResource("1_5pd6g")
+debug = true
+metadata/_edit_vertical_guides_ = [50.0]
+
+[node name="ElementLabel" type="Label" parent="."]
+z_index = 20
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = 22.5
+offset_right = 49.5
+offset_bottom = 59.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = ExtResource("2_njyy7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Orb" type="Sprite2D" parent="."]
+texture = ExtResource("3_r4jiq")
+
+[node name="OrbElement" type="Sprite2D" parent="Orb"]
+script = ExtResource("4_grtmq")
+
+[node name="OrbCollision" type="Area2D" parent="."]
+z_index = 5
+collision_layer = 128
+collision_mask = 128
+
+[node name="OrbCollisionArea" type="CollisionShape2D" parent="OrbCollision"]
+shape = SubResource("CircleShape2D_7vtow")
+debug_color = Color(0.703217, 0.292634, 0.549932, 0.065)
+
+[connection signal="body_entered" from="OrbCollision" to="." method="_on_orb_collision_body_entered"]
+[connection signal="body_exited" from="OrbCollision" to="." method="_on_orb_collision_body_exited"]
+[connection signal="mouse_entered" from="OrbCollision" to="." method="_on_orb_collision_mouse_entered"]
+[connection signal="mouse_exited" from="OrbCollision" to="." method="_on_orb_collision_mouse_exited"]
+[connection signal="mouse_shape_entered" from="OrbCollision" to="." method="_on_orb_collision_mouse_shape_entered"]

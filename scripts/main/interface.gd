@@ -18,14 +18,15 @@ const TURN_UPDATE_PERIOD : float = 0.75
 @export var hide_elements_when_start : bool = true
 
 #region Node references
+@onready var elements_container : ElementsContainer = $UILayer/Elements/ScrollContainer/ElementsContainer
 @onready var tower_panel : TowerPanel = $UILayer/TowerPanel
-@onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/StageMeter/StageMeterBar
-@onready var play_button : TextureButton = $UILayer/CornerPanel/PlayButton
+@onready var play_button : TextureButton = $UILayer/CornerFrame/PlayButton
+@onready var autoplay_button : TextureButton = $UILayer/CornerFrame/AutoplayButton
 @onready var life_label : Label = $UILayer/TopBar/LifeCounter/LifeLabel
 @onready var coin_label : Label = $UILayer/TopBar/CoinCounter/CoinLabel
 @onready var coin_icon : TextureButton = $UILayer/TopBar/CoinCounter/CoinIcon
+@onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/StageMeter/StageMeterBar
 @onready var options_button : TextureButton = $UILayer/OptionsButton
-@onready var elements : HBoxContainer = $UILayer/ElementBar/ScrollContainer/Elements
 #endregion
 
 var focus_slot : Slot

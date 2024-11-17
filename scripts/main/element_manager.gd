@@ -8,7 +8,7 @@ const element_metadata_PATH : String = "res://components/elements/element_metada
 const SPRITES_PATH : String = "res://assets/sprites/elements/"
 const TOWER_ROOT_SCENE : PackedScene = preload("res://scenes/towers/tower.tscn")
 const CONTROL_SLOT_SCENE : PackedScene = preload("res://scenes/ui/slots/control_slot.tscn")
-const DRAGGABLE_OBJECT_SCENE : PackedScene = preload("res://scenes/ui/drag/draggable_object.tscn")
+const DRAGGABLE_ORB_SCENE : PackedScene = preload("res://scenes/ui/drag/draggable_orb.tscn")
 const DEFAULT_ELEMENT_COLOR : Color = Color("ffec83")
 const STARTING_ELEMENT_REG : Array[ElementRegister] = [
 	preload("res://components/elements/default_registers/FireRegister.tres"),
@@ -82,11 +82,12 @@ func combine(first_element, second_element) -> String:
 	if result: return result
 	else: return ""
 
-## Generates a draggable object which can be located on containers in screen and attached into slots
-func generate_object(element : Element) -> DraggableObject:
-	var object = DRAGGABLE_OBJECT_SCENE.instantiate()
-	object.element = element
-	return object
+## Generates a draggable orb which can be located on containers in screen and attached into slots
+func generate_orb(element_reg : ElementRegister) -> DraggableOrb:
+	var orb = DRAGGABLE_ORB_SCENE.instantiate()
+	orb.element_register = element_reg
+	orb.element = element_reg.element
+	return orb
 
 ## Generates an Element resource from an ID and type
 func generate_element( 
@@ -105,7 +106,7 @@ func generate_element(
 func split(element_id : String) -> void: ## Divide an essence by destroying it and retrieving its igredients
 	var reg = query_element(element_id)
 	var recipe = query_metadata(element_id, "recipe")
-	# reg.quantity -= 1 # Only in case the object is not deleted
+	# reg.quantity -= 1 # Only in case the orb is not deleted
 	for e in recipe:
 		var element : Element = Element.new()
 		element.element_type = 1
@@ -141,10 +142,10 @@ func add_element(
 		register.control_slot = control_slot.get_path()
 		register.slot = control_slot.slot.get_path()
 		
-		var _object = _set_object(control_slot.slot, element)
+		var _orb = _set_orb(control_slot.slot, register)
 		control_slot.slot.element_register = register
 		control_slot.slot.slot_type = element_type
-		UI.HUD.bind_element_picked_signal(control_slot.slot.slot_object_picked)
+		UI.HUD.bind_element_picked_signal(control_slot.slot.slot_orb_picked)
 		
 		active_registers.append(register)
 		return register
@@ -157,26 +158,26 @@ func _set_control_slot(reg : ElementRegister) -> ControlSlot: ## Create and defi
 	control_slot.slot_register = reg
 	return control_slot
 
-func _set_object(slot : Slot, element : Element, additional : String = "") -> DraggableObject: ## Create and define DraggableObject
-	var object : DraggableObject = generate_object(element)
-	object.set_name("{0}{1}{2}".format({0: element.element_id.capitalize(), 1: "Object", 2: additional}))
-	object.active_slot = slot
-	object.home_slot = slot
-	slot.add_child(object)
-	slot.active_object = object
-	
-	if element_textures.has(element.element_id): object.object_element_sprite.set_texture(element_textures[element.element_id])
-	else: printerr(element.element_id, " | Element sprite not found!")
-	return object
+func _set_orb(slot : Slot, element_register : ElementRegister, additional : String = "") -> DraggableOrb: ## Create and define DraggableOrb
+	var orb : DraggableOrb = generate_orb(element_register)
+	var element_id : String = element_register.element.element_id
+	orb.set_name("{0}{1}{2}".format({0: element_id.capitalize(), 1: "Object", 2: additional}))
+	orb.active_slot = slot
+	orb.home_slot = slot
+	slot.add_child(orb)
+	slot.active_orb = orb
+	if element_textures.has(element_id): orb.orb_element_sprite.set_texture(element_textures[element_id])
+	else: printerr(element_id, " | Element sprite not found!")
+	return orb
 
-func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableObject: ## Restock slot
+func _restock_output(slot : Slot, reg : ElementRegister) -> DraggableOrb: ## Restock slot
 	if !slot.is_output: return null
 	if reg.quantity >= 1:
-		var regen_object = _set_object(slot, reg.element)
+		var regen_orb = _set_orb(slot, reg)
 		reg.quantity - 1
-		# print("ElementManager | New object generated on", slot.get_path())
-		return regen_object
+		# print("ElementManager | New orb generated on", slot.get_path())
+		return regen_orb
 	else: #! Register empty
-		push_warning("ElementManager | Output cannot generate object because quantity is zero!")
+		push_warning("ElementManager | Output cannot generate orb because quantity is zero!")
 		return null
 #endregion

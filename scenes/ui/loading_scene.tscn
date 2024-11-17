@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/loading_scene.gd" id="1_cuefo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw3mu"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.196078, 0.2, 0.32549, 1)
 
 [sub_resource type="Animation" id="Animation_0nsgg"]
 resource_name = "END_LOAD"
