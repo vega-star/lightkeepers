@@ -5,6 +5,7 @@ class_name Stage
 extends Node2D
 
 #region Variables
+const SELECTOR_INVALID_COLOR : Color = Color(3.5,2,2)
 const CASHBACK_FACTOR : float = 0.65
 
 ## Stage configuration
@@ -24,6 +25,7 @@ const CASHBACK_FACTOR : float = 0.65
 @onready var turn_manager: TurnManager = $StageAgent/TurnManager
 @onready var stage_path : Path2D = $StagePath
 @onready var background_parallax : ParallaxBackground = $StageEffects/BackgroundParallax
+@onready var selector : Panel = $Selector
 
 ## Containers
 @onready var entity_container: Node2D = $Containers/EntityContainer
@@ -34,7 +36,6 @@ const CASHBACK_FACTOR : float = 0.65
 ## TileMapLayers
 @onready var GROUND_LAYER : TileMapLayer = $GroundLayer
 @onready var OBJECT_LAYER : TileMapLayer = $ObjectLayer
-@onready var INTERACTION_LAYER : TileMapLayer = $InteractionLayer
 @onready var FOREGROUND_LAYER : TileMapLayer = $ForegroundLayer
 
 const SELECTION_TILE : Vector2i = Vector2i(0,4)
@@ -45,6 +46,7 @@ const TILE : Dictionary = {
 	TARGET = Vector2i(2,3)
 }
 
+var tile_size : Vector2i = Vector2i(32, 32)
 var stage_buildings : Array[Node2D]: set = _set_state_buildings
 var selected_object : TileObject #? Selected object node storage
 var object_dict : Dictionary #? Arranged by tile_position
@@ -54,19 +56,28 @@ var previous_queried_cell : Vector2i #? Used for input resetting
 
 #region Main functions
 func _ready() -> void:
-	if !modulate_layer.visible: modulate_layer.visible = true
-	StageManager.start_stage(self, stage_agent)
+	StageManager.start_stage(self)
 	AudioManager.play_music(stage_songs, 0, false, true)
+	
+	UI.mouse_on_ui_changed.connect(_on_mouse_on_ui_changed)
+	selector.size = tile_size
+	
 	background_parallax.set_visible(true)
+	if !modulate_layer.visible: modulate_layer.visible = true
 
 func _process(_delta) -> void:
+	selector.global_position = position_to_tile(get_global_mouse_position()) * tile_size
+	
 	if check_coordinate: #? Output tile coordinate on screen
 		var current_mouse_pos = get_global_mouse_position()
 		var tile_position = position_to_tile(current_mouse_pos)
-		# UI.interface.debug_label.set_text(str(tile_position))
 
 func _input(_event) -> void:
-	if Input.is_action_just_pressed('click'): select_tile(position_to_tile(get_global_mouse_position()))
+	if Input.is_action_just_pressed('click'):
+		select_tile(position_to_tile(get_global_mouse_position()))
+
+func _on_mouse_on_ui_changed(present : bool) -> void:
+	selector.set_visible(!present)
 
 func _set_state_buildings(input_array : Array) -> Array[Node2D]: ## Reorder based on distance to nexus, so that enemies always focus based on a clear order
 	var order : Array[Array]
@@ -89,7 +100,6 @@ func snap_to_tile(position_vector : Vector2) -> Vector2: return GROUND_LAYER.map
 func query_tile(layer : TileMapLayer, tile_position : Vector2i, custom_data_layer_id : int = 0): ## Query tile metadata
 	var tile_data = layer.get_cell_tile_data(tile_position)
 	if UI.interface.mouse_on_ui: return false #? Tile is invalid if the cursor is currently outside visible map (over UI elements)
-	
 	if tile_data: return tile_data.get_custom_data_by_layer_id(custom_data_layer_id)
 	else: return false
 
@@ -97,7 +107,6 @@ func select_tile(tile_position):
 	if UI.interface.mouse_on_ui: return #? Do not interact if mouse is in interface controls
 	
 	if previous_selected_cell: deselect_tile()
-	INTERACTION_LAYER.set_cell(tile_position, 0, SELECTION_TILE)
 	var data
 	var tile_data = GROUND_LAYER.get_cell_tile_data(tile_position)
 	var object_data = OBJECT_LAYER.get_cell_tile_data(tile_position)
@@ -114,8 +123,6 @@ func select_tile(tile_position):
 
 func deselect_tile() -> void:
 	if UI.interface.mouse_on_ui: return #? Do not interact if mouse is in interface controls
-	
-	INTERACTION_LAYER.erase_cell(previous_selected_cell)
 	#TODO: UI.interface.object_description_label.set_text("")
 	if is_instance_valid(selected_object): selected_object.visible_range = false
 	selected_object = null
@@ -124,11 +131,6 @@ func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool: #? 
 	if UI.interface.mouse_on_ui: return false #? Mouse is off limits on top of a control node
 	
 	if tile_position == Vector2i.ZERO: tile_position = position_to_tile(get_global_mouse_position())
-	 
-	INTERACTION_LAYER.set_cell(tile_position, 0, TILE.TARGET)
-	if previous_queried_cell != tile_position: 
-		INTERACTION_LAYER.erase_cell(previous_queried_cell)
-		previous_queried_cell = tile_position
 	
 	var object_query = query_tile(OBJECT_LAYER, tile_position)
 	var tile_query = query_tile(GROUND_LAYER, tile_position, 1)
@@ -152,9 +154,6 @@ func insert_tile_object( ## Called from turret/object button when inserted into 
 	#! Returns true if object is successfully placed, and false if not.
 	if (!query_result): return false # Recheck. Only returns negatively if invalidated in a series of checks
 	if (tile_cost > stage_agent.coins): return false # Returns negatively turret is more expensive than current total coins
-	
-	## Clear
-	INTERACTION_LAYER.erase_cell(previous_queried_cell)
 	
 	## Register
 	tile_object.tile_position = tile_position

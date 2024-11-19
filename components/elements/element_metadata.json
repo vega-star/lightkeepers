@@ -71,8 +71,8 @@
 			"etype": 3,
 			"ename": "Wetsteps",
 			"value": 5,
-			"value_multiplier": 1.2,
-			"duration": 0.2,
+			"value_multiplier": 0.75,
+			"duration": 1.5,
 			"tolerance": 5
 		},{
 			"etype": 2,

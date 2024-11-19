@@ -34,7 +34,7 @@ var piercing_count : int = 1
 var seeking_weight : float = 0.5
 var stored_direction : Vector2
 var init_pos : Vector2
-var projectile_effect_metadata : Dictionary: set = _set_projectile_effect_metadata #? Stores a series of values useful to effects, changing colors, etc. while not being attatched to the element itself
+var projectile_element_metadata : Dictionary: set = _set_projectile_element_metadata #? Stores a series of values useful to effects, changing colors, etc. while not being attatched to the element itself
 
 func _ready() -> void: _activate()
 
@@ -78,10 +78,10 @@ func _on_body_entered(body) -> void:
 	if body is Enemy:
 		if is_instance_valid(source): body.health_component.change(damage, true, source)
 		else: body.health_component.change(damage, true)
-		if !projectile_effect_metadata.is_empty():
+		if !projectile_element_metadata.is_empty():
 			body.health_component.effect_component.apply_effect(
-				projectile_effect_metadata["eid"],
-				projectile_effect_metadata,
+				projectile_element_metadata["eid"],
+				projectile_element_metadata,
 				source
 			)
 		piercing_count -= 1
@@ -89,9 +89,9 @@ func _on_body_entered(body) -> void:
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
 	if piercing_count <= 0: _break()
 
-func _clear_projectile_element_metadata() -> void: projectile_effect_metadata = {}
+func _clear_projectile_element_metadata() -> void: projectile_element_metadata = {}
 
-func _set_projectile_effect_metadata(new_metadata : Dictionary) -> void: projectile_effect_metadata = new_metadata
+func _set_projectile_element_metadata(new_metadata : Dictionary) -> void: projectile_element_metadata = new_metadata
 
 func _break() -> void:
 	_deactivate()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://2stxk6mbvwbv"]
+[gd_scene load_steps=14 format=3 uid="uid://2stxk6mbvwbv"]
 
 [ext_resource type="Script" path="res://scripts/main/stage.gd" id="1_omf30"]
 [ext_resource type="PackedScene" uid="uid://d37tw2m7yrog0" path="res://components/misc/stage_effects.tscn" id="2_82lgj"]
 [ext_resource type="Script" path="res://scripts/main/stage_agent.gd" id="3_kgn4f"]
 [ext_resource type="Script" path="res://scripts/main/turn_manager.gd" id="4_prveq"]
 [ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://scenes/stages/stage_schedules/first_stage.tres" id="5_olc4u"]
+[ext_resource type="StyleBox" uid="uid://buec4knq082dx" path="res://assets/theme/styleboxes/selector_stylebox.tres" id="6_cq531"]
 [ext_resource type="TileSet" uid="uid://b4eq1ur4r1nxo" path="res://components/tilesets/default_tileset.tres" id="6_eds4h"]
 [ext_resource type="Script" path="res://scripts/main/nexus.gd" id="7_boe6g"]
 [ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://components/systems/light_area_component.tscn" id="7_ent1l"]
@@ -37,6 +38,25 @@ process_mode = 1
 process_callback = 0
 one_shot = true
 
+[node name="Selector" type="Panel" parent="."]
+z_index = 1
+layout_direction = 1
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_styles/panel = ExtResource("6_cq531")
+
+[node name="SelectorLight" type="PointLight2D" parent="Selector"]
+position = Vector2(16, 16)
+energy = 0.5
+range_item_cull_mask = 7
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.486275)
+shadow_item_cull_mask = 6
+texture = ExtResource("9_jysst")
+texture_scale = 0.2
+height = 100.0
+
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 use_parent_material = true
 tile_set = ExtResource("6_eds4h")
@@ -53,20 +73,13 @@ use_parent_material = true
 tile_set = ExtResource("6_eds4h")
 navigation_enabled = false
 
-[node name="InteractionLayer" type="TileMapLayer" parent="."]
-z_index = 25
-use_parent_material = true
-tile_set = ExtResource("6_eds4h")
-navigation_enabled = false
-
 [node name="Nexus" type="Node2D" parent="." groups=["nexus"]]
 position = Vector2(768, 360)
 script = ExtResource("7_boe6g")
 
-[node name="LightAreaComponent" parent="." instance=ExtResource("7_ent1l")]
+[node name="LightArea" parent="." instance=ExtResource("7_ent1l")]
 
-[node name="MouseLight" parent="LightAreaComponent" groups=["mouse_light"] instance=ExtResource("8_583ix")]
-shadow_enabled = false
+[node name="MouseLight" parent="LightArea" groups=["mouse_light"] instance=ExtResource("8_583ix")]
 
 [node name="Containers" type="Node2D" parent="."]
 process_mode = 1

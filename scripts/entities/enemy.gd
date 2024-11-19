@@ -47,6 +47,7 @@ var target : Node2D: set = _set_target
 var target_position : Vector2
 var nexus : Nexus
 var attacked_nexus : bool = false
+var speed : int
 var damage : int
 var enemy_value : int
 var on_sight : bool = false : set = _set_on_sight
@@ -62,6 +63,7 @@ func _set_enemy_properties():
 	assert(nexus)
 	target = nexus
 	damage = base_damage
+	speed = base_speed
 	enemy_value = base_enemy_value
 	stored_scale = scale #? Conserves the original size of the entity
 	
@@ -79,14 +81,14 @@ func _set_enemy_properties():
 
 func _physics_process(delta):
 	if !smart_enemy: #? Update Line2D
-		line_agent.set_progress(line_agent.get_progress() + base_speed * delta)
+		line_agent.set_progress(line_agent.get_progress() + speed * delta)
 		if position != Vector2.ZERO: position = Vector2.ZERO
 		if (line_agent.get_progress_ratio() == 1): path_ended.emit()
 	else: #? Call NavigationAgent
 		next_position = navigation_agent.get_next_path_position()
 		direction = global_position.direction_to(next_position)
 		_rotate_to_direction($EnemySprite, direction, delta)
-		navigation_agent.velocity = direction * (base_speed * SPEED_MULTIPLIER) * delta
+		navigation_agent.velocity = direction * (speed * SPEED_MULTIPLIER) * delta
 
 func _rotate_to_direction(r_node : Node, r_direction : Vector2, delta : float) -> void:
 	var angle = r_node.transform.x.angle_to(r_direction)

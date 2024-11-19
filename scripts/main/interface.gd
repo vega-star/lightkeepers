@@ -1,7 +1,7 @@
 class_name Interface
 extends CanvasLayer
 
-signal mouse_on_ui_changed(present : bool)
+
 signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
@@ -89,7 +89,7 @@ func _on_hide_fuse_menu_button_pressed() -> void:
 	var new_x : int = 0
 
 ## Mouse detector - Useful to prevent positioning/interacting with objects behind UI buttons
-func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; mouse_on_ui_changed.emit(false)
-func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; mouse_on_ui_changed.emit(true)
+func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; UI.mouse_on_ui_changed.emit(false)
+func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; UI.mouse_on_ui_changed.emit(true)
 func _on_mouse_on_ui_changed(present: bool) -> void: pass # print('Mouse on ui: ', mouse_on_ui)
 #endregion

@@ -1,5 +1,6 @@
 class_name EffectComponent extends Node
 
+@onready var entity : Node = $"../.."
 @onready var health_component: HealthComponent = $".."
 
 var cached_effect : Effect
@@ -10,13 +11,13 @@ func _ready() -> void: assert(health_component)
 
 func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## Create, start, and manage effect
 	var e_metadata : Dictionary = metadata
-	var source_lvl : int = source.tower_upgrades.tower_element_lvl
+	var magic_level : int = source.magic_level
 	
 	if metadata.has("effect_metadata"):
 		if metadata["effect_metadata"] is Dictionary: e_metadata = metadata["effect_metadata"] #? Single effect
 		elif metadata["effect_metadata"] is Array: for e in metadata["effect_metadata"]: apply_effect(eid, e, source); return true #? Multiple effects nested
 	
-	if health_component.debug: print(owner.root_node.name, ' | Effect applied: ', metadata)
+	if health_component.debug: print(owner.root_node.name, ' | Effect applied: ', e_metadata)
 	if active_eids.has(eid):
 		var a_effect : Effect
 		for e in active_effects: if e.eid == eid: a_effect = e
@@ -24,7 +25,7 @@ func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## 
 		if e_metadata.has("stackable"):
 			if e_metadata["stackable"]: #? Add stacks to the same effect, increasing its strength
 				var multiplier : int = 1
-				if e_metadata.has("stack_multiplier"): multiplier = e_metadata["stack_multiplier"] * source_lvl
+				if e_metadata.has("stack_multiplier"): multiplier = e_metadata["stack_multiplier"] * magic_level
 				a_effect.stacks += 1 * multiplier
 				return true
 		else: return true #? The effect cannot stack, but is duration will be reset
@@ -37,12 +38,13 @@ func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## 
 		duration_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
 		duration_timer.set_wait_time(e_metadata["duration"])
 		add_child(duration_timer); duration_timer.set_name(e_metadata["ename"].to_lower() + "_duration")
+	
 	if e_metadata.has("tick"):
 		tick_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
 		tick_timer.set_wait_time(e_metadata["tick"])
 		duration_timer.add_child(tick_timer); tick_timer.set_name(e_metadata["ename"].to_lower() + "_tick")
 	
-	effect.level = source_lvl
+	effect.level = magic_level
 	effect.activate(eid, e_metadata, 1, 1, duration_timer, tick_timer, health_component, source)
 	active_effects.append(effect)
 	active_eids.append(eid)
@@ -74,7 +76,11 @@ func compute_effect(
 			if is_instance_valid(e_source): health_component.change(d_value, apply, e_ref.source)
 			else: health_component.change(d_value, apply)
 		002: pass # ADD_VULNERABILITY
-		003: pass # MOVEMENT_CHANGE
+		003: # SPEED MODIFY
+			var d_multiplier : float = e_dict["value_multiplier"]
+			if apply: entity.speed * float(d_multiplier)
+			else: entity.speed / float(d_multiplier)
+			if health_component.debug: print(e_dict["ename"], ' | Modifying enemy movement speed by ', str(d_multiplier))
 		004: pass # PROJECTILE_CHANGE
 		005: pass # TOWER_CHANGE
 		005: pass # CONDITIONAL_PROC

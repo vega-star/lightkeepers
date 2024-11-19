@@ -449,7 +449,6 @@ texture_normal = SubResource("PlaceholderTexture2D_5c443")
 texture_pressed = SubResource("PlaceholderTexture2D_c0txy")
 stretch_mode = 3
 
-[connection signal="mouse_on_ui_changed" from="." to="." method="_on_mouse_on_ui_changed"]
 [connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
 [connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]
 [connection signal="mouse_exited" from="UILayer" to="." method="_on_screen_mouse_exited"]

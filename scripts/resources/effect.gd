@@ -40,10 +40,10 @@ func activate(
 	duration_timer.timeout.connect(deactivate)
 	tick_timer.timeout.connect(proc)
 	
-	tick_timer.start()
 	tick_timer.set_autostart(true)
-	duration_timer.start()
+	duration_timer.set_autostart(true)
 	effect_started.emit()
+	proc()
 
 func proc() -> void: health_ref.effect_component.proc_effect(self)
 

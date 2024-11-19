@@ -39,7 +39,7 @@ func exit() -> void: active = false
 func state_physics_update(delta : float) -> void:
 	entity.tower_aim.force_raycast_update()
 	if is_instance_valid(entity.target): #? Control firing angle
-		direction = entity.tower_attack_sprite.global_position.direction_to(entity.target.global_position)
+		direction = entity.tower_sprite.global_position.direction_to(entity.target.global_position)
 		entity._rotate_tower(direction, delta)
 #endregion
 
@@ -75,15 +75,14 @@ func _start_firing() -> void:
 func _fire() -> void:
 	var projectile : Projectile = entity.projectile_scene.instantiate()
 	if _check_target(): projectile.target = entity.target
-	if entity.element_metadata: projectile.projectile_effect_metadata = entity.element_metadata["effect_metadata"]
+	if entity.element_metadata: projectile.projectile_element_metadata = entity.element_metadata
 	if entity.element_metadata.has("root_color"): projectile.modulate = entity.element_metadata["root_color"]
 	projectile.projectile_mode = projectile_mode
 	projectile.damage = entity.damage
 	projectile.source = entity
 	projectile.global_position = entity.tower_projectile_point.global_position
-	projectile.global_rotation = entity.tower_sprite.global_rotation - entity.global_rotation
+	projectile.global_rotation = entity.tower_sprite.global_rotation
 	projectile.piercing_count = entity.piercing
 	projectile.max_distance = entity.tower_range_shape.shape.radius
 	projectile_container.call_deferred("add_child", projectile)
-	entity.tower_attack_sprite.play()
 #endregion

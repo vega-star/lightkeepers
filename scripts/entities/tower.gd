@@ -1,5 +1,6 @@
 class_name Tower extends TileObject
 
+const DIRECTION_SMOOTHING : float = 0.05
 const DEFAULT_RANGE : float = 1
 const DEFAULT_RANGE_DISTANCE : float = 128
 const DEFAULT_LIGHT_RANGE : float = 1
@@ -40,13 +41,12 @@ signal tower_defeated_enemy(current_count : int)
 #region Variables
 ## Internal node references
 @onready var tower_animation_tree : AnimationTree = $TowerAnimationTree
-@onready var tower_sprite: AnimatedSprite2D = $TowerSprite
-@onready var tower_attack_sprite : AnimatedSprite2D = $TowerSprite/TowerHands
+@onready var tower_sprite : AnimatedSprite2D = $TowerSprite
 @onready var tower_range_area : Area2D = $TowerRangeArea
 @onready var tower_range_shape : CollisionShape2D = $TowerRangeArea/TowerRangeShape
 @onready var tower_upgrades : TowerUpgrades = $TowerUpgrades
-@onready var tower_aim : RayCast2D = $TowerSprite/TowerAim
-@onready var tower_projectile_point : Marker2D = $TowerSprite/TowerProjectilePoint
+@onready var tower_aim : RayCast2D = $TowerAim
+@onready var tower_projectile_point : Marker2D = $TowerAim/TowerProjectilePoint
 
 ## External node references
 var eligible_targets : Array[Enemy]
@@ -68,6 +68,7 @@ var element_register : ElementRegister: set = adapt_register
 var element_metadata : Dictionary = {}
 
 ## Weapon values
+var magic_level : int = 1
 var quantity : int = 1
 var damage : int = 5
 var piercing : int = 1
@@ -76,6 +77,8 @@ var projectile_quantity : int
 var firing_cooldown : float = 1.5
 
 ## Custom setters
+var global_direction : Vector2: set = _update_direction
+
 var light_range : float:
 	set(new_range): 
 		light_range = new_range
@@ -86,7 +89,7 @@ var tower_range : float:
 	set(new_range):
 		tower_range = new_range
 		tower_range_shape.shape.radius = DEFAULT_RANGE_DISTANCE * tower_range
-		tower_aim.target_position.y = tower_range_shape.shape.radius * 2 #? Update direct raycast range
+		tower_aim.target_position.x = tower_range_shape.shape.radius * 2 #? Update direct raycast range
 		tower_updated.emit()
 
 var tower_kill_count : int: #? Updates kill count and emits signal for the value still update when its tab is open
@@ -130,7 +133,8 @@ func _enemy_exited(body) -> void: eligible_targets.erase(body)
 
 ## Smooth rotation movement
 func _rotate_tower(direction : Vector2, delta : float, speed : float = SEEKING_ROTATION_SPEED) -> void:
-	_rotate_to_direction(tower_sprite, direction, delta, speed)
+	_rotate_to_direction(tower_aim, direction, delta, speed)
+	global_direction = Vector2.RIGHT.rotated(-get_angle_to(tower_projectile_point.global_position))
 
 func _rotate_to_direction(
 		r_node : Node, ## Rotate node
@@ -140,6 +144,14 @@ func _rotate_to_direction(
 	) -> void:
 	var angle = r_node.transform.x.angle_to(r_direction)
 	r_node.rotate(sign(angle) * min(delta * r_speed, abs(angle)))
+
+func _update_direction(new_direction : Vector2) -> void:
+	global_direction = new_direction
+	var current_vertical_blend = tower_animation_tree.get("parameters/Seeking/blend_position")
+	var lerp_direction = lerp(current_vertical_blend, global_direction, DIRECTION_SMOOTHING)
+	tower_animation_tree.set("parameters/Seeking/blend_position", lerp_direction)
+	tower_animation_tree.set("parameters/Firing/blend_position", lerp_direction)
+	print('New direction -> ', lerp_direction)
 
 func _draw() -> void:
 	if visible_range: #? Draw visible cues to tower range based on the shape of the range itself and camera zoom. No adjustment is necessary!

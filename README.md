@@ -75,6 +75,12 @@ Some of the features present on the game code are:
   * More variety of enemies and specialization
 * More animated sprites
 
+<!--
 ## About the concept
 
 It was intended to be part of PirateSoftware's Game Jam 15 with the theme being 'Shadows and Alchemy', but we've got too busy with work to finish it on time. So, we finished it a whole month later when we got time. Game jams are fun anyways! The [GDD is public if you want to take a peak](https://docs.google.com/document/d/1nb8W2nfbvZG5j-VU5RlQVSO8bTTNwSxyx9r4B_TWXfo/edit?usp=sharing).
+-->
+
+<div align="center">
+  <iframe frameborder="0" src="https://itch.io/embed/2854992?bg_color=323353&amp;fg_color=fcfeb3&amp;link_color=f68181&amp;border_color=fbff86" width="552" height="167"><a href="https://nyeptun.itch.io/lightkeepers">Lightkeepers by Nyeptun</a></iframe>
+</div>

@@ -7,6 +7,7 @@ signal speed_changed(toggled : bool)
 signal wave_activity_changed(active : bool)
 signal drag_changed(drag : bool)
 signal game_paused(mode)
+signal mouse_on_ui_changed(present : bool)
 
 @onready var interface : Interface = $Interface
 @onready var event_layer : Control = $Interface/EventLayer
@@ -15,8 +16,10 @@ signal game_paused(mode)
 @onready var transition_layer : CanvasLayer = $TransitionLayer
 @onready var world_env : WorldEnvironment = $WorldEnvironment
 
+@export var check_focus : bool = false
+
 var autoplay_turn : bool = false
-var speed_toggled : bool = false #? Queryable boolean that says if the engine acceleration was toggled on/off
+var speed_toggled : bool = false: set = toggle_speed #? Queryable boolean that says if the engine acceleration was toggled on/off
 var pause_locked : bool = false
 var pause_state : bool: set = set_pause
 
@@ -37,7 +40,8 @@ var wave_is_active : bool = false:
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 
-func _on_focus_changed(control : Control) -> void: print('UI DEBUG | Focus changed to ' + str(control.get_path()))
+func _on_focus_changed(control : Control) -> void:
+	if check_focus: print('UI DEBUG | Focus changed to ' + str(control.get_path()))
 
 func set_pause(state : bool) -> void:
 	pause_state = state
@@ -61,10 +65,8 @@ func fade(mode) -> void:
 	transition_layer.set_visible(visibility)
 
 func _on_wave_activity_changed(active: bool) -> void:
-	if active:
-		if speed_cached: toggle_speed(true)
-	else:
-		if !autoplay_turn: toggle_speed(false)
+	if active: if speed_cached: toggle_speed(true)
+	else: if !autoplay_turn: toggle_speed(false)
 
 func _on_turn_pass_requested() -> void:
 	if UI.wave_is_active: #? Makes the game go faster with the same action that passes the turn

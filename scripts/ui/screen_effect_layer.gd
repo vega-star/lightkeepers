@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-@export var set_invisible : bool = true
+@export var is_visible : bool = true
 
 func _ready() -> void:
-	set_visible(!set_invisible)
+	set_visible(is_visible)
 	match ProjectSettings.get_setting_with_override("rendering/renderer/rendering_method"):
 		"forward_plus": #? Not needed. Will use compositor
 			pass # queue_free()
