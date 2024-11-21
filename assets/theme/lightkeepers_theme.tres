@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bjhk13pv26ahk" path="res://assets/theme/ui/slider/grabber/grabber_focused.png" id="22_x2qkb"]
 [ext_resource type="Texture2D" uid="uid://c8o6eqfewejyf" path="res://assets/theme/ui/slider/tick/tick.png" id="23_a1x72"]
 [ext_resource type="Texture2D" uid="uid://bjjp50oi5jjjp" path="res://assets/theme/ui/menu_button/arrow_down.png" id="24_8tes4"]
-[ext_resource type="StyleBox" uid="uid://ck3ohq721iylc" path="res://assets/theme/ui/panels/default_panel.tres" id="25_n7jo0"]
+[ext_resource type="StyleBox" uid="uid://ck3ohq721iylc" path="res://assets/theme/ui/panels/boxes/default_panel.tres" id="25_n7jo0"]
 [ext_resource type="Texture2D" uid="uid://0bgwo6qitgin" path="res://assets/theme/ui/slider/grabber/grabber_h.png" id="26_k17yt"]
 [ext_resource type="Texture2D" uid="uid://b7mhyt6gqycpo" path="res://assets/theme/ui/slider/grabber/grabber_h_disabled.png" id="27_c1s2j"]
 [ext_resource type="Texture2D" uid="uid://ujwrtyi2qgmg" path="res://assets/theme/ui/slider/grabber/grabber_h_focused.png" id="28_st4h7"]
@@ -54,10 +54,16 @@ corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb2lf"]
 bg_color = Color(0.560784, 0.972549, 0.886275, 1)
+border_width_left = 8
+border_width_top = 6
+border_width_right = 8
+border_width_bottom = 6
+border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17d5b"]
 content_margin_left = 4.0
@@ -103,6 +109,7 @@ default_font = ExtResource("19_qj5a2")
 default_font_size = 36
 AcceptDialog/styles/embedded_border = SubResource("StyleBoxTexture_uscss")
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_v2yt8")
+Button/colors/font_focus_color = Color(0.984314, 1, 0.52549, 1)
 Button/colors/font_hover_color = Color(0.984314, 1, 0.52549, 1)
 Button/colors/font_hover_pressed_color = Color(0.984314, 1, 0.52549, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 0.501961)

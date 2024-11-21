@@ -24,6 +24,8 @@ func _ready() -> void:
 	if upgrade_tree_2: upgrade_tree_2 = upgrade_tree_2.duplicate(true); upgrade_trees_array.append(upgrade_tree_2)
 	if upgrade_tree_3: upgrade_tree_3 = upgrade_tree_3.duplicate(true); upgrade_trees_array.append(upgrade_tree_3)
 	tower = owner
+	if !tower.is_node_ready(): await tower.ready
+	tower_element_reg = tower.element_register
 
 func _request_upgrade(upgrade_tree : TowerUpgradeTree) -> bool:
 	if (upgrade_tree.tier + 1 > upgrade_tree.upgrades.size()): print('Upgrade overflow'); return false
@@ -72,6 +74,7 @@ func _on_tower_element_reg_updated(new_reg : ElementRegister) -> void:
 	if !tower_element_reg.element.element_metadata: #? Newly generated elements *should* have metadata, but here it is in case elements don't have it
 		tower_element_reg.element.element_metadata = ElementManager.query_metadata(new_reg.element.element_id)
 	var metadata : Dictionary = tower_element_reg.element.element_metadata.duplicate(true)
+	
 	tower.element_metadata = metadata
-	if tower.tower_type == 1: tower.tower_gun_sprite.modulate = metadata["root_color"]
+	tower.tower_sprite.set_modulate(metadata["root_color"])
 	assert(!tower.element_metadata.is_read_only())

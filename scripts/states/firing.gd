@@ -37,7 +37,7 @@ func state_physics_update(delta : float) -> void:
 	entity.tower_aim.force_raycast_update()
 	if is_instance_valid(entity.target): #? Control firing angle
 		direction = entity.tower_sprite.global_position.direction_to(entity.target.global_position)
-		entity._rotate_tower(direction, delta)
+		entity._rotate_tower(direction, delta * TAU)
 #endregion
 
 #region Firing

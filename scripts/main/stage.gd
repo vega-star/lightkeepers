@@ -184,8 +184,8 @@ func request_removal(tile_position : Vector2i = Vector2i.MIN) -> bool:
 		remove_tile_object(tile_position, object)
 		if object is Tower:
 			if object.tower_upgrades.tower_element_reg: #? Return elements when tower sold
-				object.tower_upgrades.tower_element_reg.quantity += object.tower_upgrades.tower_element_lvl
-		stage_agent.change_coins(tower_value, true)
+				object.tower_upgrades.tower_element_reg.quantity += 1
+		stage_agent.change_coins(tower_value * CASHBACK_FACTOR, true)
 		return true
 	else: return false
 

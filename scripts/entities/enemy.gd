@@ -156,6 +156,7 @@ func _on_health_component_health_change(previous_value: int, new_value: int, neg
 	var modulate_color : Color
 	if negative: modulate_color = DAMAGE_MODULATE
 	else: modulate_color = HEAL_MODULATE
+	if new_value <= 0: return
 	
 	var modulate_tween : Tween = get_tree().create_tween()
 	var size_tween : Tween = get_tree().create_tween()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n7joi58406ay"
-path="res://.godot/imported/ballista.png-59867b7fd3dc5b9554f97b5f21f94334.ctex"
+uid="uid://d1jvdyumyrufh"
+path="res://.godot/imported/default_pupil.png-a9ed4fc8bb819b960d4a668a7ae4fcb5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/towers/ballista.png"
-dest_files=["res://.godot/imported/ballista.png-59867b7fd3dc5b9554f97b5f21f94334.ctex"]
+source_file="res://assets/sprites/pupils/default_pupil.png"
+dest_files=["res://.godot/imported/default_pupil.png-a9ed4fc8bb819b960d4a668a7ae4fcb5.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/drag/draggable_orb.gd" id="1_5pd6g"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_lps2k"]
 [ext_resource type="LabelSettings" uid="uid://corgcjje16a0i" path="res://assets/theme/element_label_settings.tres" id="2_njyy7"]
-[ext_resource type="Texture2D" uid="uid://jw8eotmm5j81" path="res://assets/sprites/misc/orb.png" id="3_r4jiq"]
+[ext_resource type="Texture2D" uid="uid://dp3j0loao6ey7" path="res://assets/sprites/prototypes/orb_prototype.png" id="4_6ykrq"]
 [ext_resource type="Script" path="res://scripts/ui/drag/draggable_orb_sprite.gd" id="4_grtmq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vtow"]
@@ -35,7 +35,7 @@ vertical_alignment = 1
 
 [node name="Orb" type="Sprite2D" parent="."]
 z_index = 10
-texture = ExtResource("3_r4jiq")
+texture = ExtResource("4_6ykrq")
 
 [node name="OrbElement" type="Sprite2D" parent="Orb"]
 z_index = 15

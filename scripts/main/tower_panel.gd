@@ -5,12 +5,14 @@ signal tower_panel_loaded
 signal tower_sold
 signal tower_moved(to_visible : bool)
 
+const OFFSET_ADD : int = 64
 const LIMIT_RULES : Array[int] = [5, 2]
 const LIMIT_MAP : Array[bool] = [
 	false, #? First tree above threshold
 	false, #? Second tree above threshold
 	false #? Primary tree locked as above second threshold + 1
 ]
+
 var stored_limit : Array[bool] = LIMIT_MAP.duplicate() #? Duplicated to be writable. Constants cannot be edited!
 
 const MOVEMENT_PERIOD : float = 0.15
@@ -23,7 +25,7 @@ const MOVEMENT_PERIOD : float = 0.15
 @onready var focus_label : Label = $FocusContainer/FocusPanel/FocusLabel
 @onready var kill_counter : Label = $NameLabel/KillCounter
 @onready var upgrades_container : VBoxContainer = $Upgrades
-@onready var sell_button : Button = $TowerValuePanel/ValueContainer/SellButton
+@onready var sell_button : Button = $SellButton
 
 var current_stage : Stage #? Needed reference to consume/update coins
 var slots : Array[UpgradePanel]
@@ -43,7 +45,7 @@ func _move(to_visible : bool) -> void:
 	var move_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var target_position : Vector2
 	if to_visible: target_position = Vector2(0, position.y)
-	else: target_position = Vector2(-size.x, position.y)
+	else: target_position = Vector2(-size.x - OFFSET_ADD, position.y)
 	move_tween.tween_property(self, "position", target_position, MOVEMENT_PERIOD).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
 	await move_tween.finished
 	tower_moved.emit(to_visible)

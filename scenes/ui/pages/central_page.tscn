@@ -16,6 +16,31 @@
 [ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/misc/github_icon/github_icon_focused.png" id="9_s7u8m"]
 [ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/misc/github_icon/github_icon.bmp" id="10_tt3vd"]
 
+[sub_resource type="Animation" id="Animation_c4385"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(448, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(64, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_xw6pm"]
 resource_name = "page_loaded"
 length = 3.0
@@ -134,31 +159,6 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0, 2.66667)
 }
 
-[sub_resource type="Animation" id="Animation_c4385"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Logo:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(448, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Logo:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(64, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xst4h"]
 _data = {
 "RESET": SubResource("Animation_c4385"),
@@ -225,7 +225,7 @@ position = Vector2(640, 466.5)
 motion_scale = Vector2(0.1, 0.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Beacon"]
-position = Vector2(0, -82.5)
+position = Vector2(-224, -82.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_jymd8")
 

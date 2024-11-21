@@ -25,7 +25,7 @@ enum TARGET_PRIORITIES {
 signal tower_placed
 signal tower_updated
 signal tower_neutralized
-signal tower_detected_enemy(entity : Enemy)
+signal tower_detected_enemy
 signal tower_defeated_enemy(current_count : int)
 
 #region Turret Configuration
@@ -127,7 +127,9 @@ func _physics_process(_delta) -> void: queue_redraw()
 func _adapt_in_tile() -> void: light_shape.position = position
 
 ## Enemy detection management
-func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body); tower_detected_enemy.emit(body)
+func _enemy_detected(body) -> void:
+	if body is Enemy: eligible_targets.append(body)
+	emit_signal("tower_detected_enemy")
 
 func _enemy_exited(body) -> void: eligible_targets.erase(body)
 

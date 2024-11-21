@@ -49,6 +49,7 @@ func _ready() -> void:
 	assert(orb_collision.input_pickable)
 	if !active_slot: active_slot = home_slot
 	orb_type = element.element_type
+	Options.language_changed.connect(_on_language_changed)
 	if !force_show_label: element_label.visible = false
 
 func _set_element_reg(new_reg : ElementRegister) -> void: ## Runs first
@@ -64,8 +65,11 @@ func _set_element(new_element : Element) -> void: ## Runs in sequence after regi
 
 ## External drag switch
 #? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
-func _on_orb_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate orb when mouse enters it collision shape
-func _on_orb_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate orb
+func _on_orb_collision_mouse_entered() -> void:
+	if !UI.is_dragging: _set_draggable(true) #? Activate orb when mouse enters it collision shape
+
+func _on_orb_collision_mouse_exited() -> void:
+	if !UI.is_dragging: _set_draggable(false) #? Deactivate orb
 
 func _unhandled_input(event : InputEvent) -> void:
 	var n_event : InputEventMouseMotion
@@ -96,11 +100,12 @@ func _process(_delta) -> void:
 			initial_position = global_position
 			offset = get_global_mouse_position() - global_position
 		
-		if Input.is_action_just_pressed('alt'): #? Cancel with alt (Right mouse button)
-			if active_slot == home_slot: return
+		if Input.is_action_just_pressed('alt') or Input.is_action_just_pressed('escape'): #? Cancel drag or send orb back to previous slot with alt click (Right mouse button)
+			locked = true
 			orb_picked.emit()
 			UI.is_dragging = false
 			_return_to_slot(true)
+			if prop_tower: prop_tower.remove_object()
 		
 		if Input.is_action_pressed('click'): # Hold / Drag
 			global_position = get_global_mouse_position() - offset
@@ -191,12 +196,14 @@ func destroy() -> void:
 #? Uses a series of conditions to detect if is_inside_dropable is true. In case there are multiple bodies, there's a solution for that below
 func _on_orb_collision_body_entered(body) -> void: 
 	if body is Slot or body.is_in_group('dropable'): 
-		body.hovered = true; is_inside_dropable = true
+		body.hovered = true
+		is_inside_dropable = true
 		target_slot = body
 
 func _on_orb_collision_body_exited(body) -> void: 
 	if body is Slot or body.is_in_group('dropable'): 
-		body.hovered = false; is_inside_dropable = false
+		body.hovered = false
+		is_inside_dropable = false
 
 ## Internal drag switch
 #? Defines if orb follows mouse and enables all orb behaviors
@@ -209,6 +216,9 @@ func _set_draggable(drag : bool) -> void:
 	else:
 		if !force_show_label: element_label.visible = false
 		scale = Vector2(1, 1)
+
+func _on_language_changed() -> void:
+	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
 #endregion
 
 #region Tower functions
@@ -229,7 +239,8 @@ func _invoke_tower() -> bool:
 		prop_tower.remove_object()
 		_return_to_slot(true)
 		printerr('Tower insertion failed'); return false #? Couldn't insert orb because insertion failed
-	else: destroy()
+	else:
+		destroy()
 	prop_tower._adapt_in_tile()
 	prop_tower.process_mode = Node.PROCESS_MODE_INHERIT
 	prop_tower.tower_placed.emit()

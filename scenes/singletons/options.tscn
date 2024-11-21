@@ -1,11 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://dhpno5sgls8en"]
+[gd_scene load_steps=18 format=3 uid="uid://dhpno5sgls8en"]
 
 [ext_resource type="Script" path="res://scripts/main/options.gd" id="1_cyq4y"]
 [ext_resource type="Texture2D" uid="uid://bgv4ohxpnu7ph" path="res://assets/sprites/misc/gears_capped.png" id="3_ocn82"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_urf2e"]
+[ext_resource type="Texture2D" uid="uid://6chb3sr124yn" path="res://assets/theme/ui/texture_buttons/x_sign.png" id="4_124a6"]
 [ext_resource type="PackedScene" uid="uid://dxc05c2onoqru" path="res://scenes/ui/buttons/keybind_button.tscn" id="4_v5h0o"]
+[ext_resource type="Texture2D" uid="uid://cbk28inhjy6hi" path="res://assets/theme/ui/texture_buttons/x_sign_pressed.png" id="5_bumd4"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="5_qcqxc"]
-[ext_resource type="Texture2D" uid="uid://ekrnron0ftim" path="res://assets/sprites/prototypes/x.png" id="6_no68u"]
+[ext_resource type="Texture2D" uid="uid://cqty1mkcacgay" path="res://assets/theme/ui/texture_buttons/x_sign_hover.png" id="6_dpuaj"]
+[ext_resource type="Texture2D" uid="uid://dbauka3ftfw2f" path="res://assets/theme/ui/texture_buttons/x_sign_disabled.png" id="7_s3ej3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpns1"]
+shader = ExtResource("5_qcqxc")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shlta"]
 atlas = ExtResource("3_ocn82")
@@ -57,15 +65,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpns1"]
-shader = ExtResource("5_qcqxc")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 1.0
-
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 100
 script = ExtResource("1_cyq4y")
+metadata/_edit_vertical_guides_ = [650.0]
 
 [node name="ScreenFilter" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -85,26 +89,46 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("3_urf2e")
 
+[node name="ExitButton" type="TextureButton" parent="OptionsControl"]
+material = SubResource("ShaderMaterial_wpns1")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+anchor_left = 0.748
+anchor_top = 0.193
+anchor_right = 0.791
+anchor_bottom = 0.271
+offset_left = -0.440063
+offset_top = 0.0399933
+offset_right = 0.52002
+offset_bottom = -0.120026
+grow_horizontal = 0
+size_flags_horizontal = 10
+size_flags_vertical = 0
+texture_normal = ExtResource("4_124a6")
+texture_pressed = ExtResource("5_bumd4")
+texture_hover = ExtResource("6_dpuaj")
+texture_disabled = ExtResource("7_s3ej3")
+
 [node name="OptionsMenu" type="TabContainer" parent="OptionsControl"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.43
 anchor_right = 0.577
 anchor_bottom = 1.0
-offset_left = -148.4
+offset_left = -204.4
 offset_top = 51.0
-offset_right = 140.44
+offset_right = 215.44
 offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
 all_tabs_in_front = true
 
 [node name="Gears1" type="AnimatedSprite2D" parent="OptionsControl/OptionsMenu"]
 modulate = Color(2, 2, 1, 1)
 z_index = -2
-position = Vector2(-32, 96)
+position = Vector2(-29, 122)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_an03m")
 animation = &"gear_moving"
@@ -114,7 +138,7 @@ frame_progress = 0.431515
 [node name="Gears2" type="AnimatedSprite2D" parent="OptionsControl/OptionsMenu"]
 modulate = Color(2, 2, 1, 1)
 z_index = -2
-position = Vector2(512, 432)
+position = Vector2(640, 544)
 rotation = 1.5708
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_an03m")
@@ -123,6 +147,7 @@ autoplay = "gear_moving"
 frame_progress = 0.431515
 
 [node name="MAIN_OPTIONS" type="Control" parent="OptionsControl/OptionsMenu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -270,23 +295,7 @@ offset_bottom = 15.0
 grow_vertical = 2
 icon_alignment = 1
 
-[node name="ExitButton" type="TextureButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS"]
-material = SubResource("ShaderMaterial_wpns1")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 13.0
-offset_right = 61.0
-offset_bottom = 48.0
-grow_horizontal = 0
-size_flags_horizontal = 10
-size_flags_vertical = 0
-texture_normal = ExtResource("6_no68u")
-
 [node name="CONTROLS" type="Control" parent="OptionsControl/OptionsMenu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -329,7 +338,6 @@ horizontal_alignment = 2
 
 [node name="ESCAPE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "ESCAPE"
 keybind = "escape"
 
@@ -340,7 +348,6 @@ horizontal_alignment = 2
 
 [node name="SPACE_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "SPACE"
 keybind = "space"
 
@@ -351,7 +358,6 @@ horizontal_alignment = 2
 
 [node name="UP_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "UP"
 keybind = "move_up"
 
@@ -362,7 +368,6 @@ horizontal_alignment = 2
 
 [node name="LEFT_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "LEFT"
 keybind = "move_left"
 
@@ -373,7 +378,6 @@ horizontal_alignment = 2
 
 [node name="DOWN_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "DOWN"
 keybind = "move_down"
 
@@ -384,7 +388,6 @@ horizontal_alignment = 2
 
 [node name="RIGHT_B" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid" instance=ExtResource("4_v5h0o")]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
 text = "RIGHT"
 keybind = "move_right"
 
@@ -393,20 +396,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "RESET_DEFAULT_KEYBINDS"
-
-[node name="ExitButton" type="TextureButton" parent="OptionsControl/OptionsMenu/CONTROLS"]
-material = SubResource("ShaderMaterial_wpns1")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -48.0
-offset_bottom = 48.0
-grow_horizontal = 0
-size_flags_horizontal = 10
-size_flags_vertical = 0
-texture_normal = ExtResource("6_no68u")
 
 [node name="ExitCheck" type="ConfirmationDialog" parent="OptionsControl"]
 title = "EXIT"

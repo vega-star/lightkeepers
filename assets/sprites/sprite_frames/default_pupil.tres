@@ -1,0 +1,95 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://cbh4xf8lwvstr"]
+
+[ext_resource type="Texture2D" uid="uid://d1jvdyumyrufh" path="res://assets/sprites/pupils/default_pupil.png" id="1_i8h2d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24lrw"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlpck"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k36q3"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icobp"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq2ts"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c8so"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp7h5"]
+atlas = ExtResource("1_i8h2d")
+region = Rect2(192, 0, 48, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24lrw")
+}],
+"loop": true,
+"name": &"LEFT",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlpck")
+}],
+"loop": true,
+"name": &"LEFT_DOWN",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k36q3")
+}],
+"loop": true,
+"name": &"LEFT_UP",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icobp")
+}],
+"loop": true,
+"name": &"RIGHT",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq2ts")
+}],
+"loop": true,
+"name": &"RIGHT_DOWN",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c8so")
+}],
+"loop": true,
+"name": &"RIGHT_UP",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp7h5")
+}],
+"loop": true,
+"name": &"UP",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]

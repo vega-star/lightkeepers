@@ -25,7 +25,7 @@
 [ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://components/elements/default_elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
 [ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://scenes/ui/drag/draggable_orb.tscn" id="17_opm6q"]
-[ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="18_fs2ya"]
+[ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire_old.png" id="18_fs2ya"]
 [ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://components/elements/default_elements/EarthElement.tres" id="19_a637k"]
 [ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/sprites/prototypes/play_button.png" id="19_k7dll"]
 [ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="21_mr8h5"]
@@ -35,7 +35,6 @@
 [ext_resource type="Texture2D" uid="uid://2ibwxktmwtu2" path="res://assets/theme/ui/interface/play_button_frame.png" id="32_mf4la"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xljf"]
-load_path = "res://.godot/imported/stylebox_screen_frame.png-4bab7abff86c42e7c7765dd9740181fa.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
 texture = SubResource("CompressedTexture2D_6xljf")
@@ -160,14 +159,14 @@ theme = ExtResource("2_x8juj")
 material = SubResource("ShaderMaterial_cjjh3")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-anchor_left = 0.787
-anchor_top = 0.011
-anchor_right = 0.844
-anchor_bottom = 0.111
-offset_left = 0.639526
-offset_top = 0.0799994
-offset_right = -0.320068
-offset_bottom = 0.0799789
+anchor_left = 0.8
+anchor_top = 0.022
+anchor_right = 0.856
+anchor_bottom = 0.122
+offset_left = -0.000488281
+offset_top = 0.159999
+offset_right = 0.319824
+offset_bottom = 0.159973
 tooltip_text = "CONFIG"
 focus_mode = 1
 texture_normal = ExtResource("14_rjvi7")
@@ -188,69 +187,72 @@ flip_h = true
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = -298.0
-offset_top = 47.0
-offset_right = 0.0
+offset_left = -384.0
+offset_top = 72.0
+offset_right = -64.0
 offset_bottom = 0.0
 grow_vertical = 2
 focus_button_group = SubResource("ButtonGroup_6gsry")
 
-[node name="TopbarTexture" type="TextureRect" parent="UILayer"]
+[node name="TopBar" type="TextureRect" parent="UILayer"]
 z_index = -10
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.306
 anchor_right = 0.694
-anchor_bottom = 0.132
-offset_left = 0.319977
+anchor_bottom = 0.122
+offset_left = 0.319946
 offset_right = -0.320007
-offset_bottom = -25.04
+offset_bottom = 0.159996
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("9_hv4cp")
 stretch_mode = 4
 
-[node name="TopBar" type="HBoxContainer" parent="UILayer"]
+[node name="TopBarContainer" type="HBoxContainer" parent="UILayer/TopBar"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.344
-anchor_right = 0.656
-anchor_bottom = 0.2
-offset_left = -0.320007
-offset_right = 0.319946
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_right = -3.05176e-05
+offset_bottom = -1.0
 grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
-[node name="LifeCounter" type="HBoxContainer" parent="UILayer/TopBar"]
+[node name="LifeCounter" type="HBoxContainer" parent="UILayer/TopBar/TopBarContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
 
-[node name="LifeLabel" type="Label" parent="UILayer/TopBar/LifeCounter"]
+[node name="LifeLabel" type="Label" parent="UILayer/TopBar/TopBarContainer/LifeCounter"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LifeIcon" type="TextureButton" parent="UILayer/TopBar/LifeCounter"]
+[node name="LifeIcon" type="TextureButton" parent="UILayer/TopBar/TopBarContainer/LifeCounter"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("8_p5hmd")
 stretch_mode = 5
 
-[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar"]
+[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar/TopBarContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 
-[node name="StageMeterContent" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
+[node name="StageMeterContent" type="TextureRect" parent="UILayer/TopBar/TopBarContainer/StageMeter"]
 layout_mode = 2
 texture = ExtResource("11_xrfyx")
 
-[node name="StageMeterFrame" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
+[node name="StageMeterFrame" type="TextureRect" parent="UILayer/TopBar/TopBarContainer/StageMeter"]
 layout_mode = 2
 texture = ExtResource("12_kghie")
 
-[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/StageMeter"]
+[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/TopBarContainer/StageMeter"]
 light_mask = 3
 layout_mode = 2
 size_flags_horizontal = 4
@@ -264,18 +266,18 @@ texture_under = ExtResource("13_xw6tr")
 texture_progress = SubResource("CanvasTexture_2dubv")
 texture_progress_offset = Vector2(0, -64)
 
-[node name="CoinCounter" type="HBoxContainer" parent="UILayer/TopBar"]
+[node name="CoinCounter" type="HBoxContainer" parent="UILayer/TopBar/TopBarContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 
-[node name="CoinIcon" type="TextureButton" parent="UILayer/TopBar/CoinCounter"]
+[node name="CoinIcon" type="TextureButton" parent="UILayer/TopBar/TopBarContainer/CoinCounter"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("10_e1p4o")
 stretch_mode = 5
 
-[node name="CoinLabel" type="Label" parent="UILayer/TopBar/CoinCounter"]
+[node name="CoinLabel" type="Label" parent="UILayer/TopBar/TopBarContainer/CoinCounter"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -285,10 +287,11 @@ vertical_alignment = 1
 
 [node name="Elements" type="Panel" parent="UILayer"]
 layout_mode = 2
-anchor_left = 0.85
-anchor_right = 1.003
+anchor_left = 0.869
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.159912
+offset_left = -0.320068
+offset_top = 32.0
 offset_bottom = -192.0
 size_flags_horizontal = 3
 mouse_filter = 2

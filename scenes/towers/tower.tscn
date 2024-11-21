@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bg8dos7yx10dx"]
+[gd_scene load_steps=53 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_ph1d3"]
 [ext_resource type="Script" path="res://scripts/entities/tower.gd" id="2_fqx6q"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="4_bwa4k"]
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="5_jeyg0"]
 [ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="6_bxyej"]
-[ext_resource type="SpriteFrames" uid="uid://cbh4xf8lwvstr" path="res://assets/sprites/sprite_frames/pupil_prototype.tres" id="8_aa25s"]
+[ext_resource type="Texture2D" uid="uid://d1jvdyumyrufh" path="res://assets/sprites/pupils/default_pupil.png" id="8_ivi7v"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_24mi1"]
 animation = &"IDLE_UP"
@@ -121,6 +121,105 @@ states/Start/position = Vector2(290, 211)
 transitions = ["Firing", "End", SubResource("AnimationNodeStateMachineTransition_cns8b"), "Seeking", "Firing", SubResource("AnimationNodeStateMachineTransition_7t536"), "Firing", "Seeking", SubResource("AnimationNodeStateMachineTransition_bjkbf"), "Start", "Seeking", SubResource("AnimationNodeStateMachineTransition_5uuj7")]
 graph_offset = Vector2(-265, -26)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq2ub"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcrlk"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt6x7"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3ye2"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1c7c"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3hh0"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1dpj"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3pcj"]
+atlas = ExtResource("8_ivi7v")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6q00l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq2ub")
+}],
+"loop": true,
+"name": &"DOWN",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcrlk")
+}],
+"loop": true,
+"name": &"LEFT",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt6x7")
+}],
+"loop": true,
+"name": &"LEFT_DOWN",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3ye2")
+}],
+"loop": true,
+"name": &"LEFT_UP",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1c7c")
+}],
+"loop": true,
+"name": &"RIGHT",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3hh0")
+}],
+"loop": true,
+"name": &"RIGHT_DOWN",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1dpj")
+}],
+"loop": true,
+"name": &"RIGHT_UP",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3pcj")
+}],
+"loop": true,
+"name": &"UP",
+"speed": 5.0
+}]
+
 [sub_resource type="Animation" id="Animation_6llpi"]
 resource_name = "IDLE_DOWN"
 tracks/0/type = "value"
@@ -134,18 +233,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"DOWN"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_gjjar"]
@@ -162,18 +249,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"LEFT"]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_qkgis"]
 resource_name = "IDLE_LEFT_DOWN"
@@ -188,18 +263,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"LEFT_DOWN"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_jjtr1"]
@@ -216,18 +279,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"LEFT_UP"]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_f3xlv"]
 resource_name = "IDLE_RIGHT"
@@ -242,18 +293,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"RIGHT"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_fsl86"]
@@ -270,18 +309,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"RIGHT_DOWN"]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_qsstm"]
 resource_name = "IDLE_RIGHT_UP"
@@ -296,18 +323,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"RIGHT_UP"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_7s3am"]
@@ -324,18 +339,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"UP"]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_xa1yc"]
 length = 0.001
@@ -350,18 +353,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"DOWN"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TowerSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qiote"]
@@ -413,8 +404,8 @@ firing_state = NodePath("../Firing")
 seeking_state = NodePath("../Seeking")
 
 [node name="TowerSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4.76837e-07)
-sprite_frames = ExtResource("8_aa25s")
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_6q00l")
 animation = &"DOWN"
 autoplay = "DOWN"
 
@@ -449,4 +440,4 @@ input_pickable = false
 shape = SubResource("CircleShape2D_4qdcu")
 debug_color = Color(0.992355, 0, 0.259521, 0.129412)
 
-[connection signal="tower_detected_enemy" from="." to="StateMachine/Seeking" method="_on_tower_tower_detected_enemy"]
+[connection signal="tower_detected_enemy" from="." to="StateMachine/Seeking" method="_on_tower_detected_enemy"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3tvxsgupe3gs"]
+[gd_scene load_steps=12 format=3 uid="uid://b3tvxsgupe3gs"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_jnlpy"]
 [ext_resource type="Script" path="res://scripts/main/tower_panel.gd" id="2_t7fna"]
@@ -7,9 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/sprites/prototypes/next_button.png" id="6_3nfkb"]
 [ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="7_pyghb"]
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/sprites/prototypes/pyrite.png" id="8_h1wfd"]
+[ext_resource type="Texture2D" uid="uid://6chb3sr124yn" path="res://assets/theme/ui/texture_buttons/x_sign.png" id="8_tvl8h"]
+[ext_resource type="Texture2D" uid="uid://cbk28inhjy6hi" path="res://assets/theme/ui/texture_buttons/x_sign_pressed.png" id="9_3gosr"]
+[ext_resource type="Texture2D" uid="uid://cqty1mkcacgay" path="res://assets/theme/ui/texture_buttons/x_sign_hover.png" id="10_523ep"]
+[ext_resource type="Texture2D" uid="uid://dbauka3ftfw2f" path="res://assets/theme/ui/texture_buttons/x_sign_disabled.png" id="11_x83xs"]
 
 [node name="TowerPanel" type="Panel"]
-offset_top = 56.0
+offset_top = 73.0
 offset_right = 265.0
 offset_bottom = 720.0
 mouse_filter = 1
@@ -19,26 +23,31 @@ focus_button_group = ExtResource("3_howsy")
 metadata/_edit_horizontal_guides_ = [720.0]
 metadata/_edit_vertical_guides_ = [1280.0]
 
-[node name="SplashPoint" type="Control" parent="."]
+[node name="TowerSplash" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 168.0
-offset_bottom = 168.0
-grow_horizontal = 2
-
-[node name="TowerSplash" type="Sprite2D" parent="SplashPoint"]
-position = Vector2(0, 24)
-scale = Vector2(0.2, 0.2)
+anchors_preset = -1
+anchor_left = 0.091
+anchor_top = 0.06
+anchor_right = 0.906
+anchor_bottom = 0.394
+offset_left = -0.115002
+offset_top = 0.18
+offset_right = -0.0900116
+offset_bottom = 0.0819855
 texture = ExtResource("5_qgpe8")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
+anchor_top = 0.009
 anchor_right = 1.0
-offset_top = 2.0
-offset_bottom = 47.0
+anchor_bottom = 0.077
+offset_left = 12.0
+offset_top = 0.177
+offset_right = -12.0
+offset_bottom = 0.180996
 grow_horizontal = 2
 theme = ExtResource("1_jnlpy")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -48,30 +57,34 @@ vertical_alignment = 1
 
 [node name="KillCounter" type="Label" parent="NameLabel"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
+anchor_bottom = 1.0
 offset_left = -20.0
-offset_top = 28.0
+offset_top = 33.0
 offset_right = 20.0
-offset_bottom = 64.0
+offset_bottom = 24.0
 grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_jnlpy")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 26
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FocusContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 301.0
-offset_right = -27.0
-offset_bottom = -333.0
+anchors_preset = -1
+anchor_left = 0.094
+anchor_top = 0.413
+anchor_right = 0.898
+anchor_bottom = 0.495
+offset_left = 0.0899982
+offset_top = -22.211
+offset_right = 0.0299835
+offset_bottom = -22.265
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -113,12 +126,13 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 338.0
-offset_right = -8.0
-offset_bottom = -59.0
+offset_left = 13.0
+offset_top = 297.0
+offset_right = -16.0
+offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="UpgradePanel" parent="Upgrades" instance=ExtResource("7_pyghb")]
 layout_mode = 2
@@ -132,13 +146,14 @@ layout_mode = 2
 [node name="TowerValuePanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -48.0
-offset_right = -8.0
-offset_bottom = -8.0
+anchor_left = 0.06
+anchor_top = 0.906
+anchor_right = 0.936
+anchor_bottom = 0.975
+offset_left = 0.0999994
+offset_top = -0.182007
+offset_right = -0.0400085
+offset_bottom = 0.174988
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -147,43 +162,62 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -5.0
-offset_bottom = 5.0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = -12.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Value" type="Label" parent="TowerValuePanel/ValueContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "150"
 
 [node name="CoinIcon" type="TextureButton" parent="TowerValuePanel/ValueContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("8_h1wfd")
-stretch_mode = 6
+stretch_mode = 5
 
-[node name="Value" type="Label" parent="TowerValuePanel/ValueContainer"]
-layout_mode = 2
+[node name="SellButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.057
+anchor_top = 0.895
+anchor_right = 0.392
+anchor_bottom = 0.988
+offset_left = -7.105
+offset_top = -0.0650024
+offset_right = -6.88
+offset_bottom = -0.236023
 size_flags_horizontal = 3
-text = "150"
-
-[node name="SellButton" type="Button" parent="TowerValuePanel/ValueContainer"]
-layout_mode = 2
-size_flags_vertical = 4
 theme = ExtResource("1_jnlpy")
+theme_override_font_sizes/font_size = 20
 text = "SELL"
+clip_text = true
 icon_alignment = 2
 expand_icon = true
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="ExitButton" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -35.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = 46.0
+anchors_preset = -1
+anchor_left = 0.725
+anchor_top = -0.1
+anchor_right = 0.966
+anchor_bottom = -0.002
+offset_left = -0.125
+offset_top = -0.299995
+offset_right = 0.00999451
+offset_bottom = 0.294
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 24
-text = "X"
-flat = true
+texture_normal = ExtResource("8_tvl8h")
+texture_pressed = ExtResource("9_3gosr")
+texture_hover = ExtResource("10_523ep")
+texture_disabled = ExtResource("11_x83xs")
+stretch_mode = 5
 
-[connection signal="pressed" from="TowerValuePanel/ValueContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+
+[editable path="Upgrades/UpgradePanel"]

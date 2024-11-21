@@ -4,10 +4,10 @@ var upgrade_tree : TowerUpgradeTree
 var finished : bool: set = _on_finished
 var locked : bool: set = _on_locked
 
-@onready var previous_texture : TextureRect = $PanelContainer/Panel2/PreviousTexture
-@onready var upgrade_button : TextureButton = $PanelContainer/UpgradeButton
-@onready var cost_label : Label = $PanelContainer/UpgradeButton/CostLabel
-@onready var progress_meter : TextureProgressBar = $PanelContainer/ProgressMeter
+@onready var previous_texture : TextureRect = $Container/Panel2/PreviousTexture
+@onready var upgrade_button : Button = $Container/UpgradeButton
+@onready var cost_label : Label = $Container/UpgradeButton/CostLabel
+@onready var progress_meter : TextureProgressBar = $Container/ProgressMeter
 @onready var locked_panel : Panel = $LockedPanel
 @onready var locked_label : Label = $LockedPanel/LockedLabel
 

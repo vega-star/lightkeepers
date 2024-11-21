@@ -28,8 +28,11 @@ func _ready() -> void: UI.drag_changed.connect(_drag_toggled)
 
 #region Object Controls
 func _set_orb(new_orb : DraggableOrb) -> void:
-	if is_instance_valid(active_orb): active_orb.orb_picked.disconnect(_remove_orb)
+	if is_instance_valid(active_orb):
+		active_orb.orb_picked.disconnect(_on_orb_picked)
+		active_orb.orb_picked.disconnect(_remove_orb)
 	if !new_orb: active_orb = null; return
+	
 	active_orb = new_orb
 	active_orb.orb_picked.connect(_on_orb_picked)
 	active_orb.orb_picked.connect(_remove_orb)
@@ -41,11 +44,13 @@ func _set_reg(new_reg : ElementRegister) -> void:
 	if element_register == null: return
 	element_register.element_quantity_changed.connect(_on_quantity_changed)
 
-func _on_quantity_changed(_new_quantity : int): if !active_orb: _restock()
-
-func _on_orb_picked() -> void: slot_orb_picked.emit(element_register) #? Signal relay and carry register
+func _on_quantity_changed(_new_quantity : int):
+	if !active_orb:
+		_restock()
 
 func _restock() -> void: active_orb = ElementManager._restock_output(self, element_register)
+
+func _on_orb_picked() -> void: slot_orb_picked.emit(element_register) #? Signal relay and carry register
 
 func request_insert(orb : DraggableOrb) -> bool:
 	var orb_type : int = orb.element.element_type
@@ -102,9 +107,13 @@ func _remove_orb(destroy : bool = false) -> void:
 	if destroy: active_orb._destroy()
 	slot_changed.emit()
 
-func _destroy_active_orb() -> void: if is_instance_valid(active_orb): active_orb._destroy()
+func _destroy_active_orb() -> void:
+	if is_instance_valid(active_orb):
+		active_orb._destroy()
 
-func _on_visibility_changed() -> void: if is_instance_valid(active_orb) and !is_visible_in_tree() and !is_output: active_orb._return_to_slot()
+func _on_visibility_changed() -> void:
+	if is_instance_valid(active_orb) and !is_visible_in_tree() and !is_output:
+		active_orb._return_to_slot()
 #endregion
 
 #region Cosmetic Features

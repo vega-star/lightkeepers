@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwd06hc57w8v6"
-path="res://.godot/imported/cannonball.png-792c6b7a21bd6fc105c67bb6ac51b8c1.ctex"
+uid="uid://6chb3sr124yn"
+path="res://.godot/imported/x_sign.png-233d02ca955bb88227e430b845ea4065.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/tower_weapons/cannonball.png"
-dest_files=["res://.godot/imported/cannonball.png-792c6b7a21bd6fc105c67bb6ac51b8c1.ctex"]
+source_file="res://assets/theme/ui/texture_buttons/x_sign.png"
+dest_files=["res://.godot/imported/x_sign.png-233d02ca955bb88227e430b845ea4065.ctex"]
 
 [params]
 

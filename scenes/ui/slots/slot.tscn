@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdkcd23fl4s0a"]
 
 [ext_resource type="Script" path="res://scripts/ui/slots/slot.gd" id="1_8j22q"]
-[ext_resource type="Texture2D" uid="uid://davs5ak18gski" path="res://assets/sprites/misc/slot_icon.png" id="2_apmlb"]
+[ext_resource type="Texture2D" uid="uid://dp3j0loao6ey7" path="res://assets/sprites/prototypes/orb_prototype.png" id="2_sl1jl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cagpj"]
 radius = 48.0
@@ -15,7 +15,7 @@ input_pickable = true
 script = ExtResource("1_8j22q")
 
 [node name="SlotIcon" type="Sprite2D" parent="."]
-texture = ExtResource("2_apmlb")
+texture = ExtResource("2_sl1jl")
 
 [node name="SlotCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cagpj")

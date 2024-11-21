@@ -73,6 +73,7 @@ var drag_mode : bool = true
 # Change these accordingly:
 @onready var options_control : Control = $OptionsControl
 @onready var options_menu : TabContainer = $OptionsControl/OptionsMenu
+@onready var auto_turn_button : CheckButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/AutoTurn
 @onready var drag_toggle_button : CheckButton = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/DragToggleButton
 @onready var master_slider : HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Master_Slider
 @onready var effects_slider: HSlider = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Effects_Slider
@@ -83,14 +84,15 @@ var drag_mode : bool = true
 @onready var keybind_grid : GridContainer = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/KeybindGrid
 @onready var reset_keybinds : Button = $OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container/ResetKeybinds
 @onready var language_button : OptionButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/LanguageButton
-@onready var exit_button_1 : TextureButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ExitButton
-@onready var exit_button_2: TextureButton = $OptionsControl/OptionsMenu/CONTROLS/ExitButton
+@onready var exit_button : TextureButton = $OptionsControl/ExitButton
 @onready var exit_check : ConfirmationDialog = $OptionsControl/ExitCheck
 @onready var reset_keybinds_check : ConfirmationDialog = $OptionsControl/ResetKeybindsCheck
 @onready var stage_container : VBoxContainer = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage
 #endregion
 
 #region | Core Functions
+func save_config() -> void: config_file.save(CONFIG_FILE_PATH)
+
 func _ready() -> void:
 	visible = false #? Here just in case you forget to make this node invisible after making UI changes.
 	options_menu.current_tab = 0 #? Same as above
@@ -109,7 +111,7 @@ func _ready() -> void:
 		for c in DEFAULT_CONFIGURATIONS:
 			var command = DEFAULT_CONFIGURATIONS[c]
 			config_file.set_value(command[0], command[1], command[2])
-	config_file.save(CONFIG_FILE_PATH)
+	save_config()
 	config_file_loaded.emit()
 	_load_data()
 	
@@ -141,13 +143,13 @@ func _bind_signals() -> void: #? Binds signals from UI nodes by code
 	music_slider.drag_ended.connect(_on_music_slider_drag_ended); music_slider.value_changed.connect(_on_music_slider_value_changed)
 	effects_slider.drag_ended.connect(_on_effects_slider_drag_ended); effects_slider.value_changed.connect(_on_effects_slider_value_changed)
 	language_button.item_selected.connect(_on_language_menu_item_selected)
-	exit_button_1.pressed.connect(_on_exit_menu_pressed)
-	exit_button_2.pressed.connect(_on_exit_menu_pressed)
+	exit_button.pressed.connect(_on_exit_menu_pressed)
 
 func _load_data() -> void: #? Updates all buttons present in the framework accordingly with the loaded configuration
 	drag_mode = config_file.get_value("MAIN_OPTIONS","DRAG_MODE")
 	drag_toggle_button.button_pressed = drag_mode
 	UI.autoplay_turn = config_file.get_value("MAIN_OPTIONS","AUTOTURN_TOGGLED")
+	auto_turn_button.button_pressed = UI.autoplay_turn
 	
 	if master_slider: master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME"); _toggle_channel(CHANNELS.MASTER, config_file.get_value("MAIN_OPTIONS","MASTER_TOGGLED"))
 	if music_slider: music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME"); _toggle_channel(CHANNELS.MUSIC, config_file.get_value("MAIN_OPTIONS","MUSIC_TOGGLED"))
@@ -195,7 +197,7 @@ func _on_exit_menu_pressed() -> void:
 func _on_exit_check_confirmed() -> void: #? Save new configuration
 	save_keys()
 	options_changed.emit()
-	config_file.save(CONFIG_FILE_PATH)
+	save_config()
 	_exit()
 
 func _on_exit_check_canceled() -> void: #? Reset old configuration
@@ -257,7 +259,8 @@ func setup_keys() -> void: ## Registers keys in dict as inputs
 		var newkey = InputEventKey.new() #? Waits for a key press
 		newkey.keycode = int(key_dict[i]) #? Recieves keycode from 
 		InputMap.action_add_event(i,newkey) #? Adds the new key to InputMap
-	
+	return
+
 func save_keys() -> void: #? Save the new keybindings to file
 	var file = FileAccess.open(KEYBIND_FILE_PATH, FileAccess.WRITE)
 	var result = JSON.stringify(key_dict, "\t")
@@ -287,6 +290,11 @@ func button_toggle(button, config, section : String = "MAIN_OPTIONS") -> void:
 	config_file.set_value(section, config, button_status)
 	settings_changed = true
 
+func _on_auto_turn_toggled(toggled_on : bool) -> void:
+	config_file.set_value("MAIN_OPTIONS", "AUTOTURN_TOGGLED", toggled_on)
+	UI.autoplay_turn = toggled_on
+	save_config()
+
 func _on_photosens_mode_pressed() -> void:
 	# button_toggle($ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode, "PHOTOSENS_MODE")
 	# photosens_mode = $ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed
@@ -312,7 +320,7 @@ func _on_screen_mode_selected(index) -> void:
 	DisplayServer.window_set_mode(window_modes[index])
 	config_file.set_value("MAIN_OPTIONS","WINDOW_MODE",window_modes[index])
 	# print('Display format selected: {0}'.format({0:window_modes[index]}))
-	config_file.save(CONFIG_FILE_PATH)
+	save_config()
 #endregion
 
 #region Audio Controls
@@ -336,9 +344,9 @@ func set_volume(bus_id, new_db) -> void: AudioServer.set_bus_volume_db(bus_id, n
 func _on_master_slider_value_changed(value) -> void: config_file.set_value("MAIN_OPTIONS","MASTER_VOLUME", value); set_volume(0, linear_to_db(master_slider.value))
 func _on_music_slider_value_changed(value) -> void: config_file.set_value("MAIN_OPTIONS","MUSIC_VOLUME", value); set_volume(1, linear_to_db(music_slider.value))
 func _on_effects_slider_value_changed(value) -> void: config_file.set_value("MAIN_OPTIONS","EFFECTS_VOLUME", value); set_volume(2, linear_to_db(effects_slider.value))
-func _on_master_slider_drag_ended(_value_changed) -> void: config_file.save(CONFIG_FILE_PATH)
-func _on_music_slider_drag_ended(_value_changed) -> void: config_file.save(CONFIG_FILE_PATH)
-func _on_effects_slider_drag_ended(_value_changed) -> void: config_file.save(CONFIG_FILE_PATH)
+func _on_master_slider_drag_ended(_value_changed) -> void: save_config()
+func _on_music_slider_drag_ended(_value_changed) -> void: save_config()
+func _on_effects_slider_drag_ended(_value_changed) -> void: save_config()
 #endregion
 
 #region Loaders
@@ -359,8 +367,4 @@ func _on_main_menu_button_pressed() -> void:
 		'CONFIRM', 'CANCEL'
 	)
 	if request: _exit(); LoadManager.return_to_menu()
-
-func _on_auto_turn_toggled(toggled_on : bool) -> void:
-	config_file.set_value("MAIN_OPTIONS", "AUTOTURN_TOGGLED", toggled_on)
-	UI.autoplay_turn = toggled_on
 #endregion

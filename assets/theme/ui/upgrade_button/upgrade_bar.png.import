@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w5hiinoumrj4"
-path="res://.godot/imported/deep_stylebox.png-016b706ff7df541bc79280217834b03f.ctex"
+uid="uid://brtqa86lleac2"
+path="res://.godot/imported/upgrade_bar.png-e5da00f4790dcf281413fc917e24c3b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/theme/ui/panels/deep_stylebox.png"
-dest_files=["res://.godot/imported/deep_stylebox.png-016b706ff7df541bc79280217834b03f.ctex"]
+source_file="res://assets/theme/ui/upgrade_button/upgrade_bar.png"
+dest_files=["res://.godot/imported/upgrade_bar.png-e5da00f4790dcf281413fc917e24c3b0.ctex"]
 
 [params]
 

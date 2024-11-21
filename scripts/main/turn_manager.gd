@@ -1,5 +1,7 @@
 class_name TurnManager extends Node
 
+const TIMEOUT_BETWEEN_TURNS : float = 1.5
+
 signal turn_passed(current_turn : int, max_turns : int)
 signal wave_completed
 signal entity_scene_loaded
@@ -96,7 +98,10 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 		
 		if !UI.autoplay_turn: #? Stops here and waits to player prompt to continue
 			if current_turn == schedule.turns.size(): schedule_finished.emit()
-			await UI.interface.turn_pass_requested 
+			await UI.interface.turn_pass_requested
+		
+		var turn_timer : SceneTreeTimer = get_tree().create_timer(TIMEOUT_BETWEEN_TURNS, false)
+		await turn_timer.timeout
 	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:

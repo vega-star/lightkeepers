@@ -14,16 +14,16 @@ const TURN_UPDATE_PERIOD : float = 0.75
 
 @export var shop_button_group : ButtonGroup
 @export var hide_elements_when_start : bool = true
+@export var debug : bool = false
 
 #region Node references
 @onready var elements_container : ElementsContainer = $UILayer/Elements/ScrollContainer/ElementsContainer
 @onready var tower_panel : TowerPanel = $UILayer/TowerPanel
 @onready var play_button : TextureButton = $UILayer/CornerFrame/PlayButton
-@onready var autoplay_button : TextureButton = $UILayer/CornerFrame/AutoplayButton
-@onready var life_label : Label = $UILayer/TopBar/LifeCounter/LifeLabel
-@onready var coin_label : Label = $UILayer/TopBar/CoinCounter/CoinLabel
-@onready var coin_icon : TextureButton = $UILayer/TopBar/CoinCounter/CoinIcon
-@onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/StageMeter/StageMeterBar
+@onready var life_label : Label = $UILayer/TopBar/TopBarContainer/LifeCounter/LifeLabel
+@onready var coin_label : Label = $UILayer/TopBar/TopBarContainer/CoinCounter/CoinLabel
+@onready var coin_icon : TextureButton = $UILayer/TopBar/TopBarContainer/CoinCounter/CoinIcon
+@onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/TopBarContainer/StageMeter/StageMeterBar
 @onready var options_button : TextureButton = $UILayer/OptionsButton
 #endregion
 
@@ -78,12 +78,7 @@ func _on_options_button_pressed() -> void:
 	if options_button.button_pressed: Options.show()
 	else: Options._on_exit_menu_pressed()
 
-func _on_hide_fuse_menu_button_pressed() -> void:
-	var hide_tween : Tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	var new_x : int = 0
-
 ## Mouse detector - Useful to prevent positioning/interacting with objects behind UI buttons
 func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; UI.mouse_on_ui_changed.emit(false)
 func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; UI.mouse_on_ui_changed.emit(true)
-func _on_mouse_on_ui_changed(present: bool) -> void: pass # print('Mouse on ui: ', mouse_on_ui)
 #endregion

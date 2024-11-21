@@ -99,7 +99,7 @@ func _seek_target() -> Node: ## Returns an enemy node that can be targeted by th
 	if debug: print(entity.name, ' is targeting ', new_target.get_path())
 	return new_target
 
-func _on_tower_tower_detected_enemy(_entity : Enemy) -> void:
+func _on_tower_detected_enemy() -> void:
 	if debug: print(entity.name, ' seek called due to new enemy entering tower range')
 	entity.target = _seek_target()
 #endregion

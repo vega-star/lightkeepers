@@ -20,10 +20,6 @@ func _ready():
 	bg_rect.add_theme_stylebox_override("panel", boot_splash_style_box)
 	_start()
 
-func _unhandled_input(event: InputEvent) -> void:
-	# if Input.is_action_just_pressed("space") and not is_ending: _end()
-	pass
-
 func _start() -> void:
 	UI.fade('IN')
 	intro_animation.speed_scale = 1

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/tower.tscn" id="1_wel7w"]
 [ext_resource type="PackedScene" uid="uid://cupxwutf72o83" path="res://components/projectiles/cannon_projectile.tscn" id="2_k2kr6"]
-[ext_resource type="Texture2D" uid="uid://5ip5d0re285c" path="res://assets/sprites/towers/cannon.png" id="3_dq8sw"]
+[ext_resource type="Texture2D" uid="uid://5ip5d0re285c" path="res://assets/sprites/pupils/cannon.png" id="3_dq8sw"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="3_w1am6"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="4_74n68"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="5_6yeod"]

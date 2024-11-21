@@ -1,15 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8ywb7b35x7rr"]
+[gd_scene load_steps=8 format=3 uid="uid://b8ywb7b35x7rr"]
 
 [ext_resource type="Script" path="res://scripts/ui/main/ui_component.gd" id="1_o51w2"]
 [ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://components/lightkeepers_environment.tres" id="2_1yj8j"]
-[ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/canvas_layers/ui_screen_effect_layer.tscn" id="2_nmhs7"]
 [ext_resource type="PackedScene" uid="uid://brbqmcfgkka7f" path="res://scenes/ui/canvas_layers/interface.tscn" id="3_4fskw"]
-[ext_resource type="CameraAttributesPractical" uid="uid://dwi4x38dr76wn" path="res://components/lightkeepers_camera.tres" id="3_6ubrw"]
-[ext_resource type="Compositor" uid="uid://dw4wpy8cygcme" path="res://components/lightkeepers_compositor.tres" id="4_f3t2k"]
+[ext_resource type="PackedScene" uid="uid://4u0tjvtopukg" path="res://scenes/ui/canvas_layers/ui_effect_layer.tscn" id="3_qgpmj"]
 [ext_resource type="PackedScene" uid="uid://bp7bhsg5h41p4" path="res://scenes/ui/canvas_layers/ui_pause_layer.tscn" id="4_wwglg"]
 [ext_resource type="PackedScene" uid="uid://b0umly4sahrnr" path="res://scenes/ui/canvas_layers/ui_transition_layer.tscn" id="6_iltc1"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_ra6l7"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_3nxsj"]
 
 [node name="UIComponent" type="Node"]
 process_mode = 3
@@ -17,15 +15,12 @@ script = ExtResource("1_o51w2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_1yj8j")
-camera_attributes = ExtResource("3_6ubrw")
-compositor = ExtResource("4_f3t2k")
 
-[node name="ScreenEffectLayer" parent="." instance=ExtResource("2_nmhs7")]
-visible = false
+[node name="EffectLayer" parent="." instance=ExtResource("3_qgpmj")]
 
 [node name="Interface" parent="." instance=ExtResource("3_4fskw")]
 layer = 25
-shop_button_group = SubResource("ButtonGroup_ra6l7")
+shop_button_group = SubResource("ButtonGroup_3nxsj")
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_wwglg")]
 layer = 5
@@ -34,5 +29,6 @@ layer = 5
 layer = 50
 visible = false
 
+[connection signal="mouse_on_ui_changed" from="." to="." method="_on_mouse_on_ui_changed"]
 [connection signal="wave_activity_changed" from="." to="." method="_on_wave_activity_changed"]
 [connection signal="turn_pass_requested" from="Interface" to="." method="_on_turn_pass_requested"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bff060w2csk4o"
-path="res://.godot/imported/ballista_projectile.png-a67ab2c0162fb0b7c6f1fef057da0f15.ctex"
+uid="uid://bjukskkt8yjm"
+path="res://.godot/imported/upgrade_bar_big.png-14f388955f5c0926d66a4148e11ebb75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/tower_weapons/ballista_projectile.png"
-dest_files=["res://.godot/imported/ballista_projectile.png-a67ab2c0162fb0b7c6f1fef057da0f15.ctex"]
+source_file="res://assets/theme/ui/upgrade_button/upgrade_bar_big.png"
+dest_files=["res://.godot/imported/upgrade_bar_big.png-14f388955f5c0926d66a4148e11ebb75.ctex"]
 
 [params]
 

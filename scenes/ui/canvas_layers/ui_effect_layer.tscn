@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://4u0tjvtopukg"]
+
+[ext_resource type="Texture2D" uid="uid://d2ibubyh0b2g3" path="res://assets/sprites/prototypes/screen_frame.png" id="1_8ebnj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0uwmf"]
+texture = ExtResource("1_8ebnj")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="ScreenEffectLayer" type="CanvasLayer"]
+layer = 128
+
+[node name="Screen" type="Control" parent="."]
+visible = false
+z_index = 128
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Screen"]
+z_index = 128
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0uwmf")

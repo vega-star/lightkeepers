@@ -33,6 +33,7 @@ func load_scene(next_scene_path : String, with_loading_screen : bool = true) -> 
 	AudioManager.set_pause(true)
 	_scene_path = next_scene_path
 	assert(_scene_path)
+	if UI.speed_toggled: UI.toggle_speed(false)
 	if with_loading_screen: await _call_loading_screen()
 	else: _immediately_switch = false #? Will not show progress of this specific loaded scene. 
 	start_load()
