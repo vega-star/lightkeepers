@@ -1,6 +1,6 @@
 class_name Tower extends TileObject
 
-const DIRECTION_SMOOTHING : float = 0.05
+const DIRECTION_SMOOTHING : float = 0.15
 const DEFAULT_RANGE : float = 1
 const DEFAULT_RANGE_DISTANCE : float = 128
 const DEFAULT_LIGHT_RANGE : float = 1
@@ -25,7 +25,7 @@ enum TARGET_PRIORITIES {
 signal tower_placed
 signal tower_updated
 signal tower_neutralized
-signal tower_detected_enemy
+signal tower_detected_enemy(entity : Enemy)
 signal tower_defeated_enemy(current_count : int)
 
 #region Turret Configuration
@@ -120,14 +120,14 @@ func _configure() -> void:
 	if prop: light_area.set_deferred("disabled", true)
 	tower_range_area.body_entered.connect(_enemy_detected)
 	tower_range_area.body_exited.connect(_enemy_exited)
-	light_area.set_name(tower_name + '_LightArea')
+	light_shape.set_name(tower_name + '_LightArea')
 
 func _physics_process(_delta) -> void: queue_redraw()
 
 func _adapt_in_tile() -> void: light_shape.position = position
 
 ## Enemy detection management
-func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body); tower_detected_enemy.emit()
+func _enemy_detected(body) -> void: if body is Enemy: eligible_targets.append(body); tower_detected_enemy.emit(body)
 
 func _enemy_exited(body) -> void: eligible_targets.erase(body)
 
@@ -146,12 +146,9 @@ func _rotate_to_direction(
 	r_node.rotate(sign(angle) * min(delta * r_speed, abs(angle)))
 
 func _update_direction(new_direction : Vector2) -> void:
-	global_direction = new_direction
-	var current_vertical_blend = tower_animation_tree.get("parameters/Seeking/blend_position")
-	var lerp_direction = lerp(current_vertical_blend, global_direction, DIRECTION_SMOOTHING)
-	tower_animation_tree.set("parameters/Seeking/blend_position", lerp_direction)
-	tower_animation_tree.set("parameters/Firing/blend_position", lerp_direction)
-	print('New direction -> ', lerp_direction)
+	global_direction = lerp(global_direction, new_direction, DIRECTION_SMOOTHING)
+	tower_animation_tree.set("parameters/Seeking/blend_position", global_direction)
+	tower_animation_tree.set("parameters/Firing/blend_position",global_direction)
 
 func _draw() -> void:
 	if visible_range: #? Draw visible cues to tower range based on the shape of the range itself and camera zoom. No adjustment is necessary!

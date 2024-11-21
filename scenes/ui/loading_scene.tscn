@@ -82,24 +82,10 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.366667, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("..")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"loading_screen_has_full_coverage"],
-"method": &"emit_signal"
-}]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y0v5b"]
@@ -133,16 +119,16 @@ libraries = {
 
 [node name="ProgressBarFrame" type="Panel" parent="LoadingPanel"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -560.0
+offset_left = -264.0
 offset_top = -43.0
-offset_right = -32.0
+offset_right = 264.0
 offset_bottom = -32.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_ut0vv")
 
@@ -158,6 +144,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -0.00400019
 grow_horizontal = 2
-grow_vertical = 2
-value = 50.0
+grow_vertical = 0
 show_percentage = false

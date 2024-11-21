@@ -3,7 +3,6 @@
 # This menu can also be heavily modified and personalized to each project. Just be sure to reconnect the nodes!
 # All information necessary is loaded from a single ConfigFile, and if it doesn't exist or it is the first load, it will create it
 # Don't set this as a class, as it creates conflict when autoloaded.
-@icon("res://assets/sprites/ui/config_menu_icon.png")
 extends CanvasLayer
 
 signal focus_freed
@@ -37,6 +36,7 @@ const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
 	"window_size": ["MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", DEFAULT_RESOLUTION],
 	"drag_activated": ["MAIN_OPTIONS", "DRAG_MODE", true],
+	"autoturn_toggle": ["MAIN_OPTIONS","AUTOTURN_TOGGLED", true],
 	"language": ["MAIN_OPTIONS", "LANGUAGE", "en"],
 	"toggle_photosens": ["MAIN_OPTIONS","PHOTOSENS_MODE", false],
 	"toggle_screen_shake": ["MAIN_OPTIONS","SCREEN_SHAKE", true],
@@ -64,7 +64,7 @@ var config_file_load = config_file.load(CONFIG_FILE_PATH)
 var key_dict : Dictionary = {}
 var setting_key : bool = false
 var settings_changed : bool = false
-var language_changed_detect : bool = false
+var language_recently_changed : bool
 var photosens_mode : bool
 var drag_mode : bool = true
 
@@ -145,20 +145,13 @@ func _bind_signals() -> void: #? Binds signals from UI nodes by code
 	exit_button_2.pressed.connect(_on_exit_menu_pressed)
 
 func _load_data() -> void: #? Updates all buttons present in the framework accordingly with the loaded configuration
-	#photosens_mode = config_file.get_value("MAIN_OPTIONS","PHOTOSENS_MODE"); $ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/Photosens_Mode.button_pressed = photosens_mode
-	#$ConfigTabs/ACCESSIBILITY/Scroll/ConfigPanel/ScreenShake.button_pressed = config_file.get_value("MAIN_OPTIONS","SCREEN_SHAKE")
 	drag_mode = config_file.get_value("MAIN_OPTIONS","DRAG_MODE")
 	drag_toggle_button.button_pressed = drag_mode
+	UI.autoplay_turn = config_file.get_value("MAIN_OPTIONS","AUTOTURN_TOGGLED")
 	
-	if master_slider:
-		master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME")
-		_toggle_channel(CHANNELS.MASTER, config_file.get_value("MAIN_OPTIONS","MASTER_TOGGLED"))
-	if music_slider:
-		music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME")
-		_toggle_channel(CHANNELS.MUSIC, config_file.get_value("MAIN_OPTIONS","MUSIC_TOGGLED"))
-	if effects_slider:
-		effects_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME")
-		_toggle_channel(CHANNELS.EFFECTS, config_file.get_value("MAIN_OPTIONS","EFFECTS_TOGGLED"))
+	if master_slider: master_slider.value = config_file.get_value("MAIN_OPTIONS","MASTER_VOLUME"); _toggle_channel(CHANNELS.MASTER, config_file.get_value("MAIN_OPTIONS","MASTER_TOGGLED"))
+	if music_slider: music_slider.value = config_file.get_value("MAIN_OPTIONS","MUSIC_VOLUME"); _toggle_channel(CHANNELS.MUSIC, config_file.get_value("MAIN_OPTIONS","MUSIC_TOGGLED"))
+	if effects_slider: effects_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME"); _toggle_channel(CHANNELS.EFFECTS, config_file.get_value("MAIN_OPTIONS","EFFECTS_TOGGLED"))
 	TranslationServer.set_locale(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
 	language_button.selected = LANG_ORDER.find(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
 	if reset_window_size_on_boot: DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
@@ -212,9 +205,9 @@ func _on_exit_check_canceled() -> void: #? Reset old configuration
 	_exit()
 
 func _exit() -> void: # Clean temporary data and reset signal
-	if language_changed_detect: language_changed.emit()
+	if language_recently_changed: language_changed.emit()
 	settings_changed = false
-	language_changed_detect = false
+	language_recently_changed = false
 	Options.visible = false
 	focus_freed.emit()
 
@@ -283,6 +276,7 @@ func _on_reset_default_keybinds() -> void: ## Reloads keys after redefining key_
 #region | Advanced Buttons
 func _on_language_menu_item_selected(index) -> void:
 	settings_changed = true
+	language_recently_changed = true
 	var lang : String
 	lang = LANG_ORDER[index]
 	config_file.set_value("MAIN_OPTIONS","LANGUAGE", lang)
@@ -365,4 +359,8 @@ func _on_main_menu_button_pressed() -> void:
 		'CONFIRM', 'CANCEL'
 	)
 	if request: _exit(); LoadManager.return_to_menu()
+
+func _on_auto_turn_toggled(toggled_on : bool) -> void:
+	config_file.set_value("MAIN_OPTIONS", "AUTOTURN_TOGGLED", toggled_on)
+	UI.autoplay_turn = toggled_on
 #endregion

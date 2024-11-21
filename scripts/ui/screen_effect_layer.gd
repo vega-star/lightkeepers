@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var is_visible : bool = true
+@export var is_visible : bool = false
 
 func _ready() -> void:
 	set_visible(is_visible)

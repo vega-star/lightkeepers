@@ -1,18 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1exo4vhhmcgf"]
+[gd_scene load_steps=19 format=3 uid="uid://c1exo4vhhmcgf"]
 
 [ext_resource type="Script" path="res://scripts/ui/pages/pg_central_page.gd" id="1_2dyl0"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_3vsxr"]
-[ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/misc/lightkeepers_logo.png" id="3_3uyyw"]
-[ext_resource type="Texture2D" uid="uid://cr13gsku30rfr" path="res://assets/temp/menu_tests/bg_prototype_5.png" id="3_kpego"]
-[ext_resource type="Texture2D" uid="uid://dwm2jneomlt5c" path="res://assets/temp/menu_tests/bg_prototype_4.png" id="4_3jow6"]
+[ext_resource type="Texture2D" uid="uid://cr13gsku30rfr" path="res://assets/sprites/prototypes/menu_tests/bg_prototype_5.png" id="3_kpego"]
+[ext_resource type="Texture2D" uid="uid://dwm2jneomlt5c" path="res://assets/sprites/prototypes/menu_tests/bg_prototype_4.png" id="4_3jow6"]
 [ext_resource type="Texture2D" uid="uid://xq6u5btf74sp" path="res://assets/sprites/misc/github_icon/github_icon.png" id="5_h0be6"]
-[ext_resource type="Texture2D" uid="uid://cygyy1klx14tt" path="res://assets/temp/menu_tests/bg_prototype_3.png" id="5_sq4dg"]
+[ext_resource type="Texture2D" uid="uid://cygyy1klx14tt" path="res://assets/sprites/prototypes/menu_tests/bg_prototype_3.png" id="5_sq4dg"]
 [ext_resource type="Texture2D" uid="uid://u1y5p3hmbb6i" path="res://assets/sprites/misc/github_icon/github_icon_pressed.png" id="6_403fq"]
-[ext_resource type="Texture2D" uid="uid://chkheq7cxyt64" path="res://assets/temp/menu_tests/bg_prototype_2.png" id="6_h3dmq"]
+[ext_resource type="Texture2D" uid="uid://chkheq7cxyt64" path="res://assets/sprites/prototypes/menu_tests/bg_prototype_2.png" id="6_h3dmq"]
 [ext_resource type="Texture2D" uid="uid://d2s84fwr7i2nu" path="res://assets/sprites/misc/github_icon/github_icon_hovered.png" id="7_5ivjt"]
-[ext_resource type="Texture2D" uid="uid://ciugglxlxtk4x" path="res://assets/temp/menu_tests/bg_prototype_1.png" id="7_k3gbm"]
+[ext_resource type="Texture2D" uid="uid://7f788mciwfb2" path="res://assets/sprites/menus/beacon.png" id="7_jymd8"]
 [ext_resource type="Texture2D" uid="uid://j2c5jng3drea" path="res://assets/sprites/misc/github_icon/github_icon_disabled.png" id="8_i7v0j"]
-[ext_resource type="Texture2D" uid="uid://d08vwr3rgqdrm" path="res://assets/temp/menu_tests/bg_prototype_0.png" id="8_m12r8"]
+[ext_resource type="Texture2D" uid="uid://d08vwr3rgqdrm" path="res://assets/sprites/prototypes/menu_tests/bg_prototype_0.png" id="8_m12r8"]
+[ext_resource type="Texture2D" uid="uid://bxjswbircxmwk" path="res://assets/sprites/misc/logo_low_res.png" id="9_kel0t"]
 [ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/misc/github_icon/github_icon_focused.png" id="9_s7u8m"]
 [ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/misc/github_icon/github_icon.bmp" id="10_tt3vd"]
 
@@ -38,9 +38,9 @@ tracks/1/path = NodePath("Logo:position:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(640, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0, 640, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.566667, 2)
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(448, -0.25, 0, 0.25, 0, 448, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -49,9 +49,9 @@ tracks/2/path = NodePath("Logo:position:y")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(152, -0.25, 0, 0.333333, -20.5, 192, -1.36667, 9.5, 0.25, 0),
-"times": PackedFloat32Array(0, 2.06667)
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(152, -0.25, 0, 0.333333, -20.5, 86.5, -0.333333, 36, 0.233333, -19.7186, 64, -0.9, -0.5, 0.25, 0),
+"times": PackedFloat32Array(0, 1.96667, 3)
 }
 tracks/3/type = "method"
 tracks/3/imported = false
@@ -134,8 +134,34 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0, 2.66667)
 }
 
+[sub_resource type="Animation" id="Animation_c4385"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(448, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(64, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xst4h"]
 _data = {
+"RESET": SubResource("Animation_c4385"),
 "page_loaded": SubResource("Animation_xw6pm")
 }
 
@@ -199,7 +225,9 @@ position = Vector2(640, 466.5)
 motion_scale = Vector2(0.1, 0.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Beacon"]
-texture = ExtResource("7_k3gbm")
+position = Vector2(0, -82.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_jymd8")
 
 [node name="Sky1" type="ParallaxLayer" parent="MenuParallax"]
 position = Vector2(640, 364.5)
@@ -208,11 +236,21 @@ motion_scale = Vector2(0.05, 0.05)
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Sky1"]
 texture = ExtResource("8_m12r8")
 
-[node name="Logo" type="Sprite2D" parent="."]
+[node name="Logo" type="TextureRect" parent="."]
 self_modulate = Color(1.32, 1.15, 1, 1)
-position = Vector2(640, 192)
-skew = 0.261799
-texture = ExtResource("3_3uyyw")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.089
+anchor_right = 0.65
+anchor_bottom = 0.333
+offset_left = -3.05176e-05
+offset_top = -0.0800018
+offset_right = 384.0
+offset_bottom = 176.24
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_kel0t")
+stretch_mode = 5
 
 [node name="VersionLabel" type="Label" parent="."]
 modulate = Color(0.661781, 0.56482, 0.268005, 1)
@@ -235,10 +273,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -90.0
-offset_top = -90.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_left = -98.0
+offset_top = -98.0
+offset_right = -16.0
+offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 

@@ -3,7 +3,7 @@
 ## Its color is defined by the Boot Splash from ProjectSettings
 extends CanvasLayer
 
-signal loading_screen_has_full_coverage
+signal has_full_coverage
 
 @onready var loading_panel = $LoadingPanel
 @onready var animation_player = $LoadingPanel/AnimationPlayer
@@ -19,10 +19,13 @@ func _update_progress_bar(new_value : float) -> void:
 	progress_bar.set_value_no_signal(new_value * 100)
 
 func _start_intro_animation():
+	UI.fade('OUT')
 	animation_player.play("START_LOAD")
+	await animation_player.animation_finished
+	has_full_coverage.emit()
 
 func _start_outro_animation():
-	animation_player.play("END_LOAD")
 	UI.fade('IN')
+	animation_player.play("END_LOAD")
 	await animation_player.animation_finished
 	queue_free()

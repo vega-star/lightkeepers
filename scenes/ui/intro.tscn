@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/intro.gd" id="1_gv81k"]
 [ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://assets/materials/unshaded_material.tres" id="3_eirej"]
-[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/temp/neutral_point_2d.webp" id="3_jvnkl"]
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/sprites/prototypes/neutral_point_2d.webp" id="3_jvnkl"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_k8e1i"]
 [ext_resource type="Texture2D" uid="uid://byplld3o54jwl" path="res://assets/sprites/misc/godot-icon.png" id="4_uqdiy"]
 [ext_resource type="FontFile" uid="uid://ikmx3cecam4n" path="res://assets/theme/fonts/Jersey10-Regular.ttf" id="5_or7r7"]

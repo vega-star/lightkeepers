@@ -10,7 +10,6 @@ const RANDOM_SEEKING_DAMPENING : int = 5
 const BASE_SEEKING_TIMEOUT : float = 0.15
 
 @export var firing_state : State
-@export var debug : bool = false
 
 var sight_detection : bool
 var has_sight : bool
@@ -18,6 +17,7 @@ var direction : Vector2
 var seeking_dampening : int = 1
 var randomly_rotating : bool = true
 var active : bool = false ## Current active stage
+var debug : bool = false
 
 #region State functions
 func _ready() -> void:
@@ -39,6 +39,7 @@ func state_physics_update(delta : float) -> void:
 	else:
 		if randomly_rotating:
 			randomly_rotating = false
+			await get_tree().create_timer(ROTATING_TIMEOUT).timeout
 			seeking_dampening = RANDOM_SEEKING_DAMPENING
 			direction = Vector2(randf_range(-1,1),randf_range(-1,1))
 			await get_tree().create_timer(ROTATING_TIMEOUT).timeout
@@ -97,4 +98,8 @@ func _seek_target() -> Node: ## Returns an enemy node that can be targeted by th
 	
 	if debug: print(entity.name, ' is targeting ', new_target.get_path())
 	return new_target
+
+func _on_tower_tower_detected_enemy(_entity : Enemy) -> void:
+	if debug: print(entity.name, ' seek called due to new enemy entering tower range')
+	entity.target = _seek_target()
 #endregion

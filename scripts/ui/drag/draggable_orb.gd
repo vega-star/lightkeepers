@@ -62,6 +62,21 @@ func _set_element(new_element : Element) -> void: ## Runs in sequence after regi
 	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
 	set_name(new_element.element_id.capitalize() + "Orb")
 
+## External drag switch
+#? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
+func _on_orb_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate orb when mouse enters it collision shape
+func _on_orb_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate orb
+
+func _unhandled_input(event : InputEvent) -> void:
+	var n_event : InputEventMouseMotion
+	if event is InputEventScreenTouch: #? Touch compatibility
+		if event.pressed:
+			n_event = InputEventMouseMotion.new()
+			n_event.button_mask = MOUSE_BUTTON_MASK_LEFT
+			n_event.position = event.position
+			n_event.pressed = event.pressed
+		Input.parse_input_event(n_event)
+
 func _process(_delta) -> void:
 	if draggable and !locked: #? Dragging processes
 		if orb_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
@@ -194,11 +209,6 @@ func _set_draggable(drag : bool) -> void:
 	else:
 		if !force_show_label: element_label.visible = false
 		scale = Vector2(1, 1)
-
-## External drag switch
-#? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
-func _on_orb_collision_mouse_entered() -> void: if !UI.is_dragging: _set_draggable(true) #? Activate orb when mouse enters it collision shape
-func _on_orb_collision_mouse_exited() -> void: if !UI.is_dragging: _set_draggable(false) #? Deactivate orb
 #endregion
 
 #region Tower functions

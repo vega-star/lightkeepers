@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_urf2e"]
 [ext_resource type="PackedScene" uid="uid://dxc05c2onoqru" path="res://scenes/ui/buttons/keybind_button.tscn" id="4_v5h0o"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="5_qcqxc"]
-[ext_resource type="Texture2D" uid="uid://ekrnron0ftim" path="res://assets/temp/x.png" id="6_no68u"]
+[ext_resource type="Texture2D" uid="uid://ekrnron0ftim" path="res://assets/sprites/prototypes/x.png" id="6_no68u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shlta"]
 atlas = ExtResource("3_ocn82")
@@ -98,7 +98,8 @@ offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 1
+current_tab = 0
+all_tabs_in_front = true
 
 [node name="Gears1" type="AnimatedSprite2D" parent="OptionsControl/OptionsMenu"]
 modulate = Color(2, 2, 1, 1)
@@ -122,7 +123,6 @@ autoplay = "gear_moving"
 frame_progress = 0.431515
 
 [node name="MAIN_OPTIONS" type="Control" parent="OptionsControl/OptionsMenu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -143,7 +143,35 @@ follow_focus = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_constants/separation = 6
+theme_override_constants/separation = 4
+
+[node name="Stage" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+text = "STAGE"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="RestartStageButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "RESTART"
+
+[node name="ReturnToMenuButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "MAIN_MENU"
+
+[node name="AutoTurn" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "TOGGLE_AUTOTURN_TOOLTIP"
+text = "TOGGLE_AUTOTURN"
+alignment = 1
+text_overrun_behavior = 1
 
 [node name="LanguageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
 layout_mode = 2
@@ -242,23 +270,6 @@ offset_bottom = 15.0
 grow_vertical = 2
 icon_alignment = 1
 
-[node name="Stage" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
-layout_mode = 2
-
-[node name="StageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-text = "STAGE"
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="RestartStageButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-text = "RESTART"
-
-[node name="ReturnToMenuButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-text = "MAIN_MENU"
-
 [node name="ExitButton" type="TextureButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS"]
 material = SubResource("ShaderMaterial_wpns1")
 custom_minimum_size = Vector2(48, 48)
@@ -275,6 +286,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("6_no68u")
 
 [node name="CONTROLS" type="Control" parent="OptionsControl/OptionsMenu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -416,3 +428,4 @@ cancel_button_text = "CANCEL"
 
 [connection signal="pressed" from="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/RestartStageButton" to="." method="_on_restart_stage_button_pressed"]
 [connection signal="pressed" from="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/ReturnToMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="toggled" from="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage/AutoTurn" to="." method="_on_auto_turn_toggled"]

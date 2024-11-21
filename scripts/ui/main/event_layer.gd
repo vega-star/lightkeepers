@@ -11,7 +11,7 @@ func _ready():
 	confirmation_dialog.get_child(1, true).set_horizontal_alignment(1)
 	confirmation_dialog.get_child(1, true).set_vertical_alignment(1)
 
-func request_confirmation(title : String, text : String, _ok_text : String = 'Confirm', _cancel_text : String = 'Cancel') -> bool:
+func request_confirmation(title : String, text : String, _ok_text : String = 'CONFIRM', _cancel_text : String = 'CANCEL') -> bool:
 	UI.set_pause(true)
 	confirmation_dialog.title = TranslationServer.tr(title)
 	confirmation_dialog.dialog_text = TranslationServer.tr(text)

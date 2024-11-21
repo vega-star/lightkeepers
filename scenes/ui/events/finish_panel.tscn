@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4x14mmqd8wts"]
+[gd_scene load_steps=3 format=3 uid="uid://b4x14mmqd8wts"]
 
 [ext_resource type="Script" path="res://scripts/ui/events/finish_panel.gd" id="1_3vl4d"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_jad7h"]
-[ext_resource type="FontFile" uid="uid://ikmx3cecam4n" path="res://assets/theme/fonts/Jersey10-Regular.ttf" id="2_js2na"]
 
 [node name="FinishPanel" type="Panel"]
 process_mode = 3
@@ -12,8 +11,7 @@ anchor_top = 0.178
 anchor_right = 0.75
 anchor_bottom = 0.711
 offset_top = -0.160004
-offset_right = -6.10352e-05
-offset_bottom = 0.0799866
+offset_bottom = 64.08
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(224, 166)
@@ -24,12 +22,10 @@ script = ExtResource("1_3vl4d")
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 0.667
-offset_right = 6.10352e-05
-offset_bottom = -168.128
+anchor_bottom = 0.286
+offset_bottom = -0.128006
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_js2na")
 theme_override_font_sizes/font_size = 84
 text = "STAGE_SUCESS"
 horizontal_alignment = 1
@@ -38,16 +34,15 @@ vertical_alignment = 1
 [node name="StageSuccessText" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.687
+anchor_top = 0.625
 anchor_right = 1.0
-anchor_bottom = 0.812
+anchor_bottom = 0.75
 offset_left = 15.0
-offset_top = 0.191986
+offset_top = -0.0320129
 offset_right = -15.9999
-offset_bottom = 0.191986
+offset_bottom = -0.0320435
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_js2na")
 text = "STAGE_SUCESS_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -56,13 +51,12 @@ autowrap_mode = 2
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.797
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 14.5
-offset_top = 11.952
-offset_right = -14.5
-offset_bottom = -16.0
+anchor_top = 0.75
+anchor_right = 0.975
+anchor_bottom = 0.982
+offset_left = 8.0
+offset_top = 7.99997
+offset_bottom = -7.93604
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 24

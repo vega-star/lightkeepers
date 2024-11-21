@@ -1,8 +1,6 @@
 class_name Interface
 extends CanvasLayer
 
-
-signal autoplay_toggled(toggle : bool)
 signal turn_pass_requested
 
 #region Variables
@@ -61,10 +59,6 @@ func _input(_event) -> void:
 func _on_play_button_pressed():
 	turn_pass_requested.emit()
 	play_button.release_focus()
-
-func _on_autoplay_button_toggled(toggled_on) -> void:
-	UI.autoplay_turn = toggled_on
-	autoplay_toggled.emit(toggled_on)
 
 func update_status( #? Only updates label. The values are modified by StageAgent only
 		label : Label,

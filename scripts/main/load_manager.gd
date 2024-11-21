@@ -65,7 +65,7 @@ func _call_loading_screen() -> void:
 	get_tree().get_root().call_deferred("add_child", loading_screen)
 	self.progress_changed.connect(loading_screen._update_progress_bar)
 	self.load_completed.connect(loading_screen._start_outro_animation)
-	await Signal(loading_screen, "loading_screen_has_full_coverage")
+	await Signal(loading_screen, "has_full_coverage")
 	return
 
 func _switch_to_scene(scene : PackedScene = _loaded_resource) -> void:

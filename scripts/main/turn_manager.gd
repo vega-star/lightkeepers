@@ -94,8 +94,9 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 		stage_agent.change_coins(turn.coins_on_turn_completion, true)
 		UI.wave_is_active = false
 		
-		if !UI.autoplay_turn:
-			await UI.interface.turn_pass_requested #? Stops here and waits to player prompt to continue. If autoplay is on, ignores and move on
+		if !UI.autoplay_turn: #? Stops here and waits to player prompt to continue
+			if current_turn == schedule.turns.size(): schedule_finished.emit()
+			await UI.interface.turn_pass_requested 
 	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:

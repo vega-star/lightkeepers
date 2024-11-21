@@ -80,6 +80,8 @@ FIRE,Fire,Fogo
 WATER,Water,Água
 AIR,Air,Ar
 EARTH,Earth,Terra
+TOGGLE_AUTOTURN,Auto Turn,Auto Turno
+TOGGLE_AUTOTURN_TOOLTIP,Toggles if a new turn starts automatically after the previous is finished,Alterna se um turno começa automaticamente após o anterior acabar
 CONFLAGRATION,Conflagration,Conflagração
 LIGHTNING,Lightning,Relâmpago
 TURBULENCE,Turbulence,Turbulência

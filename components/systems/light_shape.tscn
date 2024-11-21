@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://q7ct18pusa6o"]
 
-[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/temp/neutral_point_2d.webp" id="1_apdox"]
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/sprites/prototypes/neutral_point_2d.webp" id="1_apdox"]
 [ext_resource type="Script" path="res://scripts/main/light_shape.gd" id="1_e5unc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c2ngf"]

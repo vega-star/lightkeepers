@@ -46,6 +46,10 @@ func _on_focus_changed(control : Control) -> void:
 func set_pause(state : bool) -> void:
 	pause_state = state
 	get_tree().paused = state
+	
+	if !state and speed_cached: toggle_speed(true)
+	else: toggle_speed(false)
+	
 	game_paused.emit(state)
 
 func toggle_speed(toggle : bool) -> void:

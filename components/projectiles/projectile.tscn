@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bj1k1hebjni7c"]
 
 [ext_resource type="Script" path="res://scripts/entities/projectile.gd" id="1_5ijgk"]
-[ext_resource type="Texture2D" uid="uid://bft0dral3qenl" path="res://assets/temp/magicball.png" id="2_q0dl6"]
+[ext_resource type="Texture2D" uid="uid://bft0dral3qenl" path="res://assets/sprites/prototypes/magicball.png" id="2_q0dl6"]
 
 [sub_resource type="Curve" id="Curve_a1gkp"]
 _data = [Vector2(0, 0), 0.0, -0.393981, 0, 0, Vector2(0.877232, 1), -0.132273, 0.0, 0, 0, Vector2(1, 0), -23.0398, 0.0, 0, 0]
@@ -13,8 +13,8 @@ colors = PackedColorArray(0.864545, 0.393264, 0.156729, 0, 0.698108, 0.515423, 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xyjd"]
 custom_solver_bias = 0.2
-radius = 4.0
-height = 12.0
+radius = 6.0
+height = 16.0
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 32

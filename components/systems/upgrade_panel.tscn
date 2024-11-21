@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://ci7pepoofruau"]
 
-[ext_resource type="Texture2D" uid="uid://drwf0sesy3ig" path="res://assets/temp/test_blocks.png" id="1_7u36e"]
+[ext_resource type="Texture2D" uid="uid://drwf0sesy3ig" path="res://assets/sprites/prototypes/test_blocks.png" id="1_7u36e"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_cig02"]
 [ext_resource type="Script" path="res://scripts/ui/upgrade_panel.gd" id="2_ab3u7"]
-[ext_resource type="Texture2D" uid="uid://bn86te8nu266v" path="res://assets/temp/test_blocks_progress.png" id="2_f1wur"]
-[ext_resource type="Texture2D" uid="uid://xmdc3l6sg3bn" path="res://assets/theme/textures/default_stylebox_dark.png" id="2_vp2ei"]
-[ext_resource type="Texture2D" uid="uid://8snjtlxm3ui2" path="res://assets/temp/tower_lb_button.png" id="3_32noa"]
-[ext_resource type="Texture2D" uid="uid://qxtbqfensmmc" path="res://assets/temp/tower_lb_button_pressed.png" id="4_7akr4"]
-[ext_resource type="Texture2D" uid="uid://sunekol6mdhk" path="res://assets/temp/tower_lb_button_hover.png" id="5_qmj05"]
-[ext_resource type="Texture2D" uid="uid://cnq2y2d1karmh" path="res://assets/temp/tower_lb_button_disabled.png" id="6_hlr1i"]
+[ext_resource type="Texture2D" uid="uid://bn86te8nu266v" path="res://assets/sprites/prototypes/test_blocks_progress.png" id="2_f1wur"]
+[ext_resource type="Texture2D" uid="uid://xmdc3l6sg3bn" path="res://assets/theme/ui/panels/default_stylebox_dark.png" id="2_vp2ei"]
+[ext_resource type="Texture2D" uid="uid://8snjtlxm3ui2" path="res://assets/sprites/prototypes/tower_lb_button.png" id="3_32noa"]
+[ext_resource type="Texture2D" uid="uid://qxtbqfensmmc" path="res://assets/sprites/prototypes/tower_lb_button_pressed.png" id="4_7akr4"]
+[ext_resource type="Texture2D" uid="uid://sunekol6mdhk" path="res://assets/sprites/prototypes/tower_lb_button_hover.png" id="5_qmj05"]
+[ext_resource type="Texture2D" uid="uid://cnq2y2d1karmh" path="res://assets/sprites/prototypes/tower_lb_button_disabled.png" id="6_hlr1i"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b6gby"]
 texture = ExtResource("2_vp2ei")
