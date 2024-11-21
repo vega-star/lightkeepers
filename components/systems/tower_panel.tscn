@@ -3,8 +3,8 @@
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_jnlpy"]
 [ext_resource type="Script" path="res://scripts/main/tower_panel.gd" id="2_t7fna"]
 [ext_resource type="ButtonGroup" uid="uid://bjy5571kf6h78" path="res://components/systems/focus_buttons.tres" id="3_howsy"]
+[ext_resource type="Texture2D" uid="uid://djr4rb0583foe" path="res://assets/theme/ui/focus_arrow/arrow_normal.png" id="5_8owfj"]
 [ext_resource type="Texture2D" uid="uid://cgskcr0k8rb7r" path="res://assets/sprites/misc/logo_sage.png" id="5_qgpe8"]
-[ext_resource type="Texture2D" uid="uid://bne68h7tx5us" path="res://assets/sprites/prototypes/next_button.png" id="6_3nfkb"]
 [ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="7_pyghb"]
 [ext_resource type="Texture2D" uid="uid://dcoyykvqvr0d0" path="res://assets/sprites/prototypes/pyrite.png" id="8_h1wfd"]
 [ext_resource type="Texture2D" uid="uid://6chb3sr124yn" path="res://assets/theme/ui/texture_buttons/x_sign.png" id="8_tvl8h"]
@@ -13,9 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://dbauka3ftfw2f" path="res://assets/theme/ui/texture_buttons/x_sign_disabled.png" id="11_x83xs"]
 
 [node name="TowerPanel" type="Panel"]
-offset_top = 73.0
-offset_right = 265.0
-offset_bottom = 720.0
+anchors_preset = -1
+anchor_top = 0.101
+anchor_right = 0.206
+anchor_bottom = 1.0
+offset_top = 0.279999
+offset_right = 1.31998
 mouse_filter = 1
 theme = ExtResource("1_jnlpy")
 script = ExtResource("2_t7fna")
@@ -77,24 +80,26 @@ vertical_alignment = 1
 [node name="FocusContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.094
-anchor_top = 0.413
-anchor_right = 0.898
-anchor_bottom = 0.495
-offset_left = 0.0899982
-offset_top = -22.211
-offset_right = 0.0299835
-offset_bottom = -22.265
+anchor_left = 0.091
+anchor_top = 0.382
+anchor_right = 0.906
+anchor_bottom = 0.456
+offset_left = -0.115002
+offset_top = -0.154022
+offset_right = -0.0900116
+offset_bottom = -0.0320129
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PreviousButton" type="TextureButton" parent="FocusContainer"]
+z_index = 1
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 button_group = ExtResource("3_howsy")
-texture_normal = ExtResource("6_3nfkb")
+texture_normal = ExtResource("5_8owfj")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 3
 flip_h = true
 
 [node name="FocusPanel" type="Panel" parent="FocusContainer"]
@@ -114,22 +119,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NextButton" type="TextureButton" parent="FocusContainer"]
+z_index = 1
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+size_flags_horizontal = 8
 button_group = ExtResource("3_howsy")
-texture_normal = ExtResource("6_3nfkb")
+texture_normal = ExtResource("5_8owfj")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 3
 
 [node name="Upgrades" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = 297.0
-offset_right = -16.0
-offset_bottom = -60.0
+anchor_left = 0.049
+anchor_top = 0.456
+anchor_right = 0.94
+anchor_bottom = 0.907
+offset_left = 0.0149994
+offset_top = -0.0320129
+offset_right = -0.100021
+offset_bottom = 0.170959
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -199,6 +208,44 @@ clip_text = true
 icon_alignment = 2
 expand_icon = true
 
+[node name="MoveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = -0.1
+anchor_right = 0.366
+anchor_bottom = -0.002
+offset_left = 0.0499997
+offset_top = -0.299995
+offset_right = 0.00999451
+offset_bottom = 0.294
+size_flags_horizontal = 3
+tooltip_text = "NOT IMPLEMENTED YET!"
+theme = ExtResource("1_jnlpy")
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "MOVE"
+clip_text = true
+icon_alignment = 2
+expand_icon = true
+
+[node name="MoveCost" type="Label" parent="MoveButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.258
+anchor_top = 0.75
+anchor_right = 0.742
+anchor_bottom = 1.0
+offset_left = 0.0379982
+offset_top = -13.0
+offset_right = -0.038002
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 10
+text = "0"
+horizontal_alignment = 1
+
 [node name="ExitButton" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -218,6 +265,7 @@ texture_disabled = ExtResource("11_x83xs")
 stretch_mode = 5
 
 [connection signal="pressed" from="SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="MoveButton" to="." method="_on_move_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 
 [editable path="Upgrades/UpgradePanel"]

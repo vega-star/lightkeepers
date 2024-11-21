@@ -20,7 +20,7 @@ metadata/_edit_horizontal_guides_ = [320.0]
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "REMOVE {0}"
-initial_position = 2
+initial_position = 1
 size = Vector2i(729, 138)
 ok_button_text = "CONFIRM"
 dialog_text = "By deleting this object, you will retrieve {1} coins"

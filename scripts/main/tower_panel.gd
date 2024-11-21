@@ -149,4 +149,7 @@ func _on_upgrade_button_pressed(u_index : int) -> void:
 	var request = upgrade_system._request_upgrade(slots[u_index].upgrade_tree)
 	if request: tower.tower_updated.emit()
 	else: pass
+
+func _on_move_button_pressed() -> void:
+	pass # Replace with function body.
 #endregion

@@ -7,6 +7,7 @@ extends Node2D
 #region Variables
 const SELECTOR_INVALID_COLOR : Color = Color(3.5,2,2)
 const CASHBACK_FACTOR : float = 0.65
+const MOVEMENT_COST_FACTOR : float = 0.20
 
 ## Stage configuration
 @export var stage_info : StageInfo

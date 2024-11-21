@@ -84,16 +84,12 @@ func _seek_target() -> Node: ## Returns an enemy node that can be targeted by th
 				)
 			available_targets.sort_custom(func(a, b): return a[1] < b[1])
 			new_target = available_targets[0][0]
-		3: #? WEAK | #TODO
-			for t in entity.eligible_targets.size():
-				available_targets.append([entity.eligible_targets[t], entity.nexus_position.distance_squared_to(entity.eligible_targets[t].position)])
-			available_targets.sort_custom(func(a, b): return a[1] < b[1])
-			new_target = available_targets[0][0]
-		4: #? STRONG | #TODO
-			for t in entity.eligible_targets.size():
-				available_targets.append([entity.eligible_targets[t], entity.nexus_position.distance_squared_to(entity.eligible_targets[t].position)])
-			available_targets.sort_custom(func(a, b): return a[1] < b[1])
-			new_target = available_targets[0][0]
+		3: #? WEAK | TODO
+			new_target = entity.eligible_targets.front()
+		4: #? STRONG | TODO
+			new_target = entity.eligible_targets.front()
+		5: #? FLYING | TODO
+			new_target = entity.eligible_targets.front()
 		_: push_error('INVALID SEEKING TYPE ON TURRET %s' % self.name)
 	
 	if debug: print(entity.name, ' is targeting ', new_target.get_path())

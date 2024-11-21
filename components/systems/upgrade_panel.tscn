@@ -76,7 +76,11 @@ size_flags_vertical = 4
 max_value = 5.0
 value = 3.0
 fill_mode = 3
+nine_patch_stretch = true
 stretch_margin_left = 10
+stretch_margin_top = 38
+stretch_margin_right = 10
+stretch_margin_bottom = 38
 texture_under = ExtResource("3_j71od")
 texture_progress = ExtResource("4_6n4yb")
 
