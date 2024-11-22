@@ -76,13 +76,16 @@ func _on_body_entered(body) -> void:
 	if !active: return
 	
 	if body is Enemy:
-		if is_instance_valid(source): body.health_component.change(damage, true, source)
+		var loaded_source : Object
+		if is_instance_valid(source):
+			loaded_source = source
+			body.health_component.change(damage, true, source)
 		else: body.health_component.change(damage, true)
 		if !projectile_element_metadata.is_empty():
 			body.health_component.effect_component.apply_effect(
 				projectile_element_metadata["eid"],
 				projectile_element_metadata,
-				source
+				loaded_source
 			)
 		piercing_count -= 1
 		if projectile_mode == 1: projectile_mode = 0

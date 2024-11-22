@@ -354,7 +354,7 @@ func _on_resource_loaded() -> void: pass
 
 func _on_restart_stage_button_pressed() -> void: 
 	var request : bool = await UI.event_layer.request_confirmation(
-		'RESTART_STAGE',
+		TranslationServer.tr('RESTART_STAGE'),
 		TranslationServer.tr('STAGE_PROGRESS_WARNING_TEXT'),
 		'CONFIRM', 'CANCEL'
 	)

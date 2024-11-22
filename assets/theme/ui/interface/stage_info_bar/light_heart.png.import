@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3xw8q7amylml"
-path="res://.godot/imported/fire.png-d1313a0bbd247a158cc2042924490819.ctex"
+uid="uid://jafafrbliqat"
+path="res://.godot/imported/light_heart.png-13febf15a42475682076754cab11a037.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/elements/fire.png"
-dest_files=["res://.godot/imported/fire.png-d1313a0bbd247a158cc2042924490819.ctex"]
+source_file="res://assets/theme/ui/interface/stage_info_bar/light_heart.png"
+dest_files=["res://.godot/imported/light_heart.png-13febf15a42475682076754cab11a037.ctex"]
 
 [params]
 

@@ -9,30 +9,31 @@
 [ext_resource type="Resource" uid="uid://djkttk26w5qaa" path="res://components/elements/default_registers/EarthRegister.tres" id="5_5ri6y"]
 [ext_resource type="Texture2D" uid="uid://bgv4ohxpnu7ph" path="res://assets/sprites/misc/gears_capped.png" id="7_4ri6c"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://scenes/ui/slots/control_slot.tscn" id="8_am10k"]
-[ext_resource type="Texture2D" uid="uid://dg6qjr6jhe7gc" path="res://assets/theme/ui/interface/stage_info_bar/heart.png" id="8_p5hmd"]
-[ext_resource type="Texture2D" uid="uid://dedfb673qvvoy" path="res://assets/theme/ui/interface/stage_info_bar/top_bar_frame.png" id="9_hv4cp"]
+[ext_resource type="Texture2D" uid="uid://jafafrbliqat" path="res://assets/theme/ui/interface/stage_info_bar/light_heart.png" id="9_1w577"]
 [ext_resource type="Texture2D" uid="uid://cg1ukv3bt57ya" path="res://assets/sprites/misc/stage_progress.png" id="9_mfelc"]
 [ext_resource type="Texture2D" uid="uid://dwosvdhg2ooxc" path="res://assets/sprites/misc/stage_progress_normal.png" id="10_b8yux"]
-[ext_resource type="Texture2D" uid="uid://c1xrdahx5g2j2" path="res://assets/theme/ui/interface/stage_info_bar/pyrite.png" id="10_e1p4o"]
 [ext_resource type="Script" path="res://scripts/ui/element_container.gd" id="11_vob4m"]
 [ext_resource type="Texture2D" uid="uid://lnixk74gihen" path="res://assets/theme/ui/interface/stage_info_bar/stage_clock_night1.png" id="11_xrfyx"]
+[ext_resource type="FontVariation" uid="uid://4mnisn80uepf" path="res://assets/theme/fonts/grape_soda_crunched.tres" id="12_fwjcb"]
 [ext_resource type="Texture2D" uid="uid://scm0bkrbjsi5" path="res://assets/theme/ui/interface/stage_info_bar/stage_clock_frame.png" id="12_kghie"]
 [ext_resource type="Resource" uid="uid://cif4ikpvj2qi8" path="res://components/elements/default_elements/FireElement.tres" id="13_hlgc1"]
 [ext_resource type="Texture2D" uid="uid://mt7rv6s5xlm0" path="res://assets/theme/ui/interface/stage_info_bar/stage_clock_under.png" id="13_xw6tr"]
 [ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/sprites/prototypes/gear.png" id="14_rjvi7"]
 [ext_resource type="Resource" uid="uid://d0a770bi30hno" path="res://components/elements/default_elements/WaterElement.tres" id="15_sqh7q"]
-[ext_resource type="Texture2D" uid="uid://jc3y0an1vcyk" path="res://assets/theme/ui/interface/elements_frame.png" id="16_t83wn"]
+[ext_resource type="Texture2D" uid="uid://6jquii71q5cj" path="res://assets/theme/ui/interface/stage_info_bar/green_diamond.png" id="16_sap7g"]
+[ext_resource type="Texture2D" uid="uid://bg4ldr8hyrf55" path="res://assets/theme/ui/panels/default_panel.png" id="16_wwwr2"]
 [ext_resource type="Resource" uid="uid://4hltno1bly0a" path="res://components/elements/default_elements/AirElement.tres" id="17_7oxc3"]
 [ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="17_nh1qq"]
 [ext_resource type="PackedScene" uid="uid://dabti1py4rn1a" path="res://scenes/ui/drag/draggable_orb.tscn" id="17_opm6q"]
-[ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire_old.png" id="18_fs2ya"]
+[ext_resource type="Texture2D" uid="uid://c3xw8q7amylml" path="res://assets/sprites/elements/fire.png" id="18_fs2ya"]
 [ext_resource type="Resource" uid="uid://d00rruq53h787" path="res://components/elements/default_elements/EarthElement.tres" id="19_a637k"]
-[ext_resource type="Texture2D" uid="uid://cyrjtqa6fmfdv" path="res://assets/sprites/prototypes/play_button.png" id="19_k7dll"]
 [ext_resource type="Texture2D" uid="uid://heffv4rim1jj" path="res://assets/sprites/elements/water.png" id="21_mr8h5"]
 [ext_resource type="Texture2D" uid="uid://bcfhqtysyihks" path="res://assets/sprites/elements/air.png" id="24_hfjhk"]
-[ext_resource type="PackedScene" uid="uid://b3tvxsgupe3gs" path="res://components/systems/tower_panel.tscn" id="25_lo481"]
+[ext_resource type="PackedScene" uid="uid://b3tvxsgupe3gs" path="res://components/systems/tower_dashboard.tscn" id="25_lo481"]
 [ext_resource type="Texture2D" uid="uid://cnuto5ikwqnqv" path="res://assets/sprites/elements/earth.png" id="27_gvis4"]
-[ext_resource type="Texture2D" uid="uid://2ibwxktmwtu2" path="res://assets/theme/ui/interface/play_button_frame.png" id="32_mf4la"]
+[ext_resource type="Texture2D" uid="uid://cfw8yj7w72bik" path="res://assets/theme/ui/interface/corner_panel.png" id="32_bkj4s"]
+[ext_resource type="Texture2D" uid="uid://m13p2pgsmcwx" path="res://assets/theme/ui/interface/play_button_flat.png" id="33_jb8yx"]
+[ext_resource type="PackedScene" uid="uid://dobefb4qood6r" path="res://scenes/ui/gradient_texture.tscn" id="34_yjq7m"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xljf"]
 
@@ -106,14 +107,10 @@ diffuse_texture = ExtResource("9_mfelc")
 normal_texture = ExtResource("10_b8yux")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aetfm"]
-texture = ExtResource("16_t83wn")
+texture = ExtResource("16_wwwr2")
 texture_margin_left = 10.0
 texture_margin_right = 10.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5q6f8"]
-shader = ExtResource("17_nh1qq")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 1.0
+region_rect = Rect2(2, 12, 84, 64)
 
 [node name="Interface" type="CanvasLayer"]
 process_mode = 3
@@ -159,14 +156,14 @@ theme = ExtResource("2_x8juj")
 material = SubResource("ShaderMaterial_cjjh3")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-anchor_left = 0.8
-anchor_top = 0.022
-anchor_right = 0.856
-anchor_bottom = 0.122
-offset_left = -0.000488281
-offset_top = 0.159999
-offset_right = 0.319824
-offset_bottom = 0.159973
+anchor_left = 0.812
+anchor_top = 0.011
+anchor_right = 0.869
+anchor_bottom = 0.111
+offset_left = 0.639404
+offset_top = 0.0799985
+offset_right = -0.32019
+offset_bottom = 0.0799713
 tooltip_text = "CONFIG"
 focus_mode = 1
 texture_normal = ExtResource("14_rjvi7")
@@ -183,76 +180,114 @@ autoplay = "gear_moving"
 frame_progress = 0.0829427
 flip_h = true
 
-[node name="TowerPanel" parent="UILayer" instance=ExtResource("25_lo481")]
+[node name="TowerDashboard" parent="UILayer" instance=ExtResource("25_lo481")]
 layout_mode = 1
 anchors_preset = 9
 anchor_top = 0.0
 anchor_right = 0.0
-offset_left = -384.0
-offset_top = 72.0
-offset_right = -64.0
+offset_left = -400.0
+offset_top = 64.0
+offset_right = -80.0
 grow_vertical = 2
 focus_button_group = SubResource("ButtonGroup_6gsry")
 
-[node name="TopBar" type="TextureRect" parent="UILayer"]
-z_index = -10
+[node name="TopBar" type="HBoxContainer" parent="UILayer"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.306
-anchor_right = 0.694
-anchor_bottom = 0.122
-offset_left = 0.319946
-offset_right = -0.320007
-offset_bottom = 0.159996
+anchor_left = 0.006
+anchor_top = 0.011
+anchor_right = 0.812
+anchor_bottom = 0.078
+offset_left = 0.32
+offset_top = 0.0799994
+offset_right = 0.639893
+offset_bottom = -0.16
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_hv4cp")
-stretch_mode = 4
+mouse_filter = 2
 
-[node name="TopBarContainer" type="HBoxContainer" parent="UILayer/TopBar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 1.0
-offset_right = -3.05176e-05
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="LifeCounter" type="HBoxContainer" parent="UILayer/TopBar/TopBarContainer"]
+[node name="LifeCounter" type="HBoxContainer" parent="UILayer/TopBar"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="LifeLabel" type="Label" parent="UILayer/TopBar/TopBarContainer/LifeCounter"]
+[node name="LifeIcon" type="TextureButton" parent="UILayer/TopBar/LifeCounter"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 6
+texture_normal = ExtResource("9_1w577")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LifeLabel" type="Label" parent="UILayer/TopBar/LifeCounter"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
 text = "100"
+vertical_alignment = 1
+
+[node name="CoinCounter" type="HBoxContainer" parent="UILayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="CoinIcon" type="TextureButton" parent="UILayer/TopBar/CoinCounter"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("16_sap7g")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CoinLabel" type="Label" parent="UILayer/TopBar/CoinCounter"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "1000
+"
+vertical_alignment = 1
+
+[node name="TurnCounter" type="Label" parent="UILayer/TopBar"]
+z_index = 10
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("12_fwjcb")
+text = "0/100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LifeIcon" type="TextureButton" parent="UILayer/TopBar/TopBarContainer/LifeCounter"]
-layout_mode = 2
-size_flags_horizontal = 0
-texture_normal = ExtResource("8_p5hmd")
-stretch_mode = 5
+[node name="TurnLabel" type="Label" parent="UILayer/TopBar/TurnCounter"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 18.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 18
+text = "TURN"
+horizontal_alignment = 1
+uppercase = true
 
-[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar/TopBarContainer"]
+[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 
-[node name="StageMeterContent" type="TextureRect" parent="UILayer/TopBar/TopBarContainer/StageMeter"]
+[node name="StageMeterContent" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
 layout_mode = 2
 texture = ExtResource("11_xrfyx")
 
-[node name="StageMeterFrame" type="TextureRect" parent="UILayer/TopBar/TopBarContainer/StageMeter"]
+[node name="StageMeterFrame" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
 layout_mode = 2
 texture = ExtResource("12_kghie")
 
-[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/TopBarContainer/StageMeter"]
+[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/StageMeter"]
 light_mask = 3
 layout_mode = 2
 size_flags_horizontal = 4
@@ -266,33 +301,13 @@ texture_under = ExtResource("13_xw6tr")
 texture_progress = SubResource("CanvasTexture_2dubv")
 texture_progress_offset = Vector2(0, -64)
 
-[node name="CoinCounter" type="HBoxContainer" parent="UILayer/TopBar/TopBarContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 0
-
-[node name="CoinIcon" type="TextureButton" parent="UILayer/TopBar/TopBarContainer/CoinCounter"]
-layout_mode = 2
-size_flags_horizontal = 0
-texture_normal = ExtResource("10_e1p4o")
-stretch_mode = 5
-
-[node name="CoinLabel" type="Label" parent="UILayer/TopBar/TopBarContainer/CoinCounter"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "1000
-"
-vertical_alignment = 1
-
 [node name="Elements" type="Panel" parent="UILayer"]
 layout_mode = 2
-anchor_left = 0.869
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.320068
-offset_top = 32.0
-offset_bottom = -192.0
+anchor_bottom = 1.001
+offset_left = -160.0
+offset_bottom = -200.72
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_aetfm")
@@ -305,7 +320,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
 offset_top = 12.0
-offset_right = -12.0
+offset_right = -12.0001
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -407,32 +422,36 @@ layout_mode = 2
 
 [node name="CornerFrame" type="TextureRect" parent="UILayer"]
 z_index = 20
-clip_contents = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.85
-anchor_top = 0.733
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.00012207
-offset_top = 0.23999
+offset_left = -200.0
+offset_top = -200.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("32_mf4la")
+texture = ExtResource("32_bkj4s")
 stretch_mode = 5
 
 [node name="CornerPanel" type="Panel" parent="UILayer/CornerFrame"]
-visible = false
+z_index = -5
+z_as_relative = false
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = -0.52
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.67029e-05
+offset_top = 73.0
+offset_right = -0.00012207
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
 [node name="PlayButton" type="TextureButton" parent="UILayer/CornerFrame"]
-material = SubResource("ShaderMaterial_5q6f8")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -445,9 +464,16 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 focus_mode = 0
-texture_normal = ExtResource("19_k7dll")
-ignore_texture_size = true
+texture_normal = ExtResource("33_jb8yx")
 stretch_mode = 5
+
+[node name="GradientTexture" parent="UILayer/CornerFrame" instance=ExtResource("34_yjq7m")]
+self_modulate = Color(1, 0.624324, 0.536962, 0.835294)
+layout_mode = 1
+offset_left = 50.0
+offset_top = -74.0
+offset_right = -10.0001
+offset_bottom = -144.0
 
 [connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
 [connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]

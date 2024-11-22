@@ -19,6 +19,7 @@ signal mouse_on_ui_changed(present : bool)
 
 @export var debug : bool = false
 
+var mouse_on_ui : bool
 var autoplay_turn : bool = false: set = set_autoplay
 var speed_toggled : bool = false: set = toggle_speed #? Queryable boolean that says if the engine acceleration was toggled on/off
 var pause_locked : bool = false
@@ -83,4 +84,5 @@ func _on_turn_pass_requested() -> void:
 		speed_cached = !speed_cached
 
 func _on_mouse_on_ui_changed(present: bool) -> void:
+	mouse_on_ui = present
 	if debug: print('Mouse on ui: ', present)

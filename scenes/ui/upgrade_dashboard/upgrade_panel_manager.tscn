@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlfafni52qt6"]
+
+[ext_resource type="Script" path="res://components/systems/upgrade_panel_manager.gd" id="1_6e14a"]
+[ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="2_4srro"]
+
+[node name="UpgradePanelManager" type="VBoxContainer"]
+anchors_preset = -1
+anchor_left = -0.119
+anchor_top = -0.267
+anchor_right = 0.131
+anchor_bottom = 0.267
+offset_left = 0.320007
+offset_top = 0.240021
+offset_right = 0.319977
+offset_bottom = -0.240021
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6e14a")
+
+[node name="UpgradePanel1" parent="." instance=ExtResource("2_4srro")]
+layout_mode = 2
+
+[node name="UpgradePanel2" parent="." instance=ExtResource("2_4srro")]
+layout_mode = 2
+
+[node name="UpgradePanel3" parent="." instance=ExtResource("2_4srro")]
+layout_mode = 2

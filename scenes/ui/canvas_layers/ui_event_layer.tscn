@@ -21,10 +21,12 @@ metadata/_edit_horizontal_guides_ = [320.0]
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "REMOVE {0}"
 initial_position = 1
-size = Vector2i(729, 138)
+size = Vector2i(713, 122)
+content_scale_mode = 2
 ok_button_text = "CONFIRM"
 dialog_text = "By deleting this object, you will retrieve {1} coins"
 dialog_close_on_escape = false
+dialog_autowrap = true
 cancel_button_text = "CANCEL"
 
 [node name="FinishPanel" parent="." instance=ExtResource("3_65a5i")]

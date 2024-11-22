@@ -1,6 +1,6 @@
 class_name TurnManager extends Node
 
-const TIMEOUT_BETWEEN_TURNS : float = 1.5
+const TIMEOUT_BETWEEN_TURNS : float = 3
 
 signal turn_passed(current_turn : int, max_turns : int)
 signal wave_completed

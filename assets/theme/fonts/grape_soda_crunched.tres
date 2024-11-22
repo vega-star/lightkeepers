@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://4mnisn80uepf"]
+
+[ext_resource type="FontFile" uid="uid://bi5vbr8srdvgw" path="res://assets/theme/fonts/GrapeSoda.ttf" id="1_fr72d"]
+
+[resource]
+base_font = ExtResource("1_fr72d")
+spacing_top = -6
+spacing_bottom = -6

@@ -28,20 +28,20 @@ const DEFAULT_ORB_ICON : Texture2D = preload("res://assets/sprites/misc/orb.png"
 @onready var orb_collision_area : CollisionShape2D = $OrbCollision/OrbCollisionArea
 @onready var element_label : Label = $ElementLabel
 
+var prop_tower : Tower
+var valid_tower : bool: set = _on_tower_validation
 var target_slot : Slot #? Slot selected between overlapping bodies 
 
 var orb_type : int
 var offset : Vector2
 var initial_position : Vector2
 
-var locked : bool = false
-var volatile : bool = false
-var draggable : bool = false
-var is_inside_dropable : bool = false
-var force_show_label : bool = false
-
-var prop_tower : Tower
-var valid_tower : bool: set = _on_tower_validation
+var locked : bool = false #? Cannot be changed
+var volatile : bool = false #? Will call queue_free() after returning to slot or moving
+var clicked : bool = false #? Orb can be draggable, but not clicked. Ex.: mouse moving across the screen. So it have to be ignored
+var draggable : bool = false #? Crucial boolean that controls if the object is following mouse position or not
+var is_inside_dropable : bool = false #? Defines if the object is currently hovering above a dropable object, thus can be inserted
+var force_show_label : bool = false #? Shows element label all the time
 #endregion 
 
 #region Main processes
@@ -63,23 +63,26 @@ func _set_element(new_element : Element) -> void: ## Runs in sequence after regi
 	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
 	set_name(new_element.element_id.capitalize() + "Orb")
 
+## Internal drag switch
+#? Defines if orb follows mouse and enables all orb behaviors
+func _set_draggable(drag : bool) -> void:
+	if debug: print(self.name, ' is draggable? - ', str(draggable))
+	draggable = drag
+	if drag:
+		element_label.visible = true
+		scale = Vector2(1.05, 1.05)
+	else:
+		if !force_show_label: element_label.visible = false
+		scale = Vector2(1, 1)
+
 ## External drag switch
 #? UI bool 'is_dragging' serves as a control point to prevent multiple dragging actions
+#! Both actions need to check if is_dragging is false, which means a orb is already hovered, or else objects will intersect and cancel each other
 func _on_orb_collision_mouse_entered() -> void:
 	if !UI.is_dragging: _set_draggable(true) #? Activate orb when mouse enters it collision shape
 
 func _on_orb_collision_mouse_exited() -> void:
-	if !UI.is_dragging: _set_draggable(false) #? Deactivate orb
-
-func _unhandled_input(event : InputEvent) -> void:
-	var n_event : InputEventMouseMotion
-	if event is InputEventScreenTouch: #? Touch compatibility
-		if event.pressed:
-			n_event = InputEventMouseMotion.new()
-			n_event.button_mask = MOUSE_BUTTON_MASK_LEFT
-			n_event.position = event.position
-			n_event.pressed = event.pressed
-		Input.parse_input_event(n_event)
+	if !UI.is_dragging: _set_draggable(false)  #? Deactivate orb movement and release it, setting the control variable free
 
 func _process(_delta) -> void:
 	if draggable and !locked: #? Dragging processes
@@ -94,6 +97,7 @@ func _process(_delta) -> void:
 			if locked: return
 			if UI.is_dragging: _set_draggable(false) #? Already dragging a orb. Can only pick one per time
 			UI.is_dragging = true
+			clicked = true
 			
 			_instantiate_tower()
 			orb_picked.emit()
@@ -108,6 +112,7 @@ func _process(_delta) -> void:
 			if prop_tower: prop_tower.remove_object()
 		
 		if Input.is_action_pressed('click'): # Hold / Drag
+			if !clicked: return
 			global_position = get_global_mouse_position() - offset
 			valid_tower = StageManager.active_stage.query_tile_insertion()
 		
@@ -204,18 +209,6 @@ func _on_orb_collision_body_exited(body) -> void:
 	if body is Slot or body.is_in_group('dropable'): 
 		body.hovered = false
 		is_inside_dropable = false
-
-## Internal drag switch
-#? Defines if orb follows mouse and enables all orb behaviors
-func _set_draggable(drag : bool) -> void:
-	if debug: print(self.name, ' is draggable? - ', str(draggable))
-	draggable = drag
-	if drag:
-		element_label.visible = true
-		scale = Vector2(1.05, 1.05)
-	else:
-		if !force_show_label: element_label.visible = false
-		scale = Vector2(1, 1)
 
 func _on_language_changed() -> void:
 	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())

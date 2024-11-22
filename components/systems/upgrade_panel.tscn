@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://ci7pepoofruau"]
+[gd_scene load_steps=9 format=3 uid="uid://ci7pepoofruau"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_cig02"]
 [ext_resource type="Script" path="res://scripts/ui/upgrade_panel.gd" id="2_ab3u7"]
 [ext_resource type="Texture2D" uid="uid://bjukskkt8yjm" path="res://assets/theme/ui/upgrade_button/upgrade_bar_big.png" id="3_j71od"]
 [ext_resource type="Texture2D" uid="uid://bmv3473kyv3mm" path="res://assets/theme/ui/upgrade_button/upgrade_bar_progress_big.png" id="4_6n4yb"]
+[ext_resource type="FontVariation" uid="uid://4mnisn80uepf" path="res://assets/theme/fonts/grape_soda_crunched.tres" id="4_b1k2f"]
 [ext_resource type="Texture2D" uid="uid://6chb3sr124yn" path="res://assets/theme/ui/texture_buttons/x_sign.png" id="5_bs5c3"]
-[ext_resource type="Texture2D" uid="uid://bo3nmlc67ubje" path="res://assets/sprites/prototypes/gradient_texture.png" id="6_7k3xy"]
+[ext_resource type="PackedScene" uid="uid://dobefb4qood6r" path="res://scenes/ui/gradient_texture.tscn" id="7_4s2jh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwdqn"]
 
@@ -34,59 +35,50 @@ grow_vertical = 2
 [node name="Container" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.12
-anchor_right = 0.95
-anchor_bottom = 0.88
-offset_right = -1.52588e-05
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 2
-alignment = 2
-
-[node name="Panel1" type="Panel" parent="Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_lwdqn")
-
-[node name="Panel2" type="Panel" parent="Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_lwdqn")
-
-[node name="PreviousTexture" type="TextureRect" parent="Container/Panel2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -1.026
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.0240021
+offset_left = 10.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="InfoPanel" type="Panel" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_lwdqn")
+
+[node name="PreviousTexture" type="TextureRect" parent="Container/InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ProgressMeter" type="TextureProgressBar" parent="Container"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-max_value = 5.0
-value = 3.0
-fill_mode = 3
-nine_patch_stretch = true
-stretch_margin_left = 10
-stretch_margin_top = 38
-stretch_margin_right = 10
-stretch_margin_bottom = 38
-texture_under = ExtResource("3_j71od")
-texture_progress = ExtResource("4_6n4yb")
-
 [node name="UpgradeButton" type="Button" parent="Container"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Container/UpgradeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = -4.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_bs5c3")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="CostLabel" type="Label" parent="Container/UpgradeButton"]
 layout_mode = 1
@@ -94,7 +86,7 @@ anchors_preset = -1
 anchor_top = 0.691
 anchor_right = 1.0
 anchor_bottom = 1.066
-offset_top = -0.034008
+offset_top = -0.0340042
 offset_bottom = -0.0340118
 grow_horizontal = 2
 grow_vertical = 0
@@ -103,19 +95,46 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Container/UpgradeButton"]
+[node name="UpgradeTitle" type="Label" parent="Container/UpgradeButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = 10.0
-offset_right = -14.0
-offset_bottom = -17.0
+anchors_preset = -1
+anchor_left = -0.047
+anchor_right = 1.047
+anchor_bottom = 0.16
+offset_left = -0.00499988
+offset_top = -17.0
+offset_right = 0.00499725
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_bs5c3")
-expand_mode = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_b1k2f")
+theme_override_font_sizes/font_size = 22
+text = "UPGRADE TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ProgressMeter" type="TextureProgressBar" parent="."]
+z_index = 2
+layout_mode = 2
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.88
+offset_left = -22.0
+offset_top = -38.0
+offset_right = -2.0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+max_value = 5.0
+fill_mode = 3
+stretch_margin_left = 10
+stretch_margin_top = 38
+stretch_margin_right = 10
+stretch_margin_bottom = 38
+texture_under = ExtResource("3_j71od")
+texture_progress = ExtResource("4_6n4yb")
 
 [node name="LockedPanel" type="Panel" parent="."]
 visible = false
@@ -137,17 +156,7 @@ text = "LOCKED_PATH"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GradientTexture" type="TextureRect" parent="."]
-z_index = -1
+[node name="GradientTexture" parent="." instance=ExtResource("7_4s2jh")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("6_7k3xy")
+
+[connection signal="pressed" from="Container/UpgradeButton" to="." method="_on_upgrade_button_pressed"]

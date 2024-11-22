@@ -18,13 +18,14 @@ const TURN_UPDATE_PERIOD : float = 0.75
 
 #region Node references
 @onready var elements_container : ElementsContainer = $UILayer/Elements/ScrollContainer/ElementsContainer
-@onready var tower_panel : TowerPanel = $UILayer/TowerPanel
+@onready var tower_panel : TowerDashboard = $UILayer/TowerDashboard
 @onready var play_button : TextureButton = $UILayer/CornerFrame/PlayButton
-@onready var life_label : Label = $UILayer/TopBar/TopBarContainer/LifeCounter/LifeLabel
-@onready var coin_label : Label = $UILayer/TopBar/TopBarContainer/CoinCounter/CoinLabel
-@onready var coin_icon : TextureButton = $UILayer/TopBar/TopBarContainer/CoinCounter/CoinIcon
-@onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/TopBarContainer/StageMeter/StageMeterBar
+@onready var life_label : Label = $UILayer/TopBar/LifeCounter/LifeLabel
+@onready var coin_label : Label = $UILayer/TopBar/CoinCounter/CoinLabel
+@onready var coin_icon : TextureButton = $UILayer/TopBar/CoinCounter/CoinIcon
+@onready var stage_meter_bar : TextureProgressBar = $UILayer/TopBar/StageMeter/StageMeterBar
 @onready var options_button : TextureButton = $UILayer/OptionsButton
+@onready var turn_counter : Label = $UILayer/TopBar/TurnCounter
 #endregion
 
 var focus_slot : Slot
@@ -43,6 +44,7 @@ func update_coins(coins : int): update_status(coin_label, coins, previous_coins)
 func update_life(life : int): update_status(life_label, life, previous_life); previous_life = life
 
 func turn_update(turn : int, max_turn : int):
+	turn_counter.set_text('{0}/{1}'.format({0: turn, 1: max_turn}))
 	stage_meter_bar.set_max(max_turn)
 	var stage_meter_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	stage_meter_tween.tween_property(stage_meter_bar, "value", turn, TURN_UPDATE_PERIOD)

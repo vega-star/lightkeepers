@@ -35,12 +35,9 @@ func _ready() -> void:
 #region Runtime stage functions
 func change_coins(quantity : int, addition : bool = false) -> void:
 	var previous_coins : int = coins
-	for i in quantity:
-		var abs : int = clampi(quantity / 10, 1, 100)
-		if addition: coins += abs
-		else: coins -= abs
-		quantity -= abs
-		UI.interface.update_coins(coins)
+	if addition: coins += quantity
+	else: coins -= quantity
+	UI.interface.update_coins(coins)
 	coins_updated.emit(previous_coins, coins)
 
 func change_health(quantity : int, addition : bool = false) -> void:

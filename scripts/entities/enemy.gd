@@ -32,6 +32,7 @@ enum ENEMY_CLASS {
 @export var base_speed : int = 60
 @export var base_acceleration : float = 0.2
 @export var smart_enemy : bool = true
+@export var smooth_coin : bool = false
 @export var debug_path : bool = false
 
 @export_group('Node Connections')
@@ -138,15 +139,17 @@ func attack(object : Node2D):
 
 func die(source):
 	if !source == nexus:
-		# stage.stage_agent.change_coins(enemy_value, true)
-		var coin = COIN_SCENE.instantiate()
-		coin.value = enemy_value
-		coin.rotation = randf_range(-PI,PI)
-		coin.global_position = global_position + Vector2(
-			randf_range(0, COIN_OFFSET_MAX.x),
-			randf_range(0, COIN_OFFSET_MAX.y)
-		)
-		stage.coin_container.add_child(coin)
+		if smooth_coin:
+			var coin = COIN_SCENE.instantiate()
+			coin.value = enemy_value
+			coin.rotation = randf_range(-PI,PI)
+			coin.global_position = global_position + Vector2(
+				randf_range(0, COIN_OFFSET_MAX.x),
+				randf_range(0, COIN_OFFSET_MAX.y)
+			)
+			stage.coin_container.add_child(coin)
+		else:
+			stage.stage_agent.change_coins(enemy_value, true)
 	died.emit(source)
 	queue_free()
 	if !smart_enemy: line_agent.queue_free()

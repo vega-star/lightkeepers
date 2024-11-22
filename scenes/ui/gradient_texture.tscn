@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dobefb4qood6r"]
+
+[ext_resource type="Texture2D" uid="uid://bo3nmlc67ubje" path="res://assets/sprites/prototypes/gradient_texture.png" id="1_qj0a8"]
+
+[node name="GradientTexture" type="TextureRect"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_qj0a8")

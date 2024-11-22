@@ -17,7 +17,7 @@ run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.196078, 0.2, 0.32549, 1)
 boot_splash/show_image=false
-config/icon="res://assets/sprites/misc/logo_sage.png"
+config/icon="res://assets/prototypes/game_icon.png"
 
 [audio]
 
@@ -69,7 +69,6 @@ zoom_out={
 drag_zoom={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":3,"canceled":false,"pressed":false,"double_click":false,"script":null)
-, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 click={
@@ -114,6 +113,12 @@ switch_menu={
 "deadzone": 0.5,
 "events": []
 }
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/android/enable_long_press_as_right_click=true
+pointing/android/enable_pan_and_scale_gestures=true
 
 [internationalization]
 

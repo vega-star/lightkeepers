@@ -45,6 +45,11 @@ OPTIONS,Options,Opções
 MAIN_OPTIONS,Main Options,Opções Principais
 CONTROLS,Controls,Controles
 UI,UI,UI
+FIRST,First,Primeiro
+LAST,Last,Último
+STRONG,Strong,Forte
+WEAK,Weak,Fraco
+CLOSE,Close,Perto
 GRAPHICS,Graphics,Gráficos
 ACCESSIBILITY,Accessibility,Acessibilidade
 HEALTH,Health,Vida
@@ -65,6 +70,7 @@ DRAG_MODE_TOGGLE,Toggle Drag,Alternar arrastar
 DRAG_MODE_TOGGLE_DESCRIPTION,Switch drag-n-drop to click actions,Alterne entre ações de arrastar para cliques
 TUTORIAL,Tutorial,Tutorial
 ROUTE_FINISHED,Route Finished,Rota Concluída
+RESTART_STAGE,Restart Stage,Reiniciar Fase
 STAGE_SUCCESS,Stage Finished,Fase Concluída
 STAGE_SUCCESS_TEXT,A sacred light shines boldly amidst the endless night,Uma luz sagrada brilha corajosamente em meio a noite infindável
 STAGE_FAILED,Stage Failed,Fase Falha
@@ -77,9 +83,13 @@ LAMP,Lamp,Lâmpada
 SELL,Sell,Vender
 LOCKED_PATH,Locked path,Caminho bloqueado
 FIRE,Fire,Fogo
+FIRE_MAGE,Fire Mage,Mago de Fogo
 WATER,Water,Água
+WATER_MAGE,Water Mage,Mago de Água
 AIR,Air,Ar
+AIR_MAGE,Air Mage,Mago de Ar
 EARTH,Earth,Terra
+EARTH_MAGE,Earth Mage,Mago de Terra
 TOGGLE_AUTOTURN,Auto Turn,Auto Turno
 TOGGLE_AUTOTURN_TOOLTIP,Toggles if a new turn starts automatically after the previous is finished,Alterna se um turno começa automaticamente após o anterior acabar
 CONFLAGRATION,Conflagration,Conflagração
