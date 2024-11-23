@@ -64,8 +64,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(448, -0.25, 0, 0.25, 0, 448, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2)
+"points": PackedFloat32Array(361, -0.25, 0, 0.25, 0, 361, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1.96667, 3)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -75,7 +75,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(152, -0.25, 0, 0.333333, -20.5, 86.5, -0.333333, 36, 0.233333, -19.7186, 64, -0.9, -0.5, 0.25, 0),
+"points": PackedFloat32Array(152, -0.25, 0, 0.333333, -20.5, 86.5003, -0.25, 0, 0.25, 0, 64, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 1.96667, 3)
 }
 tracks/3/type = "method"
@@ -193,35 +193,40 @@ grow_vertical = 2
 color = Color(0.0602301, 0.0619733, 0.120673, 1)
 
 [node name="Foreground1" type="ParallaxLayer" parent="MenuParallax"]
-position = Vector2(640, 80)
+visible = false
+position = Vector2(640, 315.5)
 motion_scale = Vector2(0.75, 0.75)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground1"]
 texture = ExtResource("3_kpego")
 
 [node name="Foreground2" type="ParallaxLayer" parent="MenuParallax"]
-position = Vector2(640, 256)
+visible = false
+position = Vector2(640, 408.5)
 motion_scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground2"]
 texture = ExtResource("4_3jow6")
 
 [node name="Foreground3" type="ParallaxLayer" parent="MenuParallax"]
-position = Vector2(640, 376)
+visible = false
+position = Vector2(640, 419.5)
 motion_scale = Vector2(0.3, 0.3)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground3"]
 texture = ExtResource("5_sq4dg")
 
 [node name="City" type="ParallaxLayer" parent="MenuParallax"]
-position = Vector2(640, 464)
+visible = false
+position = Vector2(640, 427.5)
 motion_scale = Vector2(0.15, 0.15)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/City"]
 texture = ExtResource("6_h3dmq")
 
 [node name="Beacon" type="ParallaxLayer" parent="MenuParallax"]
-position = Vector2(640, 480)
+visible = false
+position = Vector2(640, 466.5)
 motion_scale = Vector2(0.1, 0.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Beacon"]
@@ -230,23 +235,24 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_jymd8")
 
 [node name="Sky1" type="ParallaxLayer" parent="MenuParallax"]
-position = Vector2(640, 400)
+visible = false
+position = Vector2(640, 364.5)
 motion_scale = Vector2(0.05, 0.05)
 
 [node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Sky1"]
 texture = ExtResource("8_m12r8")
 
 [node name="Logo" type="TextureRect" parent="."]
-self_modulate = Color(1.32, 1.15, 1, 0)
+self_modulate = Color(1.32, 1.15, 1, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.333
 offset_left = -192.0
-offset_top = 152.0
-offset_right = 576.0
-offset_bottom = 264.24
+offset_top = 64.0
+offset_right = 925.0
+offset_bottom = 336.24
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_kel0t")
 stretch_mode = 5

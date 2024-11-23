@@ -97,4 +97,63 @@ LIGHTNING,Lightning,Relâmpago
 TURBULENCE,Turbulence,Turbulência
 OWNED,Owned,Possui
 NOT_OWNED,Not owned,Não possui
-
+FIERY_FORCE_UP_1,Fiery Force I,Força Ígnea I
+FIERY_FORCE_UP_2,Fiery Force II,Força Ígnea II
+FIERY_FORCE_UP_3,Fiery Force III,Força Ígnea III
+FIERY_FORCE_UP_4,Fiery Force IV,Força Ígnea IV
+FIERY_FORCE_UP_5,Fiery Force V,Força Ígnea V
+HASTY_BLAZE_1,Hasty Blaze I,Labareda Ligeira I
+HASTY_BLAZE_2,Hasty Blaze II,Labareda Ligeira II
+HASTY_BLAZE_3,Hasty Blaze III,Labareda Ligeira III
+HASTY_BLAZE_4,Hasty Blaze IV,Labareda Ligeira IV
+HASTY_BLAZE_5,Hasty Blaze V,Labareda Ligeira V
+PIERCING_FLAME_1,Piercing Flame I,Chama Perfurante I
+PIERCING_FLAME_2,Piercing Flame II,Chama Perfurante II
+PIERCING_FLAME_3,Piercing Flame III,Chama Perfurante III
+PIERCING_FLAME_4,Piercing Flame IV,Chama Perfurante IV
+PIERCING_FLAME_5,Piercing Flame V,Chama Perfurante V
+TIDAL_FORCE_1,Tidal Force I,Força Maremotriz I
+TIDAL_FORCE_2,Tidal Force II,Força Maremotriz II
+TIDAL_FORCE_3,Tidal Force III,Força Maremotriz III
+TIDAL_FORCE_4,Tidal Force IV,Força Maremotriz IV
+TIDAL_FORCE_5,Tidal Force V,Força Maremotriz V
+AQUAPROJECTILE_CAPACITY_1,Aquaprojectile Capacity I,Munição de Aquaprojétil I
+AQUAPROJECTILE_CAPACITY_2,Aquaprojectile Capacity II,Munição de Aquaprojétil II
+AQUAPROJECTILE_CAPACITY_3,Aquaprojectile Capacity III,Munição de Aquaprojétil III
+AQUAPROJECTILE_CAPACITY_4,Aquaprojectile Capacity IV,Munição de Aquaprojétil IV
+AQUAPROJECTILE_CAPACITY_5,Aquaprojectile Capacity V,Munição de Aquaprojétil V
+SWIFT_DRIZZLE_1,Swift Drizzle I,Garoa Veloz I
+SWIFT_DRIZZLE_2,Swift Drizzle II,Garoa Veloz II
+SWIFT_DRIZZLE_3,Swift Drizzle III,Garoa Veloz III
+SWIFT_DRIZZLE_4,Swift Drizzle IV,Garoa Veloz IV
+SWIFT_DRIZZLE_5,Swift Drizzle V,Garoa Veloz V
+EARTHIAN_FORCE_1,Earthian Force I,Força Terrestre I
+EARTHIAN_FORCE_2,Earthian Force II,Força Terrestre II
+EARTHIAN_FORCE_3,Earthian Force III,Força Terrestre III
+EARTHIAN_FORCE_4,Earthian Force IV,Força Terrestre IV
+EARTHIAN_FORCE_5,Earthian Force V,Força Terrestre V
+CLAY_CAPACITY_1,Clay Capacity I,Munição de Argila I
+CLAY_CAPACITY_2,Clay Capacity II,Munição de Argila II
+CLAY_CAPACITY_3,Clay Capacity III,Munição de Argila III
+CLAY_CAPACITY_4,Clay Capacity IV,Munição de Argila IV
+CLAY_CAPACITY_5,Clay Capacity V,Munição de Argila V
+PIERCING_FLINT_1,Piercing Flint I, Pedra Perfurante I
+PIERCING_FLINT_2,Piercing Flint II, Pedra Perfurante II
+PIERCING_FLINT_3,Piercing Flint III, Pedra Perfurante III
+PIERCING_FLINT_4,Piercing Flint IV, Pedra Perfurante IV
+PIERCING_FLINT_5,Piercing Flint V, Pedra Perfurante V
+WIND_FORCE_1,Wind Force I,Força da Ventania I
+WIND_FORCE_2,Wind Force II,Força da Ventania II
+WIND_FORCE_3,Wind Force III,Força da Ventania III
+WIND_FORCE_4,Wind Force IV,Força da Ventania IV
+WIND_FORCE_5,Wind Force V,Força da Ventania V
+HASTY_BREEZE_1,Hasty Breeze I,Brisa Ligeira I
+HASTY_BREEZE_2,Hasty Breeze II,Brisa Ligeira II
+HASTY_BREEZE_3,Hasty Breeze III,Brisa Ligeira III
+HASTY_BREEZE_4,Hasty Breeze IV,Brisa Ligeira IV
+HASTY_BREEZE_5,Hasty Breeze V,Brisa Ligeira V
+EOLIC_RADIUS_1,Eolic Radius I,Distância Eólica I
+EOLIC_RADIUS_2,Eolic Radius II,Distância Eólica II
+EOLIC_RADIUS_3,Eolic Radius III,Distância Eólica III
+EOLIC_RADIUS_4,Eolic Radius IV,Distância Eólica IV
+EOLIC_RADIUS_5,Eolic Radius V,Distância Eólica V

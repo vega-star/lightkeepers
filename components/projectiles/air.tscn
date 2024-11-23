@@ -4,3 +4,6 @@
 
 [node name="AirProjectile" instance=ExtResource("1_qxfjm")]
 speed = 500
+
+[node name="ProjectileSprite" parent="." index="2"]
+visible = true

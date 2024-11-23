@@ -112,6 +112,8 @@ func _ready() -> void:
 	await _configure()
 
 func adapt_register(new_reg : ElementRegister) -> void:
+	if !self.is_node_ready(): await ready
+	
 	element_register = new_reg
 	set_name(element_register.element.element_id.to_upper() + "_MAGE")
 	element_metadata = ElementManager.query_metadata(element_register.element.element_id)
@@ -120,6 +122,12 @@ func adapt_register(new_reg : ElementRegister) -> void:
 		for p in element_metadata.turret_default_values:
 			self.set_deferred(p, element_metadata.turret_default_values[p])
 			if debug: print(str(p), ' changed from ', p, ' to ', element_metadata.turret_default_values[p])
+	
+	if element_metadata.has("upgrade_trees"):
+		tower_upgrades.upgrade_tree_1 = ResourceLoader.load("res://components/upgrade_trees/{0}.tres".format({0: element_metadata.upgrade_trees[0]}))
+		tower_upgrades.upgrade_tree_2 = ResourceLoader.load("res://components/upgrade_trees/{0}.tres".format({0: element_metadata.upgrade_trees[1]}))
+		tower_upgrades.upgrade_tree_3 = ResourceLoader.load("res://components/upgrade_trees/{0}.tres".format({0: element_metadata.upgrade_trees[2]}))
+		tower_upgrades.upgrade_trees_array = [tower_upgrades.upgrade_tree_1, tower_upgrades.upgrade_tree_2, tower_upgrades.upgrade_tree_3]
 	
 	if element_metadata.projectile_scene != null:
 		projectile_scene = element_metadata.projectile_scene

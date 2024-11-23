@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=12 format=3 uid="uid://d0oyocl3a1cqs"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_skil8"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_jresb"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_m0fp0"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_m0fp0")
+upgrade_type = 3
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_jresb")
+upgrade_title = "CLAY_CAPACITY_1"
+upgrade_description = "CLAY_CAPACITY_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_m0fp0")]([SubResource("Resource_34xdb")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_jresb")
+upgrade_title = "CLAY_CAPACITY_2"
+upgrade_description = "CLAY_CAPACITY_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_m0fp0")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_xeekg"]
+script = ExtResource("3_m0fp0")
+upgrade_type = 3
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_jresb")
+upgrade_title = "CLAY_CAPACITY_3"
+upgrade_description = "CLAY_CAPACITY_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_m0fp0")]([SubResource("Resource_xeekg")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_jresb")
+upgrade_title = "CLAY_CAPACITY_4"
+upgrade_description = "CLAY_CAPACITY_4_DESCRIPTION"
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_m0fp0")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_mqmcb"]
+script = ExtResource("3_m0fp0")
+upgrade_type = 3
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_jresb")
+upgrade_title = "CLAY_CAPACITY_5"
+upgrade_description = "CLAY_CAPACITY_5_DESCRIPTION"
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_m0fp0")]([SubResource("Resource_mqmcb")])
+upgrade_metadata = ""
+
+[resource]
+script = ExtResource("1_skil8")
+upgrades = Array[ExtResource("2_jresb")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

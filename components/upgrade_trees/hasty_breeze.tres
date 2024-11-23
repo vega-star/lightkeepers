@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=12 format=3 uid="uid://g1abwrm5hssc"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_ugy3k"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_ebvt7"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_m3jh8"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_m3jh8")
+upgrade_type = 3
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_ebvt7")
+upgrade_title = "HASTY_BREEZE_1"
+upgrade_description = "HASTY_BREEZE_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_m3jh8")]([SubResource("Resource_34xdb")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_ebvt7")
+upgrade_title = "HASTY_BREEZE_2"
+upgrade_description = "HASTY_BREEZE_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_m3jh8")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_tbo2k"]
+script = ExtResource("3_m3jh8")
+upgrade_type = 3
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_ebvt7")
+upgrade_title = "HASTY_BREEZE_3"
+upgrade_description = "HASTY_BREEZE_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_m3jh8")]([SubResource("Resource_tbo2k")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_ebvt7")
+upgrade_title = "HASTY_BREEZE_4"
+upgrade_description = "HASTY_BREEZE_4_DESCRIPTION"
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_m3jh8")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_5jak3"]
+script = ExtResource("3_m3jh8")
+upgrade_type = 3
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_ebvt7")
+upgrade_title = "HASTY_BREEZE_5"
+upgrade_description = "HASTY_BREEZE_5_DESCRIPTION"
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_m3jh8")]([SubResource("Resource_5jak3")])
+upgrade_metadata = ""
+
+[resource]
+script = ExtResource("1_ugy3k")
+upgrades = Array[ExtResource("2_ebvt7")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

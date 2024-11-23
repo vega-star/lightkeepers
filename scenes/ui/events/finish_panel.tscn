@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4x14mmqd8wts"]
+[gd_scene load_steps=4 format=3 uid="uid://b4x14mmqd8wts"]
 
 [ext_resource type="Script" path="res://scripts/ui/events/finish_panel.gd" id="1_3vl4d"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_jad7h"]
+[ext_resource type="Texture2D" uid="uid://f5hxmfrr2jaf" path="res://assets/theme/ui/interface/beacon_sillouette.png" id="3_kt2xn"]
 
 [node name="FinishPanel" type="Panel"]
 process_mode = 3
@@ -17,6 +18,16 @@ grow_vertical = 2
 pivot_offset = Vector2(224, 166)
 theme = ExtResource("1_jad7h")
 script = ExtResource("1_3vl4d")
+
+[node name="SuccessTexture" type="TextureRect" parent="."]
+modulate = Color(0.537011, 0.537011, 0.537011, 0.54)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_bottom = 1.0
+texture = ExtResource("3_kt2xn")
+stretch_mode = 5
 
 [node name="StageSuccessLabel" type="Label" parent="."]
 layout_mode = 1

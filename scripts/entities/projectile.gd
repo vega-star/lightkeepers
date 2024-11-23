@@ -67,11 +67,11 @@ func _charge() -> void:
 	var charge_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_IN)
 	charge_tween.tween_property(self, "scale", stored_scale, charge_time * charge_time_multiplier)
 	await charge_tween.finished
+	charged = true
 	charge_completed.emit()
 
 func _deactivate() -> void:
 	active = false
-	set_visible(false)
 
 func _physics_process(delta) -> void:
 	var distance_delta = global_position.distance_squared_to(init_pos)
@@ -90,16 +90,17 @@ func _physics_process(delta) -> void:
 	if rotate_sprite:
 		projectile_sprite.rotation += rotation_speed * (PI * delta)
 	
-	if active: ## Projectile movement
-		match projectile_mode:
-			0: #| 'STRAIGHT'
-				global_position += Vector2(speed * delta, 0).rotated(rotation)
-			1: #| 'SEEKING'
-				if !is_instance_valid(target) and source:
-					if !is_instance_valid(source.target): projectile_mode = 0; return
-					target = source.target
-				global_position += (stored_direction * speed * delta)
-			_: push_error('INVALID PROJECTILE_TYPE')
+	if charge_before_firing and !charged: return
+	
+	match projectile_mode: ## Projectile movement
+		0: #| 'STRAIGHT'
+			global_position += Vector2(speed * delta, 0).rotated(rotation)
+		1: #| 'SEEKING'
+			if !is_instance_valid(target) and source:
+				if !is_instance_valid(source.target): projectile_mode = 0; return
+				target = source.target
+			global_position += (stored_direction * speed * delta)
+		_: push_error('INVALID PROJECTILE_TYPE')
 	
 	if distance_delta > max_distance * additional_distance_multiplier: _break()
 
@@ -128,10 +129,10 @@ func _clear_projectile_element_metadata() -> void: projectile_element_metadata =
 func _set_projectile_element_metadata(new_metadata : Dictionary) -> void: projectile_element_metadata = new_metadata
 
 func _break() -> void:
+	_deactivate()
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)
 	var break_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
 	break_tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.7)
 	await break_tween.finished
-	_deactivate()
 	set_physics_process(false)
 	queue_free()

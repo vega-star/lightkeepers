@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=14 format=3 uid="uid://dd4thji3ojqif"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_hqr62"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_wmb2f"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_prh1h"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_prh1h")
+upgrade_type = 7
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_wmb2f")
+upgrade_title = "EOLIC_RADIUS_1"
+upgrade_description = "EOLIC_RADIUS_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_prh1h")]([SubResource("Resource_34xdb")])
+
+[sub_resource type="Resource" id="Resource_fbkmk"]
+script = ExtResource("3_prh1h")
+upgrade_type = 7
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_wmb2f")
+upgrade_title = "EOLIC_RADIUS_2"
+upgrade_description = "EOLIC_RADIUS_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_prh1h")]([SubResource("Resource_fbkmk")])
+
+[sub_resource type="Resource" id="Resource_saur7"]
+script = ExtResource("3_prh1h")
+upgrade_type = 7
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_wmb2f")
+upgrade_title = "EOLIC_RADIUS_3"
+upgrade_description = "EOLIC_RADIUS_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_prh1h")]([SubResource("Resource_saur7")])
+
+[sub_resource type="Resource" id="Resource_l480u"]
+script = ExtResource("3_prh1h")
+upgrade_type = 7
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_wmb2f")
+upgrade_title = "EOLIC_RADIUS_4"
+upgrade_description = "EOLIC_RADIUS_4_DESCRIPTION"
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_prh1h")]([SubResource("Resource_l480u")])
+
+[sub_resource type="Resource" id="Resource_nwqqg"]
+script = ExtResource("3_prh1h")
+upgrade_type = 7
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_wmb2f")
+upgrade_title = "EOLIC_RADIUS_5"
+upgrade_description = "EOLIC_RADIUS_5_DESCRIPTION"
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_prh1h")]([SubResource("Resource_nwqqg")])
+
+[resource]
+script = ExtResource("1_hqr62")
+upgrades = Array[ExtResource("2_wmb2f")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

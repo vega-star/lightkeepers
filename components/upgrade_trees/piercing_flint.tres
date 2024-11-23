@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=12 format=3 uid="uid://c3pcskt1lsuaw"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_joe15"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_dv5ib"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_hfuv1"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_hfuv1")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_dv5ib")
+upgrade_title = "PIERCING_FLINT_1"
+upgrade_description = "PIERCING_FLINT_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_hfuv1")]([SubResource("Resource_34xdb")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_dv5ib")
+upgrade_title = "PIERCING_FLINT_2"
+upgrade_description = "PIERCING_FLINT_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_hfuv1")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_a0i3v"]
+script = ExtResource("3_hfuv1")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_dv5ib")
+upgrade_title = "PIERCING_FLINT_3"
+upgrade_description = "PIERCING_FLINT_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_hfuv1")]([SubResource("Resource_a0i3v")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_dv5ib")
+upgrade_title = "PIERCING_FLINT_4"
+upgrade_description = "PIERCING_FLINT_4_DESCRIPTION"
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_hfuv1")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_wnx1m"]
+script = ExtResource("3_hfuv1")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_dv5ib")
+upgrade_title = "PIERCING_FLINT_5"
+upgrade_description = "PIERCING_FLINT_5_DESCRIPTION"
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_hfuv1")]([SubResource("Resource_wnx1m")])
+upgrade_metadata = ""
+
+[resource]
+script = ExtResource("1_joe15")
+upgrades = Array[ExtResource("2_dv5ib")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

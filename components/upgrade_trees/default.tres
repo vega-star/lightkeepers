@@ -17,10 +17,9 @@ upgrade_value = "1"
 [sub_resource type="Resource" id="Resource_vt78u"]
 script = ExtResource("2_rfcpx")
 upgrade_title = "DEBUG_UPGRADE_1"
-upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_description = "DEBUG_UPGRADE_1_DESCRIPTION"
 upgrade_cost = 100
 upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_34xdb"), SubResource("Resource_a1ie7")])
-upgrade_metadata = ""
 
 [sub_resource type="Resource" id="Resource_p8gnx"]
 script = ExtResource("3_xq26r")
@@ -43,7 +42,6 @@ upgrade_title = "DEBUG_UPGRADE_2"
 upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
 upgrade_cost = 200
 upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_p8gnx"), SubResource("Resource_8kxfn"), SubResource("Resource_hd7or")])
-upgrade_metadata = ""
 
 [sub_resource type="Resource" id="Resource_srwmb"]
 script = ExtResource("3_xq26r")
@@ -66,7 +64,6 @@ upgrade_title = "DEBUG_UPGRADE_3"
 upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
 upgrade_cost = 250
 upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_srwmb"), SubResource("Resource_pq4tt"), SubResource("Resource_r2wq4")])
-upgrade_metadata = ""
 
 [sub_resource type="Resource" id="Resource_y3kst"]
 script = ExtResource("3_xq26r")
@@ -89,7 +86,6 @@ upgrade_title = "DEBUG_UPGRADE_4"
 upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
 upgrade_cost = 550
 upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_y3kst"), SubResource("Resource_2y8ou"), SubResource("Resource_jsr58")])
-upgrade_metadata = ""
 
 [sub_resource type="Resource" id="Resource_ajnr7"]
 script = ExtResource("3_xq26r")
@@ -117,7 +113,6 @@ upgrade_title = "DEBUG_UPGRADE_5"
 upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
 upgrade_cost = 1000
 upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_ajnr7"), SubResource("Resource_l3726"), SubResource("Resource_5rwka"), SubResource("Resource_2yyfn")])
-upgrade_metadata = ""
 
 [resource]
 script = ExtResource("1_80cqm")

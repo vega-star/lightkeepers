@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=14 format=3 uid="uid://g5xnaalno0lf"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_ycyoy"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_uoncc"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_kknb5"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_kknb5")
+upgrade_type = 0
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_uoncc")
+upgrade_title = "WIND_FORCE_1"
+upgrade_description = "WIND_FORCE_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_kknb5")]([SubResource("Resource_34xdb")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_jn0gu"]
+script = ExtResource("3_kknb5")
+upgrade_type = 0
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_uoncc")
+upgrade_title = "WIND_FORCE_2"
+upgrade_description = "WIND_FORCE_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_kknb5")]([SubResource("Resource_jn0gu")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_0r7fh"]
+script = ExtResource("3_kknb5")
+upgrade_type = 0
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_uoncc")
+upgrade_title = "WIND_FORCE_3"
+upgrade_description = "WIND_FORCE_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_kknb5")]([SubResource("Resource_0r7fh")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_bw8re"]
+script = ExtResource("3_kknb5")
+upgrade_type = 0
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_uoncc")
+upgrade_title = "WIND_FORCE_4"
+upgrade_description = "WIND_FORCE_4_DESCRIPTION"
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_kknb5")]([SubResource("Resource_bw8re")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_t8uix"]
+script = ExtResource("3_kknb5")
+upgrade_type = 0
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_uoncc")
+upgrade_title = "WIND_FORCE_5"
+upgrade_description = "WIND_FORCE_5_DESCRIPTION"
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_kknb5")]([SubResource("Resource_t8uix")])
+upgrade_metadata = ""
+
+[resource]
+script = ExtResource("1_ycyoy")
+upgrades = Array[ExtResource("2_uoncc")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

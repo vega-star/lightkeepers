@@ -16,7 +16,6 @@ script = ExtResource("1_kxej8")
 enemy_sprite = NodePath("EnemySprite")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_ivbjf")]
-debug = true
 
 [node name="NavigationAgent" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1

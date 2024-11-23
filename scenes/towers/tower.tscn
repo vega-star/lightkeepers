@@ -393,6 +393,7 @@ parameters/Seeking/blend_position = Vector2(0.0784178, -0.703971)
 upgrade_tree_1 = ExtResource("4_bcjrb")
 upgrade_tree_2 = ExtResource("4_bcjrb")
 upgrade_tree_3 = ExtResource("4_bcjrb")
+debug = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
 script = ExtResource("4_bwa4k")

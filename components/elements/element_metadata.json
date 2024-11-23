@@ -2,6 +2,7 @@
 	"fire": {
 		"type": 0,
 		"root_color": "b34316",
+		"upgrade_trees": ["fiery_force","hasty_blaze","piercing_flame"],
 		"turret_default_values": {
 			"magic_level": 1,
 			"damage": 10,
@@ -75,12 +76,13 @@
 	"water": {
 		"type": 0,
 		"root_color": "0000ffff",
+		"upgrade_trees": ["tidal_force","aquaprojectile_capacity","swift_drizzle"],
 		"turret_default_values": {
 			"magic_level": 1,
 			"damage": 2,
 			"piercing": 5,
 			"burst": 1,
-			"projectile_quantity": 3,
+			"projectile_quantity": 1,
 			"firing_cooldown": 1.75
 		},
 		"effect_metadata": [{
@@ -132,6 +134,7 @@
 	"air": {
 		"type": 0,
 		"root_color": "d3d3d3ff",
+		"upgrade_trees": ["wind_force","hasty_breeze","eolic_radius"],
 		"turret_default_values": {
 			"magic_level": 1,
 			"quantity": 1,
@@ -187,6 +190,7 @@
 	"earth": {
 		"type": 0,
 		"root_color": "8b4513ff",
+		"upgrade_trees": ["earthian_force","clay_capacity","piercing_flint"],
 		"turret_default_values": {
 			"magic_level": 1,
 			"quantity": 1,

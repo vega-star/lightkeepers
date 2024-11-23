@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=14 format=3 uid="uid://bwu50o6yqx7ca"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_vgrfe"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_5nvrs"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_hobdd"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_hobdd")
+upgrade_type = 5
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_5nvrs")
+upgrade_title = "SWIFT_DRIZZLE_1"
+upgrade_description = "SWIFT_DRIZZLE_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_hobdd")]([SubResource("Resource_34xdb")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_ds7qo"]
+script = ExtResource("3_hobdd")
+upgrade_type = 5
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_5nvrs")
+upgrade_title = "SWIFT_DRIZZLE_2"
+upgrade_description = "SWIFT_DRIZZLE_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_hobdd")]([SubResource("Resource_ds7qo")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_a18bt"]
+script = ExtResource("3_hobdd")
+upgrade_type = 5
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_5nvrs")
+upgrade_title = "SWIFT_DRIZZLE_3"
+upgrade_description = "SWIFT_DRIZZLE_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_hobdd")]([SubResource("Resource_a18bt")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_cem24"]
+script = ExtResource("3_hobdd")
+upgrade_type = 5
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_5nvrs")
+upgrade_title = "SWIFT_DRIZZLE_4"
+upgrade_description = "SWIFT_DRIZZLE_4_DESCRIPTION"
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_hobdd")]([SubResource("Resource_cem24")])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_t2xl8"]
+script = ExtResource("3_hobdd")
+upgrade_type = 5
+upgrade_value = "0.2"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_5nvrs")
+upgrade_title = "SWIFT_DRIZZLE_5"
+upgrade_description = "SWIFT_DRIZZLE_5_DESCRIPTION"
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_hobdd")]([SubResource("Resource_t2xl8")])
+upgrade_metadata = ""
+
+[resource]
+script = ExtResource("1_vgrfe")
+upgrades = Array[ExtResource("2_5nvrs")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

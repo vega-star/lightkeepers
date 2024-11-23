@@ -1,47 +1,47 @@
-[gd_resource type="Resource" script_class="StageSchedule" load_steps=16 format=3 uid="uid://bhavpgvghw8tl"]
+[gd_resource type="Resource" script_class="StageSchedule" load_steps=26 format=3 uid="uid://bhavpgvghw8tl"]
 
 [ext_resource type="Script" path="res://scripts/resources/turns/turn_schedule.gd" id="1_nsqhq"]
 [ext_resource type="Script" path="res://scripts/resources/turns/turn.gd" id="2_nj5ta"]
 [ext_resource type="Script" path="res://scripts/resources/turns/wave.gd" id="3_j5h5j"]
 
-[sub_resource type="Resource" id="Resource_tld5o"]
+[sub_resource type="Resource" id="Resource_khv86"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 50
+spawn_cooldown = 1.5
+override_wave_period = 15.0
+
+[sub_resource type="Resource" id="Resource_1t4w2"]
 script = ExtResource("3_j5h5j")
 enemy_id = "brute"
-quantity = 5
-spawn_cooldown = 2.0
-override_wave_period = 0.0
+quantity = 20
+spawn_cooldown = 4.0
+override_wave_period = 10.0
 
-[sub_resource type="Resource" id="Resource_ag1g1"]
+[sub_resource type="Resource" id="Resource_o7k6a"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 3
-spawn_cooldown = 0.8
-override_wave_period = 0.0
-
-[sub_resource type="Resource" id="Resource_1ixrm"]
-script = ExtResource("3_j5h5j")
-enemy_id = "creep"
-quantity = 3
-spawn_cooldown = 0.8
+quantity = 50
+spawn_cooldown = 1.5
 override_wave_period = 0.0
 
 [sub_resource type="Resource" id="Resource_wytwx"]
 script = ExtResource("2_nj5ta")
-turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_tld5o"), SubResource("Resource_ag1g1"), SubResource("Resource_1ixrm")])
-coins_on_turn_completion = 15
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_khv86"), SubResource("Resource_1t4w2"), SubResource("Resource_o7k6a")])
+coins_on_turn_completion = 500
 
 [sub_resource type="Resource" id="Resource_axgqi"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 10
-spawn_cooldown = 0.05
-override_wave_period = 7.0
+quantity = 30
+spawn_cooldown = 0.9
+override_wave_period = 15.0
 
 [sub_resource type="Resource" id="Resource_y1mvv"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 5
-spawn_cooldown = 0.8
+quantity = 25
+spawn_cooldown = 1.2
 override_wave_period = 0.0
 
 [sub_resource type="Resource" id="Resource_j14ic"]
@@ -49,22 +49,15 @@ script = ExtResource("2_nj5ta")
 turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv")])
 coins_on_turn_completion = 25
 
-[sub_resource type="Resource" id="Resource_eswyu"]
-script = ExtResource("3_j5h5j")
-enemy_id = "creep"
-quantity = 1
-spawn_cooldown = 0.8
-override_wave_period = 0.0
-
 [sub_resource type="Resource" id="Resource_u6vfe"]
 script = ExtResource("2_nj5ta")
-turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv"), SubResource("Resource_eswyu")])
-coins_on_turn_completion = 25
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv")])
+coins_on_turn_completion = 35
 
 [sub_resource type="Resource" id="Resource_oreg3"]
 script = ExtResource("2_nj5ta")
 turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_y1mvv")])
-coins_on_turn_completion = 25
+coins_on_turn_completion = 50
 
 [sub_resource type="Resource" id="Resource_e4qms"]
 script = ExtResource("3_j5h5j")
@@ -76,9 +69,78 @@ override_wave_period = 7.0
 [sub_resource type="Resource" id="Resource_8urik"]
 script = ExtResource("2_nj5ta")
 turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_axgqi"), SubResource("Resource_e4qms")])
-coins_on_turn_completion = 50
+coins_on_turn_completion = 75
+
+[sub_resource type="Resource" id="Resource_1gpi8"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 40
+spawn_cooldown = 2.0
+override_wave_period = 10.0
+
+[sub_resource type="Resource" id="Resource_yllei"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_1gpi8"), null])
+coins_on_turn_completion = 100
+
+[sub_resource type="Resource" id="Resource_w3arl"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 10
+spawn_cooldown = 0.6
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_6b3c8"]
+script = ExtResource("3_j5h5j")
+enemy_id = "brute"
+quantity = 1
+spawn_cooldown = 2.0
+override_wave_period = 5.0
+
+[sub_resource type="Resource" id="Resource_g0sw4"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 10
+spawn_cooldown = 0.8
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_wq05w"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_w3arl"), SubResource("Resource_6b3c8"), SubResource("Resource_g0sw4")])
+coins_on_turn_completion = 125
+
+[sub_resource type="Resource" id="Resource_4dlkl"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 500
+spawn_cooldown = 0.8
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_i8xo7"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_4dlkl")])
+coins_on_turn_completion = 200
+
+[sub_resource type="Resource" id="Resource_tqu6k"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 35
+spawn_cooldown = 0.8
+override_wave_period = 5.0
+
+[sub_resource type="Resource" id="Resource_4t6yg"]
+script = ExtResource("3_j5h5j")
+enemy_id = "brute"
+quantity = 5
+spawn_cooldown = 5.0
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_e72tc"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_tqu6k"), SubResource("Resource_4t6yg")])
+coins_on_turn_completion = 25
 
 [resource]
 script = ExtResource("1_nsqhq")
 difficulty_category = 1
-turns = Array[ExtResource("2_nj5ta")]([SubResource("Resource_wytwx"), SubResource("Resource_j14ic"), SubResource("Resource_u6vfe"), SubResource("Resource_oreg3"), SubResource("Resource_8urik")])
+turns = Array[ExtResource("2_nj5ta")]([SubResource("Resource_wytwx"), SubResource("Resource_j14ic"), SubResource("Resource_u6vfe"), SubResource("Resource_oreg3"), SubResource("Resource_8urik"), SubResource("Resource_yllei"), SubResource("Resource_wq05w"), SubResource("Resource_i8xo7"), SubResource("Resource_e72tc"), SubResource("Resource_wytwx")])

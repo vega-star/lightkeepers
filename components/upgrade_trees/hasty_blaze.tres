@@ -1,48 +1,68 @@
-[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=9 format=3 uid="uid://bpd583ivnduut"]
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=14 format=3 uid="uid://bpd583ivnduut"]
 
 [ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_m3gr4"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_o3aau"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_nac08"]
 
+[sub_resource type="Resource" id="Resource_3m2is"]
+script = ExtResource("3_nac08")
+upgrade_type = 4
+upgrade_value = "1"
+
 [sub_resource type="Resource" id="Resource_uiyft"]
 script = ExtResource("2_o3aau")
 upgrade_title = "HASTY_BLAZE_1"
 upgrade_description = "HASTY_BLAZE_1_DESCRIPTION"
-upgrade_cost = 0
-upgrade_commands = Array[ExtResource("3_nac08")]([])
-upgrade_metadata = ""
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_nac08")]([SubResource("Resource_3m2is")])
+
+[sub_resource type="Resource" id="Resource_0ap20"]
+script = ExtResource("3_nac08")
+upgrade_type = 4
+upgrade_value = "1"
 
 [sub_resource type="Resource" id="Resource_w5oqi"]
 script = ExtResource("2_o3aau")
 upgrade_title = "HASTY_BLAZE_2"
 upgrade_description = "HASTY_BLAZE_2_DESCRIPTION"
-upgrade_cost = 0
-upgrade_commands = Array[ExtResource("3_nac08")]([])
-upgrade_metadata = ""
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_nac08")]([SubResource("Resource_0ap20")])
+
+[sub_resource type="Resource" id="Resource_q7mk3"]
+script = ExtResource("3_nac08")
+upgrade_type = 4
+upgrade_value = "1"
 
 [sub_resource type="Resource" id="Resource_bhh42"]
 script = ExtResource("2_o3aau")
 upgrade_title = "HASTY_BLAZE_3"
 upgrade_description = "HASTY_BLAZE_3_DESCRIPTION"
-upgrade_cost = 0
-upgrade_commands = Array[ExtResource("3_nac08")]([])
-upgrade_metadata = ""
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_nac08")]([SubResource("Resource_q7mk3")])
+
+[sub_resource type="Resource" id="Resource_6swcq"]
+script = ExtResource("3_nac08")
+upgrade_type = 4
+upgrade_value = "1"
 
 [sub_resource type="Resource" id="Resource_xecld"]
 script = ExtResource("2_o3aau")
 upgrade_title = "HASTY_BLAZE_4"
 upgrade_description = "HASTY_BLAZE_4_DESCRIPTION"
-upgrade_cost = 0
-upgrade_commands = Array[ExtResource("3_nac08")]([])
-upgrade_metadata = ""
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_nac08")]([SubResource("Resource_6swcq")])
+
+[sub_resource type="Resource" id="Resource_rs83y"]
+script = ExtResource("3_nac08")
+upgrade_type = 4
+upgrade_value = "1"
 
 [sub_resource type="Resource" id="Resource_yyfi7"]
 script = ExtResource("2_o3aau")
 upgrade_title = "HASTY_BLAZE_5"
 upgrade_description = "HASTY_BLAZE_5_DESCRIPTION"
-upgrade_cost = 0
-upgrade_commands = Array[ExtResource("3_nac08")]([])
-upgrade_metadata = ""
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_nac08")]([SubResource("Resource_rs83y")])
 
 [resource]
 script = ExtResource("1_m3gr4")

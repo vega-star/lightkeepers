@@ -1,48 +1,68 @@
-[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=9 format=3 uid="uid://b8qmh7pcdysjw"]
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=14 format=3 uid="uid://b8qmh7pcdysjw"]
 
 [ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_up1gp"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_6mlcd"]
 [ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_3a5o8"]
 
+[sub_resource type="Resource" id="Resource_cdkvg"]
+script = ExtResource("3_3a5o8")
+upgrade_type = 0
+upgrade_value = "5"
+
 [sub_resource type="Resource" id="Resource_peu8g"]
 script = ExtResource("2_6mlcd")
 upgrade_title = "FIERY_FORCE_UP_1"
 upgrade_description = "FIERY_FORCE_UP_1_DESCRIPTION"
-upgrade_cost = 110
-upgrade_commands = Array[ExtResource("3_3a5o8")]([])
-upgrade_metadata = ""
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_3a5o8")]([SubResource("Resource_cdkvg")])
+
+[sub_resource type="Resource" id="Resource_slb7x"]
+script = ExtResource("3_3a5o8")
+upgrade_type = 0
+upgrade_value = "5"
 
 [sub_resource type="Resource" id="Resource_j8b3f"]
 script = ExtResource("2_6mlcd")
 upgrade_title = "FIERY_FORCE_UP_2"
 upgrade_description = "FIERY_FORCE_UP_2_DESCRIPTION"
-upgrade_cost = 250
-upgrade_commands = Array[ExtResource("3_3a5o8")]([])
-upgrade_metadata = ""
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_3a5o8")]([SubResource("Resource_slb7x")])
+
+[sub_resource type="Resource" id="Resource_fvqvw"]
+script = ExtResource("3_3a5o8")
+upgrade_type = 0
+upgrade_value = "5"
 
 [sub_resource type="Resource" id="Resource_qhfo1"]
 script = ExtResource("2_6mlcd")
 upgrade_title = "FIERY_FORCE_UP_3"
 upgrade_description = "FIERY_FORCE_UP_3_DESCRIPTION"
-upgrade_cost = 550
-upgrade_commands = Array[ExtResource("3_3a5o8")]([])
-upgrade_metadata = ""
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_3a5o8")]([SubResource("Resource_fvqvw")])
+
+[sub_resource type="Resource" id="Resource_misx6"]
+script = ExtResource("3_3a5o8")
+upgrade_type = 0
+upgrade_value = "5"
 
 [sub_resource type="Resource" id="Resource_sq8qu"]
 script = ExtResource("2_6mlcd")
 upgrade_title = "FIERY_FORCE_UP_4"
 upgrade_description = "FIERY_FORCE_UP_4_DESCRIPTION"
-upgrade_cost = 750
-upgrade_commands = Array[ExtResource("3_3a5o8")]([])
-upgrade_metadata = ""
+upgrade_cost = 400
+upgrade_commands = Array[ExtResource("3_3a5o8")]([SubResource("Resource_misx6")])
+
+[sub_resource type="Resource" id="Resource_kcltj"]
+script = ExtResource("3_3a5o8")
+upgrade_type = 0
+upgrade_value = "5"
 
 [sub_resource type="Resource" id="Resource_x3dj5"]
 script = ExtResource("2_6mlcd")
 upgrade_title = "FIERY_FORCE_UP_5"
 upgrade_description = "FIERY_FORCE_UP_5_DESCRIPTION"
-upgrade_cost = 1250
-upgrade_commands = Array[ExtResource("3_3a5o8")]([])
-upgrade_metadata = ""
+upgrade_cost = 500
+upgrade_commands = Array[ExtResource("3_3a5o8")]([SubResource("Resource_kcltj")])
 
 [resource]
 script = ExtResource("1_up1gp")
