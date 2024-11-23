@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5ro0v1m703bu"]
+
+[ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_qxfjm"]
+
+[node name="AirProjectile" instance=ExtResource("1_qxfjm")]
+speed = 500

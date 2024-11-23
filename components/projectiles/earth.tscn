@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqbne6ac5bj7c"]
+
+[ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_qpkbv"]
+[ext_resource type="Texture2D" uid="uid://bf7hpcgkv0ki5" path="res://assets/particles/projectiles/boulder.png" id="2_dshm4"]
+[ext_resource type="Texture2D" uid="uid://dtu4rxp8hr6y5" path="res://assets/particles/projectiles/boulder_fragment.png" id="2_tdc8c"]
+
+[sub_resource type="Curve" id="Curve_8hlf3"]
+max_value = 100.0
+_data = [Vector2(0, 100), 0.0, 0.0, 0, 0, Vector2(0.49531, 100), 0.0, 0.0, 0, 0, Vector2(1, 0.13842), 4.70115, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6f0ni"]
+offsets = PackedFloat32Array(0, 0.667327, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6p4pg"]
+radius = 12.0
+
+[node name="EarthProjectile" instance=ExtResource("1_qpkbv")]
+modulate = Color(1.5, 1.2, 1.1, 1)
+speed = 250
+charge_before_firing = true
+rotate_sprite = true
+
+[node name="ProjectileTrace" parent="Separator" index="0"]
+z_index = -1
+width = 15.0
+
+[node name="CPUParticles2D" parent="." index="1"]
+position = Vector2(0, 0)
+emitting = true
+amount = 12
+lifetime = 3.0
+explosiveness = 0.4
+randomness = 0.5
+texture = ExtResource("2_tdc8c")
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 0)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+linear_accel_min = -50.0
+linear_accel_max = -10.0
+radial_accel_min = -45.0
+radial_accel_max = 45.0
+damping_curve = SubResource("Curve_8hlf3")
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.1
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_6f0ni")
+
+[node name="ProjectileSprite" parent="." index="2"]
+visible = true
+modulate = Color(1, 1, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dshm4")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_6p4pg")

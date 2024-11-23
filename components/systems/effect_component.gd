@@ -1,5 +1,8 @@
 class_name EffectComponent extends Node
 
+signal effect_started
+signal effect_expired(self_ref : Effect)
+
 @onready var entity : Node = $"../.."
 @onready var health_component: HealthComponent = $".."
 
@@ -9,48 +12,51 @@ var active_effects : Array[Effect]
 
 func _ready() -> void: assert(health_component)
 
-func apply_effect(eid : int, metadata : Dictionary, source : Tower) -> bool: ## Create, start, and manage effect
-	var e_metadata : Dictionary = metadata
-	var magic_level : int = source.magic_level
+## Create, start, and manage effect
+func apply_effect(
+		eid : int, ## Effect ID
+		element_data : Dictionary, ## All requested data
+		source : Tower ## From where the effect comes from
+	) -> bool: #? Returns true if applied
+	var effect_data : Dictionary = element_data
+	var magic_level : int = 1
+	if source: magic_level = source.magic_level
 	
-	if metadata.has("effect_metadata"):
-		if metadata["effect_metadata"] is Dictionary: e_metadata = metadata["effect_metadata"] #? Single effect
-		elif metadata["effect_metadata"] is Array: for e in metadata["effect_metadata"]: apply_effect(eid, e, source); return true #? Multiple effects nested
+	if element_data.has("effect_metadata"):
+		if element_data["effect_metadata"] is Dictionary: #? Single effect
+			effect_data = element_data["effect_metadata"]
+		elif element_data["effect_metadata"] is Array: for e in element_data["effect_metadata"]: #? Multiple effects nested
+			apply_effect(eid, e, source); return true
+	else: return false #? No effect element_data given
 	
-	if health_component.debug: print(owner.root_node.name, ' | Effect applied: ', e_metadata)
+	if health_component.debug: print(owner.root_node.name, ' | Effect applied: ', effect_data)
 	if active_eids.has(eid):
 		var a_effect : Effect
 		for e in active_effects: if e.eid == eid: a_effect = e
 		a_effect.reset_duration()
-		if e_metadata.has("stackable"):
-			if e_metadata["stackable"]: #? Add stacks to the same effect, increasing its strength
+		if effect_data.has("stackable"):
+			if effect_data["stackable"]: #? Add stacks to the same effect, increasing its strength
 				var multiplier : int = 1
-				if e_metadata.has("stack_multiplier"): multiplier = e_metadata["stack_multiplier"] * magic_level
+				if effect_data.has("stack_multiplier"): multiplier = effect_data["stack_multiplier"] * magic_level
 				a_effect.stacks += 1 * multiplier
 				return true
 		else: return true #? The effect cannot stack, but is duration will be reset
 	
+	var duration_timer = Timer.new()
+	duration_timer.set_one_shot(true)
+	duration_timer.set_wait_time(effect_data["duration"])
+	duration_timer.set_name(str(eid)+"_DURATION")
+	add_child(duration_timer)
+	var tick_timer = Timer.new()
+	tick_timer.set_name(str(eid)+"_TICK")
+	duration_timer.add_child(tick_timer)
+	
 	var effect : Effect = Effect.new()
-	var duration_timer : Timer = Timer.new()
-	var tick_timer : Timer = Timer.new()
-	
-	if e_metadata.has("duration"):
-		duration_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
-		duration_timer.set_wait_time(e_metadata["duration"])
-		add_child(duration_timer); duration_timer.set_name(e_metadata["ename"].to_lower() + "_duration")
-	
-	if e_metadata.has("tick"):
-		tick_timer.set_process_mode(Node.PROCESS_MODE_PAUSABLE)
-		tick_timer.set_wait_time(e_metadata["tick"])
-		duration_timer.add_child(tick_timer); tick_timer.set_name(e_metadata["ename"].to_lower() + "_tick")
-	
 	effect.level = magic_level
-	effect.activate(eid, e_metadata, 1, 1, duration_timer, tick_timer, health_component, source)
+	effect.activate(eid, effect_data, 1, 1, duration_timer, tick_timer, health_component, source)
 	active_effects.append(effect)
 	active_eids.append(eid)
 	return true
-
-func proc_effect(e_ref : Effect) -> void: compute_effect(e_ref) ## Receive and apply effect
 
 func remove_effect(self_ref : Effect) -> void:
 	compute_effect(self_ref, false)
@@ -58,12 +64,15 @@ func remove_effect(self_ref : Effect) -> void:
 	active_eids.erase(self_ref.eid)
 
 ## Process effects based on values inside dictionary and individual etypes.
+func proc_effect(e_ref : Effect) -> void: compute_effect(e_ref) ## Receive and apply effect
+
 func compute_effect(
-		e_ref : Effect,
+		e_ref : Effect, ## Source effect with multiple properties defined
 		apply : bool = true ## If false, will cancel out the effect. Used to remove multipliers and such
 	) -> void:
 	var e_dict : Dictionary = e_ref.effect
 	var e_source : Tower = e_ref.source
+	if !apply and health_component.debug: print(e_dict["ename"], ' | EFFECT ENDED')
 	match int(e_dict["etype"]):
 		000: # DEBUG
 			print(e_dict["message"])
@@ -72,7 +81,6 @@ func compute_effect(
 			var d_value : int = roundi(e_dict["value"] * e_ref.level)
 			if e_dict["stackable"] and e_ref.stacks > 1: d_value *= e_ref.stacks
 			if health_component.debug: print(e_dict["ename"], '| Damaging ', owner.root_node.name, ' with ', d_value, ' multiplied by ', e_ref.stacks, ' stacks')
-			
 			if is_instance_valid(e_source): health_component.change(d_value, apply, e_ref.source)
 			else: health_component.change(d_value, apply)
 		002: pass # ADD_VULNERABILITY

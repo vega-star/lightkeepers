@@ -36,6 +36,7 @@ signal tower_defeated_enemy(current_count : int)
 @export var tower_name : String = 'Tower'
 @export var range_draw_color : Color = Color(0, 0.845, 0.776, 0.5)
 @export var light_draw_color : Color = Color(0.863, 0.342, 0, 0.5)
+@export var debug : bool = false
 #endregion
 
 #region Variables
@@ -61,6 +62,7 @@ var target_on_sight : bool = false #? Simple condition that can help controlling
 var prop : bool = false #? Used when the turret is being dragged on screen and not truly in game
 
 ## Tower queried data
+var quantity : int = 1
 var target_priority : TARGET_PRIORITIES = 0
 var tower_value : int = 0
 var element : Element
@@ -68,13 +70,16 @@ var element_register : ElementRegister: set = adapt_register
 var element_metadata : Dictionary = {}
 
 ## Weapon values
-var magic_level : int = 1
-var quantity : int = 1
 var damage : int = 5
 var piercing : int = 1
 var burst : int = 1
+var magic_level : int = 1
+var additional_distance_multiplier : float = 1
 var projectile_quantity : int
-var firing_cooldown : float = 1.5
+var firing_cooldown : float = 1.5:
+	set(new_cooldown):
+		firing_cooldown = new_cooldown
+		$StateMachine/Firing.firing_cooldown.wait_time = firing_cooldown
 
 ## Custom setters
 var global_direction : Vector2: set = _update_direction
@@ -111,6 +116,13 @@ func adapt_register(new_reg : ElementRegister) -> void:
 	set_name(element_register.element.element_id.to_upper() + "_MAGE")
 	element_metadata = ElementManager.query_metadata(element_register.element.element_id)
 	tower_name = name
+	if element_metadata.has("turret_default_values"):
+		for p in element_metadata.turret_default_values:
+			self.set_deferred(p, element_metadata.turret_default_values[p])
+			if debug: print(str(p), ' changed from ', p, ' to ', element_metadata.turret_default_values[p])
+	
+	if element_metadata.projectile_scene != null:
+		projectile_scene = element_metadata.projectile_scene
 
 func _configure() -> void:
 	light_range = DEFAULT_LIGHT_RANGE

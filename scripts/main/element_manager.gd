@@ -32,9 +32,10 @@ func _load_element_metadata() -> Dictionary: #? Returns a patched dictionary con
 	var metadata : Dictionary = JSON.parse_string(metadata_file.get_as_text())
 	var eid : int = 0
 	metadata_file.close()
-	for e in metadata: # Patch data to Godot friendly format
+	for e in metadata: # Patch data of every register to Godot format
 		metadata[e]["eid"] = eid
 		metadata[e]["root_color"] = Color("#"+metadata[e]["root_color"])
+		metadata[e]["projectile_scene"] = load("res://components/projectiles/{0}.tscn".format({0:metadata.keys()[eid]}))
 		eid += 1
 	return metadata
 

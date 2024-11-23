@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Lightkeepers"
-config/version="0.4.2"
+config/version="0.4.3"
 config/tags=PackedStringArray("action", "game", "tower_defense")
 run/main_scene="res://scenes/ui/intro.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.196078, 0.2, 0.32549, 1)
 boot_splash/show_image=false
-config/icon="res://assets/prototypes/game_icon.png"
+config/icon="res://assets/sprites/prototypes/game_icon.png"
 
 [audio]
 

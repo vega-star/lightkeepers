@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" load_steps=9 format=3 uid="uid://crg8ydeufxjgb"]
+
+[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="1_yiriq"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="2_gog0f"]
+[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="3_083l3"]
+
+[sub_resource type="Resource" id="Resource_7k5ec"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_1"
+upgrade_description = "PIERCING_FLAME_1_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_dg1dx"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_2"
+upgrade_description = "PIERCING_FLAME_2_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_le6xq"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_3"
+upgrade_description = "PIERCING_FLAME_3_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_3emuf"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_4"
+upgrade_description = "PIERCING_FLAME_4_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+upgrade_metadata = ""
+
+[sub_resource type="Resource" id="Resource_522c5"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_5"
+upgrade_description = "PIERCING_FLAME_5_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+upgrade_metadata = ""
+
+[resource]
+script = ExtResource("1_yiriq")
+upgrades = Array[ExtResource("2_gog0f")]([SubResource("Resource_7k5ec"), SubResource("Resource_dg1dx"), SubResource("Resource_le6xq"), SubResource("Resource_3emuf"), SubResource("Resource_522c5")])

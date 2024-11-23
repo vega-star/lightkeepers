@@ -4,29 +4,34 @@
 [ext_resource type="Texture2D" uid="uid://bft0dral3qenl" path="res://assets/sprites/prototypes/magicball.png" id="2_q0dl6"]
 
 [sub_resource type="Curve" id="Curve_a1gkp"]
-_data = [Vector2(0, 0), 0.0, -0.393981, 0, 0, Vector2(0.877232, 1), -0.132273, 0.0, 0, 0, Vector2(1, 0), -23.0398, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 1), 0.0, 0.0132885, 0, 0, Vector2(1, 0), -2.49596, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_wmi4g"]
-offsets = PackedFloat32Array(0, 0.338384, 0.550505, 0.853535, 1)
-colors = PackedColorArray(0.864545, 0.393264, 0.156729, 0, 0.698108, 0.515423, 0.319566, 0.76467, 0.863963, 0.659786, 0.512388, 1, 10, 2, 1.5, 1, 25, 5, 2, 1)
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(0.375514, 0.383747, 0.715127, 0.746, 0.307561, 0.222777, 0.411708, 0.486, 0.097321, 0.10796, 0.248765, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xyjd"]
 custom_solver_bias = 0.2
-radius = 6.0
+radius = 8.0
 height = 16.0
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 32
 collision_mask = 12
-input_pickable = false
 script = ExtResource("1_5ijgk")
 
 [node name="Separator" type="Node" parent="."]
 
 [node name="ProjectileTrace" type="Line2D" parent="Separator"]
+width = 5.0
 width_curve = SubResource("Curve_a1gkp")
 gradient = SubResource("Gradient_wmi4g")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 4.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(6, 0)

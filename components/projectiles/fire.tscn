@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://4bs56atbljg0"]
+
+[ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_i8rhm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lt3c8"]
+radius = 8.0
+
+[node name="FireProjectile" instance=ExtResource("1_i8rhm")]
+charge_before_firing = true
+
+[node name="ProjectileTrace" parent="Separator" index="0"]
+width = 6.0
+
+[node name="ProjectileSprite" parent="." index="2"]
+visible = true
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_lt3c8")

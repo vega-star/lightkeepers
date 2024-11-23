@@ -99,12 +99,12 @@ upgrade_value = "1.2"
 [sub_resource type="Resource" id="Resource_l3726"]
 script = ExtResource("3_xq26r")
 upgrade_type = 8
-upgrade_value = "0.7"
+upgrade_value = "1.1"
 
 [sub_resource type="Resource" id="Resource_5rwka"]
 script = ExtResource("3_xq26r")
 upgrade_type = 0
-upgrade_value = "50"
+upgrade_value = "25"
 
 [sub_resource type="Resource" id="Resource_2yyfn"]
 script = ExtResource("3_xq26r")

@@ -36,18 +36,17 @@ func activate(
 	health_ref = _new_health_ref
 	duration_timer = _new_duration_timer
 	tick_timer = _new_tick_timer
-	
 	duration_timer.timeout.connect(deactivate)
 	tick_timer.timeout.connect(proc)
-	
-	tick_timer.set_autostart(true)
-	duration_timer.set_autostart(true)
+	duration_timer.start()
+	tick_timer.start()
 	effect_started.emit()
 	proc()
 
 func proc() -> void: health_ref.effect_component.proc_effect(self)
 
-func reset_duration(duration : int = total_duration) -> void: if duration_timer: duration_timer.start(duration)
+func reset_duration(duration : int = total_duration) -> void:
+	if duration_timer: duration_timer.start(duration)
 
 func deactivate() -> void:
 	if stacks > 1 and effect["stackable"]: stacks -= 1; reset_duration(); return

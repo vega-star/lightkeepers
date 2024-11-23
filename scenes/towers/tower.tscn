@@ -377,6 +377,9 @@ radius = 128.0
 [node name="Tower" type="Node2D"]
 material = ExtResource("1_ph1d3")
 script = ExtResource("2_fqx6q")
+range_draw_color = Color(0, 0.872, 0.487, 0.3)
+light_draw_color = Color(0.978, 0.576, 0, 0.3)
+debug = true
 
 [node name="TowerAnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_4bul2")
@@ -421,7 +424,7 @@ target_position = Vector2(320, 0)
 collision_mask = 4
 
 [node name="TowerProjectilePoint" type="Marker2D" parent="TowerAim"]
-position = Vector2(40.0001, 0)
+position = Vector2(16.0001, 0)
 
 [node name="TowerOccupiedArea" type="Area2D" parent="."]
 collision_layer = 17

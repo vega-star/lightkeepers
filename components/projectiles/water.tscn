@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b77ke53a5an7h"]
+
+[ext_resource type="PackedScene" uid="uid://bj1k1hebjni7c" path="res://components/projectiles/projectile.tscn" id="1_j0cow"]
+[ext_resource type="Texture2D" uid="uid://bft0dral3qenl" path="res://assets/sprites/prototypes/magicball.png" id="2_wpu5o"]
+
+[sub_resource type="Curve" id="Curve_53pvr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.705441, 0.536678), -3.16044, -3.16044, 0, 0, Vector2(1, 0), 0.32356, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_gf10a"]
+colors = PackedColorArray(0.25, 0.5, 2.5, 1, 0.550334, 0.514667, 0.842255, 0)
+
+[node name="WaterProjectile" instance=ExtResource("1_j0cow")]
+speed = 180
+charge_time = 0.5
+charge_before_firing = true
+
+[node name="ProjectileTrace" parent="Separator" index="0"]
+width = 15.0
+
+[node name="CPUParticles2D" parent="." index="1"]
+position = Vector2(0, 0)
+amount = 20
+explosiveness = 0.0
+texture = ExtResource("2_wpu5o")
+direction = Vector2(100, 0)
+spread = 35.0
+scale_amount_min = 0.1
+scale_amount_curve = SubResource("Curve_53pvr")
+color_ramp = SubResource("Gradient_gf10a")
+
+[node name="ProjectileSprite" parent="." index="2"]
+visible = true
+self_modulate = Color(1.5, 2, 20, 1)

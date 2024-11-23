@@ -50,16 +50,95 @@ size_flags_stretch_ratio = 1.5
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_lwdqn")
 
-[node name="PreviousTexture" type="TextureRect" parent="Container/InfoPanel"]
+[node name="NotOwnedLabel" type="Label" parent="Container/InfoPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.049
+anchor_top = 0.32
+anchor_right = 0.959
+anchor_bottom = 0.64
+offset_left = -0.0270004
+offset_right = 0.0429916
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.350034, 0.357015, 0.544201, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_fonts/font = ExtResource("4_b1k2f")
+theme_override_font_sizes/font_size = 20
+text = "NOT_OWNED"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="PreviousUpgrade" type="Control" parent="Container/InfoPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PreviousTexture" type="TextureRect" parent="Container/InfoPanel/PreviousUpgrade"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.211
+anchor_top = 0.14
+anchor_right = 0.797
+anchor_bottom = 0.86
+offset_left = 0.046999
+offset_right = -0.0310059
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
+texture = ExtResource("5_bs5c3")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="PreviousUpgradeTitle" type="Label" parent="Container/InfoPanel/PreviousUpgrade"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.049
+anchor_right = 0.959
+anchor_bottom = 0.08
+offset_left = 7.973
+offset_top = -8.0
+offset_right = -7.95701
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_b1k2f")
+theme_override_font_sizes/font_size = 20
+text = "PREVIOUS UPGRADE TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="OwnedLabel" type="Label" parent="Container/InfoPanel/PreviousUpgrade"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.049
+anchor_top = 0.88
+anchor_right = 0.959
+anchor_bottom = 1.0
+offset_left = -0.0270004
+offset_top = -21.0
+offset_right = 0.0429916
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.662184, 1, 0.633765, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_fonts/font = ExtResource("4_b1k2f")
+theme_override_font_sizes/font_size = 20
+text = "OWNED"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
 
 [node name="UpgradeButton" type="Button" parent="Container"]
 layout_mode = 2
@@ -107,7 +186,10 @@ offset_right = 0.00499725
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.715543, 1, 0.689873, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.187449, 1.20327e-08, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("4_b1k2f")
 theme_override_font_sizes/font_size = 22
 text = "UPGRADE TITLE"

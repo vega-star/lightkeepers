@@ -70,16 +70,22 @@ func _start_firing() -> void:
 	else: if debug: print(entity.name, ' firing called, but it is already firing')
 
 func _fire() -> void:
-	var projectile : Projectile = entity.projectile_scene.instantiate()
-	if _check_target(): projectile.target = entity.target
-	if entity.element_metadata: projectile.projectile_element_metadata = entity.element_metadata
-	if entity.element_metadata.has("root_color"): projectile.modulate = entity.element_metadata["root_color"]
-	projectile.projectile_mode = projectile_mode
-	projectile.damage = entity.damage
-	projectile.source = entity
-	projectile.global_position = entity.tower_projectile_point.global_position
-	projectile.global_rotation =entity.tower_projectile_point.global_rotation
-	projectile.piercing_count = entity.piercing
-	projectile.max_distance = entity.tower_range_shape.shape.radius
-	projectile_container.call_deferred("add_child", projectile)
+	var q : int
+	for p in entity.projectile_quantity:
+		q += 1
+		var projectile : Projectile = entity.projectile_scene.instantiate()
+		if _check_target(): projectile.target = entity.target
+		if entity.element_metadata: projectile.projectile_element_metadata = entity.element_metadata
+		if entity.element_metadata.has("root_color"): projectile.modulate = entity.element_metadata["root_color"]
+		projectile.projectile_mode = projectile_mode
+		projectile.damage = entity.damage
+		projectile.source = entity
+		projectile.global_position = entity.tower_projectile_point.global_position
+		projectile.global_rotation = entity.tower_projectile_point.global_rotation
+		projectile.piercing_count = entity.piercing
+		projectile.max_distance = entity.tower_range_shape.shape.radius
+		projectile.additional_distance_multiplier = entity.additional_distance_multiplier
+		if q % 2 == 0: projectile.global_rotation_degrees += (65 * q)
+		else: projectile.global_rotation_degrees -= (65 * q)
+		projectile_container.call_deferred("add_child", projectile)
 #endregion

@@ -28,6 +28,8 @@ func _set_speed_scale(new_speed : float):
 	animation_node.speed_scale = new_speed
 
 func fade(mode):
+	shader.scale = get_viewport().size
+	shader.position = get_viewport().size / 2
 	match mode:
 		0, 'IN':
 			animation_node.play('FADE')

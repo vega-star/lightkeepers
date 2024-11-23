@@ -95,4 +95,6 @@ TOGGLE_AUTOTURN_TOOLTIP,Toggles if a new turn starts automatically after the pre
 CONFLAGRATION,Conflagration,Conflagração
 LIGHTNING,Lightning,Relâmpago
 TURBULENCE,Turbulence,Turbulência
+OWNED,Owned,Possui
+NOT_OWNED,Not owned,Não possui
 

@@ -73,6 +73,7 @@ func _handle_drag(event : InputEvent) -> void: ## Touch drag compatibility
 	if touch_points.size() == 2:
 		var current_distance = touch_points[1].distance_to(touch_points[2])
 		var diff = start_drag_distance - current_distance
+		current_distance -= diff
 		_set_zoom_level(diff / zoom_factor)
 
 func _input(event) -> void:

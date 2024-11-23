@@ -50,6 +50,7 @@ const TILE : Dictionary = {
 var tile_size : Vector2i = Vector2i(32, 32)
 var stage_buildings : Array[Node2D]: set = _set_state_buildings
 var selected_object : TileObject #? Selected object node storage
+var stored_object : TileObject #? Object that can be positioned or moved
 var object_dict : Dictionary #? Arranged by tile_position
 var previous_selected_cell : Vector2i #? draw_width
 var previous_queried_cell : Vector2i #? Used for input resetting
@@ -137,10 +138,10 @@ func query_tile_insertion(tile_position : Vector2i = Vector2i.ZERO) -> bool: #? 
 	var tile_query = query_tile(GROUND_LAYER, tile_position, 1)
 	var foreground_query = query_tile(FOREGROUND_LAYER, tile_position)
 	
-	if (object_query is Dictionary): return false # Returns negatively if an object is already placed there
-	elif (foreground_query is Dictionary): return false # Returns negatively if there's foreground tiles above it
+	if object_dict.has(tile_position): return false #? Tile space is occupied
+	elif (object_query is Dictionary) or (foreground_query is Dictionary): return false # Returns negatively if tile is invalid
 	elif (tile_query is bool): # Ground can be detected everywhere but we need to know if it's placeable
-		if (!tile_query): return false # Returns negatively if tile is not placeable
+		if !tile_query: return false # Returns negatively if tile is not placeable
 		else: return true # Returns positively
 	else: return false # Returns negatively, for a placeable tile in ground layer wasn't found
 
@@ -198,4 +199,11 @@ func remove_tile_object(tile_position : Vector2i, object : TileObject) -> void:
 #func insert_data(tile_position : Vector2i, key : String, value : Variant, layer : Layer = Layer.OBJECT_LAYER): ## TODO
 	# var tile_data = tilemap.get_cell_tile_data(layer, tile_position)
 	# tilemap.set_custom_data_layer_name(layer_index: int, layer_name: String)
+#endregion
+
+#region Single object management
+#func _instantiate_tower(element_register : ElementRegister) -> void: #TODO
+#	stored_object = ElementManager.TOWER_ROOT_SCENE.instantiate()
+#	stored_object.element_register = element_register
+#	object_container.add_child(stored_object)
 #endregion

@@ -63,6 +63,15 @@ func _set_element(new_element : Element) -> void: ## Runs in sequence after regi
 	element_label.set_text(TranslationServer.tr(element.element_id.to_upper()).capitalize())
 	set_name(new_element.element_id.capitalize() + "Orb")
 
+func _process(_delta) -> void:
+	if draggable and !locked: #? Dragging processes
+		if orb_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
+			var distance_array : Array = []
+			is_inside_dropable = true
+			for o in orb_collision.get_overlapping_bodies(): distance_array.append([o, global_position.distance_to(o.global_position)])
+			distance_array.sort()
+			target_slot = distance_array[0][0] #? Closest target slot
+
 ## Internal drag switch
 #? Defines if orb follows mouse and enables all orb behaviors
 func _set_draggable(drag : bool) -> void:
@@ -84,43 +93,36 @@ func _on_orb_collision_mouse_entered() -> void:
 func _on_orb_collision_mouse_exited() -> void:
 	if !UI.is_dragging: _set_draggable(false)  #? Deactivate orb movement and release it, setting the control variable free
 
-func _process(_delta) -> void:
-	if draggable and !locked: #? Dragging processes
-		if orb_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
-			var distance_array : Array = []
-			is_inside_dropable = true
-			for o in orb_collision.get_overlapping_bodies(): distance_array.append([o, global_position.distance_to(o.global_position)])
-			distance_array.sort()
-			target_slot = distance_array[0][0] #? Closest target slot
-		
-		if Input.is_action_just_pressed('click'): #? Click action
-			if locked: return
-			if UI.is_dragging: _set_draggable(false) #? Already dragging a orb. Can only pick one per time
-			UI.is_dragging = true
-			clicked = true
-			
-			_instantiate_tower()
-			orb_picked.emit()
-			initial_position = global_position
-			offset = get_global_mouse_position() - global_position
-		
-		if Input.is_action_just_pressed('alt') or Input.is_action_just_pressed('escape'): #? Cancel drag or send orb back to previous slot with alt click (Right mouse button)
-			locked = true
-			orb_picked.emit()
-			UI.is_dragging = false
-			_return_to_slot(true)
-			if prop_tower: prop_tower.remove_object()
-		
-		if Input.is_action_pressed('click'): # Hold / Drag
-			if !clicked: return
-			global_position = get_global_mouse_position() - offset
-			valid_tower = StageManager.active_stage.query_tile_insertion()
-		
-		elif Input.is_action_just_released('click'): #? Release
-			UI.is_dragging = false
-			if valid_tower: _invoke_tower()
-			elif target_slot: _insert(target_slot)
-			else: _return_to_slot()
+func _input(event: InputEvent) -> void:
+	if !draggable or locked: return
+	
+	if Input.is_action_just_pressed('click'): #? Click action
+		if locked: return
+		if UI.is_dragging: _set_draggable(false) #? Already dragging a orb. Can only pick one per time
+		UI.is_dragging = true
+		clicked = true
+		_instantiate_tower()
+		orb_picked.emit()
+		initial_position = global_position
+		offset = get_global_mouse_position() - global_position
+	
+	if Input.is_action_just_pressed('alt') or Input.is_action_just_pressed('escape'): #? Cancel drag or send orb back to previous slot with alt click (Right mouse button)
+		locked = true
+		orb_picked.emit()
+		UI.is_dragging = false
+		_return_to_slot(true)
+		if prop_tower: prop_tower.remove_object()
+	
+	if Input.is_action_pressed('click'): # Hold / Drag
+		if !clicked: return
+		global_position = get_global_mouse_position() - offset
+		valid_tower = StageManager.active_stage.query_tile_insertion()
+	
+	elif Input.is_action_just_released('click'): #? Release
+		UI.is_dragging = false
+		if valid_tower: _invoke_tower()
+		elif target_slot: _insert(target_slot)
+		else: _return_to_slot()
 
 func _toggle_orb(toggle : bool) -> void:
 	var toggle_tween : Tween = get_tree().create_tween()
