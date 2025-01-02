@@ -19,6 +19,7 @@ const PITCH_VARIATION : Vector2 = Vector2(0.7,1.3)
 @export_group('Cosmetic Properties')
 @export var rotate_sprite : bool = false
 @export var rotation_speed : float = 25
+@export var smooth_fadeout : bool = true
 @export var sfx_when_launched : Array[String]
 @export var sfx_when_hit : Array[String]
 @export var sfx_when_broken : Array[String]
@@ -70,9 +71,6 @@ func _charge() -> void:
 	await charge_tween.finished
 	charged = true
 	charge_completed.emit()
-
-func _deactivate() -> void:
-	active = false
 
 func _physics_process(delta) -> void:
 	var distance_delta = global_position.distance_squared_to(init_pos)
@@ -127,6 +125,7 @@ func _on_body_entered(body) -> void:
 			if stored_direction != Vector2.ZERO: init_direction = stored_direction
 			projectile_mode = 0
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
+	
 	if piercing_count <= 0: _break()
 
 func _clear_projectile_element_metadata() -> void: projectile_element_metadata = {}
@@ -134,10 +133,13 @@ func _clear_projectile_element_metadata() -> void: projectile_element_metadata =
 func _set_projectile_element_metadata(new_metadata : Dictionary) -> void: projectile_element_metadata = new_metadata
 
 func _break() -> void:
-	_deactivate()
+	active = false
 	AudioManager.emit_random_sound_effect(global_position, sfx_when_broken)
-	var break_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
-	break_tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.7)
-	await break_tween.finished
+	if smooth_fadeout:
+		var speed_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
+		var break_tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
+		speed_tween.tween_property(self, "speed", 0, 0.4)
+		break_tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.7)
+		await break_tween.finished
 	set_physics_process(false)
 	queue_free()

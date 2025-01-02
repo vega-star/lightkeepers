@@ -7,4 +7,5 @@
 script = ExtResource("1_u64om")
 
 [node name="EffectComponent" type="Node" parent="."]
+process_mode = 1
 script = ExtResource("2_d2w85")

@@ -4,7 +4,6 @@
 		"root_color": "b34316",
 		"upgrade_trees": ["fiery_force","hasty_blaze","piercing_flame"],
 		"turret_default_values": {
-			"magic_level": 1,
 			"damage": 10,
 			"piercing": 2,
 			"burst": 1,
@@ -78,9 +77,8 @@
 		"root_color": "0000ffff",
 		"upgrade_trees": ["tidal_force","aquaprojectile_capacity","swift_drizzle"],
 		"turret_default_values": {
-			"magic_level": 1,
-			"damage": 2,
-			"piercing": 5,
+			"damage": 0,
+			"piercing": 4,
 			"burst": 1,
 			"projectile_quantity": 1,
 			"firing_cooldown": 1.75
@@ -89,9 +87,10 @@
 			"etype": 3,
 			"ename": "Wetsteps",
 			"value": 5,
-			"value_multiplier": 0.75,
-			"duration": 1.5,
-			"tolerance": 5
+			"value_multiplier": 0.5,
+			"impact": 5,
+			"stackable": false,
+			"duration": 7.5,
 		},
 		"combinations": {
 			"water": "ice",
@@ -132,23 +131,12 @@
 		"root_color": "d3d3d3ff",
 		"upgrade_trees": ["wind_force","hasty_breeze","eolic_radius"],
 		"turret_default_values": {
-			"magic_level": 1,
 			"quantity": 1,
 			"damage": 2,
 			"piercing": 2,
 			"burst": 1,
 			"projectile_quantity": 1,
 			"firing_cooldown": 0.5
-		},
-		"effect_metadata": {
-			"etype": 3,
-			"ename": "Windswept",
-			"value": 5,
-			"value_multiplier": 0.95,
-			"duration": 0.5,
-			"tolerance": 5,
-			"stackable": true,
-			"max_stacks": 5
 		},
 		"combinations": {
 			"air": "turbulence",
@@ -188,7 +176,6 @@
 		"root_color": "8b4513ff",
 		"upgrade_trees": ["earthian_force","clay_capacity","piercing_flint"],
 		"turret_default_values": {
-			"magic_level": 1,
 			"quantity": 1,
 			"damage": 15,
 			"piercing": 5,

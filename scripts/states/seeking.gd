@@ -65,25 +65,33 @@ func seek() -> void: ## Sets entity target
 	else:
 		enemy_detected.emit(entity.target)
 
+## Returns nested arrays similar to this: [[enemy, distance]] that can be reordered based on what is required
+func sort_targets_by_distance(
+		source_array : Array,
+		reference_point : Vector2
+	) -> Array: 
+	
+	var available_targets : Array = [] #? Array of custom sorted targets
+	for t in source_array.size():
+		available_targets.append([
+			source_array[t],
+			reference_point.distance_squared_to(source_array[t].global_position)]
+		)
+	available_targets.sort_custom(func(a, b): return a[1] < b[1])
+	return available_targets
+
 func _seek_target() -> Node: ## Returns an enemy node that can be targeted by the tower
 	if !entity.eligible_targets.size() > 0: return null #? No targets in the pool, cancelling seek
 	
 	var new_target : Node #? Target that will be returned
-	var available_targets : Array = [] #? Array of custom sorted targets
 	
-	match entity.target_priority:
+	match entity.target_priority: ## Fetch target
 		0: #? FIRST | Selects the the firstmost target that entered turret range
-			new_target = entity.eligible_targets.front()
+			new_target = sort_targets_by_distance(entity.eligible_targets, StageManager.active_stage.nexus.global_position)[0][0]
 		1: #? LAST | Selects the last target that entered turret range
-			new_target = entity.eligible_targets.back()
+			new_target = sort_targets_by_distance(entity.eligible_targets, StageManager.active_stage.nexus.global_position)[-1][0]
 		2: #? CLOSE | Sorts from the closest to the farthest in relation to tower
-			for t in entity.eligible_targets.size():
-				available_targets.append([
-					entity.eligible_targets[t],
-					entity.global_position.distance_squared_to(entity.eligible_targets[t].global_position)]
-				)
-			available_targets.sort_custom(func(a, b): return a[1] < b[1])
-			new_target = available_targets[0][0]
+			new_target = sort_targets_by_distance(entity.eligible_targets, entity.global_position)[0][0]
 		3: #? WEAK | TODO
 			new_target = entity.eligible_targets.front()
 		4: #? STRONG | TODO
@@ -91,6 +99,17 @@ func _seek_target() -> Node: ## Returns an enemy node that can be targeted by th
 		5: #? FLYING | TODO
 			new_target = entity.eligible_targets.front()
 		_: push_error('INVALID SEEKING TYPE ON TURRET %s' % self.name)
+	
+	## Filter target
+	if new_target is Enemy:
+		var source_effect_eid : int = entity.element_metadata["eid"]
+		if new_target.health_component.effect_component.active_eids.has(source_effect_eid) and entity.eligible_targets.size() > 1:
+			for t in entity.eligible_targets: ## Deprioritize enemies that already are affected by the tower active debuff
+				if t.health_component.effect_component.active_eids.has(source_effect_eid):
+					continue
+				else: ## Found better target! 
+					new_target = t
+					break
 	
 	if debug: print(entity.name, ' is targeting ', new_target.get_path())
 	return new_target
