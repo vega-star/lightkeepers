@@ -1,47 +1,33 @@
-[gd_resource type="Resource" script_class="StageSchedule" load_steps=26 format=3 uid="uid://bhavpgvghw8tl"]
+[gd_resource type="Resource" script_class="StageSchedule" load_steps=40 format=3 uid="uid://bhavpgvghw8tl"]
 
 [ext_resource type="Script" path="res://scripts/resources/turns/turn_schedule.gd" id="1_nsqhq"]
 [ext_resource type="Script" path="res://scripts/resources/turns/turn.gd" id="2_nj5ta"]
 [ext_resource type="Script" path="res://scripts/resources/turns/wave.gd" id="3_j5h5j"]
 
-[sub_resource type="Resource" id="Resource_khv86"]
+[sub_resource type="Resource" id="Resource_h8ljx"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 50
-spawn_cooldown = 1.5
-override_wave_period = 15.0
-
-[sub_resource type="Resource" id="Resource_1t4w2"]
-script = ExtResource("3_j5h5j")
-enemy_id = "brute"
-quantity = 20
-spawn_cooldown = 4.0
-override_wave_period = 10.0
-
-[sub_resource type="Resource" id="Resource_o7k6a"]
-script = ExtResource("3_j5h5j")
-enemy_id = "creep"
-quantity = 50
-spawn_cooldown = 1.5
+quantity = 10
+spawn_cooldown = 0.5
 override_wave_period = 0.0
 
-[sub_resource type="Resource" id="Resource_wytwx"]
+[sub_resource type="Resource" id="Resource_5gkyj"]
 script = ExtResource("2_nj5ta")
-turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_khv86"), SubResource("Resource_1t4w2"), SubResource("Resource_o7k6a")])
-coins_on_turn_completion = 500
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_h8ljx")])
+coins_on_turn_completion = 50
 
 [sub_resource type="Resource" id="Resource_axgqi"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 30
-spawn_cooldown = 0.9
+quantity = 10
+spawn_cooldown = 1.0
 override_wave_period = 15.0
 
 [sub_resource type="Resource" id="Resource_y1mvv"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 25
-spawn_cooldown = 1.2
+quantity = 5
+spawn_cooldown = 0.2
 override_wave_period = 0.0
 
 [sub_resource type="Resource" id="Resource_j14ic"]
@@ -74,13 +60,13 @@ coins_on_turn_completion = 75
 [sub_resource type="Resource" id="Resource_1gpi8"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 40
-spawn_cooldown = 2.0
+quantity = 25
+spawn_cooldown = 1.0
 override_wave_period = 10.0
 
 [sub_resource type="Resource" id="Resource_yllei"]
 script = ExtResource("2_nj5ta")
-turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_1gpi8"), null])
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_1gpi8")])
 coins_on_turn_completion = 100
 
 [sub_resource type="Resource" id="Resource_w3arl"]
@@ -88,7 +74,7 @@ script = ExtResource("3_j5h5j")
 enemy_id = "creep"
 quantity = 10
 spawn_cooldown = 0.6
-override_wave_period = 0.0
+override_wave_period = 4.0
 
 [sub_resource type="Resource" id="Resource_6b3c8"]
 script = ExtResource("3_j5h5j")
@@ -102,7 +88,7 @@ script = ExtResource("3_j5h5j")
 enemy_id = "creep"
 quantity = 10
 spawn_cooldown = 0.8
-override_wave_period = 0.0
+override_wave_period = 3.0
 
 [sub_resource type="Resource" id="Resource_wq05w"]
 script = ExtResource("2_nj5ta")
@@ -112,8 +98,8 @@ coins_on_turn_completion = 125
 [sub_resource type="Resource" id="Resource_4dlkl"]
 script = ExtResource("3_j5h5j")
 enemy_id = "creep"
-quantity = 500
-spawn_cooldown = 0.8
+quantity = 120
+spawn_cooldown = 0.2
 override_wave_period = 0.0
 
 [sub_resource type="Resource" id="Resource_i8xo7"]
@@ -140,7 +126,107 @@ script = ExtResource("2_nj5ta")
 turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_tqu6k"), SubResource("Resource_4t6yg")])
 coins_on_turn_completion = 25
 
+[sub_resource type="Resource" id="Resource_khv86"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 100
+spawn_cooldown = 0.15
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_wytwx"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_khv86")])
+coins_on_turn_completion = 250
+
+[sub_resource type="Resource" id="Resource_bbk2y"]
+script = ExtResource("3_j5h5j")
+enemy_id = "bulwark"
+quantity = 1
+spawn_cooldown = 2.0
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_l3161"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_bbk2y")])
+coins_on_turn_completion = 250
+
+[sub_resource type="Resource" id="Resource_wa83q"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 100
+spawn_cooldown = 0.2
+override_wave_period = 3.0
+
+[sub_resource type="Resource" id="Resource_2xbp7"]
+script = ExtResource("3_j5h5j")
+enemy_id = "brute"
+quantity = 25
+spawn_cooldown = 0.8
+override_wave_period = 10.0
+
+[sub_resource type="Resource" id="Resource_7bhjj"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_wa83q"), SubResource("Resource_2xbp7")])
+coins_on_turn_completion = 350
+
+[sub_resource type="Resource" id="Resource_hln8e"]
+script = ExtResource("3_j5h5j")
+enemy_id = "bulwark"
+quantity = 3
+spawn_cooldown = 5.0
+override_wave_period = 1.0
+
+[sub_resource type="Resource" id="Resource_4lat1"]
+script = ExtResource("3_j5h5j")
+enemy_id = "brute"
+quantity = 25
+spawn_cooldown = 0.65
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_hggec"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_hln8e"), SubResource("Resource_4lat1")])
+coins_on_turn_completion = 500
+
+[sub_resource type="Resource" id="Resource_a62me"]
+script = ExtResource("3_j5h5j")
+enemy_id = "bulwark"
+quantity = 1
+spawn_cooldown = 1.0
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_0nkkv"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 500
+spawn_cooldown = 0.15
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_dnfp6"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_a62me"), SubResource("Resource_0nkkv")])
+coins_on_turn_completion = 500
+
+[sub_resource type="Resource" id="Resource_b241l"]
+script = ExtResource("3_j5h5j")
+enemy_id = "bulwark"
+quantity = 3
+spawn_cooldown = 2.0
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_1nctl"]
+script = ExtResource("3_j5h5j")
+enemy_id = "creep"
+quantity = 100
+spawn_cooldown = 0.25
+override_wave_period = 0.0
+
+[sub_resource type="Resource" id="Resource_0cqk6"]
+script = ExtResource("2_nj5ta")
+turn_waves = Array[ExtResource("3_j5h5j")]([SubResource("Resource_b241l"), SubResource("Resource_1nctl")])
+coins_on_turn_completion = 1000
+
 [resource]
 script = ExtResource("1_nsqhq")
 difficulty_category = 1
-turns = Array[ExtResource("2_nj5ta")]([SubResource("Resource_wytwx"), SubResource("Resource_j14ic"), SubResource("Resource_u6vfe"), SubResource("Resource_oreg3"), SubResource("Resource_8urik"), SubResource("Resource_yllei"), SubResource("Resource_wq05w"), SubResource("Resource_i8xo7"), SubResource("Resource_e72tc"), SubResource("Resource_wytwx")])
+turns = Array[ExtResource("2_nj5ta")]([SubResource("Resource_5gkyj"), SubResource("Resource_j14ic"), SubResource("Resource_u6vfe"), SubResource("Resource_oreg3"), SubResource("Resource_8urik"), SubResource("Resource_yllei"), SubResource("Resource_wq05w"), SubResource("Resource_i8xo7"), SubResource("Resource_e72tc"), SubResource("Resource_wytwx"), SubResource("Resource_l3161"), SubResource("Resource_7bhjj"), SubResource("Resource_hggec"), SubResource("Resource_dnfp6"), SubResource("Resource_0cqk6")])

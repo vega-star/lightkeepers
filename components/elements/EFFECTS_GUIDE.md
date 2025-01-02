@@ -29,15 +29,15 @@ Defaults to **zero** and is inserted only when tied to a tower, reflecting the t
 
 * ### ETYPES | Int
 
-    Defines how an effect is computed in a match case function by EffectComponent class node.
+	Defines how an effect is computed in a match case function by EffectComponent class node.
 
-    - 000 : DEBUG
-    - 001 : DAMAGE_PER_TICK
-    - 002 : ADD_VULNERABILITY
-    - 003 : MOVEMENT_CHANGE
-    - 004 : PROJECTILE_CHANGE
-    - 005 : TOWER_CHANGE
-    - 005 : CONDITIONAL_PROC
+	- 000 : DEBUG
+	- 001 : DAMAGE_PER_TICK
+	- 002 : ADD_VULNERABILITY
+	- 003 : MOVEMENT_CHANGE
+	- 004 : PROJECTILE_CHANGE
+	- 005 : TOWER_CHANGE
+	- 005 : CONDITIONAL_PROC
 
 ## COMBINATIONS | Dictionary
 

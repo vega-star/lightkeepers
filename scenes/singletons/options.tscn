@@ -69,7 +69,6 @@ animations = [{
 process_mode = 3
 layer = 100
 script = ExtResource("1_cyq4y")
-metadata/_edit_vertical_guides_ = [650.0]
 
 [node name="ScreenFilter" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -122,7 +121,7 @@ offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 1
+current_tab = 0
 all_tabs_in_front = true
 
 [node name="Gears1" type="AnimatedSprite2D" parent="OptionsControl/OptionsMenu"]
@@ -147,7 +146,6 @@ autoplay = "gear_moving"
 frame_progress = 0.431515
 
 [node name="MAIN_OPTIONS" type="Control" parent="OptionsControl/OptionsMenu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -167,55 +165,8 @@ follow_focus = true
 [node name="MenuContainer" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_vertical = 3
 theme_override_constants/separation = 4
-
-[node name="Stage" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="StageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-text = "STAGE"
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="RestartStageButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "RESTART"
-
-[node name="ReturnToMenuButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "MAIN_MENU"
-
-[node name="AutoTurn" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
-layout_mode = 2
-size_flags_vertical = 4
-tooltip_text = "TOGGLE_AUTOTURN_TOOLTIP"
-text = "TOGGLE_AUTOTURN"
-alignment = 1
-text_overrun_behavior = 1
-
-[node name="LanguageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
-layout_mode = 2
-text = "LANGUAGE"
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="LanguageButton" type="OptionButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
-alignment = 1
-text_overrun_behavior = 3
-clip_text = true
-selected = 0
-fit_to_longest_item = false
-item_count = 2
-popup/item_0/text = "English"
-popup/item_1/text = "Português Brasileiro"
-popup/item_1/id = 1
 
 [node name="VolumeButtons" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -295,7 +246,80 @@ offset_bottom = 15.0
 grow_vertical = 2
 icon_alignment = 1
 
+[node name="Stage" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+text = "STAGE"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="RestartStageButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "RESTART"
+
+[node name="ReturnToMenuButton" type="Button" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "MAIN_MENU"
+
+[node name="AutoTurn" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "TOGGLE_AUTOTURN_TOOLTIP"
+text = "TOGGLE_AUTOTURN"
+alignment = 1
+text_overrun_behavior = 1
+
+[node name="ScreenLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+text = "SCREEN"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ScreenButton" type="OptionButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+alignment = 1
+text_overrun_behavior = 3
+clip_text = true
+selected = 0
+fit_to_longest_item = false
+item_count = 5
+popup/item_0/text = "WINDOWED"
+popup/item_1/text = "WINDOWED_BORDERLESS"
+popup/item_1/id = 1
+popup/item_2/text = "MAXIMIZED"
+popup/item_2/id = 2
+popup/item_3/text = "FULLSCREEN"
+popup/item_3/id = 3
+popup/item_4/text = "EXCLUSIVE_FULLSCREEN"
+popup/item_4/id = 4
+
+[node name="LanguageLabel" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+text = "LANGUAGE"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LanguageButton" type="OptionButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92549, 0.513726, 1)
+alignment = 1
+text_overrun_behavior = 3
+clip_text = true
+selected = 0
+fit_to_longest_item = false
+item_count = 2
+popup/item_0/text = "English"
+popup/item_1/text = "Português Brasileiro"
+popup/item_1/id = 1
+
 [node name="CONTROLS" type="Control" parent="OptionsControl/OptionsMenu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -315,7 +339,7 @@ follow_focus = true
 [node name="Container" type="VBoxContainer" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_vertical = 3
 theme_override_constants/separation = 20
 
 [node name="DragToggleButton" type="CheckButton" parent="OptionsControl/OptionsMenu/CONTROLS/ScrollableMenu/Container"]

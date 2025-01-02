@@ -39,6 +39,7 @@ var initial_position : Vector2
 var locked : bool = false #? Cannot be changed
 var volatile : bool = false #? Will call queue_free() after returning to slot or moving
 var clicked : bool = false #? Orb can be draggable, but not clicked. Ex.: mouse moving across the screen. So it have to be ignored
+var is_holding : bool = false #? Control boolean for when an object is being held by drag but without holding the button
 var draggable : bool = false #? Crucial boolean that controls if the object is following mouse position or not
 var is_inside_dropable : bool = false #? Defines if the object is currently hovering above a dropable object, thus can be inserted
 var force_show_label : bool = false #? Shows element label all the time
@@ -65,6 +66,8 @@ func _set_element(new_element : Element) -> void: ## Runs in sequence after regi
 
 func _process(_delta) -> void:
 	if draggable and !locked: #? Dragging processes
+		if is_holding: _drag_orb()
+		
 		if orb_collision.get_overlapping_bodies().size() > 1 and InputEventMouseMotion: #? Overlapping bodies solution
 			var distance_array : Array = []
 			is_inside_dropable = true
@@ -93,10 +96,18 @@ func _on_orb_collision_mouse_entered() -> void:
 func _on_orb_collision_mouse_exited() -> void:
 	if !UI.is_dragging: _set_draggable(false)  #? Deactivate orb movement and release it, setting the control variable free
 
+func _drag_orb() -> void:
+	global_position = get_global_mouse_position() - offset
+	valid_tower = StageManager.active_stage.query_tile_insertion()
+
 func _input(event: InputEvent) -> void:
 	if !draggable or locked: return
 	
 	if Input.is_action_just_pressed('click'): #? Click action
+		if is_holding:
+			_release_orb()
+			return
+		
 		if locked: return
 		if UI.is_dragging: _set_draggable(false) #? Already dragging a orb. Can only pick one per time
 		UI.is_dragging = true
@@ -114,15 +125,14 @@ func _input(event: InputEvent) -> void:
 		if prop_tower: prop_tower.remove_object()
 	
 	if Input.is_action_pressed('click'): # Hold / Drag
-		if !clicked: return
-		global_position = get_global_mouse_position() - offset
-		valid_tower = StageManager.active_stage.query_tile_insertion()
+		if Options.drag_mode:
+			_drag_orb()
+			if !clicked: return
+		else: is_holding = true
 	
 	elif Input.is_action_just_released('click'): #? Release
-		UI.is_dragging = false
-		if valid_tower: _invoke_tower()
-		elif target_slot: _insert(target_slot)
-		else: _return_to_slot()
+		if is_holding: return
+		_release_orb()
 
 func _toggle_orb(toggle : bool) -> void:
 	var toggle_tween : Tween = get_tree().create_tween()
@@ -130,6 +140,12 @@ func _toggle_orb(toggle : bool) -> void:
 	if toggle: modulation = Color.WHITE
 	else: modulation = Color(1,1,1,0.1)
 	toggle_tween.tween_property(self, "modulate", modulation, 0.3)
+
+func _release_orb() -> void: #? Tries inputting orb in a slot or creating a tower. In case everything is invalid it just returns to original slot
+	UI.is_dragging = false
+	if valid_tower: _invoke_tower()
+	elif target_slot: _insert(target_slot)
+	else: _return_to_slot()
 #endregion
 
 #region Slot controls

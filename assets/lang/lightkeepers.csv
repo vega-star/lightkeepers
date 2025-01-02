@@ -66,8 +66,10 @@ STAGE_PROGRESS_WARNING_TEXT,Returning to menu will erase this stage progress. Pl
 SAVE_OPTIONS_CONFIRMATION_DIALOG,Confirm changes,Confirme as mudanças
 DEMOLISH_REQUEST_TEXT,Demolishing this turret will give you back,Demolir essa torre lhe retornará
 RESET_DEFAULT_KEYBINDS_TEXT,Reset all default keybinds?,Redefinir todas as teclas?
-DRAG_MODE_TOGGLE,Toggle Drag,Alternar arrastar
-DRAG_MODE_TOGGLE_DESCRIPTION,Switch drag-n-drop to click actions,Alterne entre ações de arrastar para cliques
+DRAG_MODE_ON,Action: Drag-n-drop,Ação: Segurar-Arrastar
+DRAG_MODE_OFF,Action: Click,Ação: Clicar
+DRAG_MODE_TOGGLE,Toggle Drag and drop,Alternar arrastar e soltar
+DRAG_MODE_TOGGLE_DESCRIPTION,Switch between hold or click to drag,Alterne as ações de segurar-arrastar para cliques
 TUTORIAL,Tutorial,Tutorial
 ROUTE_FINISHED,Route Finished,Rota Concluída
 RESTART_STAGE,Restart Stage,Reiniciar Fase
@@ -90,6 +92,12 @@ AIR,Air,Ar
 AIR_MAGE,Air Mage,Mago de Ar
 EARTH,Earth,Terra
 EARTH_MAGE,Earth Mage,Mago de Terra
+SCREEN,Screen,Tela
+WINDOWED,Windowed,Em janela
+WINDOWED_BORDERLESS,Borderless Window,Janela sem bordas
+MAXIMIZED,Maximized,Maximizado
+FULLSCREEN,Fullscreen,Tela cheia
+EXCLUSIVE_FULLSCREEN,Exclusive Fullscreen,Tela cheia exclusiva
 TOGGLE_AUTOTURN,Auto Turn,Auto Turno
 TOGGLE_AUTOTURN_TOOLTIP,Toggles if a new turn starts automatically after the previous is finished,Alterna se um turno começa automaticamente após o anterior acabar
 CONFLAGRATION,Conflagration,Conflagração

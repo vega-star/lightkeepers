@@ -26,7 +26,7 @@ enum ENEMY_CLASS {
 @export_group('Enemy Properties')
 @export var enemy_name : String = "Enemy"
 @export var enemy_class : ENEMY_CLASS = 0
-@export var base_damage : int = 5
+@export var base_damage : int = 2
 @export var base_enemy_value : int = 3
 @export var base_health : int = 10
 @export var base_speed : int = 60

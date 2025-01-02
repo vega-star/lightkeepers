@@ -193,7 +193,6 @@ grow_vertical = 2
 color = Color(0.0602301, 0.0619733, 0.120673, 1)
 
 [node name="Foreground1" type="ParallaxLayer" parent="MenuParallax"]
-visible = false
 position = Vector2(640, 315.5)
 motion_scale = Vector2(0.75, 0.75)
 
@@ -201,7 +200,6 @@ motion_scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_kpego")
 
 [node name="Foreground2" type="ParallaxLayer" parent="MenuParallax"]
-visible = false
 position = Vector2(640, 408.5)
 motion_scale = Vector2(0.5, 0.5)
 
@@ -209,7 +207,6 @@ motion_scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_3jow6")
 
 [node name="Foreground3" type="ParallaxLayer" parent="MenuParallax"]
-visible = false
 position = Vector2(640, 419.5)
 motion_scale = Vector2(0.3, 0.3)
 
@@ -217,7 +214,6 @@ motion_scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_sq4dg")
 
 [node name="City" type="ParallaxLayer" parent="MenuParallax"]
-visible = false
 position = Vector2(640, 427.5)
 motion_scale = Vector2(0.15, 0.15)
 
@@ -225,7 +221,6 @@ motion_scale = Vector2(0.15, 0.15)
 texture = ExtResource("6_h3dmq")
 
 [node name="Beacon" type="ParallaxLayer" parent="MenuParallax"]
-visible = false
 position = Vector2(640, 466.5)
 motion_scale = Vector2(0.1, 0.1)
 
@@ -235,7 +230,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_jymd8")
 
 [node name="Sky1" type="ParallaxLayer" parent="MenuParallax"]
-visible = false
 position = Vector2(640, 364.5)
 motion_scale = Vector2(0.05, 0.05)
 

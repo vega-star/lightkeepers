@@ -85,18 +85,14 @@
 			"projectile_quantity": 1,
 			"firing_cooldown": 1.75
 		},
-		"effect_metadata": [{
+		"effect_metadata": {
 			"etype": 3,
 			"ename": "Wetsteps",
 			"value": 5,
 			"value_multiplier": 0.75,
 			"duration": 1.5,
 			"tolerance": 5
-		},{
-			"etype": 2,
-			"ename": "Wet",
-			"vulnerability": null
-		}],
+		},
 		"combinations": {
 			"water": "ice",
 			"fire": "steam",

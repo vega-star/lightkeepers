@@ -41,6 +41,7 @@ var piercing_count : int = 1
 var seeking_weight : float = 0.5
 var stored_scale : Vector2
 var stored_direction : Vector2
+var init_direction : Vector2
 var init_pos : Vector2
 var charged : bool = false
 var charge_time_multiplier : float = 1
@@ -82,11 +83,6 @@ func _physics_process(delta) -> void:
 	for point in trail_points:
 		projectile_trace.add_point(point)
 	
-	if projectile_mode == 1 and is_instance_valid(target): 
-		stored_direction = global_position.direction_to(target.global_position)
-		var angle = transform.x.angle_to(stored_direction)
-		rotate(sign(angle) * min(delta * TAU * 2, abs(angle)))
-	
 	if rotate_sprite:
 		projectile_sprite.rotation += rotation_speed * (PI * delta)
 	
@@ -94,11 +90,18 @@ func _physics_process(delta) -> void:
 	
 	match projectile_mode: ## Projectile movement
 		0: #| 'STRAIGHT'
-			global_position += Vector2(speed * delta, 0).rotated(rotation)
+			global_position += (init_direction * speed * delta)
 		1: #| 'SEEKING'
-			if !is_instance_valid(target) and source:
-				if !is_instance_valid(source.target): projectile_mode = 0; return
+			if !is_instance_valid(target) and is_instance_valid(source):
+				if !is_instance_valid(source.target):
+					projectile_mode = 0
+					if stored_direction != Vector2.ZERO: init_direction = stored_direction
+					return
 				target = source.target
+			else:
+				stored_direction = global_position.direction_to(target.global_position)
+				var angle = transform.x.angle_to(stored_direction)
+				rotate(sign(angle) * min(delta * TAU * 2, abs(angle)))
 			global_position += (stored_direction * speed * delta)
 		_: push_error('INVALID PROJECTILE_TYPE')
 	
@@ -120,7 +123,9 @@ func _on_body_entered(body) -> void:
 				loaded_source
 			)
 		piercing_count -= 1
-		if projectile_mode == 1: projectile_mode = 0
+		if projectile_mode == 1:
+			if stored_direction != Vector2.ZERO: init_direction = stored_direction
+			projectile_mode = 0
 		AudioManager.emit_random_sound_effect(global_position, sfx_when_hit)
 	if piercing_count <= 0: _break()
 

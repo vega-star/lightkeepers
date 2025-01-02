@@ -248,6 +248,34 @@ text = "1000
 "
 vertical_alignment = 1
 
+[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="StageMeterContent" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
+layout_mode = 2
+texture = ExtResource("11_xrfyx")
+
+[node name="StageMeterFrame" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
+layout_mode = 2
+texture = ExtResource("12_kghie")
+
+[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/StageMeter"]
+light_mask = 3
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.0
+value = 100.0
+fill_mode = 5
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_under = ExtResource("13_xw6tr")
+texture_progress = SubResource("CanvasTexture_2dubv")
+texture_progress_offset = Vector2(0, -64)
+
 [node name="TurnCounter" type="Label" parent="UILayer/TopBar"]
 z_index = 10
 layout_mode = 2
@@ -272,34 +300,6 @@ theme_override_font_sizes/font_size = 18
 text = "TURN"
 horizontal_alignment = 1
 uppercase = true
-
-[node name="StageMeter" type="CenterContainer" parent="UILayer/TopBar"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-
-[node name="StageMeterContent" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
-layout_mode = 2
-texture = ExtResource("11_xrfyx")
-
-[node name="StageMeterFrame" type="TextureRect" parent="UILayer/TopBar/StageMeter"]
-layout_mode = 2
-texture = ExtResource("12_kghie")
-
-[node name="StageMeterBar" type="TextureProgressBar" parent="UILayer/TopBar/StageMeter"]
-light_mask = 3
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-step = 0.0
-value = 100.0
-fill_mode = 5
-radial_initial_angle = 270.0
-radial_fill_degrees = 180.0
-texture_under = ExtResource("13_xw6tr")
-texture_progress = SubResource("CanvasTexture_2dubv")
-texture_progress_offset = Vector2(0, -64)
 
 [node name="Elements" type="Panel" parent="UILayer"]
 layout_mode = 2

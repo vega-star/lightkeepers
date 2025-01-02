@@ -85,6 +85,7 @@ func _fire() -> void:
 		projectile.piercing_count = entity.piercing
 		projectile.max_distance = entity.tower_range_shape.shape.radius
 		projectile.additional_distance_multiplier = entity.additional_distance_multiplier
+		projectile.init_direction = entity.global_position.direction_to(entity.tower_projectile_point.global_position)
 		if q % 2 == 0: projectile.global_rotation_degrees += (65 * q)
 		else: projectile.global_rotation_degrees -= (65 * q)
 		projectile_container.call_deferred("add_child", projectile)

@@ -35,7 +35,7 @@ const DEFAULT_KEY_DICT : Dictionary = { #? Default keybinds that is loaded when 
 const DEFAULT_CONFIGURATIONS : Dictionary = { #? Default keybinds that is loaded when the game is first loaded
 	"window_mode": ["MAIN_OPTIONS","WINDOW_MODE", "WINDOW_MODE_WINDOWED"],
 	"window_size": ["MAIN_OPTIONS","MINIMUM_WINDOW_SIZE", DEFAULT_RESOLUTION],
-	"drag_activated": ["MAIN_OPTIONS", "DRAG_MODE", true],
+	"drag_activated": ["MAIN_OPTIONS", "DRAG_MODE", false],
 	"autoturn_toggle": ["MAIN_OPTIONS","AUTOTURN_TOGGLED", true],
 	"language": ["MAIN_OPTIONS", "LANGUAGE", "en"],
 	"toggle_photosens": ["MAIN_OPTIONS","PHOTOSENS_MODE", false],
@@ -88,6 +88,7 @@ var drag_mode : bool = true
 @onready var exit_check : ConfirmationDialog = $OptionsControl/ExitCheck
 @onready var reset_keybinds_check : ConfirmationDialog = $OptionsControl/ResetKeybindsCheck
 @onready var stage_container : VBoxContainer = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/Stage
+@onready var screen_button : OptionButton = $OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/ScreenButton
 #endregion
 
 #region | Core Functions
@@ -115,9 +116,11 @@ func _ready() -> void:
 	config_file_loaded.emit()
 	_load_data()
 	
+	print('OPTIONS | Started on ', OS.get_name())
 	match OS.get_name(): #? Instructions like nodes to hide if build is different. Web builds probably don't need resolution controls, for instance.
 		"Web":
-			pass
+			$OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/ScreenLabel.set_visible(false)
+			$OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/ScreenButton.set_visible(false)
 		_: pass
 	
 	exit_check.get_child(1, true).set_horizontal_alignment(1)
@@ -144,10 +147,13 @@ func _bind_signals() -> void: #? Binds signals from UI nodes by code
 	effects_slider.drag_ended.connect(_on_effects_slider_drag_ended); effects_slider.value_changed.connect(_on_effects_slider_value_changed)
 	language_button.item_selected.connect(_on_language_menu_item_selected)
 	exit_button.pressed.connect(_on_exit_menu_pressed)
+	screen_button.item_selected.connect(_on_screen_mode_selected)
 
 func _load_data() -> void: #? Updates all buttons present in the framework accordingly with the loaded configuration
-	drag_mode = config_file.get_value("MAIN_OPTIONS","DRAG_MODE")
+	drag_mode = config_file.get_value("MAIN_OPTIONS", "DRAG_MODE")
 	drag_toggle_button.button_pressed = drag_mode
+	_on_drag_toggle_pressed()
+	
 	UI.autoplay_turn = config_file.get_value("MAIN_OPTIONS","AUTOTURN_TOGGLED")
 	auto_turn_button.button_pressed = UI.autoplay_turn
 	
@@ -156,7 +162,7 @@ func _load_data() -> void: #? Updates all buttons present in the framework accor
 	if effects_slider: effects_slider.value = config_file.get_value("MAIN_OPTIONS","EFFECTS_VOLUME"); _toggle_channel(CHANNELS.EFFECTS, config_file.get_value("MAIN_OPTIONS","EFFECTS_TOGGLED"))
 	TranslationServer.set_locale(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
 	language_button.selected = LANG_ORDER.find(config_file.get_value("MAIN_OPTIONS","LANGUAGE"))
-	if reset_window_size_on_boot: DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
+	DisplayServer.window_set_mode(config_file.get_value("MAIN_OPTIONS","WINDOW_MODE"))
 
 func _button_group_input(button_index : int) -> void:
 	var index = button_index - 1
@@ -212,10 +218,6 @@ func _exit() -> void: # Clean temporary data and reset signal
 	language_recently_changed = false
 	Options.visible = false
 	focus_freed.emit()
-
-func _screen_mode_update() -> void:
-	var new_mode = DisplayServer.window_get_mode()
-	config_file.set_value("MAIN_OPTIONS", "WINDOW_MODE", new_mode)
 #endregion
 
 #region | Keybindings
@@ -301,8 +303,15 @@ func _on_photosens_mode_pressed() -> void:
 	pass
 
 func _on_drag_toggle_pressed() -> void:
-	config_file.set_value("MAIN_OPTIONS","DRAG_MODE", drag_toggle_button.button_pressed)
+	drag_mode = drag_toggle_button.button_pressed
+	if drag_mode: drag_toggle_button.set_text("DRAG_MODE_ON")
+	else: drag_toggle_button.set_text("DRAG_MODE_OFF")
+	config_file.set_value("MAIN_OPTIONS", "DRAG_MODE", bool(drag_mode))
 	settings_changed = true
+
+func _screen_mode_update() -> void:
+	var new_mode = DisplayServer.window_get_mode()
+	config_file.set_value("MAIN_OPTIONS", "WINDOW_MODE", new_mode)
 
 func _on_screen_mode_selected(index) -> void:
 	## Window mode translator
@@ -318,8 +327,7 @@ func _on_screen_mode_selected(index) -> void:
 	if index == 1: DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
 	else: DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
 	DisplayServer.window_set_mode(window_modes[index])
-	config_file.set_value("MAIN_OPTIONS","WINDOW_MODE",window_modes[index])
-	# print('Display format selected: {0}'.format({0:window_modes[index]}))
+	config_file.set_value("MAIN_OPTIONS","WINDOW_MODE", window_modes[index])
 	save_config()
 #endregion
 

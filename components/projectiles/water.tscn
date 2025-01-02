@@ -14,6 +14,7 @@ colors = PackedColorArray(0.25, 0.5, 2.5, 1, 0.550334, 0.514667, 0.842255, 0)
 speed = 180
 charge_time = 0.5
 charge_before_firing = true
+projectile_mode = 1
 
 [node name="ProjectileTrace" parent="Separator" index="0"]
 width = 15.0

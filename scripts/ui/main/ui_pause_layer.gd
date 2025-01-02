@@ -10,6 +10,7 @@ func pause() -> void: UI.set_pause(true); show()
 func unpause() -> void: UI.set_pause(false); hide()
 
 func set_pause_by_signal(mode : bool) -> void:
+	print('PAUSE BY SIGNAL | Listening source is visible? ', str(mode))
 	if mode: pause()
 	else:
 		UI.pause_locked = false

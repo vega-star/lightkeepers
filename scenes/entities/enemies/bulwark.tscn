@@ -3,9 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://o5mky6r70x32" path="res://scenes/entities/enemies/enemy.tscn" id="1_h5mgo"]
 
 [node name="Bulwark" instance=ExtResource("1_h5mgo")]
-scale = Vector2(2, 2)
+modulate = Color(3, 1.2, 1.2, 1)
+scale = Vector2(4, 4)
+enemy_name = "Bulwark"
 enemy_class = 2
-default_damage_on_nexus = 25
+base_damage = 25
 base_enemy_value = 50
-base_health = 100
-base_speed = 15
+base_health = 750
+base_speed = 20

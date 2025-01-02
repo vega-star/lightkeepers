@@ -29,7 +29,7 @@ func _move(to_visibility : bool) -> void:
 func conclude(win : bool) -> void:
 	_move(true)
 	UI.pause_locked = true
-	UI.pause_layer.pause()
+	UI.set_pause(true)
 	UI.pause_layer.set_signaled_unpause(self, decison_made)
 	if win:
 		stage_success_label.set_text(TranslationServer.tr('STAGE_SUCCESS').capitalize())

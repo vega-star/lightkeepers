@@ -379,7 +379,6 @@ material = ExtResource("1_ph1d3")
 script = ExtResource("2_fqx6q")
 range_draw_color = Color(0, 0.872, 0.487, 0.3)
 light_draw_color = Color(0.978, 0.576, 0, 0.3)
-debug = true
 
 [node name="TowerAnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_4bul2")
@@ -396,10 +395,10 @@ upgrade_tree_3 = ExtResource("4_bcjrb")
 debug = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity", "initial_state")]
+process_mode = 1
 script = ExtResource("4_bwa4k")
 entity = NodePath("..")
 initial_state = NodePath("Seeking")
-debug = true
 
 [node name="Seeking" parent="StateMachine" node_paths=PackedStringArray("firing_state") instance=ExtResource("5_jeyg0")]
 firing_state = NodePath("../Firing")

@@ -55,10 +55,9 @@ func _process(_delta) -> void:
 		3: #? THREAD_LOAD_LOADED
 			_loaded_resource = ResourceLoader.load_threaded_get(_scene_path)
 			emit_signal("progress_changed", 1.0)
-			emit_signal("load_completed")
+			load_completed.emit()
 			_is_loaded = true
-			if _immediately_switch:
-				_switch_to_scene() #? By default, will promptly discard the current scene and switch to the other.
+			if _immediately_switch: _switch_to_scene() #? By default, will promptly discard the current scene and switch to the other.
 			set_process(false)
 
 func _call_loading_screen() -> void:

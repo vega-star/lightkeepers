@@ -35,23 +35,27 @@ var mouse_on_ui : bool
 #endregion
 
 #region Main functions
-func _ready():
+func _ready() -> void:
 	set_visible(false)
 	# if hide_elements_when_start: hide_button.pressed.emit()
 
-func update_coins(coins : int): update_status(coin_label, coins, previous_coins); previous_coins = coins
+func update_coins(coins : int) -> void: update_status(coin_label, coins, previous_coins); previous_coins = coins
 
-func update_life(life : int): update_status(life_label, life, previous_life); previous_life = life
+func update_life(life : int) -> void: update_status(life_label, life, previous_life); previous_life = life
 
-func turn_update(turn : int, max_turn : int):
+func turn_update(turn : int, max_turn : int) -> void:
 	turn_counter.set_text('{0}/{1}'.format({0: turn, 1: max_turn}))
 	stage_meter_bar.set_max(max_turn)
 	var stage_meter_tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	stage_meter_tween.tween_property(stage_meter_bar, "value", turn, TURN_UPDATE_PERIOD)
 
-# func bind_element_picked_signal(emitting_signal : Signal): emitting_signal.connect(_on_element_picked)
+## Mouse detector - Useful to prevent positioning/interacting with objects behind UI buttons
+func _toggle_mouse_detection(toggle : bool) -> void:
+	mouse_on_ui = toggle
+	UI.mouse_on_ui_changed.emit(toggle)
 
-func _on_screen_mouse_exited() -> void: pass
+func _on_mouse_detector_mouse_entered() -> void: _toggle_mouse_detection(false)
+func _on_mouse_detector_mouse_exited() -> void: _toggle_mouse_detection(true)
 #endregion
 
 #region Inputs and buttons
@@ -79,8 +83,4 @@ func update_status( #? Only updates label. The values are modified by StageAgent
 func _on_options_button_pressed() -> void:
 	if options_button.button_pressed: Options.show()
 	else: Options._on_exit_menu_pressed()
-
-## Mouse detector - Useful to prevent positioning/interacting with objects behind UI buttons
-func _on_mouse_detector_mouse_entered() -> void: mouse_on_ui = false; UI.mouse_on_ui_changed.emit(false)
-func _on_mouse_detector_mouse_exited() -> void: mouse_on_ui = true; UI.mouse_on_ui_changed.emit(true)
 #endregion

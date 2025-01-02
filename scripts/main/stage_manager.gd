@@ -30,7 +30,9 @@ func start_stage(new_stage : Stage) -> void:
 	run_data = RUN_DATA_STRUCTURE.duplicate(true)
 	on_stage = true
 	UI.interface.set_visible(true)
+	UI.interface.update_life(active_stage_agent.BASE_N_HEALTH)
 	UI.pause_locked = false
+	UI.set_pause(false)
 	await new_stage.ready
 	stage_started.emit()
 

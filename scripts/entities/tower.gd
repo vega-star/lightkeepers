@@ -127,7 +127,11 @@ func adapt_register(new_reg : ElementRegister) -> void:
 		tower_upgrades.upgrade_tree_1 = ResourceLoader.load("res://components/upgrade_trees/{0}.tres".format({0: element_metadata.upgrade_trees[0]}))
 		tower_upgrades.upgrade_tree_2 = ResourceLoader.load("res://components/upgrade_trees/{0}.tres".format({0: element_metadata.upgrade_trees[1]}))
 		tower_upgrades.upgrade_tree_3 = ResourceLoader.load("res://components/upgrade_trees/{0}.tres".format({0: element_metadata.upgrade_trees[2]}))
-		tower_upgrades.upgrade_trees_array = [tower_upgrades.upgrade_tree_1, tower_upgrades.upgrade_tree_2, tower_upgrades.upgrade_tree_3]
+		tower_upgrades.upgrade_trees_array = [
+				tower_upgrades.upgrade_tree_1.duplicate(),
+				tower_upgrades.upgrade_tree_2.duplicate(),
+				tower_upgrades.upgrade_tree_3.duplicate()
+			]
 	
 	if element_metadata.projectile_scene != null:
 		projectile_scene = element_metadata.projectile_scene

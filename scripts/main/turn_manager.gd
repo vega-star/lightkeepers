@@ -92,7 +92,11 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 		current_turn += 1
 		for wave in turn.turn_waves: ## Waves
 			execute_wave(wave)
-			await wave_completed
+			if wave.override_wave_period > 0:
+				await get_tree().create_timer(wave.override_wave_period).timeout
+				continue
+			else:
+				await wave_completed
 		stage_agent.change_coins(turn.coins_on_turn_completion, true)
 		UI.wave_is_active = false
 		
@@ -102,6 +106,7 @@ func run_schedule(schedule : StageSchedule = turn_schedule) -> void:
 		
 		var turn_timer : SceneTreeTimer = get_tree().create_timer(TIMEOUT_BETWEEN_TURNS, false)
 		await turn_timer.timeout
+		print("TURN ENDED! CURRENT TURN: ", str(current_turn))
 	schedule_finished.emit() ## Finish
 
 func _on_schedule_finished() -> void:
@@ -115,9 +120,12 @@ func execute_wave(wave : Wave) -> void:
 	wave_enemy_count = 0
 	
 	#region Entity loading
+	if !wave: return
 	if !wave.enemy_id: wave.enemy_id = "enemy"; push_warning("Enemy path was invalid on wave ", wave, ". Overriding to enemy template.")
 	var selected_entity_scene = "{0}/{1}.tscn".format({0: ENEMY_SCENE_FOLDER, 1: wave.enemy_id})
-	if entity_scene_path == selected_entity_scene: pass ## Avoid reloading the same thing repeateadly
+	if entity_scene_path == selected_entity_scene:
+		print('REQUESTING SCENE LOAD | Ignoring enemy load because the selected scene is identical to the previous one')
+		pass ## Avoid reloading the same thing repeateadly
 	else:
 		entity_scene_path = selected_entity_scene
 		if entity_loading: await entity_scene_loaded # If there's already one entity loading, wait for it to finish
@@ -133,12 +141,13 @@ func execute_wave(wave : Wave) -> void:
 	
 	#region Entity spawning
 	if debug: print('Running spawn of ', wave.quantity, ' enemies of type ', loaded_entity)
+	wave_enemy_count += wave.quantity
+	print('WAVE SIZE MODIFIED BY ADDITION, CURRENTLY IS: ', str(wave_enemy_count))
 	for i in wave.quantity:
 		var entity : Enemy = loaded_entity.instantiate()
 		entity.position = spawn_positions.get_child(0).position
 		entity_container.call_deferred("add_child", entity)
 		spawn_timer.start(wave.spawn_cooldown) # .set_process_mode(Node.PROCESS_MODE_PAUSABLE)
-		wave_enemy_count += 1
 		entity.died.connect(_remove_from_current_wave)
 		await spawn_timer.timeout
 	#endregion
@@ -146,5 +155,8 @@ func execute_wave(wave : Wave) -> void:
 
 func _remove_from_current_wave(_source) -> void:
 	wave_enemy_count -= 1
-	if wave_enemy_count == 0: wave_completed.emit()
+	print('WAVE SIZE MODIFIED BY REDUCTION, CURRENTLY IS: ', str(wave_enemy_count))
+	if wave_enemy_count == 0:
+		wave_completed.emit()
+		print('WAVE COMPLETED!')
 #endregion

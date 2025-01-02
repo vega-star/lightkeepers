@@ -36,3 +36,6 @@ anchor_bottom = 0.8
 offset_right = -6.10352e-05
 offset_bottom = 0.0
 pivot_offset = Vector2(320, 192)
+
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmed"]

@@ -7,7 +7,7 @@ signal effect_expired(self_ref : Effect)
 @onready var health_component: HealthComponent = $".."
 
 var cached_effect : Effect
-var active_eids : Array[int] #w Quicker to query than individual nodes
+var active_eids : Array[int] #? Quicker to query than individual nodes
 var active_effects : Array[Effect]
 
 func _ready() -> void: assert(health_component)
@@ -25,8 +25,15 @@ func apply_effect(
 	if element_data.has("effect_metadata"):
 		if element_data["effect_metadata"] is Dictionary: #? Single effect
 			effect_data = element_data["effect_metadata"]
-		elif element_data["effect_metadata"] is Array: for e in element_data["effect_metadata"]: #? Multiple effects nested
-			apply_effect(eid, e, source); return true
+			if health_component.debug: print(owner.root_node.name, ' | Effect called: ', effect_data)
+		elif element_data["effect_metadata"] is Array:
+			#? Recursion due to multiple effects
+			var effect_result : bool
+			for e in element_data["effect_metadata"]:
+				print(owner.root_node.name, ' | Recursion called for this instruction: ', e)
+				effect_result = apply_effect(eid, e, source)
+				if !effect_result: break
+			return effect_result
 	else: return false #? No effect element_data given
 	
 	if health_component.debug: print(owner.root_node.name, ' | Effect applied: ', effect_data)
@@ -80,7 +87,7 @@ func compute_effect(
 			if !apply: return
 			var d_value : int = roundi(e_dict["value"] * e_ref.level)
 			if e_dict["stackable"] and e_ref.stacks > 1: d_value *= e_ref.stacks
-			if health_component.debug: print(e_dict["ename"], '| Damaging ', owner.root_node.name, ' with ', d_value, ' multiplied by ', e_ref.stacks, ' stacks')
+			if health_component.debug: print(e_dict["ename"], ' | Damaging ', owner.root_node.name, ' with ', d_value, ' multiplied by ', e_ref.stacks, ' stacks')
 			if is_instance_valid(e_source): health_component.change(d_value, apply, e_ref.source)
 			else: health_component.change(d_value, apply)
 		002: pass # ADD_VULNERABILITY
