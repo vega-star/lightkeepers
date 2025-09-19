@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://jvgswgkjq2c6" path="res://assets/particles/pyrite_fragment.png" id="1_8tlcy"]
 [ext_resource type="Texture2D" uid="uid://cv5bgvs5a13rm" path="res://assets/particles/pyrite_fragment_normal.png" id="2_1edw3"]
-[ext_resource type="Script" path="res://scenes/entities/other/coin.gd" id="3_gw2vy"]
+[ext_resource type="Script" uid="uid://5txua1nt6xgi" path="res://scenes/entities/other/coin.gd" id="3_gw2vy"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_h46xn"]
 diffuse_texture = ExtResource("1_8tlcy")

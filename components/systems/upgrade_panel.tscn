@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://ci7pepoofruau"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_cig02"]
-[ext_resource type="Script" path="res://scripts/ui/upgrade_panel.gd" id="2_ab3u7"]
+[ext_resource type="Script" uid="uid://dmhvi4wkhq8ei" path="res://scripts/ui/upgrade_panel.gd" id="2_ab3u7"]
 [ext_resource type="Texture2D" uid="uid://bjukskkt8yjm" path="res://assets/theme/ui/upgrade_button/upgrade_bar_big.png" id="3_j71od"]
 [ext_resource type="Texture2D" uid="uid://bmv3473kyv3mm" path="res://assets/theme/ui/upgrade_button/upgrade_bar_progress_big.png" id="4_6n4yb"]
 [ext_resource type="FontVariation" uid="uid://4mnisn80uepf" path="res://assets/theme/fonts/grape_soda_crunched.tres" id="4_b1k2f"]

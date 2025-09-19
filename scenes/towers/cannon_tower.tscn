@@ -1,11 +1,12 @@
 [gd_scene load_steps=25 format=3 uid="uid://cdgvmycunep3f"]
 
 [ext_resource type="PackedScene" uid="uid://bg8dos7yx10dx" path="res://scenes/towers/tower.tscn" id="1_wel7w"]
-[ext_resource type="PackedScene" uid="uid://cupxwutf72o83" path="res://components/projectiles/cannon_projectile.tscn" id="2_k2kr6"]
-[ext_resource type="Texture2D" uid="uid://5ip5d0re285c" path="res://assets/sprites/pupils/cannon.png" id="3_dq8sw"]
-[ext_resource type="Script" path="res://scripts/resources/upgrade_tree.gd" id="3_w1am6"]
-[ext_resource type="Script" path="res://scripts/resources/upgrade.gd" id="4_74n68"]
-[ext_resource type="Script" path="res://scripts/resources/upgrade_command.gd" id="5_6yeod"]
+[ext_resource type="Script" uid="uid://dfwlvoax1yi6c" path="res://scripts/resources/upgrade_tree.gd" id="3_w1am6"]
+[ext_resource type="Script" uid="uid://c4ydhqe8fh6al" path="res://scripts/resources/upgrade.gd" id="4_74n68"]
+[ext_resource type="Script" uid="uid://cfa0iyd0dxsmk" path="res://scripts/resources/upgrade_command.gd" id="5_6yeod"]
+
+[sub_resource type="Resource" id="Resource_6ah25"]
+metadata/__load_path__ = "res://components/projectiles/cannon_projectile.tscn"
 
 [sub_resource type="Resource" id="Resource_6iduf"]
 script = ExtResource("5_6yeod")
@@ -97,11 +98,14 @@ resource_local_to_scene = true
 script = ExtResource("3_w1am6")
 upgrades = Array[ExtResource("4_74n68")]([SubResource("Resource_2ytgt"), SubResource("Resource_4whvn"), SubResource("Resource_0cwvg"), SubResource("Resource_8fwva"), SubResource("Resource_d8gh4")])
 
+[sub_resource type="Resource" id="Resource_7cmed"]
+metadata/__load_path__ = "res://assets/sprites/pupils/cannon.png"
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_tn4nf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_dq8sw")
+"texture": null
 }],
 "loop": true,
 "name": &"default",
@@ -112,7 +116,7 @@ animations = [{
 radius = 160.0
 
 [node name="Cannon_Tower" instance=ExtResource("1_wel7w")]
-default_projectile = ExtResource("2_k2kr6")
+default_projectile = SubResource("Resource_6ah25")
 default_burst = 2
 default_firing_cooldown = 1.5
 default_seeking_timeout = 0.3
@@ -125,7 +129,7 @@ upgrade_tree_3 = SubResource("Resource_loc58")
 
 [node name="TowerSprite" parent="." index="2"]
 z_index = 50
-texture = ExtResource("3_dq8sw")
+texture = SubResource("Resource_7cmed")
 flip_h = true
 
 [node name="TowerGunSprite" parent="." index="3"]

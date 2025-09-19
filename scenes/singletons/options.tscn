@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://dhpno5sgls8en"]
 
-[ext_resource type="Script" path="res://scripts/main/options.gd" id="1_cyq4y"]
+[ext_resource type="Script" uid="uid://brvksrfwh36bp" path="res://scripts/main/options.gd" id="1_cyq4y"]
 [ext_resource type="Texture2D" uid="uid://bgv4ohxpnu7ph" path="res://assets/sprites/misc/gears_capped.png" id="3_ocn82"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_urf2e"]
 [ext_resource type="Texture2D" uid="uid://6chb3sr124yn" path="res://assets/theme/ui/texture_buttons/x_sign.png" id="4_124a6"]
 [ext_resource type="PackedScene" uid="uid://dxc05c2onoqru" path="res://scenes/ui/buttons/keybind_button.tscn" id="4_v5h0o"]
 [ext_resource type="Texture2D" uid="uid://cbk28inhjy6hi" path="res://assets/theme/ui/texture_buttons/x_sign_pressed.png" id="5_bumd4"]
-[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="5_qcqxc"]
+[ext_resource type="Shader" uid="uid://cd4bavps1ido0" path="res://assets/shaders/outline.gdshader" id="5_qcqxc"]
 [ext_resource type="Texture2D" uid="uid://cqty1mkcacgay" path="res://assets/theme/ui/texture_buttons/x_sign_hover.png" id="6_dpuaj"]
 [ext_resource type="Texture2D" uid="uid://dbauka3ftfw2f" path="res://assets/theme/ui/texture_buttons/x_sign_disabled.png" id="7_s3ej3"]
 
@@ -186,7 +186,6 @@ step = 0.001
 value = 0.5
 
 [node name="Master_Toggle" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Master_Slider"]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -196,6 +195,7 @@ offset_top = -15.0
 offset_right = 292.0
 offset_bottom = 15.0
 grow_vertical = 2
+flat = true
 icon_alignment = 1
 
 [node name="Music_Label" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons"]
@@ -210,7 +210,6 @@ step = 0.001
 value = 0.5
 
 [node name="Music_Toggle" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Music_Slider"]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -220,6 +219,7 @@ offset_top = -15.0
 offset_right = 292.0
 offset_bottom = 15.0
 grow_vertical = 2
+flat = true
 icon_alignment = 1
 
 [node name="Effects_Label" type="Label" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons"]
@@ -234,7 +234,6 @@ step = 0.001
 value = 0.5
 
 [node name="Effect_Toggle" type="CheckButton" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer/VolumeButtons/Effects_Slider"]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -244,6 +243,7 @@ offset_top = -15.0
 offset_right = 292.0
 offset_bottom = 15.0
 grow_vertical = 2
+flat = true
 icon_alignment = 1
 
 [node name="Stage" type="VBoxContainer" parent="OptionsControl/OptionsMenu/MAIN_OPTIONS/ScrollableMenu/MenuContainer"]
@@ -290,6 +290,7 @@ selected = 0
 fit_to_longest_item = false
 item_count = 5
 popup/item_0/text = "WINDOWED"
+popup/item_0/id = 0
 popup/item_1/text = "WINDOWED_BORDERLESS"
 popup/item_1/id = 1
 popup/item_2/text = "MAXIMIZED"
@@ -315,6 +316,7 @@ selected = 0
 fit_to_longest_item = false
 item_count = 2
 popup/item_0/text = "English"
+popup/item_0/id = 0
 popup/item_1/text = "Português Brasileiro"
 popup/item_1/id = 1
 

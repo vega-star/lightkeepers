@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="StageSchedule" load_steps=40 format=3 uid="uid://bhavpgvghw8tl"]
 
-[ext_resource type="Script" path="res://scripts/resources/turns/turn_schedule.gd" id="1_nsqhq"]
-[ext_resource type="Script" path="res://scripts/resources/turns/turn.gd" id="2_nj5ta"]
-[ext_resource type="Script" path="res://scripts/resources/turns/wave.gd" id="3_j5h5j"]
+[ext_resource type="Script" uid="uid://df82irsmo8e2c" path="res://scripts/resources/turns/turn_schedule.gd" id="1_nsqhq"]
+[ext_resource type="Script" uid="uid://dwvq8py0jyieq" path="res://scripts/resources/turns/turn.gd" id="2_nj5ta"]
+[ext_resource type="Script" uid="uid://b3eqvpgycfi56" path="res://scripts/resources/turns/wave.gd" id="3_j5h5j"]
 
 [sub_resource type="Resource" id="Resource_h8ljx"]
 script = ExtResource("3_j5h5j")

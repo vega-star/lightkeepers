@@ -236,6 +236,7 @@ func _on_language_changed() -> void:
 func _instantiate_tower() -> void:
 	prop_tower = ElementManager.TOWER_ROOT_SCENE.instantiate()
 	prop_tower.element_register = element_register
+	prop_tower.prop = true
 	add_child(prop_tower)
 
 func _on_tower_validation(is_tower_valid : bool) -> void:

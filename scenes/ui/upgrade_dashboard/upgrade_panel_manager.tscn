@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlfafni52qt6"]
 
-[ext_resource type="Script" path="res://components/systems/upgrade_panel_manager.gd" id="1_6e14a"]
+[ext_resource type="Script" uid="uid://dfcdup4t6lod7" path="res://components/systems/upgrade_panel_manager.gd" id="1_6e14a"]
 [ext_resource type="PackedScene" uid="uid://ci7pepoofruau" path="res://components/systems/upgrade_panel.tscn" id="2_4srro"]
 
 [node name="UpgradePanelManager" type="VBoxContainer"]

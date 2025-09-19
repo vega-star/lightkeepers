@@ -22,8 +22,8 @@ width = 15.0
 [node name="CPUParticles2D" parent="." index="1"]
 position = Vector2(0, 0)
 amount = 20
-explosiveness = 0.0
 texture = ExtResource("2_wpu5o")
+explosiveness = 0.0
 direction = Vector2(100, 0)
 spread = 35.0
 scale_amount_min = 0.1

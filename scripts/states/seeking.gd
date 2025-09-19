@@ -24,6 +24,7 @@ func _ready() -> void:
 	assert(firing_state)
 	debug = state_machine.debug
 	if entity is Tower: entity.tower_detected_enemy.connect(_on_target_entered)
+	if entity.prop: await entity.tower_validated
 
 func enter() -> void: active = true; seek()
 

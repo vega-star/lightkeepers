@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbjip80jxb5mp"]
 
-[ext_resource type="Script" path="res://scripts/ui/main/event_layer.gd" id="1_krorn"]
+[ext_resource type="Script" uid="uid://cbkdbss7kqacr" path="res://scripts/ui/main/event_layer.gd" id="1_krorn"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_t7m6o"]
 [ext_resource type="PackedScene" uid="uid://b4x14mmqd8wts" path="res://scenes/ui/events/finish_panel.tscn" id="3_65a5i"]
 

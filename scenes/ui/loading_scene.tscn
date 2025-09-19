@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b17mn8gvdp0uv"]
 
-[ext_resource type="Script" path="res://scripts/ui/loading_scene.gd" id="1_cuefo"]
+[ext_resource type="Script" uid="uid://p0dxn3rq4mor" path="res://scripts/ui/loading_scene.gd" id="1_cuefo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw3mu"]
 bg_color = Color(0.196078, 0.2, 0.32549, 1)
@@ -90,9 +90,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y0v5b"]
 _data = {
-"END_LOAD": SubResource("Animation_0nsgg"),
-"RESET": SubResource("Animation_lj40o"),
-"START_LOAD": SubResource("Animation_u5ogy")
+&"END_LOAD": SubResource("Animation_0nsgg"),
+&"RESET": SubResource("Animation_lj40o"),
+&"START_LOAD": SubResource("Animation_u5ogy")
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ut0vv"]

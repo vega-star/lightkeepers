@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c46kwje3qqvjx"]
 
-[ext_resource type="Script" path="res://scripts/ui/intro.gd" id="1_gv81k"]
+[ext_resource type="Script" uid="uid://cqed0spuyaays" path="res://scripts/ui/intro.gd" id="1_gv81k"]
 [ext_resource type="Material" uid="uid://bdpuv3tknuph4" path="res://assets/materials/unshaded_material.tres" id="3_eirej"]
 [ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/sprites/prototypes/neutral_point_2d.webp" id="3_jvnkl"]
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="3_k8e1i"]
@@ -86,8 +86,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_284x7"]
 _data = {
-"LOGO_FADE_IN": SubResource("Animation_a4d3g"),
-"RESET": SubResource("Animation_fki33")
+&"LOGO_FADE_IN": SubResource("Animation_a4d3g"),
+&"RESET": SubResource("Animation_fki33")
 }
 
 [node name="Intro" type="Control"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=53 format=3 uid="uid://bg8dos7yx10dx"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_ph1d3"]
-[ext_resource type="Script" path="res://scripts/entities/tower.gd" id="2_fqx6q"]
+[ext_resource type="Script" uid="uid://ccjr5chfr1x62" path="res://scripts/entities/tower.gd" id="2_fqx6q"]
 [ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="3_kgmhe"]
 [ext_resource type="Resource" uid="uid://jhkdgy5l0lgk" path="res://components/upgrade_trees/default.tres" id="4_bcjrb"]
-[ext_resource type="Script" path="res://scripts/entities/state_machine.gd" id="4_bwa4k"]
+[ext_resource type="Script" uid="uid://ki478bk55sej" path="res://scripts/entities/state_machine.gd" id="4_bwa4k"]
 [ext_resource type="PackedScene" uid="uid://c58pssyaml0sf" path="res://components/states/seeking.tscn" id="5_jeyg0"]
 [ext_resource type="PackedScene" uid="uid://bk78tk8l5xuod" path="res://components/states/firing.tscn" id="6_bxyej"]
 [ext_resource type="Texture2D" uid="uid://d1jvdyumyrufh" path="res://assets/sprites/pupils/default_pupil.png" id="8_ivi7v"]
@@ -357,15 +357,15 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qiote"]
 _data = {
-"IDLE_DOWN": SubResource("Animation_6llpi"),
-"IDLE_LEFT": SubResource("Animation_gjjar"),
-"IDLE_LEFT_DOWN": SubResource("Animation_qkgis"),
-"IDLE_LEFT_UP": SubResource("Animation_jjtr1"),
-"IDLE_RIGHT": SubResource("Animation_f3xlv"),
-"IDLE_RIGHT_DOWN": SubResource("Animation_fsl86"),
-"IDLE_RIGHT_UP": SubResource("Animation_qsstm"),
-"IDLE_UP": SubResource("Animation_7s3am"),
-"RESET": SubResource("Animation_xa1yc")
+&"IDLE_DOWN": SubResource("Animation_6llpi"),
+&"IDLE_LEFT": SubResource("Animation_gjjar"),
+&"IDLE_LEFT_DOWN": SubResource("Animation_qkgis"),
+&"IDLE_LEFT_UP": SubResource("Animation_jjtr1"),
+&"IDLE_RIGHT": SubResource("Animation_f3xlv"),
+&"IDLE_RIGHT_DOWN": SubResource("Animation_fsl86"),
+&"IDLE_RIGHT_UP": SubResource("Animation_qsstm"),
+&"IDLE_UP": SubResource("Animation_7s3am"),
+&"RESET": SubResource("Animation_xa1yc")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sss3a"]
@@ -415,7 +415,7 @@ autoplay = "DOWN"
 [node name="TowerAnimationPlayer" type="AnimationPlayer" parent="TowerSprite"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_qiote")
+&"": SubResource("AnimationLibrary_qiote")
 }
 
 [node name="TowerAim" type="RayCast2D" parent="."]

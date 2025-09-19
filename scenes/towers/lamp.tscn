@@ -1,9 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://clmhdu52mt0lt"]
 
 [ext_resource type="Material" uid="uid://bvqtjk51syl50" path="res://assets/materials/turret_material.tres" id="1_1mgal"]
-[ext_resource type="Script" path="res://scripts/entities/tower/lamp.gd" id="2_4fxoa"]
+[ext_resource type="Script" uid="uid://fm2bfbbsmmcm" path="res://scripts/entities/tower/lamp.gd" id="2_4fxoa"]
 [ext_resource type="PackedScene" uid="uid://yrds2ot5w6ar" path="res://components/systems/tower_upgrades.tscn" id="3_rncvn"]
-[ext_resource type="Texture2D" uid="uid://tdykvrbkn0uc" path="res://assets/sprites/pupils/lamp.png" id="4_fi4wg"]
+
+[sub_resource type="Resource" id="Resource_irpks"]
+metadata/__load_path__ = "res://assets/sprites/pupils/lamp.png"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qdcu"]
 radius = 160.0
@@ -17,7 +19,7 @@ script = ExtResource("2_4fxoa")
 [node name="TowerSprite" type="Sprite2D" parent="."]
 z_index = 50
 position = Vector2(0, -16)
-texture = ExtResource("4_fi4wg")
+texture = SubResource("Resource_irpks")
 
 [node name="TowerRangeArea" type="Area2D" parent="."]
 collision_mask = 64

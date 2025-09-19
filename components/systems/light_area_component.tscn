@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://4cpjktoig8qa"]
 
-[ext_resource type="Script" path="res://scripts/main/light_area_component.gd" id="1_isolh"]
+[ext_resource type="Script" uid="uid://bg8k1cxxooamh" path="res://scripts/main/light_area_component.gd" id="1_isolh"]
 
 [node name="LightAreaContainer" type="Area2D" groups=["light_area"]]
 collision_layer = 2

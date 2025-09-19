@@ -1,18 +1,18 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcda8yi81i3or"]
 
 [ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_na57j"]
-[ext_resource type="Script" path="res://scripts/ui/main/fuse_system.gd" id="2_a2mc2"]
+[ext_resource type="Script" uid="uid://b5wdgnuj1aigp" path="res://scripts/ui/main/fuse_system.gd" id="2_a2mc2"]
 [ext_resource type="PackedScene" uid="uid://cv2uw4v0xn7k7" path="res://scenes/ui/slots/input_slot.tscn" id="3_8m32b"]
 [ext_resource type="PackedScene" uid="uid://c63fegbp12b6o" path="res://scenes/ui/slots/control_slot.tscn" id="4_bp3h0"]
 [ext_resource type="Texture2D" uid="uid://8i3k8vpy4xng" path="res://assets/particles/kenney_pack/star_02.png" id="5_v8xoo"]
 
 [sub_resource type="Curve" id="Curve_ev3ga"]
-max_value = 50.0
+_limits = [0.0, 50.0, 0.0, 1.0]
 _data = [Vector2(0, 50), 0.0, 0.0, 0, 0, Vector2(0.669811, 37.2093), -66.6247, -66.6247, 0, 0, Vector2(1, -0.174419), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_wrmql"]
-max_value = 0.5
+_limits = [0.0, 0.5, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.503085, 0, 0, Vector2(0.273585, 0.5), 0.0, 0.0, 0, 0, Vector2(0.997642, 0), -0.113774, 0.0, 0, 0]
 point_count = 3
 

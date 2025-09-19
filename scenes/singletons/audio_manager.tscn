@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3tqx0f4g7hlj"]
 
-[ext_resource type="Script" path="res://scripts/main/audio_server.gd" id="1_hdnxs"]
+[ext_resource type="Script" uid="uid://blvs1hlspt5ff" path="res://scripts/main/audio_server.gd" id="1_hdnxs"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3

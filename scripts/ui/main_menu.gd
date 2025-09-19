@@ -8,6 +8,7 @@ class_name Menu extends Control
 @onready var menu_pages : Control = $MenuPages
 @onready var menu_camera : Camera2D = $MenuCamera
 @onready var version_label : Label = $MenuPages/CentralPage/VersionLabel
+@onready var version_name : Label = $MenuPages/CentralPage/VersionLabel/VersionName
 @onready var project_version : String = ProjectSettings.get_setting("application/config/version")
 
 var in_movement : bool = false
@@ -16,7 +17,8 @@ var initial_page : MenuPage
 
 func _ready():
 	Options.focus_freed.connect(set_focus)
-	version_label.text = "v%s" % project_version
+	version_label.set_text("v%s" % project_version)
+	version_name.set_text(ProjectSettings.get_setting("application/config/version_name"))
 	UI.fade('IN')
 	UI.interface.set_visible(false)
 	StageManager.on_stage = false

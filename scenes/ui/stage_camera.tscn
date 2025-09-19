@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://duxknnynvh60n"]
 
-[ext_resource type="Script" path="res://scripts/main/stage_camera.gd" id="1_xtegr"]
+[ext_resource type="Script" uid="uid://b05fr14xrjmps" path="res://scripts/main/stage_camera.gd" id="1_xtegr"]
 
 [node name="StageCamera" type="Camera2D"]
 process_mode = 3

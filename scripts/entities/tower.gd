@@ -22,6 +22,7 @@ enum TARGET_PRIORITIES {
 	STRONG ## Strongest enemy from array
 }
 
+signal tower_validated
 signal tower_placed
 signal tower_updated
 signal tower_neutralized
@@ -110,6 +111,8 @@ func _ready() -> void:
 	tower_range_shape.shape = tower_range_shape.shape.duplicate() #? Prevents changing the shape in other nodes
 	stage_camera = StageManager.active_stage.stage_camera
 	await _configure()
+	# if prop: await tower_validated
+	ready.emit()
 
 func adapt_register(new_reg : ElementRegister) -> void:
 	if !self.is_node_ready(): await ready
@@ -141,14 +144,17 @@ func _configure() -> void:
 	tower_range = DEFAULT_RANGE
 	light_shape.position = position
 	light_area.add_child(light_shape)
-	if prop: light_area.set_deferred("disabled", true)
 	tower_range_area.body_entered.connect(_enemy_detected)
 	tower_range_area.body_exited.connect(_enemy_exited)
 	light_shape.set_name(tower_name + '_LightArea')
 
 func _physics_process(_delta) -> void: queue_redraw()
 
-func _adapt_in_tile() -> void: light_shape.position = position
+func _adapt_in_tile() -> void:
+	prop = false
+	tower_validated.emit()
+	await ready
+	light_shape.position = position
 
 ## Enemy detection management
 func _enemy_detected(body) -> void:
@@ -190,7 +196,8 @@ func _draw() -> void:
 
 #region Called functions
 func remove_object() -> void:
-	if !prop: AudioManager.emit_sound_effect(destroy_sound_effect_id, self.global_position)
-	light_shape.queue_free()
+	if !prop:
+		AudioManager.emit_sound_effect(destroy_sound_effect_id, self.global_position)
+		light_shape.queue_free()
 	queue_free()
 #endregion

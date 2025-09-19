@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5si7n88ll4im"]
 
-[ext_resource type="Script" path="res://scripts/controls/debug_mouse_light.gd" id="2_obf7e"]
+[ext_resource type="Script" uid="uid://cfsrca2216861" path="res://scripts/controls/debug_mouse_light.gd" id="2_obf7e"]
 
 [node name="MouseLight" type="Node2D"]
 process_mode = 3

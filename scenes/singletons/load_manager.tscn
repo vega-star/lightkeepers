@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jvn1uh3ifea4"]
 
-[ext_resource type="Script" path="res://scripts/main/load_manager.gd" id="1_stcsu"]
+[ext_resource type="Script" uid="uid://bw4tsmyj2o3cp" path="res://scripts/main/load_manager.gd" id="1_stcsu"]
 
 [node name="LoadManager" type="Node"]
 process_mode = 3
