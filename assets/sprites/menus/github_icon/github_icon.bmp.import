@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://c5tfh42mfti64"
+path="res://.godot/imported/github_icon.bmp-c369f73f78a52ee0515b964be6f2a7b7.res"
+
+[deps]
+
+source_file="res://assets/sprites/menus/github_icon/github_icon.bmp"
+dest_files=["res://.godot/imported/github_icon.bmp-c369f73f78a52ee0515b964be6f2a7b7.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

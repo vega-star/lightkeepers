@@ -1,0 +1,307 @@
+[gd_scene format=3 uid="uid://dymi4cprjo821"]
+
+[ext_resource type="Script" uid="uid://ouaky62je41b" path="res://src/scripts/main/core/main_menu.gd" id="1_i2qnv"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_teaw3"]
+[ext_resource type="Script" uid="uid://bsh8423utwi58" path="res://src/scripts/ui/layers/pages/pg_central_page.gd" id="3_4nu7y"]
+[ext_resource type="Texture2D" uid="uid://cr13gsku30rfr" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_5.png" id="4_hcqh3"]
+[ext_resource type="Texture2D" uid="uid://dwm2jneomlt5c" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_4.png" id="5_os2uj"]
+[ext_resource type="Texture2D" uid="uid://cygyy1klx14tt" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_3.png" id="6_iqnya"]
+[ext_resource type="Texture2D" uid="uid://chkheq7cxyt64" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_2.png" id="7_b5pvo"]
+[ext_resource type="Texture2D" uid="uid://7f788mciwfb2" path="res://assets/sprites/menus/beacon.png" id="8_srr6n"]
+[ext_resource type="Texture2D" uid="uid://d08vwr3rgqdrm" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_0.png" id="9_n03qm"]
+[ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/menus/credits/lightkeepers_logo.png" id="10_teaw3"]
+[ext_resource type="Texture2D" uid="uid://xq6u5btf74sp" path="res://assets/sprites/menus/github_icon/github_icon.png" id="11_tv5yw"]
+[ext_resource type="Texture2D" uid="uid://u1y5p3hmbb6i" path="res://assets/sprites/menus/github_icon/github_icon_pressed.png" id="12_kom3e"]
+[ext_resource type="Texture2D" uid="uid://d2s84fwr7i2nu" path="res://assets/sprites/menus/github_icon/github_icon_hovered.png" id="13_nj617"]
+[ext_resource type="Texture2D" uid="uid://j2c5jng3drea" path="res://assets/sprites/menus/github_icon/github_icon_disabled.png" id="14_3byas"]
+[ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/menus/github_icon/github_icon_focused.png" id="15_rbf27"]
+[ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/menus/github_icon/github_icon.bmp" id="16_eq2ue"]
+[ext_resource type="Texture2D" uid="uid://dhuloj10a16mi" path="res://assets/theme/ui/upgrade_button/upgrade_bar_progress.png" id="17_4nu7y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0psq3"]
+font_size = 30
+font_color = Color(1, 1, 1, 0.541)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf5fn"]
+atlas = ExtResource("17_4nu7y")
+region = Rect2(0, 0, 10, 10)
+
+[node name="MainMenu" type="Control" unique_id=1702899034]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i2qnv")
+menu_songs = Array[String](["Transcendence SL2024-06-26"])
+metadata/_edit_vertical_guides_ = [1728.0]
+
+[node name="CentralPage" type="Control" parent="." unique_id=1526625028 node_paths=PackedStringArray("default_focus_node")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_teaw3")
+script = ExtResource("3_4nu7y")
+default_focus_node = NodePath("ButtonsContainer/StartButton")
+
+[node name="MenuParallax" type="ParallaxBackground" parent="CentralPage" unique_id=550044162]
+follow_viewport_enabled = true
+follow_viewport_scale = 1.1
+
+[node name="BG" type="ColorRect" parent="CentralPage/MenuParallax" unique_id=1360365461]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0602301, 0.0619733, 0.120673, 1)
+
+[node name="Foreground1" type="ParallaxLayer" parent="CentralPage/MenuParallax" unique_id=555372021]
+position = Vector2(640, 315.5)
+motion_scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="CentralPage/MenuParallax/Foreground1" unique_id=1544368539]
+texture = ExtResource("4_hcqh3")
+
+[node name="Foreground2" type="ParallaxLayer" parent="CentralPage/MenuParallax" unique_id=1082550665]
+position = Vector2(640, 408.5)
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="CentralPage/MenuParallax/Foreground2" unique_id=2015483503]
+texture = ExtResource("5_os2uj")
+
+[node name="Foreground3" type="ParallaxLayer" parent="CentralPage/MenuParallax" unique_id=1899335596]
+position = Vector2(640, 419.5)
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="CentralPage/MenuParallax/Foreground3" unique_id=1144149969]
+texture = ExtResource("6_iqnya")
+
+[node name="City" type="ParallaxLayer" parent="CentralPage/MenuParallax" unique_id=1458938113]
+position = Vector2(640, 427.5)
+motion_scale = Vector2(0.15, 0.15)
+
+[node name="Sprite2D" type="Sprite2D" parent="CentralPage/MenuParallax/City" unique_id=1752242256]
+texture = ExtResource("7_b5pvo")
+
+[node name="Beacon" type="ParallaxLayer" parent="CentralPage/MenuParallax" unique_id=998421619]
+position = Vector2(640, 466.5)
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="CentralPage/MenuParallax/Beacon" unique_id=1398994299]
+position = Vector2(0, -82.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_srr6n")
+
+[node name="Sky1" type="ParallaxLayer" parent="CentralPage/MenuParallax" unique_id=868991602]
+position = Vector2(640, 364.5)
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="CentralPage/MenuParallax/Sky1" unique_id=648956799]
+texture = ExtResource("9_n03qm")
+
+[node name="Logo" type="TextureRect" parent="CentralPage" unique_id=823377218]
+self_modulate = Color(1.32, 1.15, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45000002
+anchor_top = 0.089
+anchor_right = 0.55
+anchor_bottom = 0.356
+offset_left = -288.0
+offset_top = -49.14897
+offset_right = 992.0
+offset_bottom = 512.74896
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_teaw3")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VersionLabel" type="Label" parent="CentralPage" unique_id=1551927339]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -39.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v0.0.0"
+label_settings = SubResource("LabelSettings_0psq3")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HyperlinksContainer" type="BoxContainer" parent="CentralPage" unique_id=1565229202]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -112.0
+offset_right = -8.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+vertical = true
+
+[node name="GithubButton" type="TextureButton" parent="CentralPage/HyperlinksContainer" unique_id=1749862972]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("11_tv5yw")
+texture_pressed = ExtResource("12_kom3e")
+texture_hover = ExtResource("13_nj617")
+texture_disabled = ExtResource("14_3byas")
+texture_focused = ExtResource("15_rbf27")
+texture_click_mask = ExtResource("16_eq2ue")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ItchButton" type="TextureButton" parent="CentralPage/HyperlinksContainer" unique_id=1402966014]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("11_tv5yw")
+texture_pressed = ExtResource("12_kom3e")
+texture_hover = ExtResource("13_nj617")
+texture_disabled = ExtResource("14_3byas")
+texture_focused = ExtResource("15_rbf27")
+texture_click_mask = ExtResource("16_eq2ue")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="YoutubeButton" type="TextureButton" parent="CentralPage/HyperlinksContainer" unique_id=1929190082]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("11_tv5yw")
+texture_pressed = ExtResource("12_kom3e")
+texture_hover = ExtResource("13_nj617")
+texture_disabled = ExtResource("14_3byas")
+texture_focused = ExtResource("15_rbf27")
+texture_click_mask = ExtResource("16_eq2ue")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="CentralPage" unique_id=1672786084]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.94400007
+anchor_top = 0.26700002
+anchor_right = 1.0
+anchor_bottom = 0.92200005
+offset_left = -320.32007
+offset_top = -0.24002075
+offset_right = -72.0
+offset_bottom = 0.15997314
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="LoadButton" type="Button" parent="CentralPage/ButtonsContainer" unique_id=486018228]
+modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("2_teaw3")
+theme_override_colors/icon_normal_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.92954564, 0.948698, 7.70092e-07, 1)
+theme_override_colors/icon_hover_color = Color(0.98931736, 0.8636281, 0.58333963, 1)
+disabled = true
+text = "LOAD"
+icon = SubResource("AtlasTexture_yf5fn")
+alignment = 2
+icon_alignment = 2
+expand_icon = true
+
+[node name="StartButton" type="Button" parent="CentralPage/ButtonsContainer" unique_id=1371590215]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("2_teaw3")
+theme_override_colors/icon_normal_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.92954564, 0.948698, 7.70092e-07, 1)
+theme_override_colors/icon_hover_color = Color(0.98931736, 0.8636281, 0.58333963, 1)
+text = "START"
+icon = SubResource("AtlasTexture_yf5fn")
+alignment = 2
+icon_alignment = 2
+expand_icon = true
+
+[node name="SettingsButton" type="Button" parent="CentralPage/ButtonsContainer" unique_id=795995257]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("2_teaw3")
+theme_override_colors/icon_normal_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.92954564, 0.948698, 7.70092e-07, 1)
+theme_override_colors/icon_hover_color = Color(0.98931736, 0.8636281, 0.58333963, 1)
+text = "SETTINGS"
+icon = SubResource("AtlasTexture_yf5fn")
+alignment = 2
+icon_alignment = 2
+expand_icon = true
+
+[node name="Credits" type="Button" parent="CentralPage/ButtonsContainer" unique_id=1150188484]
+visible = false
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("2_teaw3")
+theme_override_colors/icon_normal_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.92954564, 0.948698, 7.70092e-07, 1)
+theme_override_colors/icon_hover_color = Color(0.98931736, 0.8636281, 0.58333963, 1)
+text = "CREDITS"
+icon = SubResource("AtlasTexture_yf5fn")
+alignment = 2
+icon_alignment = 2
+expand_icon = true
+
+[node name="QuitButton" type="Button" parent="CentralPage/ButtonsContainer" unique_id=721096288]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("2_teaw3")
+theme_override_colors/font_pressed_color = Color(1, 0.1720787, 0.1458267, 1)
+theme_override_colors/font_hover_color = Color(1, 0.52393794, 0.40020126, 1)
+theme_override_colors/icon_normal_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.71043557, 0.05934102, 0, 1)
+theme_override_colors/icon_hover_color = Color(0.9932576, 0.48524052, 0.40242964, 1)
+text = "EXIT"
+icon = SubResource("AtlasTexture_yf5fn")
+alignment = 2
+icon_alignment = 2
+expand_icon = true
+
+[connection signal="pressed" from="CentralPage/HyperlinksContainer/GithubButton" to="CentralPage" method="_on_github_button_pressed"]
+[connection signal="pressed" from="CentralPage/ButtonsContainer/LoadButton" to="CentralPage/ButtonsContainer/LoadButton" method="_on_pressed"]
+[connection signal="pressed" from="CentralPage/ButtonsContainer/StartButton" to="CentralPage" method="_on_start_button_pressed"]
+[connection signal="pressed" from="CentralPage/ButtonsContainer/SettingsButton" to="CentralPage" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CentralPage/ButtonsContainer/Credits" to="CentralPage" method="_on_credits_pressed"]
+[connection signal="pressed" from="CentralPage/ButtonsContainer/QuitButton" to="CentralPage" method="_on_quit_button_pressed"]

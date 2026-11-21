@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://q7ct18pusa6o"]
+
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/sprites/misc/prototypes/neutral_point_2d.webp" id="1_apdox"]
+[ext_resource type="Script" uid="uid://dg5ur5yr23ds1" path="res://src/scripts/entities/atomic/light_shape.gd" id="1_e5unc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c2ngf"]
+radius = 128.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y2nl6"]
+noise_type = 2
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wyliy"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_y2nl6")
+
+[node name="LightShape" type="CollisionShape2D"]
+shape = SubResource("CircleShape2D_c2ngf")
+debug_color = Color(0.788235, 0.509804, 0.313726, 0.0431373)
+script = ExtResource("1_e5unc")
+noise = SubResource("NoiseTexture2D_wyliy")
+default_color = Color(0.991214, 0.766173, 0.410715, 1)
+oscillation = true
+
+[node name="ShapePointLight" type="PointLight2D" parent="."]
+energy = 2.0
+range_item_cull_mask = 7
+shadow_color = Color(0, 0, 0, 0.486275)
+shadow_item_cull_mask = 6
+texture = ExtResource("1_apdox")

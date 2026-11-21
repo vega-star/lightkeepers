@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StageInfo" format=3 uid="uid://i371oq72kdxm"]
+
+[ext_resource type="Script" uid="uid://dpaslihsoa1q5" path="res://src/scripts/main/stages/stage_info.gd" id="1_vcfxa"]
+
+[resource]
+script = ExtResource("1_vcfxa")
+selected_stage_path = "res://scenes/stages/stage_files/stage_001.tscn"
+locked = false

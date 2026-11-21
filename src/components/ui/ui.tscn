@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://brbqmcfgkka7f"]
+
+[ext_resource type="Script" uid="uid://7op2ed3vqh31" path="res://src/scripts/main/core/user_interface.gd" id="1_7no1j"]
+[ext_resource type="PackedScene" uid="uid://cbjip80jxb5mp" path="res://src/components/ui/layers/ui_event_layer.tscn" id="2_7rfuu"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="2_x8juj"]
+[ext_resource type="PackedScene" uid="uid://it33lmiv5r25" path="res://src/components/ui/core/hud/stage_meter.tscn" id="4_6xpb4"]
+[ext_resource type="Texture2D" uid="uid://bgv4ohxpnu7ph" path="res://assets/sprites/misc/gears_capped.png" id="7_4ri6c"]
+[ext_resource type="PackedScene" uid="uid://bdnt4bjk8lmta" path="res://src/components/ui/core/hud/res_counter.tscn" id="13_ncd67"]
+[ext_resource type="Texture2D" uid="uid://301gww06uk6n" path="res://assets/sprites/misc/prototypes/gear.png" id="14_rjvi7"]
+[ext_resource type="Shader" uid="uid://cd4bavps1ido0" path="res://assets/render/shaders/outline.gdshader" id="17_nh1qq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xljf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r3gyy"]
+texture = SubResource("CompressedTexture2D_6xljf")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57qmd"]
+bg_color = Color(0.17283267, 0.17283267, 0.17283258, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0.28118682, 0.2811869, 0.28118676, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjjh3"]
+shader = ExtResource("17_nh1qq")
+shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
+shader_parameter/line_thickness = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shlta"]
+atlas = ExtResource("7_4ri6c")
+region = Rect2(0, 0, 43, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2woab"]
+atlas = ExtResource("7_4ri6c")
+region = Rect2(43, 0, 43, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6hrn"]
+atlas = ExtResource("7_4ri6c")
+region = Rect2(86, 0, 43, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awdi7"]
+atlas = ExtResource("7_4ri6c")
+region = Rect2(129, 0, 43, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cflg"]
+atlas = ExtResource("7_4ri6c")
+region = Rect2(172, 0, 43, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2fvp"]
+atlas = ExtResource("7_4ri6c")
+region = Rect2(215, 0, 43, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fl7wa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shlta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2woab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6hrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awdi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cflg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2fvp")
+}],
+"loop": 1,
+"name": &"gear_moving",
+"speed": 8.0
+}]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yf5fn"]
+
+[node name="UserInterface" type="CanvasLayer" unique_id=392783387]
+process_mode = 3
+layer = 50
+script = ExtResource("1_7no1j")
+hide_elements_when_start = false
+metadata/_edit_horizontal_guides_ = [720.0]
+
+[node name="MouseDetector" type="Control" parent="." unique_id=1875724362]
+z_index = -75
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ScreenFrame" type="Panel" parent="." unique_id=1305291455]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r3gyy")
+
+[node name="EventLayer" parent="." unique_id=1739752358 instance=ExtResource("2_7rfuu")]
+
+[node name="UILayer" type="Control" parent="." unique_id=2087728710]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_x8juj")
+
+[node name="TopBar" type="Panel" parent="UILayer" unique_id=1587623704]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.052
+offset_bottom = 26.559998
+theme_override_styles/panel = SubResource("StyleBoxFlat_57qmd")
+
+[node name="SpeedControls" type="HBoxContainer" parent="UILayer/TopBar" unique_id=218410659]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006
+anchor_right = 0.156
+anchor_bottom = 1.0
+offset_left = 0.3199997
+offset_top = 8.0
+offset_right = 56.319992
+offset_bottom = -8.0
+theme_override_constants/separation = 8
+
+[node name="PauseIndicator" type="Label" parent="UILayer/TopBar/SpeedControls" unique_id=1168099680]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = "||"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Speed1" type="Label" parent="UILayer/TopBar/SpeedControls" unique_id=278347294]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Speed2" type="Label" parent="UILayer/TopBar/SpeedControls" unique_id=820495886]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = ">>"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Speed3" type="Label" parent="UILayer/TopBar/SpeedControls" unique_id=218183152]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = ">>>"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="StageMeter" parent="UILayer/TopBar" unique_id=1328222229 instance=ExtResource("4_6xpb4")]
+layout_mode = 1
+
+[node name="OptionsButton" type="TextureButton" parent="UILayer/TopBar" unique_id=1765716429]
+material = SubResource("ShaderMaterial_cjjh3")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95000005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0009765625
+offset_right = 0.0009765625
+tooltip_text = "CONFIG"
+focus_mode = 1
+texture_normal = ExtResource("14_rjvi7")
+stretch_mode = 5
+
+[node name="Gears1" type="AnimatedSprite2D" parent="UILayer/TopBar/OptionsButton" unique_id=1848436585]
+modulate = Color(2, 2, 1, 1)
+z_index = -2
+position = Vector2(47.999, 88)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fl7wa")
+animation = &"gear_moving"
+autoplay = "gear_moving"
+frame_progress = 0.0829427
+flip_h = true
+
+[node name="LocalResources" type="HBoxContainer" parent="UILayer/TopBar" unique_id=489688488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 744.0
+offset_top = 0.5
+offset_right = -120.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ResCounter" parent="UILayer/TopBar/LocalResources" unique_id=1872259889 instance=ExtResource("13_ncd67")]
+modulate = Color(0.44487596, 0.8082804, 0.4312786, 1)
+layout_mode = 2
+
+[node name="ResIcon" parent="UILayer/TopBar/LocalResources/ResCounter" index="0" unique_id=1883193572]
+texture_normal = SubResource("PlaceholderTexture2D_yf5fn")
+
+[node name="ResCounter2" parent="UILayer/TopBar/LocalResources" unique_id=1241323728 instance=ExtResource("13_ncd67")]
+modulate = Color(0.9021406, 0.48025465, 0.3931971, 1)
+layout_mode = 2
+
+[node name="ResIcon" parent="UILayer/TopBar/LocalResources/ResCounter2" index="0" unique_id=1883193572]
+texture_normal = SubResource("PlaceholderTexture2D_yf5fn")
+
+[node name="ResCounter3" parent="UILayer/TopBar/LocalResources" unique_id=1445859246 instance=ExtResource("13_ncd67")]
+modulate = Color(0.21306443, 0.5259884, 0.81161857, 1)
+layout_mode = 2
+
+[node name="ResIcon" parent="UILayer/TopBar/LocalResources/ResCounter3" index="0" unique_id=1883193572]
+texture_normal = SubResource("PlaceholderTexture2D_yf5fn")
+
+[node name="GlobalResources" type="HBoxContainer" parent="UILayer/TopBar" unique_id=322501899]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 744.0
+offset_right = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]
+[connection signal="mouse_exited" from="UILayer" to="." method="_on_screen_mouse_exited"]
+[connection signal="pressed" from="UILayer/TopBar/OptionsButton" to="." method="_on_options_button_pressed"]
+
+[editable path="UILayer/TopBar/StageMeter"]
+[editable path="UILayer/TopBar/LocalResources/ResCounter"]
+[editable path="UILayer/TopBar/LocalResources/ResCounter2"]
+[editable path="UILayer/TopBar/LocalResources/ResCounter3"]

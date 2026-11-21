@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bp7bhsg5h41p4"]
+
+[ext_resource type="Script" uid="uid://cexbo71lygn30" path="res://src/scripts/ui/layers/ui_pause_layer.gd" id="1_dqc40"]
+
+[node name="PauseLayer" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_dqc40")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0117647, 0.0117647, 0.0117647, 0.486275)
+
+[node name="PauseSymbol" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -148.0
+offset_right = 136.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "||"
+horizontal_alignment = 1
+vertical_alignment = 1

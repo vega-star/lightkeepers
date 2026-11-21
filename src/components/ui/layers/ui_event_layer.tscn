@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cbjip80jxb5mp"]
+
+[ext_resource type="Script" uid="uid://cbkdbss7kqacr" path="res://src/scripts/events/event_layer.gd" id="1_krorn"]
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_t7m6o"]
+[ext_resource type="PackedScene" uid="uid://b4x14mmqd8wts" path="res://src/components/ui/tabs/events/finish_panel.tscn" id="3_65a5i"]
+
+[node name="EventLayer" type="Control" unique_id=128428837]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_t7m6o")
+script = ExtResource("1_krorn")
+metadata/_edit_vertical_guides_ = [640.0]
+metadata/_edit_horizontal_guides_ = [320.0]
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=761196673]
+title = "REMOVE {0}"
+initial_position = 1
+size = Vector2i(713, 122)
+content_scale_mode = 2
+ok_button_text = "CONFIRM"
+dialog_text = "By deleting this object, you will retrieve {1} coins"
+dialog_close_on_escape = false
+dialog_autowrap = true
+cancel_button_text = "CANCEL"
+
+[node name="FinishPanel" parent="." unique_id=438800052 instance=ExtResource("3_65a5i")]
+visible = false
+layout_mode = 1
+anchor_bottom = 0.8
+offset_right = -6.10352e-05
+offset_bottom = 0.0
+pivot_offset = Vector2(320, 192)
+
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmed"]

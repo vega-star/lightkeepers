@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://it33lmiv5r25"]
+
+[ext_resource type="FontVariation" uid="uid://4mnisn80uepf" path="res://assets/theme/fonts/grape_soda_crunched.tres" id="1_cclib"]
+[ext_resource type="Texture2D" uid="uid://lnixk74gihen" path="res://assets/sprites/_unused/stage_info_bar/stage_clock_night1.png" id="2_d7pgu"]
+[ext_resource type="Texture2D" uid="uid://scm0bkrbjsi5" path="res://assets/sprites/_unused/stage_info_bar/stage_clock_frame.png" id="3_yes75"]
+[ext_resource type="Texture2D" uid="uid://mt7rv6s5xlm0" path="res://assets/sprites/_unused/stage_info_bar/stage_clock_under.png" id="4_ggfh0"]
+[ext_resource type="Texture2D" uid="uid://cg1ukv3bt57ya" path="res://assets/sprites/misc/stage_progress.png" id="5_t4g60"]
+[ext_resource type="Texture2D" uid="uid://dwosvdhg2ooxc" path="res://assets/sprites/misc/stage_progress_normal.png" id="6_k2g2s"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2dubv"]
+diffuse_texture = ExtResource("5_t4g60")
+normal_texture = ExtResource("6_k2g2s")
+
+[node name="StageMeter" type="Control" unique_id=1328222229]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.0
+offset_right = 76.0
+offset_bottom = 140.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="TurnCounter" type="Label" parent="." unique_id=428926133]
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -52.0
+offset_right = 36.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_cclib")
+text = "0/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnLabel" type="Label" parent="TurnCounter" unique_id=65540551]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 18.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 18
+text = "TURN"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="StageMeterContent" type="TextureRect" parent="." unique_id=307138947]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 84.0
+texture = ExtResource("2_d7pgu")
+
+[node name="StageMeterFrame" type="TextureRect" parent="." unique_id=2041998419]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 85.0
+texture = ExtResource("3_yes75")
+
+[node name="StageMeterBar" type="TextureProgressBar" parent="." unique_id=1028210965]
+light_mask = 3
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 146.0
+offset_bottom = 143.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.0
+value = 25.0
+fill_mode = 5
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_under = ExtResource("4_ggfh0")
+texture_progress = SubResource("CanvasTexture_2dubv")
+texture_progress_offset = Vector2(0, -64)

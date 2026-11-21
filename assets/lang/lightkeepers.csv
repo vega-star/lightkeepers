@@ -1,8 +1,9 @@
-keys,en,pt-br
+keys,en,pt_BR
 START,Start,Iniciar
 SETTINGS,Settings,Opções
 STAGE,Stage,Fase
 SAVE,Save,Salvar
+LOAD,Load,Carregar
 RESTART,Restart,Reiniciar
 CONFIRM,Confirm,Confirmar
 EXIT,Exit,Sair
@@ -11,6 +12,12 @@ VERSION,Version,Versão
 TURN,Turn,Turno
 TOWER,Tower,Torre
 TOWERS,Towers,Torres
+MAGE,Mage,Mago
+MAGES,Mages,Magos
+CONTRAPTION,Contraption,Engenhoca
+CONTRAPTIONS,Contraptions,Engenhocas
+GOLEM,Golem,Golem
+GOLEMS,Golems,Golens
 PUPIL,Pupil,Pupilo
 PUPILS,Pupils,Pupilos
 ELEMENT,Element,Elemento

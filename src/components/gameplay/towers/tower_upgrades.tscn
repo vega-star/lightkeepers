@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://yrds2ot5w6ar"]
+
+[ext_resource type="Script" uid="uid://bskx26vqv3nnx" path="res://src/scripts/ui/panels/upgrades.gd" id="1_2qn45"]
+
+[node name="TowerUpgrades" type="Node"]
+script = ExtResource("1_2qn45")

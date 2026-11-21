@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cdkcd23fl4s0a"]
+
+[ext_resource type="Script" uid="uid://cdwmmk4mp4bs" path="res://src/scripts/ui/draggable_objects/slots/slot.gd" id="1_8j22q"]
+[ext_resource type="Texture2D" uid="uid://dp3j0loao6ey7" path="res://assets/sprites/misc/prototypes/orb_prototype.png" id="2_sl1jl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cagpj"]
+radius = 48.0
+
+[node name="Slot" type="StaticBody2D" groups=["dropable"]]
+process_mode = 3
+collision_layer = 128
+collision_mask = 128
+collision_priority = 2.0
+input_pickable = true
+script = ExtResource("1_8j22q")
+
+[node name="SlotIcon" type="Sprite2D" parent="."]
+texture = ExtResource("2_sl1jl")
+
+[node name="SlotCollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cagpj")
+debug_color = Color(0.658824, 0.427451, 0.752941, 0.0745098)
+
+[connection signal="slot_changed" from="." to="." method="_on_slot_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

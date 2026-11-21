@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=1 format=2]
+
+[resource]
+elements = {
+    "fire" = {
+        "type" = 0,
+        "root_color" = Color(0.7,0.26,0.086,1),
+        "upgrade_trees" = ["fiery_force", "hasty_blaze", "piercing_flame"],
+        "turret_default_values" = {"damage" = 10, "piercing" = 2, "burst" = 1, "projectile_quantity" = 1, "firing_cooldown" = 1.5},
+        "effect_metadata" = {"etype" = 1, "ename" = "Burn", "value" = 2, "duration" = 4.2},
+        "combinations" = {"water" = "steam", "air" = "lightning"}
+    },
+}

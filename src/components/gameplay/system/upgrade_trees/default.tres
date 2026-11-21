@@ -1,0 +1,115 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" format=3 uid="uid://jhkdgy5l0lgk"]
+
+[ext_resource type="Script" uid="uid://dfwlvoax1yi6c" path="res://src/scripts/classes/upgrade_tree.gd" id="1_80cqm"]
+[ext_resource type="Script" uid="uid://c4ydhqe8fh6al" path="res://src/scripts/classes/upgrade.gd" id="2_rfcpx"]
+[ext_resource type="Script" uid="uid://cfa0iyd0dxsmk" path="res://src/scripts/ui/panels/upgrade_command.gd" id="3_xq26r"]
+
+[sub_resource type="Resource" id="Resource_34xdb"]
+script = ExtResource("3_xq26r")
+upgrade_value = "5"
+
+[sub_resource type="Resource" id="Resource_a1ie7"]
+script = ExtResource("3_xq26r")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_vt78u"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_1"
+upgrade_description = "DEBUG_UPGRADE_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_34xdb"), SubResource("Resource_a1ie7")])
+
+[sub_resource type="Resource" id="Resource_p8gnx"]
+script = ExtResource("3_xq26r")
+upgrade_type = 3
+upgrade_value = "2"
+
+[sub_resource type="Resource" id="Resource_8kxfn"]
+script = ExtResource("3_xq26r")
+upgrade_value = "10"
+
+[sub_resource type="Resource" id="Resource_hd7or"]
+script = ExtResource("3_xq26r")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_b6t71"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_2"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_p8gnx"), SubResource("Resource_8kxfn"), SubResource("Resource_hd7or")])
+
+[sub_resource type="Resource" id="Resource_srwmb"]
+script = ExtResource("3_xq26r")
+upgrade_type = 7
+upgrade_value = "1.5"
+
+[sub_resource type="Resource" id="Resource_pq4tt"]
+script = ExtResource("3_xq26r")
+upgrade_type = 8
+upgrade_value = "1.1"
+
+[sub_resource type="Resource" id="Resource_r2wq4"]
+script = ExtResource("3_xq26r")
+upgrade_type = 6
+upgrade_value = "1.5"
+
+[sub_resource type="Resource" id="Resource_0egme"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_3"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 250
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_srwmb"), SubResource("Resource_pq4tt"), SubResource("Resource_r2wq4")])
+
+[sub_resource type="Resource" id="Resource_y3kst"]
+script = ExtResource("3_xq26r")
+upgrade_value = "25"
+
+[sub_resource type="Resource" id="Resource_2y8ou"]
+script = ExtResource("3_xq26r")
+upgrade_type = 3
+upgrade_value = "2"
+
+[sub_resource type="Resource" id="Resource_jsr58"]
+script = ExtResource("3_xq26r")
+upgrade_type = 6
+upgrade_value = "0.7"
+
+[sub_resource type="Resource" id="Resource_mhrce"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_4"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 550
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_y3kst"), SubResource("Resource_2y8ou"), SubResource("Resource_jsr58")])
+
+[sub_resource type="Resource" id="Resource_ajnr7"]
+script = ExtResource("3_xq26r")
+upgrade_type = 7
+upgrade_value = "1.2"
+
+[sub_resource type="Resource" id="Resource_l3726"]
+script = ExtResource("3_xq26r")
+upgrade_type = 8
+upgrade_value = "1.1"
+
+[sub_resource type="Resource" id="Resource_5rwka"]
+script = ExtResource("3_xq26r")
+upgrade_value = "25"
+
+[sub_resource type="Resource" id="Resource_2yyfn"]
+script = ExtResource("3_xq26r")
+upgrade_type = 6
+upgrade_value = "1.2"
+
+[sub_resource type="Resource" id="Resource_37nwk"]
+script = ExtResource("2_rfcpx")
+upgrade_title = "DEBUG_UPGRADE_5"
+upgrade_description = "DEBUG_UPGRADE_DESCRIPTION"
+upgrade_cost = 1000
+upgrade_commands = Array[ExtResource("3_xq26r")]([SubResource("Resource_ajnr7"), SubResource("Resource_l3726"), SubResource("Resource_5rwka"), SubResource("Resource_2yyfn")])
+
+[resource]
+script = ExtResource("1_80cqm")
+upgrades = Array[ExtResource("2_rfcpx")]([SubResource("Resource_vt78u"), SubResource("Resource_b6t71"), SubResource("Resource_0egme"), SubResource("Resource_mhrce"), SubResource("Resource_37nwk")])

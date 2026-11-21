@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dru67w2c18lwu"]
+
+[ext_resource type="Script" uid="uid://cot4f7a2mkfm7" path="res://src/_legacy/element_manager.gd" id="1_iwvnw"]
+
+[node name="ElementManager" type="Node" unique_id=172729767]
+script = ExtResource("1_iwvnw")

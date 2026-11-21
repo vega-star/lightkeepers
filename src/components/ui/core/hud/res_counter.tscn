@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bdnt4bjk8lmta"]
+
+[ext_resource type="Texture2D" uid="uid://jafafrbliqat" path="res://assets/sprites/_unused/stage_info_bar/light_heart.png" id="1_d20a6"]
+
+[node name="ResCounter" type="HBoxContainer" unique_id=1872259889]
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ResIcon" type="TextureButton" parent="." unique_id=1883193572]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 2
+texture_normal = ExtResource("1_d20a6")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ResCounterLabel" type="Label" parent="." unique_id=739615773]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "100"
+vertical_alignment = 1

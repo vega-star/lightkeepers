@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://5si7n88ll4im"]
+
+[ext_resource type="Script" uid="uid://cfsrca2216861" path="res://src/scripts/entities/debug/debug_mouse_light.gd" id="2_obf7e"]
+
+[node name="MouseLight" type="Node2D"]
+process_mode = 3
+script = ExtResource("2_obf7e")

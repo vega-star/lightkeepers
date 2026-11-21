@@ -1,0 +1,108 @@
+[gd_scene format=4 uid="uid://dmmmhe1ahxc"]
+
+[ext_resource type="Script" uid="uid://bda6njamxofk0" path="res://src/scripts/classes/stage.gd" id="1_o1ooo"]
+[ext_resource type="PackedScene" uid="uid://d37tw2m7yrog0" path="res://src/components/visual/stage_effects.tscn" id="2_mex7i"]
+[ext_resource type="Script" uid="uid://bbmppm0ri1sqy" path="res://src/scripts/main/stages/stage_agent.gd" id="3_lcn54"]
+[ext_resource type="Environment" uid="uid://cb3w11r233fne" path="res://src/components/visual/lightkeepers_environment.tres" id="3_o1ooo"]
+[ext_resource type="Script" uid="uid://ckykmv61yrqws" path="res://src/scripts/main/core/turn_manager.gd" id="4_hnwn6"]
+[ext_resource type="Resource" uid="uid://bhavpgvghw8tl" path="res://src/scenes/stages/stage_schedules/first_stage.tres" id="5_adco3"]
+[ext_resource type="Texture2D" uid="uid://cvxpar4w3yb3t" path="res://assets/sprites/misc/prototypes/neutral_point_2d.webp" id="7_cs5aa"]
+[ext_resource type="TileSet" uid="uid://dgq7fx75nrqu4" path="res://src/global/structural/tilesets/hex_tileset.tres" id="7_mex7i"]
+[ext_resource type="Script" uid="uid://dyk45h6kwlnow" path="res://src/scripts/classes/nexus.gd" id="9_qk7el"]
+[ext_resource type="PackedScene" uid="uid://4cpjktoig8qa" path="res://src/components/visual/effects/light_area_component.tscn" id="10_rd123"]
+[ext_resource type="PackedScene" uid="uid://5si7n88ll4im" path="res://src/components/visual/effects/mouse_light.tscn" id="11_rqg5u"]
+[ext_resource type="PackedScene" uid="uid://duxknnynvh60n" path="res://src/components/visual/stage_camera.tscn" id="12_kkqwe"]
+
+[sub_resource type="Curve2D" id="Curve2D_v06dm"]
+
+[node name="StageRoot" type="Node2D" unique_id=568538974 node_paths=PackedStringArray("modulate_layer")]
+process_mode = 3
+script = ExtResource("1_o1ooo")
+modulate_layer = NodePath("StageEffects/DarknessLayer")
+check_coordinate = true
+stage_songs = Array[String](["Active SL2024-08-07"])
+
+[node name="StageEffects" parent="." unique_id=2066754838 instance=ExtResource("2_mex7i")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="StageEffects" unique_id=1085871248]
+environment = ExtResource("3_o1ooo")
+
+[node name="StageAgent" type="Node" parent="." unique_id=922428229]
+script = ExtResource("3_lcn54")
+
+[node name="TurnManager" type="Node" parent="StageAgent" unique_id=65751811]
+process_mode = 1
+script = ExtResource("4_hnwn6")
+turn_schedule = ExtResource("5_adco3")
+infinite = true
+
+[node name="SpawnTimer" type="Timer" parent="StageAgent/TurnManager" unique_id=728512297]
+process_mode = 1
+process_callback = 0
+one_shot = true
+
+[node name="GroundLayer" type="TileMapLayer" parent="." unique_id=1223457721]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAJAAcAAAAHAAAAAAAIAAcAAAAEAAAAABAJAAYAAAACAAAAADAKAAYAAAADAAAAADAKAAcAAAAEAAAAAAALAAgAAAAAAAAAAAAKAAgAAAADAAAAABAJAAgAAAACAAAAABAIAAgAAAAAAAAAAAAHAAcAAAAAAAEAAAAIAAYAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAKAAUAAAACAAEAADALAAYAAAAAAAAAAAALAAcAAAAAAAEAABAKAAkAAAACAAEAABAJAAkAAAAAAAAAAAAIAAkAAAAAAAAAAAAHAAkAAAAAAAAAAAAHAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAEAABAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAAMAAgAAAAAAAAAAAALAAkAAAAAAAEAABALAAoAAAAAAAAAAAAKAAsAAAAAAAAAAAAKAAoAAAAAAAAAAAAJAAsAAAAAAAAAAAAJAAoAAAAAAAAAAAAIAAoAAAAAAAAAAAAIAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAHAAoAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAgAAAAAAAAAAAAFAAcAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAKAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAUAAAAAAAAAAAANAAYAAAAAAAAAAAANAAcAAAAAAAAAAAANAAgAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAAoAAAAAAAAAAAALAAsAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAwAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAA=")
+tile_set = ExtResource("7_mex7i")
+
+[node name="ObjectLayer" type="TileMapLayer" parent="." unique_id=104743757]
+modulate = Color(2, 2, 2, 1)
+z_index = 25
+use_parent_material = true
+tile_set = ExtResource("7_mex7i")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="." unique_id=1307641381]
+z_index = 5
+use_parent_material = true
+tile_set = ExtResource("7_mex7i")
+navigation_enabled = false
+
+[node name="Nexus" type="Node2D" parent="." unique_id=1053174280 groups=["nexus"]]
+position = Vector2(768, 360)
+script = ExtResource("9_qk7el")
+
+[node name="LightArea" parent="." unique_id=1833329439 instance=ExtResource("10_rd123")]
+
+[node name="MouseLight" parent="LightArea" unique_id=435269223 groups=["mouse_light"] instance=ExtResource("11_rqg5u")]
+
+[node name="Containers" type="Node2D" parent="." unique_id=892924974]
+process_mode = 1
+
+[node name="SpawnPositions" type="Node2D" parent="Containers" unique_id=1091750860]
+
+[node name="SpawnPosition" type="Marker2D" parent="Containers/SpawnPositions" unique_id=246849652]
+position = Vector2(32, 360)
+
+[node name="SpawnGlow" type="PointLight2D" parent="Containers/SpawnPositions/SpawnPosition" unique_id=439700481]
+color = Color(0.533483, 1.8049e-07, 0.135244, 1)
+energy = 3.0
+range_item_cull_mask = 7
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.486275)
+shadow_item_cull_mask = 6
+texture = ExtResource("7_cs5aa")
+texture_scale = 0.5
+height = 100.0
+
+[node name="EntityContainer" type="Node2D" parent="Containers" unique_id=428000468]
+y_sort_enabled = true
+
+[node name="ObjectContainer" type="Node2D" parent="Containers" unique_id=479944252]
+y_sort_enabled = true
+
+[node name="ProjectileContainer" type="Node2D" parent="Containers" unique_id=72321942]
+
+[node name="CoinContainer" type="Node2D" parent="Containers" unique_id=2041730974]
+
+[node name="StagePath" type="Path2D" parent="." unique_id=1202718629]
+curve = SubResource("Curve2D_v06dm")
+
+[node name="StageCamera" parent="." unique_id=1535819233 instance=ExtResource("12_kkqwe")]
+position = Vector2(640, 360)
+limit_smoothed = false
+min_zoom = 0.5
+
+[connection signal="schedule_finished" from="StageAgent/TurnManager" to="StageAgent/TurnManager" method="_on_schedule_finished"]
+
+[editable path="StageEffects"]

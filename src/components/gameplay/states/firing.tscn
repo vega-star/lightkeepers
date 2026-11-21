@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bk78tk8l5xuod"]
+
+[ext_resource type="Script" uid="uid://c4fsbm0jvx06e" path="res://src/scripts/entities/states/firing.gd" id="1_wejd7"]
+
+[node name="TurretFiring" type="Node"]
+process_mode = 1
+script = ExtResource("1_wejd7")
+
+[node name="FiringCooldown" type="Timer" parent="."]
+process_callback = 0
+autostart = true
+
+[connection signal="timeout" from="FiringCooldown" to="." method="_start_firing"]

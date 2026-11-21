@@ -1,0 +1,201 @@
+[gd_scene format=3 uid="uid://c1exo4vhhmcgf"]
+
+[ext_resource type="Theme" uid="uid://dau23jgucm04a" path="res://assets/theme/lightkeepers_theme.tres" id="1_lkldp"]
+[ext_resource type="Script" uid="uid://bsh8423utwi58" path="res://src/scripts/ui/layers/pages/pg_central_page.gd" id="2_ovqqy"]
+[ext_resource type="Texture2D" uid="uid://cr13gsku30rfr" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_5.png" id="3_526ty"]
+[ext_resource type="Texture2D" uid="uid://dwm2jneomlt5c" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_4.png" id="4_4k4g0"]
+[ext_resource type="Texture2D" uid="uid://cygyy1klx14tt" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_3.png" id="5_78n08"]
+[ext_resource type="Texture2D" uid="uid://chkheq7cxyt64" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_2.png" id="6_swf44"]
+[ext_resource type="Texture2D" uid="uid://7f788mciwfb2" path="res://assets/sprites/menus/beacon.png" id="7_lot73"]
+[ext_resource type="Texture2D" uid="uid://d08vwr3rgqdrm" path="res://assets/sprites/misc/prototypes/menu_tests/bg_prototype_0.png" id="8_kyj2y"]
+[ext_resource type="Texture2D" uid="uid://cxku4cb1mx3pb" path="res://assets/sprites/menus/credits/lightkeepers_logo.png" id="9_lkldp"]
+[ext_resource type="Texture2D" uid="uid://xq6u5btf74sp" path="res://assets/sprites/menus/github_icon/github_icon.png" id="10_488cy"]
+[ext_resource type="Texture2D" uid="uid://u1y5p3hmbb6i" path="res://assets/sprites/menus/github_icon/github_icon_pressed.png" id="11_a0ubm"]
+[ext_resource type="Texture2D" uid="uid://d2s84fwr7i2nu" path="res://assets/sprites/menus/github_icon/github_icon_hovered.png" id="12_em0w2"]
+[ext_resource type="Texture2D" uid="uid://j2c5jng3drea" path="res://assets/sprites/menus/github_icon/github_icon_disabled.png" id="13_hdgak"]
+[ext_resource type="Texture2D" uid="uid://l86sjyn1611q" path="res://assets/sprites/menus/github_icon/github_icon_focused.png" id="14_kerh1"]
+[ext_resource type="BitMap" uid="uid://c5tfh42mfti64" path="res://assets/sprites/menus/github_icon/github_icon.bmp" id="15_lpoou"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0psq3"]
+font_size = 30
+font_color = Color(1, 1, 1, 0.541)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="CentralPage" type="Control" unique_id=272876340 node_paths=PackedStringArray("default_focus_node")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lkldp")
+script = ExtResource("2_ovqqy")
+default_focus_node = NodePath("ButtonsContainer/StartButton")
+
+[node name="MenuParallax" type="ParallaxBackground" parent="." unique_id=550044162]
+
+[node name="BG" type="ColorRect" parent="MenuParallax" unique_id=1360365461]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0602301, 0.0619733, 0.120673, 1)
+
+[node name="Foreground1" type="ParallaxLayer" parent="MenuParallax" unique_id=555372021]
+position = Vector2(640, 315.5)
+motion_scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground1" unique_id=1544368539]
+texture = ExtResource("3_526ty")
+
+[node name="Foreground2" type="ParallaxLayer" parent="MenuParallax" unique_id=1082550665]
+position = Vector2(640, 408.5)
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground2" unique_id=2015483503]
+texture = ExtResource("4_4k4g0")
+
+[node name="Foreground3" type="ParallaxLayer" parent="MenuParallax" unique_id=1899335596]
+position = Vector2(640, 419.5)
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Foreground3" unique_id=1144149969]
+texture = ExtResource("5_78n08")
+
+[node name="City" type="ParallaxLayer" parent="MenuParallax" unique_id=1458938113]
+position = Vector2(640, 427.5)
+motion_scale = Vector2(0.15, 0.15)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/City" unique_id=1752242256]
+texture = ExtResource("6_swf44")
+
+[node name="Beacon" type="ParallaxLayer" parent="MenuParallax" unique_id=998421619]
+position = Vector2(640, 466.5)
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Beacon" unique_id=1398994299]
+position = Vector2(0, -82.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_lot73")
+
+[node name="Sky1" type="ParallaxLayer" parent="MenuParallax" unique_id=868991602]
+position = Vector2(640, 364.5)
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuParallax/Sky1" unique_id=648956799]
+texture = ExtResource("8_kyj2y")
+
+[node name="Logo" type="TextureRect" parent="." unique_id=823377218]
+self_modulate = Color(1.32, 1.15, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.48100004
+anchor_top = 0.044000003
+anchor_right = 0.51900005
+anchor_bottom = 0.11100001
+offset_left = -167.68005
+offset_top = -31.680002
+offset_right = 551.67993
+offset_bottom = 432.08
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_lkldp")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VersionLabel" type="Label" parent="." unique_id=1551927339]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -39.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v0.0.0"
+label_settings = SubResource("LabelSettings_0psq3")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LinksContainer" type="BoxContainer" parent="." unique_id=1565229202]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -121.0
+offset_right = -19.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="GithubButton" type="TextureButton" parent="LinksContainer" unique_id=1749862972]
+layout_mode = 2
+texture_normal = ExtResource("10_488cy")
+texture_pressed = ExtResource("11_a0ubm")
+texture_hover = ExtResource("12_em0w2")
+texture_disabled = ExtResource("13_hdgak")
+texture_focused = ExtResource("14_kerh1")
+texture_click_mask = ExtResource("15_lpoou")
+stretch_mode = 5
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="." unique_id=1672786084]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.628
+anchor_right = 0.6
+anchor_bottom = 0.95600003
+offset_top = -0.16000366
+offset_bottom = -0.32000732
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="LoadButton" type="Button" parent="ButtonsContainer" unique_id=486018228]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_lkldp")
+text = "LOAD"
+
+[node name="StartButton" type="Button" parent="ButtonsContainer" unique_id=1371590215]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_lkldp")
+text = "START"
+
+[node name="SettingsButton" type="Button" parent="ButtonsContainer" unique_id=795995257]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_lkldp")
+text = "SETTINGS"
+
+[node name="Credits" type="Button" parent="ButtonsContainer" unique_id=1150188484]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_lkldp")
+text = "CREDITS"
+
+[node name="QuitButton" type="Button" parent="ButtonsContainer" unique_id=721096288]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_lkldp")
+text = "QUIT"
+
+[connection signal="pressed" from="LinksContainer/GithubButton" to="." method="_on_github_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/LoadButton" to="ButtonsContainer/LoadButton" method="_on_pressed"]
+[connection signal="pressed" from="ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="ButtonsContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="ButtonsContainer/QuitButton" to="." method="_on_quit_button_pressed"]

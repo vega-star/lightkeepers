@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c58pssyaml0sf"]
+
+[ext_resource type="Script" uid="uid://d0kteqphxhva" path="res://src/scripts/entities/states/seeking.gd" id="1_gy5cp"]
+
+[node name="TurretSeeking" type="Node"]
+process_mode = 1
+script = ExtResource("1_gy5cp")

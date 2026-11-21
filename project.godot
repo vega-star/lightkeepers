@@ -8,17 +8,20 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Lightkeepers"
-config/version="0.4.6"
+config/version="0.1-eldorado"
 config/tags=PackedStringArray("action", "game", "tower_defense")
-run/main_scene="res://scenes/ui/intro.tscn"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+run/main_scene="uid://c46kwje3qqvjx"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0.196078, 0.2, 0.32549, 1)
 boot_splash/show_image=false
-config/icon="res://assets/sprites/prototypes/game_icon.png"
-config/version_name="Crude Alpha"
+config/icon="res://assets/sprites/misc/prototypes/game_icon.png"
 
 [audio]
 
@@ -26,12 +29,10 @@ buses/default_bus_layout="res://assets/audio/audio_bus.tres"
 
 [autoload]
 
-UI="*res://scenes/singletons/ui.tscn"
-LoadManager="*res://scenes/singletons/load_manager.tscn"
-Options="*res://scenes/singletons/options.tscn"
-AudioManager="*res://scenes/singletons/audio_manager.tscn"
-ElementManager="*res://scripts/main/element_manager.gd"
-StageManager="*res://scenes/singletons/stage_manager.tscn"
+Options="*res://src/global/autoload/options.tscn"
+AudioManager="*res://src/global/autoload/audio_manager.tscn"
+LoadManager="*res://src/global/autoload/load_manager.tscn"
+UI="*uid://b8ywb7b35x7rr"
 
 [display]
 
@@ -44,10 +45,14 @@ window/stretch/aspect="expand"
 
 folder_colors={
 "res://assets/": "yellow",
-"res://components/": "purple",
+"res://assets/sprites/_unused/": "gray",
 "res://exports/": "red",
-"res://scenes/": "teal",
-"res://scripts/": "blue"
+"res://src/": "purple",
+"res://src/_legacy/": "gray",
+"res://src/components/": "purple",
+"res://src/global/": "yellow",
+"res://src/scenes/": "teal",
+"res://src/scripts/": "blue"
 }
 
 [global_group]
@@ -123,7 +128,8 @@ pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt.translation")
+locale/translation_remaps={}
+locale/translations=PackedStringArray("res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt_BR.translation")
 
 [layer_names]
 
@@ -144,11 +150,11 @@ locale/translations=PackedStringArray("res://assets/lang/lightkeepers.en.transla
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
-textures/canvas_textures/default_texture_filter=0
+textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
+textures/default_filters/use_nearest_mipmap_filter=true
 viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="TowerUpgradeTree" format=3 uid="uid://crg8ydeufxjgb"]
+
+[ext_resource type="Script" uid="uid://dfwlvoax1yi6c" path="res://src/scripts/classes/upgrade_tree.gd" id="1_yiriq"]
+[ext_resource type="Script" uid="uid://c4ydhqe8fh6al" path="res://src/scripts/classes/upgrade.gd" id="2_gog0f"]
+[ext_resource type="Script" uid="uid://cfa0iyd0dxsmk" path="res://src/scripts/ui/panels/upgrade_command.gd" id="3_083l3"]
+
+[sub_resource type="Resource" id="Resource_wuqr3"]
+script = ExtResource("3_083l3")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_7k5ec"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_1"
+upgrade_description = "PIERCING_FLAME_1_DESCRIPTION"
+upgrade_cost = 100
+upgrade_commands = Array[ExtResource("3_083l3")]([SubResource("Resource_wuqr3")])
+
+[sub_resource type="Resource" id="Resource_8cb0i"]
+script = ExtResource("3_083l3")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_dg1dx"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_2"
+upgrade_description = "PIERCING_FLAME_2_DESCRIPTION"
+upgrade_cost = 200
+upgrade_commands = Array[ExtResource("3_083l3")]([SubResource("Resource_8cb0i")])
+
+[sub_resource type="Resource" id="Resource_8xjnb"]
+script = ExtResource("3_083l3")
+upgrade_type = 4
+upgrade_value = "1"
+
+[sub_resource type="Resource" id="Resource_le6xq"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_3"
+upgrade_description = "PIERCING_FLAME_3_DESCRIPTION"
+upgrade_cost = 300
+upgrade_commands = Array[ExtResource("3_083l3")]([SubResource("Resource_8xjnb")])
+
+[sub_resource type="Resource" id="Resource_3emuf"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_4"
+upgrade_description = "PIERCING_FLAME_4_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+
+[sub_resource type="Resource" id="Resource_522c5"]
+script = ExtResource("2_gog0f")
+upgrade_title = "PIERCING_FLAME_5"
+upgrade_description = "PIERCING_FLAME_5_DESCRIPTION"
+upgrade_cost = 0
+upgrade_commands = Array[ExtResource("3_083l3")]([])
+
+[resource]
+script = ExtResource("1_yiriq")
+upgrades = Array[ExtResource("2_gog0f")]([SubResource("Resource_7k5ec"), SubResource("Resource_dg1dx"), SubResource("Resource_le6xq"), SubResource("Resource_3emuf"), SubResource("Resource_522c5")])

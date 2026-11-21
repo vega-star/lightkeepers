@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cjwy1y2fo5nc4"]
+
+[ext_resource type="Script" uid="uid://k8xb1jp0ht7d" path="res://src/scripts/ui/buttons/demolish_button.gd" id="1_85b61"]
+[ext_resource type="Texture2D" uid="uid://di140fuq0tu8e" path="res://assets/sprites/misc/prototypes/hammer.png" id="2_0xj5j"]
+[ext_resource type="Shader" uid="uid://cd4bavps1ido0" path="res://assets/render/shaders/outline.gdshader" id="2_emoej"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvuuj"]
+shader = ExtResource("2_emoej")
+shader_parameter/line_color = Color(1, 0.92549, 0.513726, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_87i8g"]
+texture = ExtResource("2_0xj5j")
+
+[node name="DemolishButton" type="Panel"]
+material = SubResource("ShaderMaterial_wvuuj")
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = -1
+anchor_right = 0.05
+anchor_bottom = 0.089
+offset_bottom = -0.0800018
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_87i8g")
+script = ExtResource("1_85b61")
+demolish_Texture = ExtResource("2_0xj5j")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

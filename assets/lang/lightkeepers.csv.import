@@ -6,12 +6,14 @@ uid="uid://bofauc2hnv1d0"
 
 [deps]
 
-files=["res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt.translation"]
+files=["res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt_BR.translation"]
 
 source_file="res://assets/lang/lightkeepers.csv"
-dest_files=["res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt.translation"]
+dest_files=["res://assets/lang/lightkeepers.en.translation", "res://assets/lang/lightkeepers.pt_BR.translation"]
 
 [params]
 
 compress=true
 delimiter=0
+unescape_keys=false
+unescape_translations=true
